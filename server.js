@@ -188,25 +188,33 @@ const requestListener = async (req, res) => {
         try {
             const fetchRes = await fetch(targetUrl);
             if (!fetchRes.ok) {
+                console.error(`Proxy upstream error for ${driveId}: ${fetchRes.status}`);
                 res.writeHead(fetchRes.status);
                 return res.end('Proxy upstream error');
             }
             
+            // Infer Content-Type from filename in request if upstream provides octet-stream
+            let contentType = fetchRes.headers.get('content-type') || 'application/octet-stream';
+            if (contentType === 'application/octet-stream' || contentType === 'application/force-download') {
+                // Check if the original request was for an image
+                const extMatch = req.url.match(/\.(png|jpg|jpeg|gif|webp)/i);
+                if (extMatch) {
+                    contentType = `image/${extMatch[1].toLowerCase()}`;
+                }
+            }
+
             res.writeHead(fetchRes.status, {
-                'Content-Type': fetchRes.headers.get('content-type') || 'application/octet-stream',
+                'Content-Type': contentType,
                 'Access-Control-Allow-Origin': '*',
                 'Cache-Control': 'public, max-age=86400',
                 'Content-Length': fetchRes.headers.get('content-length')
             });
 
-            // Read the binary stream into memory and send.
-            // Since images/JSON are < 4MB, this perfectly circumvents the Vercel 4.5MB limit
-            // and avoids Node.js stream compatability issues.
             const buffer = await fetchRes.arrayBuffer();
             res.write(Buffer.from(buffer));
             res.end();
         } catch (err) {
-            console.error('Proxy error:', err);
+            console.error('Proxy overall error:', err);
             res.writeHead(500); res.end('Proxy Error');
         }
         return;

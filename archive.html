@@ -476,41 +476,56 @@
         };
 
         async function loadDriveIndex() {
-            if (driveIndex) return driveIndex;
+            // Always show progress
+            console.log("Initializing Drive Index...");
             
-            // Try localStorage first
-            const cached = localStorage.getItem('cloudbread_drive_index');
-            if (cached) {
-                try {
-                    driveIndex = JSON.parse(cached);
-                    console.log("Using cached Drive index");
-                    return driveIndex;
-                } catch(e) { console.error("Cache parse error", e); }
-            }
-
-            console.log("Fetching live Drive index...");
+            // Cache-busting fetch
+            const indexUrl = `${ASSET_CONFIG.indexUrl}?t=${Date.now()}`;
+            
             try {
-                const response = await fetch(ASSET_CONFIG.indexUrl);
+                const response = await fetch(indexUrl);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 const data = await response.json();
                 driveIndex = data;
                 localStorage.setItem('cloudbread_drive_index', JSON.stringify(data));
-                console.log("Drive index updated and cached");
+                console.log("Drive index loaded successfully from server.");
                 
-                // Refresh current view if needed
-                renderArchive(document.querySelector('.year-btn.active').dataset.year);
+                // Refresh current view
+                const activeBtn = document.querySelector('.year-btn.active');
+                renderArchive(activeBtn ? activeBtn.dataset.year : "2023");
                 return driveIndex;
             } catch (err) {
                 console.error("Failed to fetch Drive index:", err);
+                
+                // Fallback to cache ONLY if server fetch fails
+                const cached = localStorage.getItem('cloudbread_drive_index');
+                if (cached) {
+                    try {
+                        driveIndex = JSON.parse(cached);
+                        console.log("Using cached fallback index");
+                        renderArchive("2023");
+                    } catch(e) { console.error("Cache fallback error", e); }
+                }
                 return null;
             }
         }
 
         function getAssetUrl(lectureId, fileName) {
             const path = `${lectureId}/${fileName}`;
-            if (ASSET_CONFIG.useRemote && driveIndex && driveIndex[path]) {
-                const driveId = driveIndex[path];
-                // Google Drive restricts direct <img> embedding. Must use proxy to bypass CORS/CORP.
-                return `/api/proxy?id=${driveId}`;
+            if (ASSET_CONFIG.useRemote && driveIndex) {
+                // Try exact match first
+                let driveId = driveIndex[path];
+                
+                // Case-insensitive fallback
+                if (!driveId) {
+                    const lowerPath = path.toLowerCase();
+                    const match = Object.keys(driveIndex).find(key => key.toLowerCase() === lowerPath);
+                    if (match) driveId = driveIndex[match];
+                }
+
+                if (driveId) {
+                    return `/api/proxy?id=${driveId}`;
+                }
             }
             return `assets/lectures/${lectureId}/${fileName}`;
         }
@@ -644,19 +659,36 @@
 
         function checkPPTAvailability(lectureId) {
             const container = document.getElementById('ppt-viewer-container');
-            // Drive Index에서 해당 강의의 .pptx 파일이 있는지 확인
-            // 가능한 경로들 시도
-            const possiblePaths = [
-                `${lectureId}/${lectureId}.pptx`,
-                `${lectureId}.pptx`,
-                `${lectureId}/presentation.pptx`
-            ];
+            const btn = document.getElementById('view-ppt-btn');
             
-            let foundPath = possiblePaths.find(path => driveIndex && driveIndex[path]);
+            // Check for PPTX or PNG original file in index
+            const pptxPath = `${lectureId}/${lectureId}.pptx`.toLowerCase();
+            const pngPath = `${lectureId}/${lectureId}.png`.toLowerCase();
             
-            if (foundPath) {
+            let originalId = null;
+            let isPng = false;
+
+            if (ASSET_CONFIG.useRemote && driveIndex) {
+                const entry = Object.keys(driveIndex).find(k => {
+                   const kl = k.toLowerCase();
+                   return kl === pptxPath || kl === pngPath;
+                });
+                
+                if (entry) {
+                    originalId = driveIndex[entry];
+                    isPng = entry.toLowerCase().endsWith('.png');
+                }
+            }
+            
+            if (originalId) {
                 container.style.display = 'block';
-                container.dataset.driveId = driveIndex[foundPath];
+                btn.onclick = () => {
+                    if (isPng) {
+                        window.open(`/api/proxy?id=${originalId}&ext=.png`, '_blank');
+                    } else {
+                        viewOriginalPPT(originalId);
+                    }
+                };
             } else {
                 container.style.display = 'none';
             }
