@@ -472,7 +472,7 @@
         // Asset Configuration (Migration to Cloud/Google Drive Support)
         const ASSET_CONFIG = {
             useRemote: true,
-            indexUrl: "https://script.google.com/macros/s/AKfycbzgmCFtXQDCz9B-oJG1EgD1IZs5thP-3_3p7XdrwHylRXBCbZNrABPSM_mc2ruVonntMQ/exec"
+            indexUrl: "/drive_index.json" // Use local static index for high performance instead of Apps Script
         };
 
         async function loadDriveIndex() {
