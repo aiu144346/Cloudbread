@@ -407,6 +407,12 @@
                                 <span id="tts-icon">🔊</span> <span id="tts-text">해설 듣기</span>
                             </button>
                         </div>
+                        <div id="ppt-viewer-container" style="margin-top: 15px; display: none;">
+                            <button class="tts-btn" id="view-ppt-btn" onclick="viewOriginalPPT()" style="background: var(--accent-solid); width: 100%; justify-content: center; margin-bottom: 5px;">
+                                <span>📄</span> PPT 원본 보기 (Viewer)
+                            </button>
+                            <p style="font-size: 0.7rem; color: var(--text-gray); text-align: center;">* 구글 문서 뷰어로 원본을 열람합니다.</p>
+                        </div>
                         <p id="modal-desc" style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.6; margin-top: 10px;">강의 요약 정보가 여기에 표시됩니다.</p>
                     </div>
                     <div id="slide-commentary" style="margin-top: 1.5rem; line-height: 1.6; color: var(--text-gray); font-size: 0.95rem;">
@@ -499,16 +505,18 @@
             }
         }
 
-        function getSlideUrl(lectureId, pageNum, isThumb = false) {
-            const fileName = `slide${pageNum}.png`;
+        function getAssetUrl(lectureId, fileName) {
             const path = `${lectureId}/${fileName}`;
-            
             if (ASSET_CONFIG.useRemote && driveIndex && driveIndex[path]) {
-                return `https://drive.google.com/uc?id=${driveIndex[path]}`;
+                const driveId = driveIndex[path];
+                // Route through our backend proxy to bypass Google Drive's CORS policies
+                return `/api/proxy?id=${driveId}`;
             }
-
-            // Fallback: Local path
             return `assets/lectures/${lectureId}/${fileName}`;
+        }
+
+        function getSlideUrl(lectureId, pageNum, isThumb = false) {
+            return getAssetUrl(lectureId, `slide${pageNum}.png`);
         }
 
         // Start loading index immediately
@@ -613,7 +621,8 @@
             
             // 현재 강의의 AI 해설 데이터를 JSON 파일에서 비동기로 불러오기
             currentLecture.commentaryData = {};
-            fetch(`assets/lectures/${item.id}/commentary.json?v=${new Date().getTime()}`)
+            const commentaryUrl = getAssetUrl(item.id, 'commentary.json') + `?v=${new Date().getTime()}`;
+            fetch(commentaryUrl)
                 .then(res => res.json())
                 .then(data => {
                     currentLecture.commentaryData = data;
@@ -626,8 +635,42 @@
 
             updateSlideImage();
             
+            // PPT 원본 보기 버튼 활성화 여부 확인
+            checkPPTAvailability(item.id);
+            
             document.getElementById('slide-modal').style.display = 'flex';
             document.body.style.overflow = 'hidden'; 
+        }
+
+        function checkPPTAvailability(lectureId) {
+            const container = document.getElementById('ppt-viewer-container');
+            // Drive Index에서 해당 강의의 .pptx 파일이 있는지 확인
+            // 가능한 경로들 시도
+            const possiblePaths = [
+                `${lectureId}/${lectureId}.pptx`,
+                `${lectureId}.pptx`,
+                `${lectureId}/presentation.pptx`
+            ];
+            
+            let foundPath = possiblePaths.find(path => driveIndex && driveIndex[path]);
+            
+            if (foundPath) {
+                container.style.display = 'block';
+                container.dataset.driveId = driveIndex[foundPath];
+            } else {
+                container.style.display = 'none';
+            }
+        }
+
+        function viewOriginalPPT() {
+            const driveId = document.getElementById('ppt-viewer-container').dataset.driveId;
+            if (driveId) {
+                // 구글 드라이브 미리보기 URL
+                // const url = `https://drive.google.com/file/d/${driveId}/view?usp=sharing`;
+                // 구글 문서 뷰어 (G-Viewer) - 더 깔끔하게 보임
+                const url = `https://docs.google.com/viewer?srcid=${driveId}&pid=explorer&efh=false&a=v&chrome=false&embedded=true`;
+                window.open(url, '_blank');
+            }
         }
 
         function closeViewer() {
@@ -781,6 +824,16 @@
             const modal = document.getElementById('slide-modal');
             if (event.target == modal) closeViewer();
         }
+
+        // 키보드 네비게이션 추가
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('slide-modal');
+            if (modal.style.display === 'flex') {
+                if (e.key === 'ArrowLeft') changeSlide(-1);
+                if (e.key === 'ArrowRight') changeSlide(1);
+                if (e.key === 'Escape') closeViewer();
+            }
+        });
 
         document.querySelectorAll('.year-btn').forEach(btn => {
             btn.addEventListener('click', () => {

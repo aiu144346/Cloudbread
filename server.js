@@ -176,6 +176,37 @@ const requestListener = async (req, res) => {
         return;
     }
 
+    // 7. Proxy API for Google Drive Images
+    if (req.method === 'GET' && cleanUrl === '/api/proxy') {
+        const urlParams = new URLSearchParams(req.url.split('?')[1] || '');
+        const driveId = urlParams.get('id');
+        if (!driveId) {
+            res.writeHead(400); return res.end('Missing id');
+        }
+
+        const targetUrl = `https://drive.google.com/uc?id=${driveId}`;
+        try {
+            const fetchRes = await fetch(targetUrl);
+            if (!fetchRes.ok) {
+                res.writeHead(fetchRes.status);
+                return res.end('Proxy upstream error');
+            }
+            const arrayBuffer = await fetchRes.arrayBuffer();
+            const buffer = Buffer.from(arrayBuffer);
+            
+            res.writeHead(fetchRes.status, {
+                'Content-Type': fetchRes.headers.get('content-type') || 'application/octet-stream',
+                'Access-Control-Allow-Origin': '*',
+                'Cache-Control': 'public, max-age=86400'
+            });
+            res.end(buffer);
+        } catch (err) {
+            console.error('Proxy error:', err);
+            res.writeHead(500); res.end('Proxy Error');
+        }
+        return;
+    }
+
     // Existing Subscription API
     if (req.method === 'POST' && cleanUrl === '/subscribe') {
         let body = '';
@@ -268,5 +299,3 @@ if (require.main === module) {
         console.log(`Server running at http://localhost:${port}/`);
     });
 }
-/ /   T r i g g e r i n g   V e r c e l   D e p l o y m e n t  
- 

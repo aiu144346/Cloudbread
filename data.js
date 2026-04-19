@@ -145,11 +145,11 @@ const lectureData = {
             totalSlides: 60,
             youtubeUrl: "youtube.html"
         },
-        { id: "강의안_Day_02", title: "강의안 Day 02 전략 심화", tag: "커리큘럼", img: "assets/lectures/강의안_Day_02/slide2.png", desc: "사례 중심의 비즈니스 딥다이브" , totalSlides: 88 },
-        { id: "강의안_Day_03", title: "강의안 Day 03 기술 실습", tag: "커리큘럼", img: "assets/lectures/강의안_Day_03/slide2.png", desc: "직접 짜보고 돌려보는 AI 파이프라인" , totalSlides: 70 },
-        { id: "강의안_Day_04", title: "강의안 Day 04 융합 기획", tag: "커리큘럼", img: "assets/lectures/강의안_Day_04/slide2.png", desc: "타 기술과의 연계를 통한 가치 증폭" , totalSlides: 40 },
-        { id: "강의안_Day_05", title: "강의안 Day 05 도메인 확장", tag: "커리큘럼", img: "assets/lectures/강의안_Day_05/slide2.png", desc: "현장 문제 해결을 위한 타겟 솔루션" , totalSlides: 40 },
-        { id: "강의안_Day_06", title: "강의안 Day 06 최종 평가", tag: "커리큘럼", img: "assets/lectures/강의안_Day_06/slide2.png", desc: "교육의 완성 및 성과물 아카이빙" , totalSlides: 82 },
+        { id: "강의안_Day_02", title: "강의안 Day 02 전략 심화", tag: "커리큘럼", img: "assets/lectures/강의안_Day_02/slide1.png", desc: "사례 중심의 비즈니스 딥다이브" , totalSlides: 88 },
+        { id: "강의안_Day_03", title: "강의안 Day 03 기술 실습", tag: "커리큘럼", img: "assets/lectures/강의안_Day_03/slide1.png", desc: "직접 짜보고 돌려보는 AI 파이프라인" , totalSlides: 70 },
+        { id: "강의안_Day_04", title: "강의안 Day 04 융합 기획", tag: "커리큘럼", img: "assets/lectures/강의안_Day_04/slide1.png", desc: "타 기술과의 연계를 통한 가치 증폭" , totalSlides: 40 },
+        { id: "강의안_Day_05", title: "강의안 Day 05 도메인 확장", tag: "커리큘럼", img: "assets/lectures/강의안_Day_05/slide1.png", desc: "현장 문제 해결을 위한 타겟 솔루션" , totalSlides: 40 },
+        { id: "강의안_Day_06", title: "강의안 Day 06 최종 평가", tag: "커리큘럼", img: "assets/lectures/강의안_Day_06/slide1.png", desc: "교육의 완성 및 성과물 아카이빙" , totalSlides: 82 },
         { id: "로타리클럽_강의안", title: "로타리클럽 초청 미래 전략 특강", tag: "사회공헌", img: "assets/lectures/로타리클럽_강의안/slide1.png", desc: "공동체 가치를 위한 따뜻한 인공지능" , totalSlides: 61 }
     ]
 };
