@@ -325,6 +325,40 @@
         @media (max-width: 900px) {
             .promo-grid { grid-template-columns: 1fr; gap: 2rem; }
             .promo-title { font-size: 2rem; }
+            
+            .netflix-grid {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 1.5rem;
+                padding: 0 5%;
+            }
+            .archive-header { padding: 4rem 5% 2rem; }
+            .year-selector { flex-wrap: wrap; gap: 0.5rem; }
+            .year-btn { padding: 0.6rem 1.8rem; font-size: 1rem; }
+            
+            /* Modal Optimization */
+            .modal-container {
+                width: 95%;
+                height: 90%;
+                flex-direction: column;
+                overflow-y: auto;
+            }
+            .slide-viewer-main {
+                width: 100%;
+                height: 40vh;
+                min-height: 250px;
+            }
+            .slide-info-sidebar {
+                width: 100%;
+                border-left: none;
+                border-top: 1px solid rgba(0, 240, 255, 0.1);
+                padding: 20px;
+            }
+            .close-modal {
+                top: 5px;
+                right: 15px;
+                z-index: 100;
+            }
+            .slide-nav { width: 40px; height: 60px; font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -462,6 +496,26 @@
             <p>Designed for Excellence in AI Education</p>
         </div>
     </footer>
+    
+    <!-- Mobile App-Style Navigation (Visible only on smartphone) -->
+    <nav class="mobile-nav">
+        <a href="index.html" class="mobile-nav-item">
+            <span class="mobile-nav-icon">🏠</span>
+            <span>홈</span>
+        </a>
+        <a href="showcase.html" class="mobile-nav-item">
+            <span class="mobile-nav-icon">✨</span>
+            <span>쇼케이스</span>
+        </a>
+        <a href="archive.html" class="mobile-nav-item active">
+            <span class="mobile-nav-icon">📚</span>
+            <span>아카이브</span>
+        </a>
+        <a href="index.html#cta" class="mobile-nav-item">
+            <span class="mobile-nav-icon">💬</span>
+            <span>문의</span>
+        </a>
+    </nav>
 
     <script src="data.js"></script>
     <script>

@@ -2259,73 +2259,78 @@ h1, h2, h3, h4, h5 {
     font-size: 0.8rem;
 }
 
-@media (max-width: 1000px) {
-    .footer-main {
-        grid-template-columns: 1fr 1fr;
-        gap: 40px;
+/* --- Mobile-First Overhaul (Adaptive Design) --- */
+@media (max-width: 768px) {
+    /* Top Header Adjustments */
+    .nav-links { display: none; } /* Hide traditional links on mobile */
+    .logo { font-size: 20px; }
+    
+    /* Bottom Navigation Bar (App-Style) */
+    .mobile-nav {
+        display: flex !important;
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 400px;
+        background: rgba(3, 8, 18, 0.7);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(0, 240, 255, 0.2);
+        border-radius: 25px;
+        padding: 10px 20px;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 2000;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
-}
-
-@media (max-width: 600px) {
-    .footer-main {
-        grid-template-columns: 1fr;
+    
+    .mobile-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        font-size: 0.65rem;
+        font-weight: 700;
+        transition: all 0.3s ease;
     }
+    
+    .mobile-nav-item.active { color: var(--electric-blue); }
+    .mobile-nav-icon { font-size: 1.2rem; }
+
+    /* Hero Section Mobile Optimization */
+    .hero { min-height: 100vh; padding: 100px 5% 60px; }
+    .hero-title { font-size: 2.8rem; letter-spacing: -1.5px; }
+    .hero-subtitle { font-size: 1.1rem; line-height: 1.6; padding: 0 5%; }
+    
+    .impact-strip {
+        border-radius: 25px;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        gap: 1rem;
+        flex-direction: row; /* Keep row but tighter */
+        flex-wrap: wrap;
+    }
+    .impact-value { font-size: 1.5rem; }
+    .impact-divider { display: none; }
+
+    /* Bento Grid Mobile Stacking */
+    .instructor-container { padding: 40px 5%; }
+    .bento-main-profile { padding: 30px 20px; }
+    .bento-career, .bento-books { min-height: auto; }
+    
+    /* Stats & Impact Bar */
+    .live-impact-bar { font-size: 0.8rem; padding: 8px 5%; }
+    .impact-content { flex-wrap: wrap; text-align: center; }
+
+    /* Maven Grid Mobile Adjustments */
+    .maven-grid { grid-template-columns: 1fr; }
+    .maven-card { margin-bottom: 10px; }
 }
 
-/* --- Real-time Stats & Impact Bar --- */
-.live-impact-bar {
-    background: rgba(13, 71, 161, 0.95);
-    color: white;
-    padding: 12px 0;
-    font-size: 0.9rem;
-    text-align: center;
-    backdrop-filter: blur(10px);
-    border-top: 1px solid rgba(0, 240, 255, 0.2);
-    position: relative;
-    z-index: 100;
-}
+/* Base Mobile Nav (Hidden on Desktop) */
+.mobile-nav { display: none; }
 
-.impact-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-}
-
-.pulse-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--electric-blue);
-    border-radius: 50%;
-    box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.7);
-    animation: pulse-blue 2s infinite;
-}
-
-@keyframes pulse-blue {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 240, 255, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 240, 255, 0); }
-}
-
-.impact-text strong {
-    color: var(--electric-blue);
-    font-weight: 800;
-}
-
-.stat-badge {
-    display: inline-block;
-    background: rgba(0, 240, 255, 0.1);
-    color: var(--electric-blue);
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    margin-left: 8px;
-    border: 1px solid rgba(0, 240, 255, 0.2);
-}
-
-.spotlight-btn .stat-badge {
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    border-color: rgba(255, 255, 255, 0.3);
-}
