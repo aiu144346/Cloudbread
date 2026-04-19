@@ -37,8 +37,8 @@
     <!-- Hero Section -->
     <section class="hero dark-section" id="hero">
         <div class="hero-video-container">
-            <video class="hero-video" autoplay muted loop playsinline poster="assets/ai_lecture_slide_preview.png">
-                <source src="assets/video/hero_ai_evolution.mp4" type="video/mp4">
+            <video id="hero-video-player" class="hero-video" autoplay muted loop playsinline poster="assets/ai_lecture_slide_preview.png">
+                <source id="hero-video-source" src="" type="video/mp4">
             </video>
         </div>
         <div class="hero-overlay"></div>
@@ -730,5 +730,51 @@
 
     <script src="data.js"></script>
     <script src="script.js"></script>
+    <script>
+        // Hero Video Dynamic Resolution (Google Drive Migration)
+        const VIDEO_CONFIG = {
+            targetPath: "assets/video/hero_ai_evolution.mp4", // This matches the key in drive_index.json
+            fallbackPath: "assets/video/hero_ai_evolution.mp4",
+            indexUrl: "https://script.google.com/macros/s/AKfycbzgmCFtXQDCz9B-oJG1EgD1IZs5thP-3_3p7XdrwHylRXBCbZNrABPSM_mc2ruVonntMQ/exec"
+        };
+
+        async function initHeroVideo() {
+            const videoElement = document.getElementById('hero-video-player');
+            const sourceElement = document.getElementById('hero-video-source');
+            if (!videoElement || !sourceElement) return;
+
+            try {
+                // Try to get URL from Drive Index
+                const response = await fetch(VIDEO_CONFIG.indexUrl);
+                const driveIndex = await response.json();
+                
+                let finalUrl = VIDEO_CONFIG.fallbackPath;
+                if (driveIndex && driveIndex[VIDEO_CONFIG.targetPath]) {
+                    const driveId = driveIndex[VIDEO_CONFIG.targetPath];
+                    finalUrl = `/api/proxy?id=${driveId}`;
+                    console.log("Hero video resolved via Google Drive:", finalUrl);
+                } else {
+                    console.log("Hero video using local fallback.");
+                }
+
+                sourceElement.src = finalUrl;
+                videoElement.load();
+                
+                // Ensure autoplay works as expected
+                const playPromise = videoElement.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log("Autoplay was prevented:", error);
+                    });
+                }
+            } catch (err) {
+                console.error("Hero video error:", err);
+                sourceElement.src = VIDEO_CONFIG.fallbackPath;
+                videoElement.load();
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", initHeroVideo);
+    </script>
 </body>
 </html>
