@@ -191,15 +191,24 @@ const requestListener = async (req, res) => {
                 res.writeHead(fetchRes.status);
                 return res.end('Proxy upstream error');
             }
-            const arrayBuffer = await fetchRes.arrayBuffer();
-            const buffer = Buffer.from(arrayBuffer);
             
             res.writeHead(fetchRes.status, {
                 'Content-Type': fetchRes.headers.get('content-type') || 'application/octet-stream',
                 'Access-Control-Allow-Origin': '*',
-                'Cache-Control': 'public, max-age=86400'
+                'Cache-Control': 'public, max-age=86400',
+                'Content-Length': fetchRes.headers.get('content-length')
             });
-            res.end(buffer);
+
+            // Streaming response for memory efficiency and handling larger files
+            if (fetchRes.body) {
+                const reader = fetchRes.body.getReader();
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    res.write(value);
+                }
+            }
+            res.end();
         } catch (err) {
             console.error('Proxy error:', err);
             res.writeHead(500); res.end('Proxy Error');
