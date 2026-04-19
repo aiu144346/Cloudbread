@@ -363,12 +363,45 @@
     </style>
 </head>
 <body>
-    <a href="index.html" class="back-nav">← 메인으로 돌아가기</a>
-    
-    <header class="archive-header dark-section">
+    <header class="main-header dark-section">
+        <nav class="nav-container">
+            <div class="logo">CLOUD BREAD</div>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="showcase.html">강의쇼케이스</a></li>
+                <li><a href="youtube.html">유튜브Hub</a></li>
+                <li><a href="library.html">저서</a></li>
+                <li><a href="activities.html">언론 및 활동</a></li>
+                <li><a href="archive.html" class="nav-cta">강의 라이브러리</a></li>
+            </ul>
+            
+            <!-- Hamburger Menu for Mobile -->
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Sidebar Structure -->
+    <div class="menu-overlay" id="menu-overlay"></div>
+    <div class="mobile-sidebar" id="mobile-sidebar">
+        <div class="mobile-sidebar-links">
+            <a href="index.html">홈</a>
+            <a href="showcase.html">강의쇼케이스</a>
+            <a href="youtube.html">유튜브Hub</a>
+            <a href="library.html">저서</a>
+            <a href="activities.html">언론 및 활동</a>
+            <a href="archive.html" class="active">강의 라이브러리</a>
+        </div>
+    </div>
+
+    <!-- Legacy Archive Header Content -->
+    <section class="archive-header-content dark-section" style="padding: 100px 10% 2rem;">
         <h1 class="hero-title">지능형 강의 라이브러리:<br>구름빵 AI 지식 저장소</h1>
         <p class="hero-subtitle">수백 장의 슬라이드에 담긴 핵심만을 추출했습니다.<br>넷플릭스 스타일의 브라우징과 AI 음성 해설로 지식 습득의 효율을 극대화하세요.</p>
-    </header>
+    </section>
 
     <div class="docent-promo">
         <div class="promo-badge">AI Knowledge Service</div>
@@ -950,6 +983,28 @@
         // Initialize by loading the remote Google Drive index FIRST,
         // which will automatically trigger renderArchive once loaded.
         loadDriveIndex();
+
+        // --- Mobile Menu Toggle Logic ---
+        const hamburger = document.getElementById("hamburger");
+        const mobileSidebar = document.getElementById("mobile-sidebar");
+        const menuOverlay = document.getElementById("menu-overlay");
+
+        if (hamburger && mobileSidebar && menuOverlay) {
+            const toggleMenu = () => {
+                hamburger.classList.toggle("active");
+                mobileSidebar.classList.toggle("active");
+                menuOverlay.classList.toggle("active");
+                document.body.style.overflow = mobileSidebar.classList.contains("active") ? "hidden" : "auto";
+            };
+
+            hamburger.addEventListener("click", toggleMenu);
+            menuOverlay.addEventListener("click", toggleMenu);
+            
+            // Close menu when clicking a link
+            mobileSidebar.querySelectorAll("a").forEach(link => {
+                link.addEventListener("click", toggleMenu);
+            });
+        }
     </script>
 </body>
 </html>

@@ -634,4 +634,26 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchStats();
 
     revealElements(); // Initialize scroll reveal
+
+    // --- Mobile Menu Toggle Logic ---
+    const hamburger = document.getElementById("hamburger");
+    const mobileSidebar = document.getElementById("mobile-sidebar");
+    const menuOverlay = document.getElementById("menu-overlay");
+
+    if (hamburger && mobileSidebar && menuOverlay) {
+        const toggleMenu = () => {
+            hamburger.classList.toggle("active");
+            mobileSidebar.classList.toggle("active");
+            menuOverlay.classList.toggle("active");
+            document.body.style.overflow = mobileSidebar.classList.contains("active") ? "hidden" : "auto";
+        };
+
+        hamburger.addEventListener("click", toggleMenu);
+        menuOverlay.addEventListener("click", toggleMenu);
+        
+        // Close menu when clicking a link
+        mobileSidebar.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", toggleMenu);
+        });
+    }
 });

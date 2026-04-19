@@ -2260,46 +2260,79 @@ h1, h2, h3, h4, h5 {
 }
 
 /* --- Mobile-First Overhaul (Adaptive Design) --- */
-@media (max-width: 768px) {
-    /* Top Header Adjustments */
-    .nav-links { display: none; } /* Hide traditional links on mobile */
-    .logo { font-size: 20px; }
+@media (max-width: 1024px) {
+    /* Hide traditional links on mobile/tablets */
+    .nav-links { display: none; } 
     
-    /* Bottom Navigation Bar (App-Style) */
-    .mobile-nav {
-        display: flex !important;
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 90%;
-        max-width: 400px;
-        background: rgba(3, 8, 18, 0.7);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(0, 240, 255, 0.2);
-        border-radius: 25px;
-        padding: 10px 20px;
-        justify-content: space-between;
-        align-items: center;
-        z-index: 2000;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    /* Hamburger Menu Button */
+    .hamburger {
+        display: block !important;
+        cursor: pointer;
+        z-index: 3000;
+        padding: 5px;
     }
     
-    .mobile-nav-item {
+    .hamburger span {
+        display: block;
+        width: 30px;
+        height: 3px;
+        margin: 6px 0;
+        background: var(--electric-blue);
+        transition: 0.4s;
+        border-radius: 3px;
+    }
+    
+    /* Animation for Hamburger X */
+    .hamburger.active span:nth-child(1) { transform: rotate(-45deg) translate(-6px, 7px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(45deg) translate(-6px, -7px); }
+
+    /* Mobile Sidebar Menu */
+    .mobile-sidebar {
+        display: block !important;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background: rgba(3, 8, 18, 0.95);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        z-index: 2500;
+        padding: 100px 40px;
+        transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        border-left: 1px solid rgba(0, 240, 255, 0.1);
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+    }
+    
+    .mobile-sidebar.active { right: 0; }
+    
+    .mobile-sidebar-links {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        gap: 4px;
-        color: rgba(255, 255, 255, 0.6);
-        text-decoration: none;
-        font-size: 0.65rem;
-        font-weight: 700;
-        transition: all 0.3s ease;
+        gap: 25px;
     }
     
-    .mobile-nav-item.active { color: var(--electric-blue); }
-    .mobile-nav-icon { font-size: 1.2rem; }
+    .mobile-sidebar-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.4rem;
+        font-weight: 800;
+        transition: color 0.3s ease;
+    }
+    .mobile-sidebar-links a:hover, .mobile-sidebar-links a.active { color: var(--electric-blue); }
+    
+    /* Sidebar Overlay (Dim background) */
+    .menu-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(5px);
+        z-index: 2400;
+    }
+    .menu-overlay.active { display: block; }
 
     /* Hero Section Mobile Optimization */
     .hero { min-height: 100vh; padding: 100px 5% 60px; }
@@ -2331,6 +2364,8 @@ h1, h2, h3, h4, h5 {
     .maven-card { margin-bottom: 10px; }
 }
 
-/* Base Mobile Nav (Hidden on Desktop) */
-.mobile-nav { display: none; }
+/* Base Elements (Hidden on Desktop) */
+.mobile-nav, .hamburger, .mobile-sidebar, .menu-overlay { display: none; }
+
+
 
