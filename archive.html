@@ -461,6 +461,58 @@
     <script>
         let currentLecture = null;
         let currentSlideIdx = 1;
+        let driveIndex = null;
+
+        // Asset Configuration (Migration to Cloud/Google Drive Support)
+        const ASSET_CONFIG = {
+            useRemote: true,
+            indexUrl: "https://script.google.com/macros/s/AKfycbzgmCFtXQDCz9B-oJG1EgD1IZs5thP-3_3p7XdrwHylRXBCbZNrABPSM_mc2ruVonntMQ/exec"
+        };
+
+        async function loadDriveIndex() {
+            if (driveIndex) return driveIndex;
+            
+            // Try localStorage first
+            const cached = localStorage.getItem('cloudbread_drive_index');
+            if (cached) {
+                try {
+                    driveIndex = JSON.parse(cached);
+                    console.log("Using cached Drive index");
+                    return driveIndex;
+                } catch(e) { console.error("Cache parse error", e); }
+            }
+
+            console.log("Fetching live Drive index...");
+            try {
+                const response = await fetch(ASSET_CONFIG.indexUrl);
+                const data = await response.json();
+                driveIndex = data;
+                localStorage.setItem('cloudbread_drive_index', JSON.stringify(data));
+                console.log("Drive index updated and cached");
+                
+                // Refresh current view if needed
+                renderArchive(document.querySelector('.year-btn.active').dataset.year);
+                return driveIndex;
+            } catch (err) {
+                console.error("Failed to fetch Drive index:", err);
+                return null;
+            }
+        }
+
+        function getSlideUrl(lectureId, pageNum, isThumb = false) {
+            const fileName = `slide${pageNum}.png`;
+            const path = `${lectureId}/${fileName}`;
+            
+            if (ASSET_CONFIG.useRemote && driveIndex && driveIndex[path]) {
+                return `https://drive.google.com/uc?id=${driveIndex[path]}`;
+            }
+
+            // Fallback: Local path
+            return `assets/lectures/${lectureId}/${fileName}`;
+        }
+
+        // Start loading index immediately
+        loadDriveIndex();
         let lectureStats = {}; // global stats storage
 
         function fetchLectureStats() {
@@ -528,7 +580,7 @@
                     
                     card.innerHTML = `
                         <div class="lecture-thumb-container">
-                            <img src="${item.img}?v=bypass2" alt="${item.title}" class="lecture-thumb" loading="lazy" onerror="this.onerror=null; this.src='assets/slides.png';">
+                            <img src="${getSlideUrl(item.id, 1)}?v=bypass2" alt="${item.title}" class="lecture-thumb" loading="lazy" onerror="this.onerror=null; this.src='assets/slides.png';">
                             <div class="view-count-badge">
                                 ${popularTag}<span class="pulse-icon"></span>${count.toLocaleString()} Views
                             </div>
@@ -594,8 +646,7 @@
 
         function updateSlideImage() {
             document.getElementById('current-page').innerText = currentSlideIdx;
-            // 강력한 새로고침(캐시 무력화)을 위해 쿼리 스트링 추가
-            const imgPath = `assets/lectures/${currentLecture.id}/slide${currentSlideIdx}.png?v=${new Date().getTime()}`;
+            const imgPath = getSlideUrl(currentLecture.id, currentSlideIdx) + `?v=${new Date().getTime()}`;
             const modalImg = document.getElementById('modal-img');
             
             modalImg.src = imgPath;
