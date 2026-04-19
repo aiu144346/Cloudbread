@@ -843,7 +843,9 @@
             });
         });
 
-        renderArchive("2023");
+        // Initialize by loading the remote Google Drive index FIRST,
+        // which will automatically trigger renderArchive once loaded.
+        loadDriveIndex();
     </script>
 </body>
 </html>
