@@ -761,19 +761,31 @@
                 if (foundKey) {
                     const driveId = driveIndex[foundKey];
                     finalUrl = `/api/proxy?id=${driveId}`;
-                    console.log(`Hero video resolved via Google Drive (${foundKey}):`, finalUrl);
+                    console.log(`[HeroVideo] Found in Drive Index: ${foundKey} (ID: ${driveId})`);
                 } else {
-                    console.log("Hero video not found in Drive index, using local fallback.");
+                    console.warn("[HeroVideo] Not found in Drive index, using local fallback.");
+                    console.log("[HeroVideo] Available keys:", Object.keys(driveIndex).slice(0, 5));
                 }
 
                 sourceElement.src = finalUrl;
                 videoElement.load();
                 
-                // Ensure autoplay works as expected
+                videoElement.addEventListener('error', () => {
+                    const err = videoElement.error;
+                    console.error("[HeroVideo] Playback Error:", err.code, err.message);
+                    if (finalUrl.includes('/api/proxy')) {
+                        console.log("[HeroVideo] Proxy failed, trying direct Drive Link...");
+                        const driveId = driveIndex[foundKey];
+                        sourceElement.src = `https://drive.google.com/uc?export=download&id=${driveId}`;
+                        videoElement.load();
+                        videoElement.play().catch(e => console.error("[HeroVideo] Direct fallback failed:", e));
+                    }
+                });
+
                 const playPromise = videoElement.play();
                 if (playPromise !== undefined) {
                     playPromise.catch(error => {
-                        console.log("Autoplay was prevented:", error);
+                        console.log("[HeroVideo] Autoplay prevented:", error);
                     });
                 }
             } catch (err) {
