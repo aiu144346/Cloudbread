@@ -749,12 +749,21 @@
                 const driveIndex = await response.json();
                 
                 let finalUrl = VIDEO_CONFIG.fallbackPath;
-                if (driveIndex && driveIndex[VIDEO_CONFIG.targetPath]) {
-                    const driveId = driveIndex[VIDEO_CONFIG.targetPath];
+                // Try multiple possible keys (Direct filename, assets path, etc.)
+                const possibleKeys = [
+                    "hero_ai_evolution.mp4",
+                    "assets/video/hero_ai_evolution.mp4",
+                    "lectures/hero_ai_evolution.mp4"
+                ];
+
+                let foundKey = possibleKeys.find(key => driveIndex && driveIndex[key]);
+
+                if (foundKey) {
+                    const driveId = driveIndex[foundKey];
                     finalUrl = `/api/proxy?id=${driveId}`;
-                    console.log("Hero video resolved via Google Drive:", finalUrl);
+                    console.log(`Hero video resolved via Google Drive (${foundKey}):`, finalUrl);
                 } else {
-                    console.log("Hero video using local fallback.");
+                    console.log("Hero video not found in Drive index, using local fallback.");
                 }
 
                 sourceElement.src = finalUrl;
