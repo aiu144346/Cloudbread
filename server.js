@@ -195,14 +195,20 @@ const requestListener = async (req, res) => {
             
             // Infer Content-Type from extension parameter or filename
             let contentType = fetchRes.headers.get('content-type') || 'application/octet-stream';
+            const isVideo = (urlParams.get('ext') || '').toLowerCase().includes('mp4') || req.url.includes('.mp4');
+            
+            // For large videos, REDIRECT to Google Drive to bypass Vercel 4.5MB limits and allow streaming
+            if (isVideo) {
+                res.writeHead(302, { 'Location': targetUrl });
+                return res.end();
+            }
+
             if (contentType === 'application/octet-stream' || contentType === 'application/force-download') {
                 const ext = (urlParams.get('ext') || '').toLowerCase();
                 const extMatch = ext.match(/\.(png|jpg|jpeg|gif|webp)/i) || req.url.match(/\.(png|jpg|jpeg|gif|webp)/i);
                 
                 if (extMatch) {
                     contentType = `image/${extMatch[1].toLowerCase()}`;
-                } else if (ext.includes('mp4') || req.url.includes('.mp4')) {
-                    contentType = 'video/mp4';
                 } else if (ext === '.json' || req.url.includes('commentary.json')) {
                     contentType = 'application/json';
                 }
