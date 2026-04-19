@@ -199,15 +199,11 @@ const requestListener = async (req, res) => {
                 'Content-Length': fetchRes.headers.get('content-length')
             });
 
-            // Streaming response for memory efficiency and handling larger files
-            if (fetchRes.body) {
-                const reader = fetchRes.body.getReader();
-                while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) break;
-                    res.write(value);
-                }
-            }
+            // Read the binary stream into memory and send.
+            // Since images/JSON are < 4MB, this perfectly circumvents the Vercel 4.5MB limit
+            // and avoids Node.js stream compatability issues.
+            const buffer = await fetchRes.arrayBuffer();
+            res.write(Buffer.from(buffer));
             res.end();
         } catch (err) {
             console.error('Proxy error:', err);
