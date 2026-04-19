@@ -760,7 +760,7 @@
 
                 if (foundKey) {
                     const driveId = driveIndex[foundKey];
-                    finalUrl = `/api/proxy?id=${driveId}`;
+                    finalUrl = `/api/proxy?id=${driveId}&ext=.mp4`;
                     console.log(`[HeroVideo] Found in Drive Index: ${foundKey} (ID: ${driveId})`);
                 } else {
                     console.warn("[HeroVideo] Not found in Drive index, using local fallback.");
