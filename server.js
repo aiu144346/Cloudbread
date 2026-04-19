@@ -193,13 +193,15 @@ const requestListener = async (req, res) => {
                 return res.end('Proxy upstream error');
             }
             
-            // Infer Content-Type from filename in request if upstream provides octet-stream
+            // Infer Content-Type from extension parameter or filename
             let contentType = fetchRes.headers.get('content-type') || 'application/octet-stream';
             if (contentType === 'application/octet-stream' || contentType === 'application/force-download') {
-                // Check if the original request was for an image
-                const extMatch = req.url.match(/\.(png|jpg|jpeg|gif|webp)/i);
+                const ext = urlParams.get('ext') || '';
+                const extMatch = ext.match(/\.(png|jpg|jpeg|gif|webp)/i) || req.url.match(/\.(png|jpg|jpeg|gif|webp)/i);
                 if (extMatch) {
                     contentType = `image/${extMatch[1].toLowerCase()}`;
+                } else if (ext === '.json' || req.url.includes('commentary.json')) {
+                    contentType = 'application/json';
                 }
             }
 

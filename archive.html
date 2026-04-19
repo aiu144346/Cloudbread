@@ -511,20 +511,28 @@
         }
 
         function getAssetUrl(lectureId, fileName) {
-            const path = `${lectureId}/${fileName}`;
+            // Normalize path to NFC to handle Korean character issues across OS
+            const rawPath = `${lectureId}/${fileName}`;
+            const path = rawPath.normalize('NFC');
+            
             if (ASSET_CONFIG.useRemote && driveIndex) {
                 // Try exact match first
                 let driveId = driveIndex[path];
                 
-                // Case-insensitive fallback
+                // Normalization fallback (NFC and Case-insensitive)
                 if (!driveId) {
                     const lowerPath = path.toLowerCase();
-                    const match = Object.keys(driveIndex).find(key => key.toLowerCase() === lowerPath);
+                    const match = Object.keys(driveIndex).find(key => {
+                        const k = key.normalize('NFC');
+                        return k.toLowerCase() === lowerPath || k === path;
+                    });
                     if (match) driveId = driveIndex[match];
                 }
 
                 if (driveId) {
-                    return `/api/proxy?id=${driveId}`;
+                    // Detect extension for proxy content-type help
+                    const ext = fileName.split('.').pop() || 'png';
+                    return `/api/proxy?id=${driveId}&ext=.${ext}`;
                 }
             }
             return `assets/lectures/${lectureId}/${fileName}`;
@@ -590,33 +598,37 @@
                 return;
             }
             
-            fetchLectureStats().then(stats => {
-                data.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = "lecture-card";
-                    card.style.cursor = "pointer";
-                    card.addEventListener('click', () => openViewer(item));
-                    
-                    const lectureStatsObj = stats || {};
-                    const count = lectureStatsObj[item.id] || 0;
-                    const popularTag = count > 50 ? '<span class="popular-tag">Popular</span> ' : '';
-                    
-                    card.innerHTML = `
-                        <div class="lecture-thumb-container">
-                            <img src="${getSlideUrl(item.id, 1)}?v=bypass2" alt="${item.title}" class="lecture-thumb" loading="lazy" onerror="this.onerror=null; this.src='assets/slides.png';">
-                            <div class="view-count-badge">
-                                ${popularTag}<span class="pulse-icon"></span>${count.toLocaleString()} Views
-                            </div>
-                        </div>
-                        <div class="lecture-info">
-                            <h5>${item.title}</h5>
-                            <p style="font-size: 0.8rem; color: var(--text-gray); margin: 0.5rem 0; height: 1.2rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.desc || ''}</p>
-                            <span class="lecture-tag">${item.tag}</span>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                });
-            });
+                    fetchLectureStats().then(stats => {
+                        data.forEach(item => {
+                            const card = document.createElement('div');
+                            card.className = "lecture-card";
+                            card.style.cursor = "pointer";
+                            card.addEventListener('click', () => openViewer(item));
+                            
+                            const lectureStatsObj = stats || {};
+                            const count = lectureStatsObj[item.id] || 0;
+                            const popularTag = count > 50 ? '<span class="popular-tag">Popular</span> ' : '';
+                            
+                            const baseUrl = getSlideUrl(item.id, 1);
+                            const separator = baseUrl.includes('?') ? '&' : '?';
+                            const thumbUrl = baseUrl + `${separator}v=bypass2`;
+
+                            card.innerHTML = `
+                                <div class="lecture-thumb-container">
+                                    <img src="${thumbUrl}" alt="${item.title}" class="lecture-thumb" loading="lazy" onerror="this.onerror=null; this.src='assets/slides.png';">
+                                    <div class="view-count-badge">
+                                        ${popularTag}<span class="pulse-icon"></span>${count.toLocaleString()} Views
+                                    </div>
+                                </div>
+                                <div class="lecture-info">
+                                    <h5>${item.title}</h5>
+                                    <p style="font-size: 0.8rem; color: var(--text-gray); margin: 0.5rem 0; height: 1.2rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.desc || ''}</p>
+                                    <span class="lecture-tag">${item.tag}</span>
+                                </div>
+                            `;
+                            grid.appendChild(card);
+                        });
+                    });
         }
 
         function openViewer(item) {
@@ -636,7 +648,9 @@
             
             // 현재 강의의 AI 해설 데이터를 JSON 파일에서 비동기로 불러오기
             currentLecture.commentaryData = {};
-            const commentaryUrl = getAssetUrl(item.id, 'commentary.json') + `?v=${new Date().getTime()}`;
+            const baseUrl = getAssetUrl(item.id, 'commentary.json');
+            const separator = baseUrl.includes('?') ? '&' : '?';
+            const commentaryUrl = baseUrl + `${separator}v=${new Date().getTime()}`;
             fetch(commentaryUrl)
                 .then(res => res.json())
                 .then(data => {
@@ -721,7 +735,11 @@
 
         function updateSlideImage() {
             document.getElementById('current-page').innerText = currentSlideIdx;
-            const imgPath = getSlideUrl(currentLecture.id, currentSlideIdx) + `?v=${new Date().getTime()}`;
+            const baseUrl = getSlideUrl(currentLecture.id, currentSlideIdx);
+            // Use & if URL already has ?
+            const separator = baseUrl.includes('?') ? '&' : '?';
+            const imgPath = baseUrl + `${separator}v=${new Date().getTime()}`;
+            
             const modalImg = document.getElementById('modal-img');
             
             modalImg.src = imgPath;
