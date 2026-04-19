@@ -21,7 +21,7 @@ assets/lectures/*
 !assets/lectures/*/
 assets/lectures/*/*
 !assets/lectures/*/commentary.json
-assets/video/
+# assets/video/ (Now allowed for hero video)
 
 # OS Files
 .DS_Store

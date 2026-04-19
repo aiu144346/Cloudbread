@@ -272,6 +272,8 @@ const requestListener = async (req, res) => {
         case '.json': contentType = 'application/json'; break;
         case '.pdf': contentType = 'application/pdf'; break;
         case '.pptx': contentType = 'application/vnd.openxmlformats-officedocument.presentationml.presentation'; break;
+        case '.mp4': contentType = 'video/mp4'; break;
+        case '.webm': contentType = 'video/webm'; break;
     }
 
     fs.readFile(filePath, (error, content) => {
