@@ -509,14 +509,7 @@
             const path = `${lectureId}/${fileName}`;
             if (ASSET_CONFIG.useRemote && driveIndex && driveIndex[path]) {
                 const driveId = driveIndex[path];
-                
-                // For images, we can bypass the backend proxy and use Google Drive's CDN directly.
-                // This significantly speeds up thumbnail loading and avoids Vercel limits.
-                if (fileName.toLowerCase().endsWith('.png') || fileName.toLowerCase().endsWith('.jpg')) {
-                    return `https://drive.google.com/uc?export=view&id=${driveId}`;
-                }
-
-                // Route JSON and other data through backend proxy to bypass CORS
+                // Google Drive restricts direct <img> embedding. Must use proxy to bypass CORS/CORP.
                 return `/api/proxy?id=${driveId}`;
             }
             return `assets/lectures/${lectureId}/${fileName}`;
