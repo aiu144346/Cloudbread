@@ -1,0 +1,18 @@
+{
+  "total_visitors": 1342,
+  "downloads": {
+    "hwaseong-consulting-report": 12,
+    "hwaseong-consulting-slides": 8,
+    "sunchang-policy-report": 5,
+    "sunchang-policy-slides": 3,
+    "hwaseong-ai-report": 15,
+    "hwaseong-ai-slides": 9
+  },
+  "slide_clicks": 3612,
+  "lectures": {
+    "10강_실무적용_기획서_작성하기_20230819": 45,
+    "ChatGPT_강의안_부산광역시동구청_0918": 128,
+    "AI_춘천_시민_스태프_되다": 89,
+    "강의안_Day_01": 210
+  }
+}

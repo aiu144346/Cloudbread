@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>구름빵 AI 익스퍼트 - 소통 게시판</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        .board-section {
+            padding: 8rem 10%;
+            background: var(--bg-light);
+            min-height: 80vh;
+        }
+
+        .board-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--card-border);
+            padding: 3rem;
+            position: relative;
+        }
+
+        .board-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid rgba(13, 71, 161, 0.1);
+            padding-bottom: 1rem;
+        }
+
+        .board-title {
+            font-size: 2rem;
+            color: var(--text-dark);
+        }
+
+        .auth-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-profile {
+            display: none;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--electric-blue);
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 1px solid var(--text-gray);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(0,0,0,0.05);
+        }
+
+        .post-form-container {
+            display: none;
+            background: rgba(13, 71, 161, 0.03);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(13, 71, 161, 0.1);
+        }
+
+        .post-form-container h3 {
+            margin-bottom: 1rem;
+            color: var(--accent-solid);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-solid);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: var(--accent-solid);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .submit-btn:hover {
+            background: var(--bg-navy);
+            transform: translateY(-2px);
+        }
+
+        .post-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .post-card {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            border-left: 4px solid var(--electric-blue);
+            padding: 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .post-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .post-card-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        .post-author {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .post-author img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .post-date {
+            color: var(--text-dark-muted);
+            font-size: 0.85rem;
+        }
+
+        .post-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 0.8rem;
+        }
+
+        .post-content {
+            color: var(--text-dark-muted);
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+
+        .login-prompt {
+            text-align: center;
+            padding: 3rem;
+            background: rgba(0, 0, 0, 0.02);
+            border-radius: 12px;
+            border: 1px dashed #ccc;
+            margin-bottom: 3rem;
+        }
+        
+        .login-prompt p {
+            margin-bottom: 1.5rem;
+            color: var(--text-dark-muted);
+        }
+
+        #google-btn-container {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <nav class="nav-container">
+            <div class="logo">구름빵 AI 익스퍼트</div>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="archive.html">아카이브</a></li>
+                <li><a href="showcase.html">갤러리</a></li>
+                <li><a href="board.html" class="active">커뮤니티</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="board-section">
+        <div class="board-container">
+            <div class="board-header">
+                <h1 class="board-title">소통 게시판</h1>
+                
+                <div class="auth-container">
+                    <div id="google-btn-container" class="g_id_signin" data-type="standard"></div>
+                    
+                    <div class="user-profile" id="userProfile">
+                        <img src="" alt="Profile" id="profileImg">
+                        <span id="profileName">이름</span>
+                        <button class="logout-btn" onclick="logout()">로그아웃</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Login Prompt (Shown when logged out) -->
+            <div class="login-prompt" id="loginPrompt">
+                <p>글을 작성하시려면 구글 계정으로 로그인해주세요.</p>
+            </div>
+
+            <!-- Post Form (Shown when logged in) -->
+            <div class="post-form-container" id="postFormContainer">
+                <h3>새 글 작성하기</h3>
+                <form id="postForm">
+                    <div class="form-group">
+                        <input type="text" id="postTitle" class="form-control" placeholder="제목을 입력하세요" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="postContent" class="form-control" placeholder="내용을 입력하세요" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn" id="submitBtn">게시물 등록</button>
+                </form>
+            </div>
+
+            <!-- Post List -->
+            <div class="post-list" id="postList">
+                <p style="text-align: center; color: #888;">게시글을 불러오는 중입니다...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Google One Tap Setup (Dynamic initialization) -->
+    <script>
+        let currentUser = null;
+
+        // 1. Fetch Config and Initialize Google Auth
+        async function initGoogleAuth() {
+            try {
+                const res = await fetch('/api/config');
+                if (!res.ok) throw new Error('Failed to load config');
+                const config = await res.json();
+                
+                if (config.googleClientId === 'YOUR_GOOGLE_CLIENT_ID_HERE') {
+                    document.getElementById('postList').innerHTML = '<p style="color:red;text-align:center;">관리자에게 문의하세요: Google Client ID가 설정되지 않았습니다 (.env 파일).</p>';
+                    return;
+                }
+
+                google.accounts.id.initialize({
+                    client_id: config.googleClientId,
+                    callback: handleCredentialResponse,
+                    auto_select: false,
+                    cancel_on_tap_outside: true
+                });
+
+                google.accounts.id.renderButton(
+                    document.getElementById("google-btn-container"),
+                    { theme: "outline", size: "large", type: "standard", shape: "pill", text: "continue_with" }
+                );
+
+            } catch (err) {
+                console.error("Config load error:", err);
+            }
+        }
+
+        // 2. Handle Google Credential Response
+        async function handleCredentialResponse(response) {
+            try {
+                const res = await fetch('/api/auth/google', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ credential: response.credential })
+                });
+                
+                if (res.ok) {
+                    const data = await res.json();
+                    updateAuthUI(data.user);
+                } else {
+                    alert('로그인 처리 중 오류가 발생했습니다.');
+                }
+            } catch (err) {
+                console.error("Auth error:", err);
+            }
+        }
+
+        // 3. Check Session on Load
+        async function checkSession() {
+            try {
+                const res = await fetch('/api/auth/me');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.user) {
+                        updateAuthUI(data.user);
+                    } else {
+                        updateAuthUI(null);
+                    }
+                }
+            } catch (err) {
+                console.error("Session check error", err);
+            }
+        }
+
+        // 4. Update UI based on Auth State
+        function updateAuthUI(user) {
+            currentUser = user;
+            const googleBtn = document.getElementById('google-btn-container');
+            const profileArea = document.getElementById('userProfile');
+            const loginPrompt = document.getElementById('loginPrompt');
+            const postForm = document.getElementById('postFormContainer');
+
+            if (user) {
+                googleBtn.style.display = 'none';
+                profileArea.style.display = 'flex';
+                document.getElementById('profileImg').src = user.picture;
+                document.getElementById('profileName').textContent = user.name;
+                
+                loginPrompt.style.display = 'none';
+                postForm.style.display = 'block';
+            } else {
+                googleBtn.style.display = 'flex';
+                profileArea.style.display = 'none';
+                
+                loginPrompt.style.display = 'block';
+                postForm.style.display = 'none';
+            }
+        }
+
+        // 5. Logout
+        async function logout() {
+            await fetch('/api/auth/logout', { method: 'POST' });
+            updateAuthUI(null);
+            // Optionally clear google one tap status
+            google.accounts.id.disableAutoSelect();
+        }
+
+        // 6. Load Posts
+        async function loadPosts() {
+            try {
+                const res = await fetch('/api/board');
+                const posts = await res.json();
+                const list = document.getElementById('postList');
+                
+                if (posts.length === 0) {
+                    list.innerHTML = '<p style="text-align:center;color:#888;">아직 작성된 글이 없습니다. 첫 번째 글의 주인공이 되어보세요!</p>';
+                    return;
+                }
+
+                list.innerHTML = posts.map(post => `
+                    <div class="post-card">
+                        <div class="post-card-header">
+                            <div class="post-author">
+                                <img src="${post.authorPicture || 'assets/books.png'}" alt="${post.authorName}">
+                                <span>${post.authorName}</span>
+                            </div>
+                            <span class="post-date">${new Date(post.createdAt).toLocaleDateString('ko-KR', { year:'numeric', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' })}</span>
+                        </div>
+                        <h4 class="post-title">${escapeHTML(post.title)}</h4>
+                        <div class="post-content">${escapeHTML(post.content)}</div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                console.error(err);
+                document.getElementById('postList').innerHTML = '<p style="color:red;text-align:center;">게시글을 불러오는데 실패했습니다.</p>';
+            }
+        }
+
+        // 7. Submit Post
+        document.getElementById('postForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentUser) return alert('로그인이 필요합니다.');
+
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.textContent = '게시 중...';
+
+            const title = document.getElementById('postTitle').value;
+            const content = document.getElementById('postContent').value;
+
+            try {
+                const res = await fetch('/api/board', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, content })
+                });
+
+                if (res.ok) {
+                    document.getElementById('postForm').reset();
+                    loadPosts(); // Reload board
+                } else {
+                    alert('게시글 등록에 실패했습니다.');
+                }
+            } catch (err) {
+                console.error(err);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '게시물 등록';
+            }
+        });
+
+        // Utils
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag])
+            );
+        }
+
+        // Init
+        window.addEventListener('load', () => {
+            initGoogleAuth();
+            checkSession();
+            loadPosts();
+        });
+    </script>
+</body>
+</html>

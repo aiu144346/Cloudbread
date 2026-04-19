@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주요 저서 아카이브 | 정우진 AI STRATEGIST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .archive-header {
+            padding: 10rem 10% 4rem;
+            background: linear-gradient(135deg, var(--bg-navy) 0%, #001a35 100%);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header dark-section">
+        <nav class="nav-container">
+            <div class="logo">CLOUD BREAD</div>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="showcase.html">강의쇼케이스</a></li>
+                <li><a href="youtube.html">유튜브Hub</a></li>
+                <li><a href="library.html" class="active">저서</a></li>
+                <li><a href="activities.html">언론 및 활동</a></li>
+                <li><a href="archive.html" class="nav-cta">강의 라이브러리</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="archive-header dark-section">
+        <h1 class="archive-title" style="font-size: 3rem; color: #fff;">저서 및 지식 체계화 기록</h1>
+        <p class="hero-subtitle" style="margin: 0 auto; max-width: 800px;">
+            문자와 컴퓨터를 넘어 AI 기반의 새로운 지휘 패러다임을 한 권의 책으로 담았습니다.<br>
+            정우진 전문가의 통찰이 응축된 결과물들을 확인해 보십시오.
+        </p>
+    </div>
+
+    <!-- Full Book Shelf -->
+    <section class="book-shelf-section" id="books">
+        <div class="shelf-container">
+            <!-- Reuse the same book items as index.html but in a more detailed view if needed -->
+            <!-- Book 1 -->
+            <div class="book-item clickable-book" data-book-id="metaverse">
+                <div class="book-card-3d">
+                    <img src="assets/book_metaverse.jpg" alt="A Deep Dive into the Metaverse" class="book-cover-img" onerror="this.src='assets/books.png';">
+                </div>
+                <h3>A Deep Dive into the Metaverse</h3>
+                <p>ChatGPT와 함께 12시간 만에 써 내려간 지식 혁명</p>
+                <button class="buy-btn">상세 정보 보기</button>
+            </div>
+            <!-- Book 2 -->
+            <div class="book-item clickable-book" data-book-id="gpt_engineering">
+                <div class="book-card-3d">
+                    <img src="assets/book_gpt_engineering.jfif" alt="챗GPT 엔지니어링" class="book-cover-img" onerror="this.src='assets/books.png';">
+                </div>
+                <h3>챗GPT 엔지니어링</h3>
+                <p>입문자를 위한 생성형 AI 실무 지침서</p>
+                <button class="buy-btn">상세 정보 보기</button>
+            </div>
+            <!-- Book 3 -->
+            <div class="book-item clickable-book" data-book-id="all_is_well">
+                <div class="book-card-3d">
+                    <img src="assets/book_all_is_well.jfif" alt="모든 것이 잘 되고 있어" class="book-cover-img" onerror="this.src='assets/books.png';">
+                </div>
+                <h3>모든 것이 잘 되고 있어</h3>
+                <p>마음과 몸을 치유하는 긍정 확언의 과학</p>
+                <button class="buy-btn">상세 정보 보기</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Book Details Modal (Shared logic from script.js) -->
+    <div id="book-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Master Footer -->
+    <footer class="master-footer dark-section">
+        <div class="footer-main">
+            <div class="footer-brand">
+                <div class="logo">CLOUD BREAD</div>
+                <p>제3의 지식 혁명을 선도하는 AI 전략 파트너.<br>실무 중심의 교육과 통찰력 있는 컨설팅으로<br>귀하의 비즈니스 가치를 혁신합니다.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Platform</h5>
+                <ul>
+                    <li><a href="index.html">홈</a></li>
+                    <li><a href="showcase.html">강의 쇼케이스</a></li>
+                    <li><a href="youtube.html">유튜브 Hub</a></li>
+                    <li><a href="archive.html">강의 라이브러리</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Resources</h5>
+                <ul>
+                    <li><a href="library.html">출판 저서</a></li>
+                    <li><a href="activities.html">활동 소식</a></li>
+                    <li><a href="index.html#cta">문의하기</a></li>
+                </ul>
+            </div>
+            <div class="footer-col footer-connect">
+                <h5>Connect</h5>
+                <p>최신 AI 트렌드를 구독하세요.</p>
+                <div class="social-links">
+                    <a href="https://www.youtube.com/@aiu1443" class="social-icon" target="_blank">YT</a>
+                    <a href="#" class="social-icon">IN</a>
+                    <a href="#" class="social-icon">FB</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Woo Jin Jeong / CLOUD BREAD. All Rights Reserved.</p>
+            <p>Designed for Excellence in AI Education</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

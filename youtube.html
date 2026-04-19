@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유튜브 영상 아카이브 | 정우진 AI STRATEGIST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .archive-header {
+            padding: 10rem 10% 4rem;
+            background: linear-gradient(135deg, var(--bg-navy) 0%, #001f3f 100%);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header dark-section">
+        <nav class="nav-container">
+            <div class="logo">CLOUD BREAD</div>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="showcase.html">강의쇼케이스</a></li>
+                <li><a href="youtube.html" class="active">유튜브Hub</a></li>
+                <li><a href="library.html">저서</a></li>
+                <li><a href="activities.html">언론 및 활동</a></li>
+                <li><a href="archive.html" class="nav-cta">강의 라이브러리</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="archive-header">
+        <h1 class="section-title" style="font-size: 3rem;">AI 지식 라이브러리 (Youtube)</h1>
+        <p class="hero-subtitle" style="margin: 0 auto; max-width: 800px;">
+            복잡한 인공지능 기술의 원리부터 실무 활용 노하우까지,<br>정우진 전문가의 깊이 있는 통찰이 담긴 영상 콘텐츠를 만나보십시오.
+        </p>
+    </div>
+
+    <section class="youtube-hub" id="youtube">
+        <div class="category-filters">
+            <button class="filter-btn active" data-filter="all">전체보기</button>
+            <button class="filter-btn" data-filter="prompt">프롬프트 엔지니어링 실무</button>
+            <button class="filter-btn" data-filter="business">AI 정책/비즈니스</button>
+            <button class="filter-btn" data-filter="senior">시니어 디지털 특강</button>
+        </div>
+        <div class="video-grid" id="video-grid">
+            <!-- JS will populate video cards here -->
+        </div>
+    </section>
+
+    <!-- Master Footer -->
+    <footer class="master-footer dark-section">
+        <div class="footer-main">
+            <div class="footer-brand">
+                <div class="logo">CLOUD BREAD</div>
+                <p>제3의 지식 혁명을 선도하는 AI 전략 파트너.<br>실무 중심의 교육과 통찰력 있는 컨설팅으로<br>귀하의 비즈니스 가치를 혁신합니다.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Platform</h5>
+                <ul>
+                    <li><a href="index.html">홈</a></li>
+                    <li><a href="showcase.html">강의 쇼케이스</a></li>
+                    <li><a href="youtube.html">유튜브 Hub</a></li>
+                    <li><a href="archive.html">강의 라이브러리</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Resources</h5>
+                <ul>
+                    <li><a href="library.html">출판 저서</a></li>
+                    <li><a href="activities.html">활동 소식</a></li>
+                    <li><a href="index.html#cta">문의하기</a></li>
+                </ul>
+            </div>
+            <div class="footer-col footer-connect">
+                <h5>Connect</h5>
+                <p>최신 AI 트렌드를 구독하세요.</p>
+                <div class="social-links">
+                    <a href="https://www.youtube.com/@aiu1443" class="social-icon" target="_blank">YT</a>
+                    <a href="#" class="social-icon">IN</a>
+                    <a href="#" class="social-icon">FB</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Woo Jin Jeong / CLOUD BREAD. All Rights Reserved.</p>
+            <p>Designed for Excellence in AI Education</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

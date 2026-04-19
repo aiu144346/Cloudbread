@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>언론 보도 및 활동 아카이브 | 정우진 AI STRATEGIST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .archive-header {
+            padding: 10rem 10% 4rem;
+            background: linear-gradient(135deg, var(--bg-navy) 0%, var(--navy-light) 100%);
+            text-align: center;
+        }
+        .archive-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #fff, var(--electric-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header dark-section">
+        <nav class="nav-container">
+            <div class="logo">CLOUD BREAD</div>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="showcase.html">강의쇼케이스</a></li>
+                <li><a href="youtube.html">유튜브Hub</a></li>
+                <li><a href="library.html">저서</a></li>
+                <li><a href="activities.html" class="active">언론 및 활동</a></li>
+                <li><a href="archive.html" class="nav-cta">강의 라이브러리</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="archive-header dark-section">
+        <h1 class="archive-title">현장 활동 및 언론 보도 아카이브</h1>
+        <p class="hero-subtitle" style="margin: 0 auto; max-width: 800px;">
+            전국 각지의 AI 특강 현장의 생생한 기록과, 다양한 매체를 통해 전달해 온<br>인공지능 지식 혁명의 발자취를 한눈에 확인하십시오.
+        </p>
+    </div>
+
+    <!-- Full 3-Row Marquee -->
+    <section class="activity-section" style="background: var(--navy-light);">
+        <h2 class="section-title">AI 현장 활동 기록</h2>
+        <div class="marquee-wrapper">
+            <div class="marquee-track row-1">
+                <div class="marquee-content" id="activity-row-1"></div>
+            </div>
+            <div class="marquee-track row-2">
+                <div class="marquee-content" id="activity-row-2"></div>
+            </div>
+            <div class="marquee-track row-3">
+                <div class="marquee-content" id="activity-row-3"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Full Photo Grid (Archive Experience) -->
+    <section class="photo-grid-section">
+        <h2 class="section-title">현장 기록 전체 보기</h2>
+        <div class="photo-grid" id="full-photo-grid"></div>
+    </section>
+
+    <!-- Full Media Grid -->
+    <section class="media-section" id="media">
+        <h2 class="section-title">전체 언론 보도 자료</h2>
+        <div class="media-grid" id="media-grid-dynamic">
+            <!-- JS will populate ALL articles here via Infinite Scroll -->
+        </div>
+        <!-- Load More 버튼은 이제 무한 스크롤로 대체되므로 숨기거나 세이프가드로만 둡니다 -->
+        <div id="load-more-media" style="display: none;"></div>
+    </section>
+
+    <!-- Master Footer -->
+    <footer class="master-footer dark-section">
+        <div class="footer-main">
+            <div class="footer-brand">
+                <div class="logo">CLOUD BREAD</div>
+                <p>제3의 지식 혁명을 선도하는 AI 전략 파트너.<br>실무 중심의 교육과 통찰력 있는 컨설팅으로<br>귀하의 비즈니스 가치를 혁신합니다.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Platform</h5>
+                <ul>
+                    <li><a href="index.html">홈</a></li>
+                    <li><a href="showcase.html">강의 쇼케이스</a></li>
+                    <li><a href="youtube.html">유튜브 Hub</a></li>
+                    <li><a href="archive.html">강의 라이브러리</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Resources</h5>
+                <ul>
+                    <li><a href="library.html">출판 저서</a></li>
+                    <li><a href="activities.html">활동 소식</a></li>
+                    <li><a href="index.html#cta">문의하기</a></li>
+                </ul>
+            </div>
+            <div class="footer-col footer-connect">
+                <h5>Connect</h5>
+                <p>최신 AI 트렌드를 구독하세요.</p>
+                <div class="social-links">
+                    <a href="https://www.youtube.com/@aiu1443" class="social-icon" target="_blank">YT</a>
+                    <a href="#" class="social-icon">IN</a>
+                    <a href="#" class="social-icon">FB</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Woo Jin Jeong / CLOUD BREAD. All Rights Reserved.</p>
+            <p>Designed for Excellence in AI Education</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
