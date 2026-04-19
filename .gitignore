@@ -17,7 +17,10 @@ server.log
 
 # Temporary/Output Slide folders (might be large)
 output_temp_slides/
-assets/lectures/
+assets/lectures/*
+!assets/lectures/*/
+assets/lectures/*/*
+!assets/lectures/*/commentary.json
 assets/video/
 
 # OS Files
