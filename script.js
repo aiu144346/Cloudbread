@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
             card.innerHTML = `
                 ${badge}
                 <div class="video-thumb">
-                    <img src="${video.thumb}" style="width:100%; height:180px; object-fit:cover;" onerror="this.src='assets/ai_lecture_slide_preview.png';">
+                    <img src="${video.thumb}" alt="${video.title}" style="width:100%; height:180px; object-fit:cover;" onerror="this.src='assets/ai_lecture_slide_preview.png';">
                 </div>
                 <div class="video-info">
                     <h4>${video.title}</h4>
