@@ -673,8 +673,23 @@
         };
 
         let driveIndex = null;
+        let allCommentaries = {}; // Global cache for all lecture AI commentaries
 
         async function loadDriveIndex(force = false) {
+            // Commentary index pre-fetch for performance & reliability
+            fetch("assets/commentaries_index.json")
+                .then(res => res.json())
+                .then(data => {
+                    allCommentaries = data;
+                    console.log("All commentaries indexed successfully.");
+                    // If a viewer is already open (unlikely but possible), refresh it
+                    if (currentLecture && currentLecture.id) {
+                        currentLecture.commentaryData = allCommentaries[currentLecture.id.normalize('NFC')] || {};
+                        updateSlideCommentaryText();
+                    }
+                })
+                .catch(err => console.warn("Failed to load commentary index:", err));
+
             if (driveIndex && !force) return driveIndex;
             
             const statusEl = document.getElementById('sync-status');
@@ -878,42 +893,12 @@
             const maxSlides = item.totalSlides > 0 ? item.totalSlides : 1;
             document.getElementById('total-pages').innerText = maxSlides;
 
-            // 현재 강의의 AI 해설 데이터를 JSON 파일에서 비동기로 불러오기
-            currentLecture.commentaryData = {};
-            
-            async function fetchWithRetry(lectureId) {
-                const versions = [
-                    lectureId.normalize('NFC'),
-                    lectureId.normalize('NFD')
-                ];
-                
-                for (const vid of versions) {
-                    const baseUrl = getAssetUrl(vid, 'commentary.json');
-                    const absoluteBaseUrl = baseUrl.startsWith('/') ? baseUrl : '/' + baseUrl;
-                    const commentaryUrl = absoluteBaseUrl + (absoluteBaseUrl.includes('?') ? '&' : '?') + `v=${new Date().getTime()}`;
-                    
-                    try {
-                        console.log(`Trying fetch (${vid === versions[0] ? 'NFC' : 'NFD'}):`, commentaryUrl);
-                        const res = await fetch(commentaryUrl);
-                        if (res.ok) {
-                            const data = await res.json();
-                            console.log("Commentary loaded successfully!");
-                            currentLecture.commentaryData = data;
-                            updateSlideCommentaryText();
-                            return true;
-                        }
-                    } catch (e) {
-                        console.warn(`Fetch failed for ${vid}:`, e);
-                    }
-                }
-                return false;
-            }
+            // 현재 강의의 AI 해설 데이터를 글로벌 인덱스에서 즉시 가져오기
+            // 한글 인코딩 호환성을 위해 ID 정규화 (NFC)
+            const safeId = item.id.normalize('NFC');
+            currentLecture.commentaryData = allCommentaries[safeId] || {};
+            updateSlideCommentaryText();
 
-            fetchWithRetry(item.id).then(success => {
-                if (!success) {
-                    console.error("All commentary fetch strategies failed.");
-                }
-            });
 
             updateSlideImage();
 
