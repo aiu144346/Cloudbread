@@ -1,8 +1,10 @@
 {
   "version": 2,
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index.js" },
-    { "source": "/subscribe", "destination": "/api/index.js" }
+    { "source": "/api/config", "destination": "/api/config.js" },
+    { "source": "/api/proxy", "destination": "/api/proxy.js" },
+    { "source": "/api/stats(.*)", "destination": "/api/stats.js" },
+    { "source": "/subscribe", "destination": "/api/subscribe.js" }
   ],
   "routes": [
     { "handle": "filesystem" },
