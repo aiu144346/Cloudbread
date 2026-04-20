@@ -669,47 +669,81 @@
         // Asset Configuration (Migration to Cloud/Google Drive Support)
         const ASSET_CONFIG = {
             useRemote: true,
-            indexUrl: "/drive_index.json" // Use local static index for high performance instead of Apps Script
+            indexUrl: "drive_index.json" // Static file path (works on Gabia)
         };
 
+        let driveIndex = null;
+
         async function loadDriveIndex(force = false) {
+            if (driveIndex && !force) return driveIndex;
+            
             const statusEl = document.getElementById('sync-status');
             if (statusEl) {
-                statusEl.textContent = "서버 동기화 확인 중...";
+                statusEl.textContent = "라이브러리 동기화 중...";
                 statusEl.style.display = "inline";
             }
             
-            console.log("Assets are now managed by the server. No client-side index required.");
+            // Try to load any previously cached index to show something immediately
+            const cached = localStorage.getItem('cloudbread_drive_index');
+            if (cached && !force) {
+                try {
+                    driveIndex = JSON.parse(cached);
+                    console.log("Using cached index for immediate display");
+                    renderArchive(document.querySelector('.year-btn.active')?.dataset.year || "2023");
+                } catch(e) {}
+            }
 
             try {
-                // We no longer need to fetch the 1MB drive_index.json on the client.
-                // Just let the server handle it.
+                // Fetch fresh index with cache-busting
+                const response = await fetch(`${ASSET_CONFIG.indexUrl}?t=${Date.now()}`);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                const data = await response.json();
+                driveIndex = data;
+                localStorage.setItem('cloudbread_drive_index', JSON.stringify(data));
+                console.log("Drive index loaded successfully from storage.");
+                
                 if (statusEl) {
-                    statusEl.textContent = "동기화 완료 (서버 방식)";
+                    statusEl.textContent = "동기화 완료";
                     setTimeout(() => { if(statusEl) statusEl.style.display = "none"; }, 2000);
                 }
 
                 // Refresh current view
                 const activeYear = document.querySelector('.year-btn.active')?.dataset.year || "2023";
                 renderArchive(activeYear);
-                return true;
+                return driveIndex;
             } catch (err) {
-                console.error("Sync error:", err);
+                console.error("Failed to fetch Drive index:", err);
                 if (statusEl) {
-                    statusEl.textContent = "동기화 지연됨";
+                    statusEl.textContent = "오프라인 모드 (저장된 데이터 사용)";
                     setTimeout(() => { if(statusEl) statusEl.style.display = "none"; }, 3000);
                 }
-                return false;
+                return driveIndex; // Return cached if exists
             }
         }
 
         function getAssetUrl(lectureId, fileName) {
             if (!lectureId || !fileName) return "";
             
-            // Server-side resolution:
-            // We just send the path to the proxy, and the server finds the Drive ID using its own index.
             const path = `${lectureId}/${fileName}`;
-            return `/api/proxy?path=${encodeURIComponent(path)}`;
+            if (ASSET_CONFIG.useRemote && driveIndex) {
+                // Path normalization (handles mixed slashes or casing)
+                let driveId = driveIndex[path];
+                
+                // Case-insensitive fallback
+                if (!driveId) {
+                    const lowerPath = path.toLowerCase();
+                    const match = Object.keys(driveIndex).find(key => key.toLowerCase() === lowerPath);
+                    if (match) driveId = driveIndex[match];
+                }
+
+                if (driveId) {
+                    // Use Google Drive direct CDN (lh3.googleusercontent.com)
+                    // This is the cleanest way to embed Drive images in <img> tags without a proxy.
+                    return `https://lh3.googleusercontent.com/d/${driveId}`;
+                }
+            }
+            // Local fallback
+            return `assets/lectures/${lectureId}/${fileName}`;
         }
 
         function getSlideUrl(lectureId, pageNum, isThumb = false) {
@@ -872,32 +906,36 @@
         function checkPPTAvailability(lectureId) {
             const container = document.getElementById('ppt-viewer-container');
             const btn = document.getElementById('view-ppt-btn');
-
+            
             // Check for PPTX or PNG original file in index
             const pptxPath = `${lectureId}/${lectureId}.pptx`.toLowerCase();
-            const pngPath = `${lectureId}/${lectureId}.png`.toLowerCase();
+            const pdfPath = `${lectureId}/${lectureId}.pdf`.toLowerCase();
+            
+            let originalId = null;
 
-            // PPT availability check is now handled implicitly or via server
-            // For now, we'll hide it or show it based on a simple check
-            const hasPossiblePPT = true; // Most lectures in the index have PPT/slides
-
-            if (hasPossiblePPT) {
+            if (driveIndex) {
+                 const entry = Object.keys(driveIndex).find(k => {
+                    const kl = k.toLowerCase();
+                    return kl === pptxPath || kl === pdfPath;
+                 });
+                 if (entry) originalId = driveIndex[entry];
+            }
+            
+            if (originalId) {
                 container.style.display = 'block';
+                container.dataset.driveId = originalId;
                 btn.onclick = () => {
-                    // Try to see if it's a PDF/PPT via proxy
-                    window.open(`/api/proxy?path=${encodeURIComponent(lectureId + "/" + lectureId + ".pptx")}`, '_blank');
+                    viewOriginalPPT(originalId);
                 };
             } else {
                 container.style.display = 'none';
             }
         }
 
-        function viewOriginalPPT() {
-            const driveId = document.getElementById('ppt-viewer-container').dataset.driveId;
+        function viewOriginalPPT(id) {
+            const driveId = id || document.getElementById('ppt-viewer-container').dataset.driveId;
             if (driveId) {
-                // 구글 드라이브 미리보기 URL
-                // const url = `https://drive.google.com/file/d/${driveId}/view?usp=sharing`;
-                // 구글 문서 뷰어 (G-Viewer) - 더 깔끔하게 보임
+                // Use G-Viewer for best results
                 const url = `https://docs.google.com/viewer?srcid=${driveId}&pid=explorer&efh=false&a=v&chrome=false&embedded=true`;
                 window.open(url, '_blank');
             }
