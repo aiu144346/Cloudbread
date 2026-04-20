@@ -99,6 +99,22 @@ const requestListener = async (req, res) => {
         return res.end(JSON.stringify({ googleClientId: GOOGLE_CLIENT_ID }));
     }
 
+    // Diagnostic API to debug production issues
+    if (req.method === 'GET' && cleanUrl === '/api/debug') {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify({
+            env: process.env.NODE_ENV || 'development',
+            isVercel: !!process.env.VERCEL,
+            cwd: process.cwd(),
+            dirname: __dirname,
+            driveIndex: {
+                loaded: !!driveIndexCache,
+                size: driveIndexCache ? Object.keys(driveIndexCache).length : 0,
+                sampleKeys: driveIndexCache ? Object.keys(driveIndexCache).slice(0, 5) : []
+            }
+        }));
+    }
+
     // 2. Auth: Verify Google Credential
     if (req.method === 'POST' && cleanUrl === '/api/auth/google') {
         let body = '';
@@ -242,10 +258,13 @@ const requestListener = async (req, res) => {
                     const nfcPath = assetPath.normalize('NFC');
                     const nfdPath = assetPath.normalize('NFD');
                     driveId = driveIndexCache[nfcPath] || driveIndexCache[nfdPath];
+                    console.log(`[Proxy] Path lookup: "${assetPath}" (NFC: "${nfcPath}", NFD: "${nfdPath}") -> driveId: ${driveId || 'NOT_FOUND'}`);
+                } else {
+                    console.log(`[Proxy] Path lookup: "${assetPath}" -> driveId: ${driveId}`);
                 }
                 
                 if (!driveId) {
-                    console.warn(`[Proxy] Path not found in index: ${assetPath}`);
+                    console.warn(`[Proxy] CRITICAL: Path not found in index: ${assetPath}`);
                 }
             }
 
@@ -255,14 +274,19 @@ const requestListener = async (req, res) => {
                 return;
             }
 
-            const targetUrl = `https://lh3.googleusercontent.com/d/${driveId}`;
+            const isJson = assetPath && (assetPath.toLowerCase().endsWith('.json') || req.url.includes('commentary.json'));
+            const targetUrl = isJson 
+                ? `https://drive.google.com/uc?export=download&id=${driveId}`
+                : `https://lh3.googleusercontent.com/d/${driveId}`;
+            console.log(`[Proxy] Fetching from Google Drive: ${targetUrl}`);
         try {
             const fetchRes = await fetch(targetUrl);
             if (!fetchRes.ok) {
-                console.error(`Proxy upstream error for ${driveId}: ${fetchRes.status}`);
+                console.error(`[Proxy] Upstream error for ${driveId}: ${fetchRes.status} (${fetchRes.statusText})`);
                 res.writeHead(fetchRes.status);
-                return res.end('Proxy upstream error');
+                return res.end(`Proxy upstream error: ${fetchRes.status}`);
             }
+            console.log(`[Proxy] Successfully fetched ${driveId} (${fetchRes.headers.get('content-type')})`);
             
             // Infer Content-Type from extension parameter or filename
             let contentType = fetchRes.headers.get('content-type') || 'application/octet-stream';
