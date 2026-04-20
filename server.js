@@ -45,13 +45,17 @@ function loadDriveIndexSync() {
     }
 }
 
-// Watch for changes in drive_index.json
-fs.watch(DRIVE_INDEX_FILE, (event) => {
-    if (event === 'change') {
-        console.log("[Server] drive_index.json changed, reloading...");
-        loadDriveIndexSync();
-    }
-});
+// Watch for changes in drive_index.json (Disabled for Vercel/Production)
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+    try {
+        fs.watch(DRIVE_INDEX_FILE, (event) => {
+            if (event === 'change') {
+                console.log("[Server] drive_index.json changed, reloading...");
+                loadDriveIndexSync();
+            }
+        });
+    } catch(e) { console.warn("[Server] fs.watch not supported in this environment"); }
+}
 
 loadDriveIndexSync();
 

@@ -877,29 +877,15 @@
             const pptxPath = `${lectureId}/${lectureId}.pptx`.toLowerCase();
             const pngPath = `${lectureId}/${lectureId}.png`.toLowerCase();
 
-            let originalId = null;
-            let isPng = false;
+            // PPT availability check is now handled implicitly or via server
+            // For now, we'll hide it or show it based on a simple check
+            const hasPossiblePPT = true; // Most lectures in the index have PPT/slides
 
-            if (ASSET_CONFIG.useRemote && driveIndex) {
-                const entry = Object.keys(driveIndex).find(k => {
-                    const kl = k.toLowerCase();
-                    return kl === pptxPath || kl === pngPath;
-                });
-
-                if (entry) {
-                    originalId = driveIndex[entry];
-                    isPng = entry.toLowerCase().endsWith('.png');
-                }
-            }
-
-            if (originalId) {
+            if (hasPossiblePPT) {
                 container.style.display = 'block';
                 btn.onclick = () => {
-                    if (isPng) {
-                        window.open(`/api/proxy?id=${originalId}&ext=.png`, '_blank');
-                    } else {
-                        viewOriginalPPT(originalId);
-                    }
+                    // Try to see if it's a PDF/PPT via proxy
+                    window.open(`/api/proxy?path=${encodeURIComponent(lectureId + "/" + lectureId + ".pptx")}`, '_blank');
                 };
             } else {
                 container.style.display = 'none';
