@@ -881,29 +881,39 @@
             // 현재 강의의 AI 해설 데이터를 JSON 파일에서 비동기로 불러오기
             currentLecture.commentaryData = {};
             
-            // 한글 인코딩 호환성을 위해 ID 정규화 (NFC) 및 절대 경로 보장
-            const safeId = item.id.normalize('NFC');
-            const baseUrl = getAssetUrl(safeId, 'commentary.json');
-            // Vercel(Linux) 환경에서 한글 폴더 경로 오류를 방지하기 위해 경로가 / 로 시작하도록 보장
-            const absoluteBaseUrl = baseUrl.startsWith('/') ? baseUrl : '/' + baseUrl;
-            
-            const separator = absoluteBaseUrl.includes('?') ? '&' : '?';
-            const commentaryUrl = absoluteBaseUrl + `${separator}v=${new Date().getTime()}`;
-            
-            console.log("Fetching commentary from:", commentaryUrl);
-            
-            fetch(commentaryUrl)
-                .then(res => {
-                    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-                    return res.json();
-                })
-                .then(data => {
-                    currentLecture.commentaryData = data;
-                    updateSlideCommentaryText();
-                })
-                .catch(err => {
-                    console.warn('Commentary load failed:', err.message);
-                });
+            async function fetchWithRetry(lectureId) {
+                const versions = [
+                    lectureId.normalize('NFC'),
+                    lectureId.normalize('NFD')
+                ];
+                
+                for (const vid of versions) {
+                    const baseUrl = getAssetUrl(vid, 'commentary.json');
+                    const absoluteBaseUrl = baseUrl.startsWith('/') ? baseUrl : '/' + baseUrl;
+                    const commentaryUrl = absoluteBaseUrl + (absoluteBaseUrl.includes('?') ? '&' : '?') + `v=${new Date().getTime()}`;
+                    
+                    try {
+                        console.log(`Trying fetch (${vid === versions[0] ? 'NFC' : 'NFD'}):`, commentaryUrl);
+                        const res = await fetch(commentaryUrl);
+                        if (res.ok) {
+                            const data = await res.json();
+                            console.log("Commentary loaded successfully!");
+                            currentLecture.commentaryData = data;
+                            updateSlideCommentaryText();
+                            return true;
+                        }
+                    } catch (e) {
+                        console.warn(`Fetch failed for ${vid}:`, e);
+                    }
+                }
+                return false;
+            }
+
+            fetchWithRetry(item.id).then(success => {
+                if (!success) {
+                    console.error("All commentary fetch strategies failed.");
+                }
+            });
 
             updateSlideImage();
 
