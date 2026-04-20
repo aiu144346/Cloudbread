@@ -880,18 +880,29 @@
 
             // 현재 강의의 AI 해설 데이터를 JSON 파일에서 비동기로 불러오기
             currentLecture.commentaryData = {};
-            const baseUrl = getAssetUrl(item.id, 'commentary.json');
-            const separator = baseUrl.includes('?') ? '&' : '?';
-            const commentaryUrl = baseUrl + `${separator}v=${new Date().getTime()}`;
+            
+            // 한글 인코딩 호환성을 위해 ID 정규화 (NFC) 및 절대 경로 보장
+            const safeId = item.id.normalize('NFC');
+            const baseUrl = getAssetUrl(safeId, 'commentary.json');
+            // Vercel(Linux) 환경에서 한글 폴더 경로 오류를 방지하기 위해 경로가 / 로 시작하도록 보장
+            const absoluteBaseUrl = baseUrl.startsWith('/') ? baseUrl : '/' + baseUrl;
+            
+            const separator = absoluteBaseUrl.includes('?') ? '&' : '?';
+            const commentaryUrl = absoluteBaseUrl + `${separator}v=${new Date().getTime()}`;
+            
+            console.log("Fetching commentary from:", commentaryUrl);
+            
             fetch(commentaryUrl)
-                .then(res => res.json())
+                .then(res => {
+                    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                    return res.json();
+                })
                 .then(data => {
                     currentLecture.commentaryData = data;
-                    // 데이터 로드가 늦어져서 이미 슬라이드가 떠있다면 텍스트 내용을 즉시 갱신
                     updateSlideCommentaryText();
                 })
                 .catch(err => {
-                    // console.log('Commentary not found or error parsing. Default fallback will be used.');
+                    console.warn('Commentary load failed:', err.message);
                 });
 
             updateSlideImage();
