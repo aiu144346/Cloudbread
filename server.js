@@ -11,6 +11,49 @@ const authClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 const port = 3001;
 const SESSIONS_FILE = path.join(__dirname, 'sessions.json');
 const BOARD_FILE = path.join(__dirname, 'board.json');
+const DRIVE_INDEX_FILE = path.join(__dirname, 'drive_index.json');
+
+let driveIndexCache = null;
+
+// Load drive index into memory
+function loadDriveIndexSync() {
+    try {
+        // Robust path resolution for Vercel and local
+        const possiblePaths = [
+            path.join(__dirname, 'drive_index.json'),
+            path.join(process.cwd(), 'drive_index.json'),
+            path.join(__dirname, '..', 'drive_index.json')
+        ];
+
+        let foundPath = null;
+        for (const p of possiblePaths) {
+            if (fs.existsSync(p)) {
+                foundPath = p;
+                break;
+            }
+        }
+
+        if (foundPath) {
+            const data = fs.readFileSync(foundPath, 'utf8');
+            driveIndexCache = JSON.parse(data);
+            console.log(`[Server] Drive index loaded from ${foundPath} (${Object.keys(driveIndexCache).length} items)`);
+        } else {
+            console.warn("[Server] drive_index.json not found in any expected location.");
+        }
+    } catch (e) {
+        console.error("[Server] Failed to load drive_index.json:", e);
+    }
+}
+
+// Watch for changes in drive_index.json
+fs.watch(DRIVE_INDEX_FILE, (event) => {
+    if (event === 'change') {
+        console.log("[Server] drive_index.json changed, reloading...");
+        loadDriveIndexSync();
+    }
+});
+
+loadDriveIndexSync();
 
 // Helper to parse cookies
 function parseCookies(request) {
@@ -177,14 +220,38 @@ const requestListener = async (req, res) => {
     }
 
     // 7. Proxy API for Google Drive Images
-    if (req.method === 'GET' && cleanUrl === '/api/proxy') {
-        const urlParams = new URLSearchParams(req.url.split('?')[1] || '');
-        const driveId = urlParams.get('id');
-        if (!driveId) {
-            res.writeHead(400); return res.end('Missing id');
-        }
+        // --- Image Proxy logic ---
+        if (req.url.startsWith('/api/proxy')) {
+            const urlObj = new URL(req.url, `http://${req.headers.host}`);
+            const id = urlObj.searchParams.get('id');
+            const assetPath = urlObj.searchParams.get('path'); // Support path-based resolution
 
-        const targetUrl = `https://drive.google.com/uc?id=${driveId}`;
+            let driveId = id;
+
+            // If path-based resolution is requested
+            if (assetPath && driveIndexCache) {
+                // Try direct match
+                driveId = driveIndexCache[assetPath];
+                
+                // Try NFC/NFD normalized matches if not found
+                if (!driveId) {
+                    const nfcPath = assetPath.normalize('NFC');
+                    const nfdPath = assetPath.normalize('NFD');
+                    driveId = driveIndexCache[nfcPath] || driveIndexCache[nfdPath];
+                }
+                
+                if (!driveId) {
+                    console.warn(`[Proxy] Path not found in index: ${assetPath}`);
+                }
+            }
+
+            if (!driveId) {
+                res.writeHead(400, { 'Content-Type': 'text/plain' });
+                res.end('Missing or invalid id/path parameter');
+                return;
+            }
+
+            const targetUrl = `https://lh3.googleusercontent.com/d/${driveId}`;
         try {
             const fetchRes = await fetch(targetUrl);
             if (!fetchRes.ok) {
@@ -195,7 +262,7 @@ const requestListener = async (req, res) => {
             
             // Infer Content-Type from extension parameter or filename
             let contentType = fetchRes.headers.get('content-type') || 'application/octet-stream';
-            const isVideo = (urlParams.get('ext') || '').toLowerCase().includes('mp4') || req.url.includes('.mp4');
+            const isVideo = (urlObj.searchParams.get('ext') || '').toLowerCase().includes('mp4') || req.url.includes('.mp4');
             
             // For large videos, REDIRECT to Google Drive to bypass Vercel 4.5MB limits and allow streaming
             if (isVideo) {
@@ -204,7 +271,7 @@ const requestListener = async (req, res) => {
             }
 
             if (contentType === 'application/octet-stream' || contentType === 'application/force-download') {
-                const ext = (urlParams.get('ext') || '').toLowerCase();
+                const ext = (urlObj.searchParams.get('ext') || '').toLowerCase();
                 const extMatch = ext.match(/\.(png|jpg|jpeg|gif|webp)/i) || req.url.match(/\.(png|jpg|jpeg|gif|webp)/i);
                 
                 if (extMatch) {

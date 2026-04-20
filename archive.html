@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,12 +19,14 @@
             padding: 4rem 10% 2rem;
             text-align: center;
         }
+
         .year-selector {
             display: flex;
             justify-content: center;
             gap: 1rem;
             margin-bottom: 3rem;
         }
+
         .year-btn {
             background: #ffffff;
             border: 2px solid #0D47A1;
@@ -37,32 +40,38 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 4px 12px rgba(13, 71, 161, 0.1);
         }
+
         .year-btn.active {
             background: #0D47A1;
             color: #ffffff;
             box-shadow: 0 8px 20px rgba(13, 71, 161, 0.3);
             transform: translateY(-2px);
         }
+
         .year-btn:hover:not(.active) {
             background: #f0f7ff;
             border-color: #0D47A1;
             transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(13, 71, 161, 0.15);
         }
+
         .netflix-row {
             padding: 2rem 10%;
             margin-bottom: 4rem;
         }
+
         .row-title {
             font-size: 1.8rem;
             margin-bottom: 1.5rem;
             color: var(--text-white);
         }
+
         .netflix-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 2.5rem;
         }
+
         .lecture-card {
             background: var(--navy-lighter);
             border-radius: 8px;
@@ -72,17 +81,20 @@
             cursor: pointer;
             border: 1px solid transparent;
         }
+
         .lecture-card:hover {
             transform: scale(1.05);
             z-index: 10;
             border-color: var(--electric-blue);
         }
+
         .lecture-thumb {
             width: 100%;
             aspect-ratio: 16/9;
             object-fit: cover;
             background: #111;
         }
+
         .lecture-info {
             padding: 1rem;
             background: var(--navy-lighter);
@@ -90,30 +102,43 @@
             width: 100%;
             border-top: 1px solid rgba(0, 240, 255, 0.1);
         }
+
         .lecture-info h5 {
             font-size: 1.05rem;
             margin-bottom: 0.5rem;
             color: var(--text-white);
         }
+
         .lecture-tag {
             font-size: 0.8rem;
             color: var(--electric-blue);
             display: inline-block;
             margin-bottom: 0.3rem;
         }
+
         .back-nav {
             padding: 2rem 10%;
             display: inline-block;
             color: var(--text-gray);
             text-decoration: none;
         }
+
         .fade-in-text {
             animation: fadeIn 0.4s ease-out forwards;
         }
+
         @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(6px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         /* TTS UI Styles - Improved */
         .tts-container {
             display: flex;
@@ -126,6 +151,7 @@
             border-radius: 12px;
             border: 1px solid rgba(0, 240, 255, 0.1);
         }
+
         .tts-btn {
             background: var(--electric-blue);
             border: none;
@@ -141,16 +167,19 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 4px 12px rgba(0, 240, 255, 0.2);
         }
+
         .tts-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(0, 240, 255, 0.4);
             filter: brightness(1.1);
         }
+
         .tts-btn.active {
             background: #ff4757;
             color: white;
             box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
         }
+
         .tts-toggle-group {
             display: flex;
             align-items: center;
@@ -158,23 +187,27 @@
             cursor: pointer;
             user-select: none;
         }
+
         .tts-toggle-group span {
             font-size: 0.82rem;
             color: var(--text-white);
             font-weight: 500;
             white-space: nowrap;
         }
+
         .switch {
             position: relative;
             display: inline-block;
             width: 34px;
             height: 20px;
         }
+
         .switch input {
             opacity: 0;
             width: 0;
             height: 0;
         }
+
         .slider {
             position: absolute;
             cursor: pointer;
@@ -186,6 +219,7 @@
             transition: .4s;
             border-radius: 34px;
         }
+
         .slider:before {
             position: absolute;
             content: "";
@@ -197,10 +231,12 @@
             transition: .4s;
             border-radius: 50%;
         }
-        input:checked + .slider {
+
+        input:checked+.slider {
             background-color: var(--electric-blue);
         }
-        input:checked + .slider:before {
+
+        input:checked+.slider:before {
             transform: translateX(14px);
         }
 
@@ -209,6 +245,7 @@
             position: relative;
             overflow: hidden;
         }
+
         .view-count-badge {
             position: absolute;
             bottom: 10px;
@@ -227,6 +264,7 @@
             transition: all 0.3s ease;
             z-index: 2;
         }
+
         .pulse-icon {
             width: 6px;
             height: 6px;
@@ -236,11 +274,24 @@
             box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.4);
             animation: pulse-small 2s infinite;
         }
+
         @keyframes pulse-small {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.4); }
-            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(0, 240, 255, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 240, 255, 0); }
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.4);
+            }
+
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 6px rgba(0, 240, 255, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(0, 240, 255, 0);
+            }
         }
+
         .popular-tag {
             background: linear-gradient(90deg, #FFD700, #FFA500);
             color: #000;
@@ -264,6 +315,7 @@
             position: relative;
             border: 1px solid rgba(0, 0, 0, 0.05);
         }
+
         .promo-badge {
             display: inline-block;
             background: var(--accent-solid);
@@ -276,6 +328,7 @@
             margin-bottom: 2rem;
             letter-spacing: 0.5px;
         }
+
         .promo-title {
             font-size: 2.8rem;
             font-weight: 900;
@@ -284,6 +337,7 @@
             line-height: 1.2;
             letter-spacing: -1.5px;
         }
+
         .promo-callout {
             background: #f0f7ff;
             border-left: 4px solid var(--accent-solid);
@@ -291,6 +345,7 @@
             border-radius: 0 12px 12px 0;
             margin-bottom: 3rem;
         }
+
         .callout-subtitle {
             font-size: 1.15rem;
             color: var(--accent-solid);
@@ -298,17 +353,20 @@
             margin-bottom: 0.8rem;
             display: block;
         }
+
         .callout-text {
             font-size: 1.05rem;
             color: #1e293b;
             line-height: 1.6;
             font-weight: 500;
         }
+
         .promo-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 3rem;
         }
+
         .promo-item h4 {
             font-size: 1.15rem;
             color: #030712;
@@ -318,30 +376,50 @@
             align-items: center;
             gap: 8px;
         }
+
         .promo-item h4::before {
             content: '•';
             color: var(--accent-solid);
             font-size: 1.5rem;
         }
+
         .promo-item p {
             font-size: 0.95rem;
             color: #475569;
             line-height: 1.6;
             font-weight: 400;
         }
+
         @media (max-width: 900px) {
-            .promo-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .promo-title { font-size: 2rem; }
-            
+            .promo-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .promo-title {
+                font-size: 2rem;
+            }
+
             .netflix-grid {
                 grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
                 gap: 1.5rem;
                 padding: 0 5%;
             }
-            .archive-header { padding: 4rem 5% 2rem; }
-            .year-selector { flex-wrap: wrap; gap: 0.5rem; }
-            .year-btn { padding: 0.6rem 1.8rem; font-size: 1rem; }
-            
+
+            .archive-header {
+                padding: 4rem 5% 2rem;
+            }
+
+            .year-selector {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .year-btn {
+                padding: 0.6rem 1.8rem;
+                font-size: 1rem;
+            }
+
             /* Modal Optimization */
             .modal-container {
                 width: 95%;
@@ -349,26 +427,35 @@
                 flex-direction: column;
                 overflow-y: auto;
             }
+
             .slide-viewer-main {
                 width: 100%;
                 height: 40vh;
                 min-height: 250px;
             }
+
             .slide-info-sidebar {
                 width: 100%;
                 border-left: none;
                 border-top: 1px solid rgba(0, 240, 255, 0.1);
                 padding: 20px;
             }
+
             .close-modal {
                 top: 5px;
                 right: 15px;
                 z-index: 100;
             }
-            .slide-nav { width: 40px; height: 60px; font-size: 1.2rem; }
+
+            .slide-nav {
+                width: 40px;
+                height: 60px;
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
+
 <body>
     <header class="main-header dark-section">
         <nav class="nav-container">
@@ -381,7 +468,7 @@
                 <li><a href="activities.html">언론 및 활동</a></li>
                 <li><a href="archive.html" class="nav-cta">강의 라이브러리</a></li>
             </ul>
-            
+
             <!-- Hamburger Menu for Mobile -->
             <div class="hamburger" id="hamburger">
                 <span></span>
@@ -413,10 +500,11 @@
     <div class="docent-promo">
         <div class="promo-badge">AI Knowledge Service</div>
         <h2 class="promo-title">생성형 AI 기술로 재탄생한<br>실시간 강의 도슨트 아카이브</h2>
-        
+
         <div class="promo-callout">
             <span class="callout-subtitle">Advanced Insight with AI Docent</span>
-            <p class="callout-text">"복잡한 강의안 슬라이드를 일일이 넘겨볼 필요가 없습니다. 구름빵의 AI 도슨트가 맥락을 분석하여 핵심만을 요약하고, <strong>생생한 보이스(TTS)</strong>로 해설을 들려주는 지능형 학습 환경을 구축했습니다."</p>
+            <p class="callout-text">"복잡한 강의안 슬라이드를 일일이 넘겨볼 필요가 없습니다. 구름빵의 AI 도슨트가 맥락을 분석하여 핵심만을 요약하고, <strong>생생한
+                    보이스(TTS)</strong>로 해설을 들려주는 지능형 학습 환경을 구축했습니다."</p>
         </div>
 
         <div class="promo-grid">
@@ -443,7 +531,15 @@
     </div>
 
     <section class="netflix-row" id="archive-section">
-        <h2 class="row-title" id="archive-title">2023년 현장 기록</h2>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 10px;">
+            <h2 class="row-title" id="archive-title" style="margin-bottom: 0;">2023년 현장 기록</h2>
+            <div style="display: flex; gap: 8px; align-items: center;">
+                <span id="sync-status" style="font-size: 0.75rem; color: var(--electric-blue); opacity: 0.8; display: none;">동기화 중...</span>
+                <button class="tts-btn" onclick="loadDriveIndex(true)" style="background: rgba(0, 240, 255, 0.1); border: 1px solid var(--electric-blue); color: var(--electric-blue); padding: 5px 12px; font-size: 0.8rem; box-shadow: none;">
+                    🔄 아카이브 동기화
+                </button>
+            </div>
+        </div>
         <div class="netflix-grid" id="lecture-grid">
             <!-- JS will populate -->
         </div>
@@ -466,7 +562,8 @@
                 </div>
                 <div class="sidebar-content">
                     <div class="ai-insight-box">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                             <h4 style="margin: 0; font-size: 1.1rem; color: var(--electric-blue);">☁️ 구름빵님의 AI 인사이트</h4>
                         </div>
                         <div class="tts-container">
@@ -482,15 +579,21 @@
                             </button>
                         </div>
                         <div id="ppt-viewer-container" style="margin-top: 15px; display: none;">
-                            <button class="tts-btn" id="view-ppt-btn" onclick="viewOriginalPPT()" style="background: var(--accent-solid); width: 100%; justify-content: center; margin-bottom: 5px;">
+                            <button class="tts-btn" id="view-ppt-btn" onclick="viewOriginalPPT()"
+                                style="background: var(--accent-solid); width: 100%; justify-content: center; margin-bottom: 5px;">
                                 <span>📄</span> PPT 원본 보기 (Viewer)
                             </button>
-                            <p style="font-size: 0.7rem; color: var(--text-gray); text-align: center;">* 구글 문서 뷰어로 원본을 열람합니다.</p>
+                            <p style="font-size: 0.7rem; color: var(--text-gray); text-align: center;">* 구글 문서 뷰어로 원본을
+                                열람합니다.</p>
                         </div>
-                        <p id="modal-desc" style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.6; margin-top: 10px;">강의 요약 정보가 여기에 표시됩니다.</p>
+                        <p id="modal-desc"
+                            style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.6; margin-top: 10px;">강의
+                            요약 정보가 여기에 표시됩니다.</p>
                     </div>
-                    <div id="slide-commentary" style="margin-top: 1.5rem; line-height: 1.6; color: var(--text-gray); font-size: 0.95rem;">
-                        <p id="slide-commentary-text">이 슬라이드에서는 해당 주제의 핵심 개념과 실전 적용 방안을 다루고 있습니다. 구체적인 내용은 하단 이미지와 함께 확인해보세요.</p>
+                    <div id="slide-commentary"
+                        style="margin-top: 1.5rem; line-height: 1.6; color: var(--text-gray); font-size: 0.95rem;">
+                        <p id="slide-commentary-text">이 슬라이드에서는 해당 주제의 핵심 개념과 실전 적용 방안을 다루고 있습니다. 구체적인 내용은 하단 이미지와 함께
+                            확인해보세요.</p>
                     </div>
                 </div>
             </div>
@@ -536,7 +639,7 @@
             <p>Designed for Excellence in AI Education</p>
         </div>
     </footer>
-    
+
     <!-- Mobile App-Style Navigation (Visible only on smartphone) -->
     <nav class="mobile-nav">
         <a href="index.html" class="mobile-nav-item">
@@ -561,7 +664,7 @@
     <script>
         let currentLecture = null;
         let currentSlideIdx = 1;
-        let driveIndex = null;
+        // driveIndex is now handled on the server side for performance and reliability
 
         // Asset Configuration (Migration to Cloud/Google Drive Support)
         const ASSET_CONFIG = {
@@ -569,67 +672,44 @@
             indexUrl: "/drive_index.json" // Use local static index for high performance instead of Apps Script
         };
 
-        async function loadDriveIndex() {
-            // Always show progress
-            console.log("Initializing Drive Index...");
+        async function loadDriveIndex(force = false) {
+            const statusEl = document.getElementById('sync-status');
+            if (statusEl) {
+                statusEl.textContent = "서버 동기화 확인 중...";
+                statusEl.style.display = "inline";
+            }
             
-            // Cache-busting fetch
-            const indexUrl = `${ASSET_CONFIG.indexUrl}?t=${Date.now()}`;
-            
+            console.log("Assets are now managed by the server. No client-side index required.");
+
             try {
-                const response = await fetch(indexUrl);
-                if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                const data = await response.json();
-                driveIndex = data;
-                localStorage.setItem('cloudbread_drive_index', JSON.stringify(data));
-                console.log("Drive index loaded successfully from server.");
-                
-                // Refresh current view
-                const activeBtn = document.querySelector('.year-btn.active');
-                renderArchive(activeBtn ? activeBtn.dataset.year : "2023");
-                return driveIndex;
-            } catch (err) {
-                console.error("Failed to fetch Drive index:", err);
-                
-                // Fallback to cache ONLY if server fetch fails
-                const cached = localStorage.getItem('cloudbread_drive_index');
-                if (cached) {
-                    try {
-                        driveIndex = JSON.parse(cached);
-                        console.log("Using cached fallback index");
-                        renderArchive("2023");
-                    } catch(e) { console.error("Cache fallback error", e); }
+                // We no longer need to fetch the 1MB drive_index.json on the client.
+                // Just let the server handle it.
+                if (statusEl) {
+                    statusEl.textContent = "동기화 완료 (서버 방식)";
+                    setTimeout(() => { if(statusEl) statusEl.style.display = "none"; }, 2000);
                 }
-                return null;
+
+                // Refresh current view
+                const activeYear = document.querySelector('.year-btn.active')?.dataset.year || "2023";
+                renderArchive(activeYear);
+                return true;
+            } catch (err) {
+                console.error("Sync error:", err);
+                if (statusEl) {
+                    statusEl.textContent = "동기화 지연됨";
+                    setTimeout(() => { if(statusEl) statusEl.style.display = "none"; }, 3000);
+                }
+                return false;
             }
         }
 
         function getAssetUrl(lectureId, fileName) {
-            // Normalize path to NFC to handle Korean character issues across OS
-            const rawPath = `${lectureId}/${fileName}`;
-            const path = rawPath.normalize('NFC');
+            if (!lectureId || !fileName) return "";
             
-            if (ASSET_CONFIG.useRemote && driveIndex) {
-                // Try exact match first
-                let driveId = driveIndex[path];
-                
-                // Normalization fallback (NFC and Case-insensitive)
-                if (!driveId) {
-                    const lowerPath = path.toLowerCase();
-                    const match = Object.keys(driveIndex).find(key => {
-                        const k = key.normalize('NFC');
-                        return k.toLowerCase() === lowerPath || k === path;
-                    });
-                    if (match) driveId = driveIndex[match];
-                }
-
-                if (driveId) {
-                    // Detect extension for proxy content-type help
-                    const ext = fileName.split('.').pop() || 'png';
-                    return `/api/proxy?id=${driveId}&ext=.${ext}`;
-                }
-            }
-            return `assets/lectures/${lectureId}/${fileName}`;
+            // Server-side resolution:
+            // We just send the path to the proxy, and the server finds the Drive ID using its own index.
+            const path = `${lectureId}/${fileName}`;
+            return `/api/proxy?path=${encodeURIComponent(path)}`;
         }
 
         function getSlideUrl(lectureId, pageNum, isThumb = false) {
@@ -673,7 +753,7 @@
         function loadVoices() {
             voices = synth.getVoices();
         }
-        
+
         // Chrome 등 일부 브라우저에서는 voiceschanged 이벤트를 기다려야 함
         if (speechSynthesis.onvoiceschanged !== undefined) {
             speechSynthesis.onvoiceschanged = loadVoices;
@@ -682,64 +762,88 @@
 
         function renderArchive(year) {
             const grid = document.getElementById('lecture-grid');
-            const title = document.getElementById('archive-title');
-            if(title) title.innerText = `${year}년 현장 기록`;
-            grid.innerHTML = "";
+            if (!grid) return;
+            grid.innerHTML = '';
             
-            const data = lectureData[year];
-            if (!data || data.length === 0) {
+            const yearData = lectureData[year] || [];
+            if (yearData.length === 0) {
                 grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-gray); padding: 4rem;">아직 해당 연도의 데이터가 등록되지 않았습니다.</p>`;
                 return;
             }
             
-                    fetchLectureStats().then(stats => {
-                        data.forEach(item => {
-                            const card = document.createElement('div');
-                            card.className = "lecture-card";
-                            card.style.cursor = "pointer";
-                            card.addEventListener('click', () => openViewer(item));
-                            
-                            const lectureStatsObj = stats || {};
-                            const count = lectureStatsObj[item.id] || 0;
-                            const popularTag = count > 50 ? '<span class="popular-tag">Popular</span> ' : '';
-                            
-                            const baseUrl = getSlideUrl(item.id, 1);
-                            const separator = baseUrl.includes('?') ? '&' : '?';
-                            const thumbUrl = baseUrl + `${separator}v=bypass2`;
+            const sortedData = [...yearData].reverse();
+            
+            fetchLectureStats().then(stats => {
+                sortedData.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = "lecture-card";
+                    card.style.cursor = "pointer";
+                    card.addEventListener('click', () => openViewer(item));
 
-                            card.innerHTML = `
-                                <div class="lecture-thumb-container">
-                                    <img src="${thumbUrl}" alt="${item.title}" class="lecture-thumb" loading="lazy" onerror="this.onerror=null; this.src='assets/slides.png';">
-                                    <div class="view-count-badge">
-                                        ${popularTag}<span class="pulse-icon"></span>${count.toLocaleString()} Views
-                                    </div>
-                                </div>
-                                <div class="lecture-info">
-                                    <h5>${item.title}</h5>
-                                    <p style="font-size: 0.8rem; color: var(--text-gray); margin: 0.5rem 0; height: 1.2rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.desc || ''}</p>
-                                    <span class="lecture-tag">${item.tag}</span>
-                                </div>
-                            `;
-                            grid.appendChild(card);
-                        });
-                    });
+                    const lectureStatsObj = stats || {};
+                    const count = lectureStatsObj[item.id] || 0;
+                    const popularTag = count > 50 ? '<span class="popular-tag">Popular</span> ' : '';
+
+                    const baseUrl = getSlideUrl(item.id, 1);
+                    const separator = baseUrl.includes('?') ? '&' : '?';
+                    const thumbUrl = baseUrl + `${separator}v=bypass2`;
+
+                    card.innerHTML = `
+                        <div class="lecture-thumb-container">
+                            <img data-src="${thumbUrl}" alt="${item.title}" class="lecture-thumb lazy-load" onerror="this.onerror=null; this.src='assets/slides.png';">
+                            <div class="view-count-badge">
+                                ${popularTag}<span class="pulse-icon"></span>${count.toLocaleString()} Views
+                            </div>
+                        </div>
+                        <div class="lecture-info">
+                            <h5>${item.title}</h5>
+                            <p style="font-size: 0.8rem; color: var(--text-gray); margin: 0.5rem 0; height: 1.2rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.desc || ''}</p>
+                            <span class="lecture-tag">${item.tag}</span>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+                
+                // Initialize Intersection Observer for the newly created cards
+                initLazyLoading();
+            });
+        }
+
+        function initLazyLoading() {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.onload = () => img.classList.add('loaded');
+                            observer.unobserve(img);
+                        }
+                    }
+                });
+            }, {
+                rootMargin: '200px 0px', // Load before appearing
+                threshold: 0.01
+            });
+
+            document.querySelectorAll('.lazy-load').forEach(img => imageObserver.observe(img));
         }
 
         function openViewer(item) {
             currentLecture = item;
             currentSlideIdx = 1;
-            
+
             // Increment view count
             incrementLectureStat(item.id);
 
             document.getElementById('modal-title').innerText = item.title;
             document.getElementById('modal-tag').innerText = item.tag;
             document.getElementById('modal-desc').innerText = item.desc || "상세 설명이 없습니다.";
-            
+
             // 실제 생성된 파일 숫자로 한도 지정 (실패 파일의 경우 최소 1)
             const maxSlides = item.totalSlides > 0 ? item.totalSlides : 1;
             document.getElementById('total-pages').innerText = maxSlides;
-            
+
             // 현재 강의의 AI 해설 데이터를 JSON 파일에서 비동기로 불러오기
             currentLecture.commentaryData = {};
             const baseUrl = getAssetUrl(item.id, 'commentary.json');
@@ -757,37 +861,37 @@
                 });
 
             updateSlideImage();
-            
+
             // PPT 원본 보기 버튼 활성화 여부 확인
             checkPPTAvailability(item.id);
-            
+
             document.getElementById('slide-modal').style.display = 'flex';
-            document.body.style.overflow = 'hidden'; 
+            document.body.style.overflow = 'hidden';
         }
 
         function checkPPTAvailability(lectureId) {
             const container = document.getElementById('ppt-viewer-container');
             const btn = document.getElementById('view-ppt-btn');
-            
+
             // Check for PPTX or PNG original file in index
             const pptxPath = `${lectureId}/${lectureId}.pptx`.toLowerCase();
             const pngPath = `${lectureId}/${lectureId}.png`.toLowerCase();
-            
+
             let originalId = null;
             let isPng = false;
 
             if (ASSET_CONFIG.useRemote && driveIndex) {
                 const entry = Object.keys(driveIndex).find(k => {
-                   const kl = k.toLowerCase();
-                   return kl === pptxPath || kl === pngPath;
+                    const kl = k.toLowerCase();
+                    return kl === pptxPath || kl === pngPath;
                 });
-                
+
                 if (entry) {
                     originalId = driveIndex[entry];
                     isPng = entry.toLowerCase().endsWith('.png');
                 }
             }
-            
+
             if (originalId) {
                 container.style.display = 'block';
                 btn.onclick = () => {
@@ -830,30 +934,59 @@
         function updateSlideImage() {
             document.getElementById('current-page').innerText = currentSlideIdx;
             const baseUrl = getSlideUrl(currentLecture.id, currentSlideIdx);
-            // Use & if URL already has ?
             const separator = baseUrl.includes('?') ? '&' : '?';
             const imgPath = baseUrl + `${separator}v=${new Date().getTime()}`;
-            
+
             const modalImg = document.getElementById('modal-img');
+            modalImg.classList.remove('loaded');
             
             modalImg.src = imgPath;
+            modalImg.onload = () => modalImg.classList.add('loaded');
             modalImg.onerror = () => {
-                modalImg.src = 'assets/slides.png'; 
+                modalImg.src = 'assets/slides.png';
             };
 
-            // AI 해설 텍스트 동적 업데이트 함수 호출
+            // AI 해설 텍스트 동적 업데이트
             updateSlideCommentaryText();
+            
+            // --- Step 2: Smart Preloading ---
+            preloadNextSlides();
+        }
+
+        function preloadNextSlides() {
+            const maxSlides = currentLecture.totalSlides || 1;
+            
+            // Preload next 2 slides for smooth forward navigation
+            [1, 2].forEach(offset => {
+                let nextIdx = currentSlideIdx + offset;
+                if (nextIdx <= maxSlides) {
+                    const preloadUrl = getSlideUrl(currentLecture.id, nextIdx);
+                    const link = document.createElement('link');
+                    link.rel = 'preload';
+                    link.as = 'image';
+                    link.href = preloadUrl;
+                    document.head.appendChild(link);
+                    // Cleanup to avoid head bloating
+                    setTimeout(() => link.remove(), 5000);
+                }
+            });
+            
+            // Preload previous slide for smooth backward navigation
+            if (currentSlideIdx > 1) {
+                const prevUrl = getSlideUrl(currentLecture.id, currentSlideIdx - 1);
+                new Image().src = prevUrl; // Simple background fetch
+            }
         }
 
         function updateSlideCommentaryText() {
             const commentaryText = document.getElementById('slide-commentary-text');
-            if(commentaryText) {
+            if (commentaryText) {
                 // 기존 애니메이션 클래스 제거
                 commentaryText.classList.remove('fade-in-text');
-                
+
                 // 파이프라인 생성 데이터가 있다면 해당 텍스트를, 없으면 기본 안내 멘트를 사용
                 let displayString = `☁️ [AI 도슨트] "${currentLecture.title}"의 ${currentSlideIdx}번째 슬라이드 핵심 내용입니다. 상세한 AI 해설 데이터는 백엔드 파이프라인에서 생성 중입니다.`;
-                if(currentLecture.commentaryData && currentLecture.commentaryData[currentSlideIdx]) {
+                if (currentLecture.commentaryData && currentLecture.commentaryData[currentSlideIdx]) {
                     displayString = "☁️ [AI 도슨트] " + currentLecture.commentaryData[currentSlideIdx];
                 }
 
@@ -861,7 +994,7 @@
                 setTimeout(() => {
                     commentaryText.innerText = displayString;
                     commentaryText.classList.add('fade-in-text');
-                    
+
                     // TTS 자동 읽기가 체크되어 있으면 읽기 시작
                     if (document.getElementById('tts-auto-read').checked) {
                         readText(displayString.replace('☁️ [AI 도슨트] ', ''));
@@ -873,7 +1006,7 @@
         // TTS 기능 구현 함수 - 음질 개선 버전
         function readText(text) {
             stopSpeech();
-            
+
             if (!text) return;
 
             // 1. 문장 단위로 분절 (마침표, 물음표, 느낌표 기준)
@@ -901,15 +1034,15 @@
                 }
 
                 speechUtterance = new SpeechSynthesisUtterance(sentenceText);
-                
+
                 // 2. 가장 자연스러운 한국어 목소리 찾기 (Google 또는 Natural 포함 우선)
                 const koVoices = voices.filter(v => v.lang === 'ko-KR' || v.lang === 'ko_KR');
                 const bestVoice = koVoices.find(v => v.name.includes('Google') || v.name.includes('Natural')) || koVoices[0];
-                
+
                 if (bestVoice) {
                     speechUtterance.voice = bestVoice;
                 }
-                
+
                 speechUtterance.lang = 'ko-KR';
                 speechUtterance.rate = 1.0;  // 속도를 1.0으로 고정하여 안정성 확보
                 speechUtterance.pitch = 1.0;
@@ -923,7 +1056,7 @@
                         document.getElementById('tts-text').innerText = '중지';
                     }
                 };
-                
+
                 speechUtterance.onend = () => {
                     currentSentenceIdx++;
                     speakSentence();
@@ -964,10 +1097,43 @@
             }
         }
 
-        window.onclick = function(event) {
-            const modal = document.getElementById('slide-modal');
-            if (event.target == modal) closeViewer();
+        // --- Swipe Navigation Logic ---
+        let swipeStartX = 0;
+        let swipeEndX = 0;
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = swipeStartX - swipeEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swiped Left -> Next Slide
+                    changeSlide(1);
+                } else {
+                    // Swiped Right -> Previous Slide
+                    changeSlide(-1);
+                }
+            }
         }
+
+        const slideViewer = document.querySelector('.slide-viewer-main');
+        if (slideViewer) {
+            slideViewer.addEventListener('touchstart', (e) => {
+                swipeStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            slideViewer.addEventListener('touchend', (e) => {
+                swipeEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+        }
+
+        window.onclick = function (event) {
+            const modal = document.getElementById('slide-modal');
+            if (event.target == modal) {
+                closeViewer();
+            }
+        };
 
         // 키보드 네비게이션 추가
         document.addEventListener('keydown', (e) => {
@@ -1008,7 +1174,7 @@
             if (hamburger) hamburger.addEventListener("click", toggleMenu);
             if (mobileMenuTrigger) mobileMenuTrigger.addEventListener("click", toggleMenu);
             menuOverlay.addEventListener("click", toggleMenu);
-            
+
             // Close menu when clicking a link
             mobileSidebar.querySelectorAll("a").forEach(link => {
                 link.addEventListener("click", toggleMenu);
@@ -1016,4 +1182,5 @@
         }
     </script>
 </body>
+
 </html>
