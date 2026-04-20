@@ -637,18 +637,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- Mobile Menu Toggle Logic ---
     const hamburger = document.getElementById("hamburger");
+    const mobileMenuTrigger = document.getElementById("mobile-menu-trigger");
     const mobileSidebar = document.getElementById("mobile-sidebar");
     const menuOverlay = document.getElementById("menu-overlay");
 
-    if (hamburger && mobileSidebar && menuOverlay) {
+    if ((hamburger || mobileMenuTrigger) && mobileSidebar && menuOverlay) {
         const toggleMenu = () => {
-            hamburger.classList.toggle("active");
+            if (hamburger) hamburger.classList.toggle("active");
             mobileSidebar.classList.toggle("active");
             menuOverlay.classList.toggle("active");
             document.body.style.overflow = mobileSidebar.classList.contains("active") ? "hidden" : "auto";
         };
 
-        hamburger.addEventListener("click", toggleMenu);
+        if (hamburger) hamburger.addEventListener("click", toggleMenu);
+        if (mobileMenuTrigger) mobileMenuTrigger.addEventListener("click", toggleMenu);
         menuOverlay.addEventListener("click", toggleMenu);
         
         // Close menu when clicking a link
