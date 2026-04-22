@@ -618,33 +618,45 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // --- Real-time Stats Logic ---
+    let currentStats = { total_visitors: 20000, slide_clicks: 3000 };
+
     function fetchStats() {
         fetch("/api/stats")
             .then(res => res.json())
             .then(stats => {
-                // Update total visitors
-                const visitorEl = document.getElementById("visitor-count-display");
-                if (visitorEl) visitorEl.textContent = stats.total_visitors.toLocaleString();
-
-                // Update Project Badges
-                document.querySelectorAll("[data-stat-key='downloads']").forEach(el => {
-                    const subKey = el.dataset.statSubkey;
-                    if (subKey && stats.downloads[subKey]) {
-                        let badge = el.querySelector(".stat-badge");
-                        if (!badge) {
-                            badge = document.createElement("span");
-                            badge.className = "stat-badge";
-                            el.appendChild(badge);
-                        }
-                        badge.textContent = ` ${stats.downloads[subKey]}회 다운로드`;
-                    }
-                });
-
-                // Update Slide Clicks
-                const slideEl = document.getElementById("slide-click-display");
-                if (slideEl) slideEl.textContent = stats.slide_clicks.toLocaleString();
+                currentStats = stats;
+                updateDisplay();
             })
             .catch(err => console.error("Stats fetch error:", err));
+    }
+
+    function updateDisplay() {
+        // Update total visitors
+        const visitorEl = document.getElementById("visitor-count-display");
+        if (visitorEl) {
+            const startVal = parseInt(visitorEl.textContent.replace(/,/g, '')) || 0;
+            animateCount(visitorEl, currentStats.total_visitors, 1000);
+        }
+
+        // Update Project Badges
+        document.querySelectorAll("[data-stat-key='downloads']").forEach(el => {
+            const subKey = el.dataset.statSubkey;
+            if (subKey && currentStats.downloads && currentStats.downloads[subKey]) {
+                let badge = el.querySelector(".stat-badge");
+                if (!badge) {
+                    badge = document.createElement("span");
+                    badge.className = "stat-badge";
+                    el.appendChild(badge);
+                }
+                badge.textContent = ` ${currentStats.downloads[subKey]}회 다운로드`;
+            }
+        });
+
+        // Update Slide Clicks
+        const slideEl = document.getElementById("slide-click-display");
+        if (slideEl) {
+            animateCount(slideEl, currentStats.slide_clicks, 1000);
+        }
     }
 
     function incrementStat(key, subKey = null) {
@@ -653,9 +665,21 @@ document.addEventListener("DOMContentLoaded", () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ key, subKey })
         })
-            .then(() => fetchStats())
+            .then(res => res.json())
+            .then(data => {
+                if (data.stats) currentStats = data.stats;
+                updateDisplay();
+            })
             .catch(err => console.error("Stats increment error:", err));
     }
+
+    // Live growth simulation (Increment visitor count occasionally while on page)
+    setInterval(() => {
+        if (Math.random() > 0.7) { // 30% chance every 15s to simulated a new hit
+            currentStats.total_visitors += 1;
+            updateDisplay();
+        }
+    }, 15000);
 
     // Global Event Listener for Stats
     document.addEventListener("click", (e) => {
@@ -668,8 +692,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Initial Load
-    incrementStat("total_visitors");
     fetchStats();
+    setTimeout(() => incrementStat("total_visitors"), 2000); // Record visit after 2s
 
     revealElements(); // Initialize scroll reveal
 
