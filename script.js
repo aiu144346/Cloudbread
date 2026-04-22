@@ -76,6 +76,7 @@ const mediaData = [
 ];
 
 const videoData = [
+    { title: "울산데이터센터 AI 시대의 가속기인가? 기후위기의 주범인가?", cat: "lecture", youtubeId: "ykMc7gc9lxI", isNew: true },
     { title: "최신 프롬프트 엔지니어링 기법", cat: "prompt", thumb: "assets/yt_prompt.png", isNew: true, lectureId: "17강_티이핑으로_이미지를_생성하다_20230831" },
     { title: "AI로 변화하는 비즈니스 지형", cat: "business", thumb: "assets/yt_business.png", isNew: true, lectureId: "14강_비즈니스_컨설팅_GAI활용_20230831" },
     { title: "시니어들을 위한 스마트폰 AI", cat: "senior", thumb: "assets/yt_senior.png", lectureId: "동구노동자센터" },
@@ -91,12 +92,45 @@ document.addEventListener("DOMContentLoaded", () => {
     const featuredVideoGrid = document.getElementById("video-grid-featured");
     const filterButtons = document.querySelectorAll(".filter-btn");
 
+    // --- Video Modal Logic ---
+    const videoModal = document.getElementById("video-modal");
+    const videoIframe = document.getElementById("video-iframe");
+    const closeVideoModal = document.querySelector(".close-video-modal");
+
+    function openVideo(youtubeId) {
+        if (!videoModal || !videoIframe) return;
+        videoIframe.src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1`;
+        videoModal.style.display = "block";
+        document.body.style.overflow = "hidden";
+    }
+
+    if (closeVideoModal) {
+        closeVideoModal.onclick = () => {
+            videoModal.style.display = "none";
+            videoIframe.src = "";
+            document.body.style.overflow = "auto";
+        };
+    }
+
+    if (videoModal) {
+        window.addEventListener("click", (event) => {
+            if (event.target == videoModal) {
+                videoModal.style.display = "none";
+                videoIframe.src = "";
+                document.body.style.overflow = "auto";
+            }
+        });
+    }
+
+    // Export openVideo to global scope
+    window.openVideo = openVideo;
+
     function renderVideos(filter, container) {
         if (!container) return;
         container.innerHTML = "";
-        
+
         let filtered = filter === "all" ? videoData : videoData.filter(v => v.cat === filter);
-        
+
         // 메인 페이지일 경우 상위 3개만 노출
         if (container.id === "video-grid-featured") {
             filtered = filtered.slice(0, 3);
@@ -105,19 +139,23 @@ document.addEventListener("DOMContentLoaded", () => {
         filtered.forEach(video => {
             const card = document.createElement("div");
             card.className = "video-card reveal";
-            
+
             const badge = video.isNew ? `<div class="new-badge">NEW</div>` : "";
             const lectureLink = video.lectureId ? `<a href="archive.html?id=${video.lectureId}" class="btn-mini btn-mini-blue">관련 강의안 →</a>` : "";
 
+            // Use youtubeId if available, otherwise fallback to local thumb
+            const thumbSrc = video.youtubeId ? `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg` : video.thumb;
+
             card.innerHTML = `
                 ${badge}
-                <div class="video-thumb">
-                    <img src="${video.thumb}" alt="${video.title}" style="width:100%; height:180px; object-fit:cover;" onerror="this.src='assets/ai_lecture_slide_preview.png';">
+                <div class="video-thumb" ${video.youtubeId ? `style="cursor:pointer;" onclick="openVideo('${video.youtubeId}')"` : ""}>
+                    <img src="${thumbSrc}" alt="${video.title}" style="width:100%; height:180px; object-fit:cover;" onerror="this.src='assets/ai_lecture_slide_preview.png';">
+                    ${video.youtubeId ? '<div class="play-overlay"><i class="fas fa-play"></i></div>' : ''}
                 </div>
                 <div class="video-info">
                     <h4>${video.title}</h4>
                     <div class="card-actions">
-                        <a href="youtube.html" class="peek-btn">영상 시청</a>
+                        <a href="javascript:void(0)" class="peek-btn" ${video.youtubeId ? `onclick="openVideo('${video.youtubeId}')"` : `onclick="alert('영상 준비 중입니다.')"`}>영상 시청</a>
                         ${lectureLink}
                     </div>
                 </div>
@@ -133,7 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // 1. Get Latest Video
         const latestVideo = videoData[0];
-        
+
         // 2. Get Latest Lecture (from data.js lectureData['2026'])
         let latestLecture = null;
         if (typeof lectureData !== 'undefined' && lectureData['2026']) {
@@ -187,12 +225,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // 2. Update Insights
             insightList.innerHTML = data.insights.map(i => `<li>${i}</li>`).join('');
-            
+
             // 3. Update Buttons
             document.querySelectorAll(".target-btn").forEach(btn => {
                 btn.classList.toggle("active", btn.dataset.target === target);
             });
-            
+
             // 4. Update Section Subtitle (Optional enhancement)
             const heroSubtitle = document.querySelector(".hero-subtitle");
             if (heroSubtitle && data.title) {
@@ -207,7 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateShowcase(target);
                 // Update URL without reload for better UX
                 const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?target=' + target;
-                window.history.pushState({path:newUrl}, '', newUrl);
+                window.history.pushState({ path: newUrl }, '', newUrl);
             });
         });
 
@@ -238,10 +276,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderMedia(start, items, container) {
         if (!container) return;
-        
+
         const isFeatured = container.id === "media-grid-featured";
         const slice = isFeatured ? mediaData.slice(0, 3) : mediaData.slice(start, start + items);
-        
+
         slice.forEach(item => {
             const card = document.createElement("div");
             card.className = "media-card reveal glass-panel";
@@ -264,7 +302,7 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
             container.appendChild(card);
         });
-        
+
         if (!isFeatured) {
             currentMediaIndex += items;
             if (currentMediaIndex >= mediaData.length && loadMoreBtn) {
@@ -275,7 +313,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (mediaGrid) {
         renderMedia(0, itemsPerLoad, mediaGrid);
-        
+
         // 상세페이지용 무한 스크롤 관찰자
         const sentinel = document.createElement("div");
         sentinel.style.height = "10px";
@@ -288,7 +326,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, { threshold: 0.1 });
         scrollObserver.observe(sentinel);
     }
-    
+
     if (featuredMediaGrid) renderMedia(0, 3, featuredMediaGrid);
 
     // Smooth Scroll
@@ -400,17 +438,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const photoCount = 45;
         const photosPerRow = 15;
         const extensions = ['jpg', 'png', 'jfif', 'webp', 'jpeg'];
-        
+
         // 1. 아카이브 전용: 전체 사진 그리드 렌더링
         if (fullPhotoGrid) {
             for (let i = 1; i <= photoCount; i++) {
                 const photoNum = i.toString().padStart(3, '0');
                 const card = document.createElement("div");
                 card.className = "photo-card reveal";
-                
+
                 const img = document.createElement("img");
                 img.loading = "lazy";
-                
+
                 let extIdx = 0;
                 const tryLoad = () => {
                     if (extIdx < extensions.length) {
@@ -420,7 +458,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 };
                 img.onerror = tryLoad;
                 tryLoad();
-                
+
                 card.appendChild(img);
                 fullPhotoGrid.appendChild(card);
             }
@@ -474,7 +512,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (badgeText) {
         const keywords = ["전략 기획자", "생성형 AI 전문가", "치유 철학가", "디지털 전환 가이드"];
         let count = 0;
-        
+
         setInterval(() => {
             badgeText.style.opacity = 0;
             setTimeout(() => {
@@ -510,7 +548,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const el1 = document.getElementById("attendee-count");
                 const el2 = document.getElementById("age-range-start");
                 const el3 = document.getElementById("age-range-end");
-                
+
                 const runCounters = () => {
                     if (el1) animateCount(el1, 20000, 2000);
                     if (el2) animateCount(el2, 8, 1500);
@@ -559,23 +597,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email })
             })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    alert("성공적으로 구독되었습니다! 업데이트 소식을 보내드릴게요.");
-                    subscribeEmail.value = "";
-                } else {
-                    alert("오류가 발생했습니다. 다시 시도해 주세요.");
-                }
-            })
-            .catch(err => {
-                console.error("Subscription error:", err);
-                alert("서버 연결에 실패했습니다.");
-            })
-            .finally(() => {
-                subscribeBtn.disabled = false;
-                subscribeBtn.textContent = "강의안 업데이트 소식 받기";
-            });
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("성공적으로 구독되었습니다! 업데이트 소식을 보내드릴게요.");
+                        subscribeEmail.value = "";
+                    } else {
+                        alert("오류가 발생했습니다. 다시 시도해 주세요.");
+                    }
+                })
+                .catch(err => {
+                    console.error("Subscription error:", err);
+                    alert("서버 연결에 실패했습니다.");
+                })
+                .finally(() => {
+                    subscribeBtn.disabled = false;
+                    subscribeBtn.textContent = "강의안 업데이트 소식 받기";
+                });
         });
     }
 
@@ -615,8 +653,8 @@ document.addEventListener("DOMContentLoaded", () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ key, subKey })
         })
-        .then(() => fetchStats())
-        .catch(err => console.error("Stats increment error:", err));
+            .then(() => fetchStats())
+            .catch(err => console.error("Stats increment error:", err));
     }
 
     // Global Event Listener for Stats
@@ -652,7 +690,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (hamburger) hamburger.addEventListener("click", toggleMenu);
         if (mobileMenuTrigger) mobileMenuTrigger.addEventListener("click", toggleMenu);
         menuOverlay.addEventListener("click", toggleMenu);
-        
+
         // Close menu when clicking a link
         mobileSidebar.querySelectorAll("a").forEach(link => {
             link.addEventListener("click", toggleMenu);

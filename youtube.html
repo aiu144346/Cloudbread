@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +12,8 @@
     <meta property="og:image" content="https://www.cloudbread.me/assets/og-image.png?v=2">
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:image" content="https://www.cloudbread.me/assets/og-image.png?v=2">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
         .archive-header {
@@ -21,6 +23,7 @@
         }
     </style>
 </head>
+
 <body>
     <header class="main-header dark-section">
         <nav class="nav-container">
@@ -33,7 +36,7 @@
                 <li><a href="activities.html">언론 및 활동</a></li>
                 <li><a href="archive.html" class="nav-cta">강의 라이브러리</a></li>
             </ul>
-            
+
             <!-- Hamburger Menu for Mobile -->
             <div class="hamburger" id="hamburger">
                 <span></span>
@@ -66,6 +69,7 @@
     <section class="youtube-hub" id="youtube">
         <div class="category-filters">
             <button class="filter-btn active" data-filter="all">전체보기</button>
+            <button class="filter-btn" data-filter="lecture">전문 강연/특강</button>
             <button class="filter-btn" data-filter="prompt">프롬프트 엔지니어링 실무</button>
             <button class="filter-btn" data-filter="business">AI 정책/비즈니스</button>
             <button class="filter-btn" data-filter="senior">시니어 디지털 특강</button>
@@ -114,7 +118,7 @@
             <p>Designed for Excellence in AI Education</p>
         </div>
     </footer>
-    
+
     <!-- Mobile App-Style Navigation (Visible only on smartphone) -->
     <nav class="mobile-nav">
         <a href="index.html" class="mobile-nav-item">
@@ -135,6 +139,17 @@
         </div>
     </nav>
 
+    <!-- Video Modal -->
+    <div id="video-modal" class="video-modal">
+        <div class="video-modal-content">
+            <span class="close-video-modal">&times;</span>
+            <div class="video-responsive">
+                <iframe id="video-iframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
+
 </html>
