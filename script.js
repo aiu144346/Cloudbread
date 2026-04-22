@@ -131,9 +131,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let filtered = filter === "all" ? videoData : videoData.filter(v => v.cat === filter);
 
-        // 메인 페이지일 경우 상위 3개만 노출
+        // 메인 페이지일 경우 상위 4개만 노출
         if (container.id === "video-grid-featured") {
-            filtered = filtered.slice(0, 3);
+            filtered = filtered.slice(0, 4);
         }
 
         filtered.forEach(video => {
