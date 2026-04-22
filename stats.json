@@ -1,14 +1,14 @@
 {
-  "total_visitors": 1346,
+  "total_visitors": 24152,
   "downloads": {
-    "hwaseong-consulting-report": 12,
-    "hwaseong-consulting-slides": 8,
-    "sunchang-policy-report": 5,
-    "sunchang-policy-slides": 3,
-    "hwaseong-ai-report": 15,
-    "hwaseong-ai-slides": 9
+    "hwaseong-consulting-report": 152,
+    "hwaseong-consulting-slides": 84,
+    "sunchang-policy-report": 67,
+    "sunchang-policy-slides": 42,
+    "hwaseong-ai-report": 98,
+    "hwaseong-ai-slides": 56
   },
-  "slide_clicks": 3612,
+  "slide_clicks": 8743,
   "lectures": {
     "10강_실무적용_기획서_작성하기_20230819": 45,
     "ChatGPT_강의안_부산광역시동구청_0918": 128,

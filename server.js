@@ -355,16 +355,30 @@ const requestListener = async (req, res) => {
 
         if (req.method === 'GET') {
             try {
+                let stats;
                 if (isKVEnabled) {
                     const kvStats = await kv.hgetall('stats');
-                    if (kvStats) {
-                        res.writeHead(200, { 'Content-Type': 'application/json' });
-                        return res.end(JSON.stringify(kvStats));
+                    if (kvStats && Object.keys(kvStats).length > 0) {
+                        stats = kvStats;
+                    } else {
+                        // Seed KV from local stats.json if empty
+                        try {
+                            const localStats = JSON.parse(fs.readFileSync(statsPath, 'utf8'));
+                            await kv.hmset('stats', localStats);
+                            stats = localStats;
+                            console.log("Seeded Vercel KV with local stats.json");
+                        } catch (e) {
+                            console.error("KV seeding failed:", e);
+                        }
                     }
                 }
+                
+                if (stats) {
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify(stats));
+                }
+
                 // Fallback to Local file
-                const stats = fs.readFileSync(statsPath, 'utf8');
-                res.writeHead(200, { 'Content-Type': 'application/json' });
                 return res.end(stats);
             } catch (e) {
                 console.error("Stats GET error:", e);
