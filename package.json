@@ -12,6 +12,7 @@
     "axios": "^1.15.0",
     "cheerio": "^1.2.0",
     "dotenv": "^17.4.1",
-    "google-auth-library": "^10.6.2"
+    "google-auth-library": "^10.6.2",
+    "@vercel/kv": "^1.0.1"
   }
 }

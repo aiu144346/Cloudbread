@@ -5,6 +5,7 @@ const crypto = require('crypto');
 require('dotenv').config();
 
 const { OAuth2Client } = require('google-auth-library');
+const { kv } = require('@vercel/kv'); // Add Vercel KV
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID_HERE';
 const authClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 
@@ -350,18 +351,46 @@ const requestListener = async (req, res) => {
     // Existing Stats API
     const statsPath = path.join(__dirname, 'stats.json');
     if (cleanUrl === '/api/stats') {
+        const isKVEnabled = !!process.env.KV_REST_API_URL;
+
         if (req.method === 'GET') {
             try {
+                if (isKVEnabled) {
+                    const kvStats = await kv.hgetall('stats');
+                    if (kvStats) {
+                        res.writeHead(200, { 'Content-Type': 'application/json' });
+                        return res.end(JSON.stringify(kvStats));
+                    }
+                }
+                // Fallback to Local file
                 const stats = fs.readFileSync(statsPath, 'utf8');
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 return res.end(stats);
-            } catch (e) { res.writeHead(500); return res.end('Error reading stats'); }
+            } catch (e) {
+                console.error("Stats GET error:", e);
+                res.writeHead(500); return res.end('Error reading stats');
+            }
         } else if (req.method === 'POST') {
             let body = '';
             req.on('data', chunk => { body += chunk.toString(); });
-            req.on('end', () => {
+            req.on('end', async () => {
                 try {
                     const { key, subKey } = JSON.parse(body);
+                    if (isKVEnabled) {
+                        try {
+                            const field = subKey ? `${key}:${subKey}` : key;
+                            await kv.hincrby('stats', field, 1);
+                            
+                            // Map flat KV back to nested structure for frontend compatibility if needed
+                            // For now, incrementing directly.
+                            res.writeHead(200, { 'Content-Type': 'application/json' });
+                            return res.end(JSON.stringify({ success: true }));
+                        } catch (kvErr) {
+                            console.error("KV Inactive or Error, falling back to local:", kvErr);
+                        }
+                    }
+
+                    // Local File Fallback
                     const stats = JSON.parse(fs.readFileSync(statsPath, 'utf8'));
                     if (subKey) {
                         if (!stats[key]) stats[key] = {};
@@ -372,7 +401,10 @@ const requestListener = async (req, res) => {
                     fs.writeFileSync(statsPath, JSON.stringify(stats, null, 2));
                     res.writeHead(200, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify({ success: true, stats }));
-                } catch (e) { res.writeHead(500); res.end('Error updating stats'); }
+                } catch (e) {
+                    console.error("Stats POST error:", e);
+                    res.writeHead(500); res.end('Error updating stats');
+                }
             });
             return;
         }
