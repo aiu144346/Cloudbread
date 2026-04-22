@@ -648,7 +648,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function incrementStat(key, subKey = null) {
-        fetch("/api/stats/increment", {
+        fetch("/api/stats", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ key, subKey })
