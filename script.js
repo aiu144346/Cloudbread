@@ -278,7 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!container) return;
 
         const isFeatured = container.id === "media-grid-featured";
-        const slice = isFeatured ? mediaData.slice(0, 3) : mediaData.slice(start, start + items);
+        const slice = isFeatured ? mediaData.slice(0, 4) : mediaData.slice(start, start + items);
 
         slice.forEach(item => {
             const card = document.createElement("div");
@@ -327,7 +327,7 @@ document.addEventListener("DOMContentLoaded", () => {
         scrollObserver.observe(sentinel);
     }
 
-    if (featuredMediaGrid) renderMedia(0, 3, featuredMediaGrid);
+    if (featuredMediaGrid) renderMedia(0, 4, featuredMediaGrid);
 
     // Smooth Scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
