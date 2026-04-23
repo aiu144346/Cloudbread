@@ -721,3 +721,51 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+/* --- Popup Advertisement Logic --- */
+function checkAndShowPopup() {
+    const popup = document.getElementById("announcement-popup");
+    if (!popup) return;
+    
+    const dontShowDate = localStorage.getItem("hide_announcement_until");
+    if (dontShowDate) {
+        const now = new Date().getTime();
+        if (now < parseInt(dontShowDate)) return;
+    }
+
+    setTimeout(() => {
+        popup.style.display = "flex";
+        document.body.style.overflow = "hidden";
+    }, 1500);
+}
+
+function closePopup() {
+    const popup = document.getElementById("announcement-popup");
+    const checkbox = document.getElementById("dont-show-today");
+    
+    if (checkbox && checkbox.checked) {
+        const expireTime = new Date().getTime() + (24 * 60 * 60 * 1000);
+        localStorage.setItem("hide_announcement_until", expireTime.toString());
+    }
+    
+    popup.style.opacity = "0";
+    setTimeout(() => {
+        popup.style.display = "none";
+        document.body.style.overflow = "";
+    }, 300);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const closeBtn = document.getElementById("close-popup");
+    const closeBtnAlt = document.getElementById("close-popup-alt");
+    if (closeBtn) closeBtn.addEventListener("click", closePopup);
+    if (closeBtnAlt) closeBtnAlt.addEventListener("click", closePopup);
+    
+    const popupOverlay = document.getElementById("announcement-popup");
+    if (popupOverlay) {
+        popupOverlay.addEventListener("click", (e) => {
+            if (e.target === popupOverlay) closePopup();
+        });
+    }
+    checkAndShowPopup();
+});
