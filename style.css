@@ -1383,8 +1383,8 @@ h5 {
 
 .filter-btn {
     background: transparent;
-    border: 1px solid var(--navy-lighter);
-    color: var(--text-gray);
+    border: 1px solid #cbd5e1;
+    color: var(--text-dark);
     padding: 0.6rem 1.5rem;
     border-radius: 4px;
     cursor: pointer;
@@ -1393,9 +1393,10 @@ h5 {
 
 .filter-btn.active,
 .filter-btn:hover {
-    border-color: var(--electric-blue);
-    color: var(--electric-blue);
-    background: rgba(0, 240, 255, 0.05);
+    border-color: var(--accent-solid);
+    color: #ffffff;
+    background: var(--accent-solid);
+    box-shadow: 0 4px 12px rgba(13, 71, 161, 0.2);
 }
 
 .video-grid {
@@ -2763,14 +2764,14 @@ h5 {
 }
 
 .btn-mini-blue {
-    background: rgba(0, 240, 255, 0.1);
-    color: var(--electric-blue);
-    border: 1px solid rgba(0, 240, 255, 0.3);
+    background: rgba(13, 71, 161, 0.05);
+    color: var(--accent-solid);
+    border: 1px solid rgba(13, 71, 161, 0.3);
 }
 
 .btn-mini-blue:hover {
-    background: var(--electric-blue);
-    color: var(--bg-navy);
+    background: var(--accent-solid);
+    color: #ffffff;
 }
 
 /* --- Phase 5: Master Footer & Final Polish --- */
@@ -2955,8 +2956,9 @@ h5 {
     }
 
     .hero-title {
-        font-size: 2.8rem;
-        letter-spacing: -1.5px;
+        font-size: 2.2rem; /* Reduced from 2.8rem for better fit */
+        letter-spacing: -1px;
+        line-height: 1.2;
     }
 
     .hero-subtitle {
@@ -3008,13 +3010,26 @@ h5 {
         text-align: center;
     }
 
-    /* Maven Grid Mobile Adjustments */
-    .maven-grid {
-        grid-template-columns: 1fr;
+    /* Footer Mobile Optimization */
+    .master-footer {
+        padding: 60px 8% 30px;
     }
 
-    .maven-card {
-        margin-bottom: 10px;
+    .footer-main {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        margin-bottom: 50px;
+        text-align: left;
+    }
+
+    .footer-brand .logo {
+        font-size: 1.8rem;
+    }
+
+    .footer-col h5 {
+        margin-bottom: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 10px;
     }
 }
 

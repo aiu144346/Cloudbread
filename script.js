@@ -169,18 +169,18 @@ document.addEventListener("DOMContentLoaded", () => {
         const latestGrid = document.getElementById("latest-content-grid");
         if (!latestGrid) return;
 
-        // 1. Get Latest Video
-        const latestVideo = videoData[0];
+        // 1. Get Latest Videos (Top 2)
+        const latestVideos = videoData.slice(0, 2);
 
-        // 2. Get Latest Lecture (from data.js lectureData['2026'])
-        let latestLecture = null;
+        // 2. Get Latest Lectures (Top 2 from data.js lectureData['2026'])
+        let latestLectures = [];
         if (typeof lectureData !== 'undefined' && lectureData['2026']) {
-            latestLecture = lectureData['2026'][0];
+            latestLectures = lectureData['2026'].slice(0, 2);
         }
 
         const items = [];
-        if (latestVideo) items.push({ ...latestVideo, type: 'Video', link: 'youtube.html' });
-        if (latestLecture) items.push({ ...latestLecture, type: 'Lecture', link: `archive.html?id=${latestLecture.id}`, thumb: latestLecture.img });
+        latestVideos.forEach(v => items.push({ ...v, type: 'Video', link: 'youtube.html' }));
+        latestLectures.forEach(l => items.push({ ...l, type: 'Lecture', link: `archive.html?id=${l.id}`, thumb: l.img }));
 
         latestGrid.innerHTML = "";
         items.forEach(item => {
