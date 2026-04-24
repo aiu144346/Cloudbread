@@ -333,11 +333,42 @@
             document.getElementById('modal-date').innerText = notice.date;
             document.getElementById('modal-body').innerText = notice.content || "상세 내용이 없습니다.";
             
-            // Handle Link Button
+            // Handle Zoom Deep Link
             const linkBtn = document.getElementById('modal-link-btn');
             const linkContainer = document.getElementById('modal-link-container');
             if (notice.link) {
-                linkBtn.href = notice.link;
+                let finalLink = notice.link;
+                
+                // If it's a Zoom link, try to make it a deep link for direct app launch
+                if (notice.link.includes('zoom.us/j/')) {
+                    try {
+                        const urlParts = notice.link.split('/j/');
+                        const idAndQuery = urlParts[1].split('?');
+                        const meetingId = idAndQuery[0];
+                        const queryParams = new URLSearchParams(idAndQuery[1]);
+                        const pwd = queryParams.get('pwd');
+                        
+                        // zoommtg protocol for direct app launch
+                        finalLink = `zoommtg://zoom.us/join?confno=${meetingId}&pwd=${pwd}`;
+                        
+                        // Add a fallback link if deep link is not supported
+                        linkContainer.innerHTML = `
+                            <a href="${finalLink}" class="modal-link-btn" style="background:#2D8CFF; margin-bottom:10px; display:block;">
+                                <i class="fas fa-rocket"></i> Zoom 앱으로 바로 참여기
+                            </a>
+                            <a href="${notice.link}" target="_blank" style="font-size:0.85rem; color:#666; text-decoration:underline;">
+                                앱이 실행되지 않나요? (브라우저로 참여)
+                            </a>
+                        `;
+                    } catch (e) {
+                        console.error("Zoom link parse error", e);
+                        linkBtn.href = notice.link;
+                        linkContainer.style.display = 'block';
+                    }
+                } else {
+                    linkBtn.href = notice.link;
+                    linkContainer.style.display = 'block';
+                }
                 linkContainer.style.display = 'block';
             } else {
                 linkContainer.style.display = 'none';
