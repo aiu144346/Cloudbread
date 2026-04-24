@@ -3313,3 +3313,146 @@ h5 {
         gap: 12px;
     }
 }
+
+/* --- Top Notice Bar --- */
+.top-notice-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 45px;
+    background: var(--accent-solid);
+    color: white;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.notice-bar-content {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 5%;
+}
+
+.notice-badge {
+    background: var(--electric-blue);
+    color: var(--bg-navy);
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+
+.notice-ticker {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.ticker-item {
+    display: inline-block;
+    padding-left: 20px;
+}
+
+.notice-more {
+    color: white;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    opacity: 0.9;
+    transition: opacity 0.3s;
+}
+
+.notice-more:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.close-notice-bar {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 1rem;
+    line-height: 1;
+}
+
+/* Adjust Main Header when Notice Bar is present */
+body.has-notice-bar .main-header {
+    top: 45px;
+}
+
+body.has-notice-bar .hero {
+    margin-top: 45px;
+}
+
+/* --- Notice Board List Styles --- */
+.notice-list {
+    margin-top: 2rem;
+}
+
+.notice-item {
+    display: grid;
+    grid-template-columns: 60px 100px 1fr 120px 40px;
+    align-items: center;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #eee;
+    transition: all 0.3s;
+    text-decoration: none;
+    color: inherit;
+}
+
+.notice-item:hover {
+    background: #fcfcfc;
+    padding-left: 10px;
+}
+
+.notice-num {
+    font-size: 0.9rem;
+    color: #999;
+}
+
+.notice-cat {
+    background: #f0f0f0;
+    padding: 2px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #666;
+    text-align: center;
+    width: fit-content;
+}
+
+.notice-cat.important {
+    background: #FFEBEE;
+    color: #D32F2F;
+}
+
+.notice-subject {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.notice-date {
+    font-size: 0.9rem;
+    color: #888;
+    text-align: right;
+}
+
+.notice-arrow {
+    text-align: right;
+    color: #ddd;
+}

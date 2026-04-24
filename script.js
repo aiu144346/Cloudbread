@@ -695,6 +695,35 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchStats();
     setTimeout(() => incrementStat("total_visitors"), 2000); // Record visit after 2s
 
+    // --- Notice Bar Logic ---
+    const topNoticeBar = document.getElementById("top-notice-bar");
+    const noticeTicker = document.getElementById("notice-ticker");
+    const closeNoticeBtn = document.getElementById("close-notice-bar");
+
+    if (topNoticeBar) {
+        document.body.classList.add("has-notice-bar");
+
+        fetch('notices.json')
+            .then(res => res.json())
+            .then(data => {
+                const latestNotice = data[0]; // Get most recent
+                if (latestNotice && noticeTicker) {
+                    noticeTicker.innerHTML = `<span class="ticker-item">${latestNotice.title}</span>`;
+                }
+            })
+            .catch(err => console.error("Ticker load error:", err));
+
+        if (closeNoticeBtn) {
+            closeNoticeBtn.addEventListener("click", () => {
+                topNoticeBar.style.transform = "translateY(-100%)";
+                document.body.classList.remove("has-notice-bar");
+                setTimeout(() => {
+                    topNoticeBar.style.display = "none";
+                }, 300);
+            });
+        }
+    }
+
     revealElements(); // Initialize scroll reveal
 
     // --- Mobile Menu Toggle Logic ---
