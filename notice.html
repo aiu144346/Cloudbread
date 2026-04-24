@@ -212,6 +212,11 @@
             <div id="modal-body" class="modal-body">
                 <!-- content goes here -->
             </div>
+            <div id="modal-link-container" style="margin-top: 1.5rem; text-align: center; display: none;">
+                <a id="modal-link-btn" href="#" target="_blank" class="modal-link-btn">
+                    <i class="fas fa-video"></i> Zoom 회의 참가하기
+                </a>
+            </div>
             <div class="modal-footer">
                 <button class="close-btn" onclick="closeModal()">닫기</button>
             </div>
@@ -219,6 +224,22 @@
     </div>
 
     <style>
+        .modal-link-btn {
+            display: inline-block;
+            background: #2D8CFF; /* Zoom Blue */
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(45, 140, 255, 0.3);
+        }
+        .modal-link-btn:hover {
+            background: #2374e1;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 140, 255, 0.4);
+        }
         /* Modal Styles */
         .modal {
             display: none;
@@ -312,6 +333,16 @@
             document.getElementById('modal-date').innerText = notice.date;
             document.getElementById('modal-body').innerText = notice.content || "상세 내용이 없습니다.";
             
+            // Handle Link Button
+            const linkBtn = document.getElementById('modal-link-btn');
+            const linkContainer = document.getElementById('modal-link-container');
+            if (notice.link) {
+                linkBtn.href = notice.link;
+                linkContainer.style.display = 'block';
+            } else {
+                linkContainer.style.display = 'none';
+            }
+
             document.getElementById('notice-modal').style.display = 'block';
             document.body.style.overflow = 'hidden'; // Prevent scroll
         }
