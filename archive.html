@@ -400,6 +400,91 @@
             font-weight: 400;
         }
 
+        /* Share Buttons & Toast - Main Scope */
+        .card-share-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .lecture-card:hover .card-share-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-share-btn:hover {
+            background: var(--accent-solid);
+            transform: scale(1.1);
+        }
+        
+        .card-share-btn:hover .share-icon {
+            filter: brightness(0) invert(1);
+        }
+
+        .modal-share-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 100;
+        }
+
+        .modal-share-btn:hover {
+            background: var(--electric-blue);
+            color: #030712;
+            border-color: var(--electric-blue);
+            transform: translateY(-2px);
+        }
+
+        /* Restore default close button styling if needed */
+        #slide-modal .close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            font-size: 2.5rem;
+            color: var(--text-gray);
+            cursor: pointer;
+            z-index: 100;
+            line-height: 1;
+        }
+
+        #slide-modal .close-modal:hover {
+            color: #fff;
+        }
+
+        .share-icon {
+            font-size: 1.1rem;
+        }
+
+        #copy-toast {
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
         @media (max-width: 900px) {
             .promo-grid {
                 grid-template-columns: 1fr;
@@ -430,12 +515,27 @@
                 font-size: 1rem;
             }
 
-            /* Modal Optimization */
             .modal-container {
                 width: 95%;
                 height: 90%;
                 flex-direction: column;
                 overflow-y: auto;
+                display: flex; /* Override grid for mobile */
+                position: relative;
+            }
+
+            .modal-share-btn {
+                top: 10px;
+                right: 10px;
+                padding: 6px 12px;
+                font-size: 0.75rem;
+                background: rgba(0, 0, 0, 0.7);
+            }
+
+            .close-modal {
+                top: 5px !important;
+                right: 15px !important;
+                font-size: 2.5rem !important;
             }
 
             .slide-viewer-main {
@@ -452,9 +552,9 @@
             }
 
             .close-modal {
-                top: 5px;
-                right: 15px;
-                z-index: 100;
+                position: static; /* Let it flow in the header actions block */
+                font-size: 2rem;
+                margin-left: 5px;
             }
 
             .slide-nav {
@@ -560,6 +660,9 @@
         <div class="modal-container">
             <span class="close-modal" onclick="closeViewer()">&times;</span>
             <div class="slide-viewer-main">
+                <button class="modal-share-btn" onclick="copyLectureLink(null)" title="공유 링크 복사">
+                    🔗 링크 복사
+                </button>
                 <button class="slide-nav slide-prev" onclick="changeSlide(-1)">&#10094;</button>
                 <img id="modal-img" src="" alt="Slide" class="current-slide">
                 <button class="slide-nav slide-next" onclick="changeSlide(1)">&#10095;</button>
@@ -684,6 +787,96 @@
 
         let driveIndex = null;
         let allCommentaries = {}; // Global cache for all lecture AI commentaries
+
+        // --- Deep Linking & URL Management ---
+        function updateURL(lectureId) {
+            const url = new URL(window.location);
+            url.searchParams.set('id', lectureId);
+            window.history.pushState({ lectureId: lectureId }, "", url);
+        }
+
+        function clearURL() {
+            const url = new URL(window.location);
+            url.searchParams.delete('id');
+            window.history.pushState({ lectureId: null }, "", url);
+        }
+
+        function handleDeepLink() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const lectureId = urlParams.get('id');
+            if (lectureId) {
+                // Find lecture in all years
+                let targetItem = null;
+                for (const year in lectureData) {
+                    targetItem = lectureData[year].find(l => l.id === lectureId);
+                    if (targetItem) break;
+                }
+                if (targetItem) {
+                    setTimeout(() => openViewer(targetItem, false), 500); // Small delay to ensure items are ready
+                }
+            }
+        }
+
+        window.onpopstate = function(event) {
+            if (event.state && event.state.lectureId) {
+                let targetItem = null;
+                for (const year in lectureData) {
+                    targetItem = lectureData[year].find(l => l.id === event.state.lectureId);
+                    if (targetItem) break;
+                }
+                if (targetItem) openViewer(targetItem, false);
+            } else {
+                closeViewer(false);
+            }
+        };
+
+        function copyLectureLink(e, lectureId) {
+            if (e) e.stopPropagation();
+            const id = lectureId || (currentLecture ? currentLecture.id : null);
+            if (!id) return;
+
+            const url = new URL(window.location.origin + window.location.pathname);
+            url.searchParams.set('id', id);
+            
+            navigator.clipboard.writeText(url.toString()).then(() => {
+                showToast("링크가 클립보드에 복사되었습니다!");
+            }).catch(err => {
+                console.error("Link copy failed:", err);
+                alert("링크 복사에 실패했습니다.");
+            });
+        }
+
+        function showToast(message) {
+            let toast = document.getElementById('copy-toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'copy-toast';
+                toast.style.cssText = `
+                    position: fixed;
+                    bottom: 80px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: rgba(0, 0, 0, 0.8);
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 30px;
+                    font-size: 0.9rem;
+                    z-index: 9999;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+                    transition: opacity 0.3s, transform 0.3s;
+                    pointer-events: none;
+                `;
+                document.body.appendChild(toast);
+            }
+            toast.innerText = message;
+            toast.style.opacity = '1';
+            toast.style.transform = 'translateX(-50%) translateY(0)';
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(-50%) translateY(20px)';
+            }, 2000);
+        }
 
         async function loadDriveIndex(force = false) {
             // Commentary index pre-fetch for performance & reliability
@@ -853,6 +1046,9 @@
                             <div class="view-count-badge">
                                 ${popularTag}<span class="pulse-icon"></span>${count.toLocaleString()} Views
                             </div>
+                            <button class="card-share-btn" onclick="copyLectureLink(event, '${item.id}')" title="링크 복사">
+                                <span class="share-icon">🔗</span>
+                            </button>
                         </div>
                         <div class="lecture-info">
                             <h5>${item.title}</h5>
@@ -888,9 +1084,11 @@
             document.querySelectorAll('.lazy-load').forEach(img => imageObserver.observe(img));
         }
 
-        function openViewer(item) {
+        function openViewer(item, updateHistory = true) {
             currentLecture = item;
             currentSlideIdx = 1;
+
+            if (updateHistory) updateURL(item.id);
 
             // Increment view count
             incrementLectureStat(item.id);
@@ -957,8 +1155,9 @@
             }
         }
 
-        function closeViewer() {
+        function closeViewer(updateHistory = true) {
             stopSpeech();
+            if (updateHistory) clearURL();
             document.getElementById('slide-modal').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
@@ -1195,7 +1394,9 @@
 
         // Initialize by loading the remote Google Drive index FIRST,
         // which will automatically trigger renderArchive once loaded.
-        loadDriveIndex();
+        loadDriveIndex().then(() => {
+            handleDeepLink();
+        });
 
         // --- Mobile Menu Toggle Logic ---
         const hamburger = document.getElementById("hamburger");
