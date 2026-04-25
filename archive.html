@@ -773,7 +773,7 @@
         </div>
     </nav>
 
-    <script src="data.js"></script>
+    <script src="data.js?v=20260425_v2"></script>
     <script>
         let currentLecture = null;
         let currentSlideIdx = 1;
@@ -1040,6 +1040,8 @@
                     const separator = baseUrl.includes('?') ? '&' : '?';
                     const thumbUrl = baseUrl + `${separator}v=bypass2`;
 
+                    const itemTag = item.tag || (Array.isArray(item.tags) ? item.tags[0] : "");
+
                     card.innerHTML = `
                         <div class="lecture-thumb-container">
                             <img data-src="${thumbUrl}" alt="${item.title}" class="lecture-thumb lazy-load" onerror="this.onerror=null; this.src='assets/slides.png';">
@@ -1053,7 +1055,7 @@
                         <div class="lecture-info">
                             <h5>${item.title}</h5>
                             <p style="font-size: 0.8rem; color: var(--text-gray); margin: 0.5rem 0; height: 1.2rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.desc || ''}</p>
-                            <span class="lecture-tag">${item.tag}</span>
+                            <span class="lecture-tag">${itemTag}</span>
                         </div>
                     `;
                     grid.appendChild(card);
@@ -1093,8 +1095,9 @@
             // Increment view count
             incrementLectureStat(item.id);
 
+            const itemTag = item.tag || (Array.isArray(item.tags) ? item.tags[0] : "");
             document.getElementById('modal-title').innerText = item.title;
-            document.getElementById('modal-tag').innerText = item.tag;
+            document.getElementById('modal-tag').innerText = itemTag;
             document.getElementById('modal-desc').innerText = item.desc || "상세 설명이 없습니다.";
 
             // 실제 생성된 파일 숫자로 한도 지정 (실패 파일의 경우 최소 1)

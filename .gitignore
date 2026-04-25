@@ -20,6 +20,8 @@ output_temp_slides/
 assets/lectures/*
 !assets/lectures/*/
 assets/lectures/*/*
+!assets/lectures/울산데이터센터_20260422/*.png
+!assets/lectures/울산데이터센터_20260422/*.json
 !assets/lectures/*/commentary.json
 # assets/video/ (Now allowed for hero video)
 
