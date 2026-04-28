@@ -85,8 +85,6 @@ const videoData = [
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Note: Legacy interactive showcase logic (selector/indicator) removed in favor of Maven-style grid.
-
     // YouTube Hub Logic - Enhanced for Hybrid
     const videoGrid = document.getElementById("video-grid");
     const featuredVideoGrid = document.getElementById("video-grid-featured");
@@ -122,7 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Export openVideo to global scope
     window.openVideo = openVideo;
 
     function renderVideos(filter, container) {
@@ -131,7 +128,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let filtered = filter === "all" ? videoData : videoData.filter(v => v.cat === filter);
 
-        // 메인 페이지일 경우 상위 4개만 노출
         if (container.id === "video-grid-featured") {
             filtered = filtered.slice(0, 4);
         }
@@ -143,7 +139,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const badge = video.isNew ? `<div class="new-badge">NEW</div>` : "";
             const lectureLink = video.lectureId ? `<a href="archive.html?id=${video.lectureId}" class="btn-mini btn-mini-blue">관련 강의안 →</a>` : "";
 
-            // Use youtubeId if available, otherwise fallback to local thumb
             const thumbSrc = video.youtubeId ? `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg` : video.thumb;
 
             card.innerHTML = `
@@ -164,15 +159,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- Phase 4: Dynamic Latest Content Grid ---
     function renderLatestContent() {
         const latestGrid = document.getElementById("latest-content-grid");
         if (!latestGrid) return;
 
-        // 1. Get Latest Videos (Top 2)
         const latestVideos = videoData.slice(0, 2);
 
-        // 2. Get Latest Lectures (Top 2 from data.js lectureData['2026'])
         let latestLectures = [];
         if (typeof lectureData !== 'undefined' && lectureData['2026']) {
             latestLectures = lectureData['2026'].slice(0, 2);
@@ -180,7 +172,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const items = [];
         latestVideos.forEach(v => items.push({ ...v, type: 'Video', link: 'youtube.html' }));
-        latestLectures.forEach(l => items.push({ ...l, type: 'Lecture', link: `archive.html?id=${l.id}`, thumb: l.img }));
+        latestLectures.forEach(l => {
+            const thumbPath = l.id + "/slide1.png";
+            const proxyThumb = `/api/proxy?path=${encodeURIComponent(thumbPath)}`;
+            items.push({ ...l, type: 'Lecture', link: `archive.html?id=${l.id}`, thumb: proxyThumb });
+        });
 
         latestGrid.innerHTML = "";
         items.forEach(item => {
@@ -201,10 +197,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- Showcase Page Initialization ---
     function initShowcase() {
         const insightList = document.getElementById("insight-list");
-        if (!insightList) return; // Not on showcase page
+        if (!insightList) return;
 
         const urlParams = new URLSearchParams(window.location.search);
         const initialTarget = urlParams.get('target') || 'business';
@@ -213,7 +208,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = contentData[target];
             if (!data) return;
 
-            // 1. Update Image
             const previewImg = document.querySelector(".slide-preview-wrapper img");
             if (previewImg) {
                 previewImg.style.opacity = 0;
@@ -223,33 +217,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 }, 200);
             }
 
-            // 2. Update Insights
             insightList.innerHTML = data.insights.map(i => `<li>${i}</li>`).join('');
 
-            // 3. Update Buttons
             document.querySelectorAll(".target-btn").forEach(btn => {
                 btn.classList.toggle("active", btn.dataset.target === target);
             });
-
-            // 4. Update Section Subtitle (Optional enhancement)
-            const heroSubtitle = document.querySelector(".hero-subtitle");
-            if (heroSubtitle && data.title) {
-                // Keep the general desc but can add specific context if needed
-            }
         }
 
-        // Add Listeners to switcher buttons
         document.querySelectorAll(".target-btn").forEach(btn => {
             btn.addEventListener("click", () => {
                 const target = btn.dataset.target;
                 updateShowcase(target);
-                // Update URL without reload for better UX
                 const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?target=' + target;
                 window.history.pushState({ path: newUrl }, '', newUrl);
             });
         });
 
-        // Initial Load
         updateShowcase(initialTarget);
     }
 
@@ -267,7 +250,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Press & Media Loop Logic - Enhanced for Hybrid & Infinite Scroll
     const mediaGrid = document.getElementById("media-grid-dynamic");
     const featuredMediaGrid = document.getElementById("media-grid-featured");
     const loadMoreBtn = document.getElementById("load-more-media");
@@ -313,8 +295,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (mediaGrid) {
         renderMedia(0, itemsPerLoad, mediaGrid);
-
-        // 상세페이지용 무한 스크롤 관찰자
         const sentinel = document.createElement("div");
         sentinel.style.height = "10px";
         mediaGrid.after(sentinel);
@@ -329,7 +309,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (featuredMediaGrid) renderMedia(0, 4, featuredMediaGrid);
 
-    // Smooth Scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -397,13 +376,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="modal-grid">
                     <img src="${data.img}" alt="${data.title}">
                     <div>
-                        <div class="modal-title">${data.title}</div>
-                        <div class="modal-sub">${data.sub}</div>
-                        <div class="modal-text">${data.desc}</div>
+                        <h2 class="modal-title">${data.title}</h2>
+                        <p class="modal-sub">${data.sub}</p>
+                        <p class="modal-text">${data.desc}</p>
                         <div class="modal-highlights">
-                            <ul>${data.highlights.map(h => `<li>${h}</li>`).join('')}</ul>
+                            <ul>
+                                ${data.highlights.map(h => `<li>${h}</li>`).join('')}
+                            </ul>
                         </div>
-                        <a href="${data.link}" target="_blank" class="modal-btn">상세보기 / 구매하기</a>
+                        <a href="${data.link}" target="_blank" class="modal-btn">도서 정보 더보기 →</a>
                     </div>
                 </div>
             `;
@@ -414,132 +395,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (closeModal) {
         closeModal.onclick = () => {
-            if (bookModal) bookModal.style.display = "none";
-            document.body.style.overflow = "auto";
-        };
-    }
-
-    window.onclick = (event) => {
-        if (bookModal && event.target == bookModal) {
             bookModal.style.display = "none";
             document.body.style.overflow = "auto";
-        }
-    };
-    // --- Activity Marquee & Full Grid Logic ---
-    const rows = [
-        document.getElementById("activity-row-1"),
-        document.getElementById("activity-row-2"),
-        document.getElementById("activity-row-3")
-    ];
-    const previewRow = document.getElementById("activity-row-preview");
-    const fullPhotoGrid = document.getElementById("full-photo-grid");
-
-    if (rows[0] || previewRow || fullPhotoGrid) {
-        const photoCount = 45;
-        const photosPerRow = 15;
-        const extensions = ['jpg', 'png', 'jfif', 'webp', 'jpeg'];
-
-        // 1. 아카이브 전용: 전체 사진 그리드 렌더링
-        if (fullPhotoGrid) {
-            for (let i = 1; i <= photoCount; i++) {
-                const photoNum = i.toString().padStart(3, '0');
-                const card = document.createElement("div");
-                card.className = "photo-card reveal";
-
-                const img = document.createElement("img");
-                img.loading = "lazy";
-
-                let extIdx = 0;
-                const tryLoad = () => {
-                    if (extIdx < extensions.length) {
-                        img.src = `assets/activity/activity_${photoNum}.${extensions[extIdx]}`;
-                        extIdx++;
-                    } else { card.remove(); }
-                };
-                img.onerror = tryLoad;
-                tryLoad();
-
-                card.appendChild(img);
-                fullPhotoGrid.appendChild(card);
-            }
-        }
-
-        // 2. 메인 페이지 요약 노출 (12장만)
-        if (previewRow) {
-            for (let j = 0; j < 12; j++) {
-                const photoNum = (j + 1).toString().padStart(3, '0');
-                const img = document.createElement("img");
-                img.className = "activity-img";
-                let extIdx = 0;
-                const tryLoad = () => {
-                    if (extIdx < extensions.length) {
-                        img.src = `assets/activity/activity_${photoNum}.${extensions[extIdx]}`;
-                        extIdx++;
-                    } else { img.remove(); }
-                };
-                img.onerror = tryLoad;
-                tryLoad();
-                previewRow.appendChild(img);
-            }
-        }
-
-        // 3. 서브페이지 마퀴 노출 (무한 루프)
-        rows.forEach((row, rowIndex) => {
-            if (!row) return;
-            const startIdx = rowIndex * photosPerRow + 1;
-            for (let i = 0; i < 2; i++) {
-                for (let j = 0; j < photosPerRow; j++) {
-                    const photoNum = (startIdx + j).toString().padStart(3, '0');
-                    const img = document.createElement("img");
-                    img.className = "activity-img";
-                    let extIdx = 0;
-                    const tryLoadMarquee = () => {
-                        if (extIdx < extensions.length) {
-                            img.src = `assets/activity/activity_${photoNum}.${extensions[extIdx]}`;
-                            extIdx++;
-                        } else { img.remove(); }
-                    };
-                    img.onerror = tryLoadMarquee;
-                    tryLoadMarquee();
-                    row.appendChild(img);
-                }
-            }
-        });
+        };
     }
 
-    // Hero Badge Slider Logic
-    const badgeText = document.getElementById("typewriter-text");
-    if (badgeText) {
-        const keywords = ["전략 기획자", "생성형 AI 전문가", "치유 철학가", "디지털 전환 가이드"];
-        let count = 0;
-
-        setInterval(() => {
-            badgeText.style.opacity = 0;
-            setTimeout(() => {
-                count = (count + 1) % keywords.length;
-                badgeText.textContent = keywords[count];
-                badgeText.style.opacity = 1;
-            }, 500);
-        }, 3000);
-    }
-
-    // Impact Counter Animation Logic (Looping)
-    const animateCount = (element, target, duration) => {
-        let start = 0;
-        const increment = target / (duration / 16);
-        const update = () => {
-            start += increment;
-            if (start < target) {
-                element.textContent = Math.floor(start).toLocaleString();
-                requestAnimationFrame(update);
-            } else {
-                element.textContent = target.toLocaleString();
+    if (bookModal) {
+        window.onclick = (event) => {
+            if (event.target == bookModal) {
+                bookModal.style.display = "none";
+                document.body.style.overflow = "auto";
             }
         };
-        update();
-    };
+    }
 
-    const impactSection = document.querySelector(".impact-strip");
+    // --- Interactive Impact Counter ---
+    const impactSection = document.querySelector(".cta-impact");
     if (impactSection) {
         let loopStarted = false;
         const observer = new IntersectionObserver((entries) => {
@@ -555,11 +426,27 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (el3) animateCount(el3, 80, 1500);
                 };
 
-                runCounters(); // Initial trigger
-                setInterval(runCounters, 8000); // Pulse every 8 seconds
+                runCounters();
+                setInterval(runCounters, 8000);
             }
         }, { threshold: 0.5 });
         observer.observe(impactSection);
+    }
+
+    function animateCount(el, target, duration) {
+        let start = 0;
+        const range = target - start;
+        const increment = target > start ? 1 : -1;
+        const stepTime = Math.abs(Math.floor(duration / range)) || 10;
+        const timer = setInterval(() => {
+            start += Math.ceil(range / (duration / 16));
+            if (start >= target) {
+                el.innerText = target.toLocaleString();
+                clearInterval(timer);
+            } else {
+                el.innerText = Math.floor(start).toLocaleString();
+            }
+        }, 16);
     }
 
     // --- Scroll Reveal Animation Logic ---
@@ -567,7 +454,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const reveals = document.querySelectorAll('.reveal');
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                // threshold를 0.05로 낮추어 살짝만 보여도 애니메이션 실행
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
                 }
@@ -631,14 +517,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function updateDisplay() {
-        // Update total visitors
         const visitorEl = document.getElementById("visitor-count-display");
         if (visitorEl) {
-            const startVal = parseInt(visitorEl.textContent.replace(/,/g, '')) || 0;
             animateCount(visitorEl, currentStats.total_visitors, 1000);
         }
 
-        // Update Project Badges
         document.querySelectorAll("[data-stat-key='downloads']").forEach(el => {
             const subKey = el.dataset.statSubkey;
             if (subKey && currentStats.downloads && currentStats.downloads[subKey]) {
@@ -652,7 +535,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Update Slide Clicks
         const slideEl = document.getElementById("slide-click-display");
         if (slideEl) {
             animateCount(slideEl, currentStats.slide_clicks, 1000);
@@ -673,15 +555,13 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(err => console.error("Stats increment error:", err));
     }
 
-    // Live growth simulation (Increment visitor count occasionally while on page)
     setInterval(() => {
-        if (Math.random() > 0.7) { // 30% chance every 15s to simulated a new hit
+        if (Math.random() > 0.7) {
             currentStats.total_visitors += 1;
             updateDisplay();
         }
     }, 15000);
 
-    // Global Event Listener for Stats
     document.addEventListener("click", (e) => {
         const target = e.target.closest("[data-stat-key]");
         if (target) {
@@ -691,9 +571,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Initial Load
     fetchStats();
-    setTimeout(() => incrementStat("total_visitors"), 2000); // Record visit after 2s
+    setTimeout(() => incrementStat("total_visitors"), 2000);
 
     // --- Notice Bar Logic ---
     const topNoticeBar = document.getElementById("top-notice-bar");
@@ -706,7 +585,7 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch('notices.json')
             .then(res => res.json())
             .then(data => {
-                const latestNotice = data[0]; // Get most recent
+                const latestNotice = data[0];
                 if (latestNotice && noticeTicker) {
                     noticeTicker.innerHTML = `<span class="ticker-item">${latestNotice.title}</span>`;
                 }
@@ -724,9 +603,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    revealElements(); // Initialize scroll reveal
+    revealElements();
 
-    // --- Mobile Menu Toggle Logic ---
     const hamburger = document.getElementById("hamburger");
     const mobileMenuTrigger = document.getElementById("mobile-menu-trigger");
     const mobileSidebar = document.getElementById("mobile-sidebar");
@@ -744,57 +622,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (mobileMenuTrigger) mobileMenuTrigger.addEventListener("click", toggleMenu);
         menuOverlay.addEventListener("click", toggleMenu);
 
-        // Close menu when clicking a link
         mobileSidebar.querySelectorAll("a").forEach(link => {
             link.addEventListener("click", toggleMenu);
         });
     }
-});
-
-/* --- Popup Advertisement Logic --- */
-function checkAndShowPopup() {
-    const popup = document.getElementById("announcement-popup");
-    if (!popup) return;
-    
-    const dontShowDate = localStorage.getItem("hide_announcement_until");
-    if (dontShowDate) {
-        const now = new Date().getTime();
-        if (now < parseInt(dontShowDate)) return;
-    }
-
-    setTimeout(() => {
-        popup.style.display = "flex";
-        document.body.style.overflow = "hidden";
-    }, 1500);
-}
-
-function closePopup() {
-    const popup = document.getElementById("announcement-popup");
-    const checkbox = document.getElementById("dont-show-today");
-    
-    if (checkbox && checkbox.checked) {
-        const expireTime = new Date().getTime() + (24 * 60 * 60 * 1000);
-        localStorage.setItem("hide_announcement_until", expireTime.toString());
-    }
-    
-    popup.style.opacity = "0";
-    setTimeout(() => {
-        popup.style.display = "none";
-        document.body.style.overflow = "";
-    }, 300);
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    const closeBtn = document.getElementById("close-popup");
-    const closeBtnAlt = document.getElementById("close-popup-alt");
-    if (closeBtn) closeBtn.addEventListener("click", closePopup);
-    if (closeBtnAlt) closeBtnAlt.addEventListener("click", closePopup);
-    
-    const popupOverlay = document.getElementById("announcement-popup");
-    if (popupOverlay) {
-        popupOverlay.addEventListener("click", (e) => {
-            if (e.target === popupOverlay) closePopup();
-        });
-    }
-    checkAndShowPopup();
 });
