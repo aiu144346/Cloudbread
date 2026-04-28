@@ -626,4 +626,102 @@ document.addEventListener("DOMContentLoaded", () => {
             link.addEventListener("click", toggleMenu);
         });
     }
+
+    // --- Activity Marquee & Full Grid Logic ---
+    const rows = [
+        document.getElementById("activity-row-1"),
+        document.getElementById("activity-row-2"),
+        document.getElementById("activity-row-3")
+    ];
+    const previewRow = document.getElementById("activity-row-preview");
+    const fullPhotoGrid = document.getElementById("full-photo-grid");
+
+    if (rows[0] || previewRow || fullPhotoGrid) {
+        const photoCount = 45;
+        const photosPerRow = 15;
+        const extensions = ['jpg', 'png', 'jfif', 'webp', 'jpeg'];
+
+        // 1. 아카이브 전용: 전체 사진 그리드
+        if (fullPhotoGrid) {
+            for (let i = 1; i <= photoCount; i++) {
+                const photoNum = i.toString().padStart(3, '0');
+                const card = document.createElement("div");
+                card.className = "photo-card reveal";
+
+                const img = document.createElement("img");
+                img.loading = "lazy";
+
+                let extIdx = 0;
+                const tryLoad = () => {
+                    if (extIdx < extensions.length) {
+                        img.src = `assets/activity/activity_${photoNum}.${extensions[extIdx]}`;
+                        extIdx++;
+                    } else { card.remove(); }
+                };
+                img.onerror = tryLoad;
+                tryLoad();
+
+                card.appendChild(img);
+                fullPhotoGrid.appendChild(card);
+            }
+        }
+
+        // 2. 메인 페이지 약식 노출 (12개만)
+        if (previewRow) {
+            for (let j = 0; j < 12; j++) {
+                const photoNum = (j + 1).toString().padStart(3, '0');
+                const img = document.createElement("img");
+                img.className = "activity-img";
+                let extIdx = 0;
+                const tryLoad = () => {
+                    if (extIdx < extensions.length) {
+                        img.src = `assets/activity/activity_${photoNum}.${extensions[extIdx]}`;
+                        extIdx++;
+                    } else { img.remove(); }
+                };
+                img.onerror = tryLoad;
+                tryLoad();
+                previewRow.appendChild(img);
+            }
+        }
+
+        // 3. 서브페이지 마퀴 노출 (무한 루프)
+        rows.forEach((row, rowIndex) => {
+            if (!row) return;
+            const startIdx = rowIndex * photosPerRow + 1;
+            for (let i = 0; i < 2; i++) {
+                for (let j = 0; j < photosPerRow; j++) {
+                    const photoNum = (startIdx + j).toString().padStart(3, '0');
+                    const img = document.createElement("img");
+                    img.className = "activity-img";
+                    let extIdx = 0;
+                    const tryLoadMarquee = () => {
+                        if (extIdx < extensions.length) {
+                            img.src = `assets/activity/activity_${photoNum}.${extensions[extIdx]}`;
+                            extIdx++;
+                        } else { img.remove(); }
+                    };
+                    img.onerror = tryLoadMarquee;
+                    tryLoadMarquee();
+                    row.appendChild(img);
+                }
+            }
+        });
+    }
+
+    // Hero Badge Slider Logic
+    const badgeText = document.getElementById("typewriter-text");
+    if (badgeText) {
+        const keywords = ["전략 기획자", "생성형 AI 전문가", "치유 철학가", "디지털 전환 가이드"];
+        let count = 0;
+
+        setInterval(() => {
+            badgeText.style.opacity = 0;
+            setTimeout(() => {
+                count = (count + 1) % keywords.length;
+                badgeText.textContent = keywords[count];
+                badgeText.style.opacity = 1;
+            }, 500);
+        }, 3000);
+    }
 });
