@@ -331,7 +331,18 @@
             document.getElementById('modal-cat').className = `notice-cat ${notice.important ? 'important' : ''}`;
             document.getElementById('modal-title').innerText = notice.title;
             document.getElementById('modal-date').innerText = notice.date;
-            document.getElementById('modal-body').innerText = notice.content || "상세 내용이 없습니다.";
+            // Render Image if available before the text content
+            let contentHTML = "";
+            if (notice.image) {
+                let imgTag = `<img src="${notice.image}" alt="${notice.title}" style="width:100%; border-radius:8px; margin-bottom:1.5rem; display:block; cursor: pointer;">`;
+                if (notice.link) {
+                    contentHTML += `<a href="${notice.link}" target="_blank" title="클릭하여 Zoom 참여하기">${imgTag}</a>`;
+                } else {
+                    contentHTML += imgTag;
+                }
+            }
+            contentHTML += `<div>${notice.content ? notice.content.replace(/\n/g, '<br>') : "상세 내용이 없습니다."}</div>`;
+            document.getElementById('modal-body').innerHTML = contentHTML;
             
             // Handle Zoom Deep Link
             const linkBtn = document.getElementById('modal-link-btn');
@@ -402,6 +413,13 @@
                             </div>
                         `;
                     }).join('');
+                    
+                    // Check URL for ID to auto-open specific notice
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const noticeId = urlParams.get('id');
+                    if (noticeId) {
+                        openModal(parseInt(noticeId));
+                    }
                 })
                 .catch(err => console.error("Notice load error:", err));
 
