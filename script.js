@@ -76,6 +76,7 @@ const mediaData = [
 ];
 
 const videoData = [
+    { title: "에이전트 AI 시대 구글 I/O 2026 완전 분석", cat: "business", youtubeId: "8XULBBz4KM0", thumb: "assets/yt_8XULBBz4KM0.png", isNew: true },
     { title: "울산데이터센터 AI 시대의 가속기인가? 기후위기의 주범인가?", cat: "lecture", youtubeId: "ykMc7gc9lxI", isNew: true },
     { title: "최신 프롬프트 엔지니어링 기법", cat: "prompt", thumb: "assets/yt_prompt.png", isNew: true, lectureId: "17강_티이핑으로_이미지를_생성하다_20230831" },
     { title: "AI로 변화하는 비즈니스 지형", cat: "business", thumb: "assets/yt_business.png", isNew: true, lectureId: "14강_비즈니스_컨설팅_GAI활용_20230831" },
@@ -139,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const badge = video.isNew ? `<div class="new-badge">NEW</div>` : "";
             const lectureLink = video.lectureId ? `<a href="archive.html?id=${video.lectureId}" class="btn-mini btn-mini-blue">관련 강의안 →</a>` : "";
 
-            const thumbSrc = video.youtubeId ? `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg` : video.thumb;
+            const thumbSrc = video.thumb ? video.thumb : (video.youtubeId ? `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg` : "");
 
             card.innerHTML = `
                 ${badge}
