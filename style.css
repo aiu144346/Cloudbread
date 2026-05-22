@@ -1399,11 +1399,11 @@ h5 {
 }
 
 .filter-btn:hover {
-    border-color: rgba(13, 71, 161, 0.3);
-    color: var(--accent-solid);
-    background: rgba(255, 255, 255, 0.9);
+    border-color: transparent;
+    color: #ffffff !important;
+    background: var(--accent-solid);
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(13, 71, 161, 0.1);
+    box-shadow: 0 8px 20px rgba(13, 71, 161, 0.3);
 }
 
 .filter-btn.active {
