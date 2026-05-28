@@ -78,7 +78,7 @@ const mediaData = [
 const videoData = [
     { title: "에이전트 AI 시대 구글 I/O 2026 완전 분석", cat: "business", youtubeId: "8XULBBz4KM0", thumb: "assets/yt_8XULBBz4KM0.png", isNew: true },
     { title: "울산데이터센터 AI 시대의 가속기인가? 기후위기의 주범인가?", cat: "lecture", youtubeId: "ykMc7gc9lxI", isNew: true },
-    { title: "최신 프롬프트 엔지니어링 기법", cat: "prompt", thumb: "assets/yt_prompt.png", isNew: true, lectureId: "17강_티이핑으로_이미지를_생성하다_20230831" },
+    { title: "AI 시대를 지배하는 프롬프트 공식 (CRAFT, CoT, ToT)", cat: "prompt", youtubeId: "amGfOKXBvXY", thumb: "assets/yt_amGfOKXBvXY.PNG", isNew: true, lectureId: "17강_티이핑으로_이미지를_생성하다_20230831" },
     { title: "AI로 변화하는 비즈니스 지형", cat: "business", thumb: "assets/yt_business.png", isNew: true, lectureId: "14강_비즈니스_컨설팅_GAI활용_20230831" },
     { title: "시니어들을 위한 스마트폰 AI", cat: "senior", thumb: "assets/yt_senior.png", lectureId: "동구노동자센터" },
     { title: "GPT-4o 실무 활용법 마스터", cat: "prompt", thumb: "assets/yt_prompt.png", lectureId: "2강_ChatGPT_EI_20230818" },
