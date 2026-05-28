@@ -384,7 +384,20 @@
                         linkContainer.style.display = 'block';
                     }
                 } else {
-                    linkBtn.href = notice.link;
+                    // Handle YouTube or other generic links beautifully
+                    if (notice.link.includes('youtube.com/') || notice.link.includes('youtu.be/')) {
+                        linkContainer.innerHTML = `
+                            <a href="${notice.link}" target="_blank" class="modal-link-btn" style="background:#FF0000; box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);">
+                                <i class="fab fa-youtube"></i> 유튜브 영상 시청하기
+                            </a>
+                        `;
+                    } else {
+                        linkContainer.innerHTML = `
+                            <a href="${notice.link}" target="_blank" class="modal-link-btn" style="background:#2D8CFF; box-shadow: 0 4px 15px rgba(45, 140, 255, 0.3);">
+                                <i class="fas fa-external-link-alt"></i> 바로가기
+                            </a>
+                        `;
+                    }
                     linkContainer.style.display = 'block';
                 }
                 linkContainer.style.display = 'block';
