@@ -85,43 +85,48 @@ const videoData = [
     { title: "행정 업무 효율화 200% 비결", cat: "business", thumb: "assets/yt_business.png", lectureId: "북구청공무원특강_20240827" }
 ];
 
+// --- Global Video Modal Open Function ---
+function openVideo(youtubeId) {
+    const videoModal = document.getElementById("video-modal");
+    const videoIframe = document.getElementById("video-iframe");
+    if (!videoModal || !videoIframe) return;
+    videoIframe.src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1`;
+    videoModal.style.display = "block";
+    document.body.style.overflow = "hidden";
+}
+window.openVideo = openVideo;
+
 document.addEventListener("DOMContentLoaded", () => {
     // YouTube Hub Logic - Enhanced for Hybrid
     const videoGrid = document.getElementById("video-grid");
     const featuredVideoGrid = document.getElementById("video-grid-featured");
     const filterButtons = document.querySelectorAll(".filter-btn");
 
-    // --- Video Modal Logic ---
+    // --- Video Modal Close Logic ---
     const videoModal = document.getElementById("video-modal");
-    const videoIframe = document.getElementById("video-iframe");
     const closeVideoModal = document.querySelector(".close-video-modal");
-
-    function openVideo(youtubeId) {
-        if (!videoModal || !videoIframe) return;
-        videoIframe.src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1`;
-        videoModal.style.display = "block";
-        document.body.style.overflow = "hidden";
-    }
 
     if (closeVideoModal) {
         closeVideoModal.onclick = () => {
-            videoModal.style.display = "none";
-            videoIframe.src = "";
+            const modal = document.getElementById("video-modal");
+            const iframe = document.getElementById("video-iframe");
+            if (modal) modal.style.display = "none";
+            if (iframe) iframe.src = "";
             document.body.style.overflow = "auto";
         };
     }
 
     if (videoModal) {
         window.addEventListener("click", (event) => {
-            if (event.target == videoModal) {
-                videoModal.style.display = "none";
-                videoIframe.src = "";
+            const modal = document.getElementById("video-modal");
+            if (event.target == modal) {
+                const iframe = document.getElementById("video-iframe");
+                modal.style.display = "none";
+                if (iframe) iframe.src = "";
                 document.body.style.overflow = "auto";
             }
         });
     }
-
-    window.openVideo = openVideo;
 
     function renderVideos(filter, container) {
         if (!container) return;
