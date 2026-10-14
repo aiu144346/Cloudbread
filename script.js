@@ -2,6 +2,41 @@ const contentData = {
     business: {
         title: "기업/비즈니스 자동화",
         image: "assets/images/infographic_business_ai.png",
+        courseTitle: "Agentic AI 기반 엔터프라이즈 업무 자동화 & 생산성 300% 극대화 워크플로우",
+        slogan: "단순 질의응답을 넘어 조직의 실행력을 자동화하는 기업형 맞춤 AI 에이전트 구축",
+        badgeTarget: "기업 임직원 / 팀장 및 기획·마케팅·인사 실무진",
+        badgeDuration: "1일 집중 워크숍 (6시간) / 2주 심화",
+        badgeLevel: "실무 ~ 심화",
+        metrics: [
+            { label: "실습 및 프로젝트 비중", value: "70%", icon: "fa-solid fa-chart-pie" },
+            { label: "업무 생산성 향상 지표", value: "업무시간 65% 절감 & 속도 3배 향상", icon: "fa-solid fa-bolt" },
+            { label: "즉시 적용 실습 산출물", value: "사내 커스텀 봇 1종 + 템플릿 3종", icon: "fa-solid fa-box-archive" }
+        ],
+        roadmap: [
+            {
+                step: "STEP 1",
+                tag: "패러다임 전환 & AI 이해",
+                title: "생성형 AI 3.0 엔터프라이즈 트렌드 & 기업 보안 가이드",
+                desc: "텍스트 생성을 넘어 자율 실행형 에이전틱 AI(Agentic AI) 시대로의 진화, 기업 데이터 보안 및 프라이버시 컴플라이언스 준수 전략, 비즈니스 부서별 최적 도입 ROI 분석",
+                time: "1.5시간"
+            },
+            {
+                step: "STEP 2",
+                tag: "직무 밀착형 핵심 실습",
+                title: "직무 특화 고효율 프롬프트 & 멀티모달 분석 실전",
+                desc: "시장조사 및 경쟁사 분석을 위한 심층 리서치 프롬프트(ToT, Few-Shot), 대용량 엑셀/PDF 데이터 분석 및 시각화 차트 자동 추출, 보도자료/제안서 초안 톤앤매너 튜닝",
+                time: "2.5시간"
+            },
+            {
+                step: "STEP 3",
+                tag: "자동화 & 현업 적용",
+                title: "노코드 AI 워크플로우 & 사내 전용 에이전트 구축",
+                desc: "우리 팀 전용 사내 지식 기반 Custom GPT / Claude Project 생성 실습, Make/Zapier를 연동한 이메일·스프레드시트 무인 자동화 파이프라인 구현, 현업 즉시 적용 프로젝트 패키징",
+                time: "2.0시간"
+            }
+        ],
+        tools: ["ChatGPT Team (Custom GPTs)", "Claude 3.7 Sonnet", "Perplexity Pro", "Make (노코드 자동화)"],
+        deliverables: "사내 전용 지식베이스 챗봇 1종, 업무 자동화 워크플로우 정의서, 직무별 프롬프트 치트시트",
         insights: [
             "조직 내 AI 내재화를 위한 기업 맞춤형 AI 도입 전략 수립 및 임직원 실무 교육",
             "개인별 업무 생산성 300% 향상을 위한 직무 특화 고효율 프롬프트 엔지니어링 실무 컨설팅",
@@ -11,6 +46,41 @@ const contentData = {
     public: {
         title: "공공기관/행정혁신",
         image: "assets/images/infographic_public_ai.png",
+        courseTitle: "데이터 기반 지능형 공공행정 & 공직자 스마트 AI 보좌관 실전 가이드",
+        slogan: "보안 걱정 없는 신뢰 기반 행정 혁신과 시민 체감형 스마트 공공 서비스 구현",
+        badgeTarget: "중앙부처·전국 지자체 공무원 및 공공기관 재직자",
+        badgeDuration: "3시간 공직자 특강 / 반일(4시간) 실습",
+        badgeLevel: "입문 ~ 실무",
+        metrics: [
+            { label: "실습 및 프로젝트 비중", value: "60%", icon: "fa-solid fa-chart-pie" },
+            { label: "행정 효율성 혁신 지표", value: "기안문 작성 시간 70% 단축", icon: "fa-solid fa-bolt" },
+            { label: "즉시 적용 실습 산출물", value: "공공 표준 기안문 템플릿 4종 + FAQ", icon: "fa-solid fa-box-archive" }
+        ],
+        roadmap: [
+            {
+                step: "STEP 1",
+                tag: "정책 기조 & 보안 규정",
+                title: "정부 AI 정책 기조와 공공부문 보안 가이드라인",
+                desc: "국가 인공지능 전략과 디지털플랫폼정부(DPG) 실현 로드맵, 공공망 보안 규정 및 비공개·민감정보 취급 지침, 화성시 스마트시티 및 순창군 행정 혁신 사례 벤치마킹",
+                time: "1.0시간"
+            },
+            {
+                step: "STEP 2",
+                tag: "행정 보고서 혁신 실습",
+                title: "공문서·보고서 작성 혁신과 지능형 행정 보좌관",
+                desc: "기획서, 주간업무보고, 보도자료, 의회 답변서의 공공 표준 서식 프롬프트, 공공 통계·빅데이터 교차 검증 및 Fact-Checking 기법을 통한 할루시네이션(환각) 원천 차단",
+                time: "1.5시간"
+            },
+            {
+                step: "STEP 3",
+                tag: "대민 서비스 & 체감도 제고",
+                title: "시민 소통 강화 & 대민 서비스 체감도 제고",
+                desc: "복잡한 조례·정책을 알기 쉬운 카드뉴스 문구 및 시민 친화적 언어로 변환, 취약계층 맞춤형 복지 행정 안내 및 고질 민원 분석 자동화 실습, 공직 사회 AI 일상화 문화 정착",
+                time: "1.0시간"
+            }
+        ],
+        tools: ["Gov-Safe AI 프레임워크", "ChatGPT / Claude (안전 모드)", "Wrtn(뤼튼) 기업/공공 모드", "Perplexity"],
+        deliverables: "유형별 공공 기안문 프롬프트 매뉴얼, 정책 데이터 시각화 리포트, 시민 안내문 템플릿",
         insights: [
             "화성시청 및 순창군 사례 기반의 데이터 중심 지능형 행정 서비스 및 스마트 시티 정책 컨설팅",
             "공직자 실무 역량 강화를 위한 AI 보좌관 활용법 및 행정 프로세스 혁신 교육 솔루션",
@@ -20,6 +90,41 @@ const contentData = {
     citizen: {
         title: "일반인/직장인/시민",
         image: "assets/images/infographic_career_ai.png",
+        courseTitle: "퇴근을 2시간 앞당기는 커리어 AI 툴체인 & 올인원 일상 스마트 라이프",
+        slogan: "직무 경쟁력을 강화하는 필수 생성형 AI 도구 마스터와 나만의 디지털 브랜딩",
+        badgeTarget: "2040 직장인, 취업준비생, 크리에이터 및 평생학습 시민",
+        badgeDuration: "4주 완성 (주 1회 2시간) / 주말 부트캠프",
+        badgeLevel: "입문 ~ 실무",
+        metrics: [
+            { label: "실습 및 프로젝트 비중", value: "80%", icon: "fa-solid fa-chart-pie" },
+            { label: "역량 강화 달성 지표", value: "정보 검색 시간 80% 절감", icon: "fa-solid fa-bolt" },
+            { label: "즉시 적용 실습 산출물", value: "AI 커리어 로드맵 + 콘텐츠 1세트", icon: "fa-solid fa-box-archive" }
+        ],
+        roadmap: [
+            {
+                step: "STEP 1",
+                tag: "기본기 탄탄 & 스마트 검색",
+                title: "생성형 AI 기본기 탄탄 다지기 & 똑똑한 일상 비서",
+                desc: "ChatGPT, Claude, Gemini, Perplexity 각 엔진별 장단점 및 용도별 분업 전략, 원하는 결과를 단번에 얻는 4단계 마법 프롬프트 공식, 일정·어학·독서 등 라이프스타일 비서 활용",
+                time: "2.0시간"
+            },
+            {
+                step: "STEP 2",
+                tag: "오피스 생산성 점프업",
+                title: "오피스 워크 생산성 점프업 (직장인 실무 마스터)",
+                desc: "10분 만에 끝내는 프레젠테이션(PPT) 개요 및 발표 대본 자동 생성, 이메일·회의록 요약·엑셀 수식 자동화, 나만의 전문 지식을 학습시킨 맞춤형 이력서·포트폴리오 업그레이드",
+                time: "3.0시간"
+            },
+            {
+                step: "STEP 3",
+                tag: "멀티모달 창작 & 브랜딩",
+                title: "멀티모달 창작 & 1인 미디어 콘텐츠 크리에이션",
+                desc: "이미지 생성 AI(Midjourney, DALL-E)를 활용한 감각적인 시각 콘텐츠 제작, 숏폼 영상 스크립트 작성 및 음성 AI(TTS) 결합 미디어 제작 실습, AI 윤리와 저작권 체크리스트",
+                time: "3.0시간"
+            }
+        ],
+        tools: ["ChatGPT", "Claude", "Perplexity", "Gamma (PPT 생성)", "Canva AI", "ElevenLabs"],
+        deliverables: "완성형 기획서 및 PPT 슬라이드 1부, 멀티모달 비주얼 콘텐츠 3종, 개인 맞춤형 AI 프롬프트북",
         insights: [
             "'2025 화성시민 AI 교육' 1,000여 명 수료 실적으로 증명된 전 연령대 맞춤형 AI 리터러시 교육",
             "커리어 성장을 위한 직장인 필수 AI 툴체인 구축 및 실무 생산성 극대화 코칭 프로그램",
@@ -29,6 +134,41 @@ const contentData = {
     senior: {
         title: "시니어/디지털 리터러시",
         image: "assets/images/infographic_senior_ai.png",
+        courseTitle: "말 한마디로 시작하는 100세 시대 AI 동행 라이프 & 시니어 전문 강사 양성과정",
+        slogan: "타자 없이 음성으로 즐기는 스마트 AI 생활과 인생 2막 시니어 디지털 일자리 창출",
+        badgeTarget: "50~70대 신중년·액티브 시니어 & 시니어 강사 지망생",
+        badgeDuration: "기초 2회 (각 2시간) + 심화 강사 코스",
+        badgeLevel: "입문 ~ 강사 양성",
+        metrics: [
+            { label: "실습 및 프로젝트 비중", value: "85%", icon: "fa-solid fa-chart-pie" },
+            { label: "디지털 자신감 회복 지표", value: "스마트폰 생활 편의 활용률 90%+", icon: "fa-solid fa-bolt" },
+            { label: "즉시 적용 실습 산출물", value: "인생 회고록 1편 + 가족 포토카드", icon: "fa-solid fa-box-archive" }
+        ],
+        roadmap: [
+            {
+                step: "STEP 1",
+                tag: "음성 대화 & 안전 수칙",
+                title: "자판이 필요 없는 음성(Voice) 대화형 AI 첫걸음",
+                desc: "키보드 대신 마이크로 친구처럼 대화하는 스마트폰 AI 비서(ChatGPT Voice, 클로바), 건강 정보·복지 혜택·길 찾기 실습, 보이스피싱과 스미싱을 구별하는 안전한 AI 보안 수칙",
+                time: "2.0시간"
+            },
+            {
+                step: "STEP 2",
+                tag: "인생 기록 & 디지털 추억",
+                title: "AI와 함께 쓰는 내 인생 이야기 & 디지털 추억 앨범",
+                desc: "옛 사진 복원 및 음성 인터뷰를 통해 기록하는 '나의 삶 자서전 한 페이지', 손주·자녀를 위한 맞춤형 AI 구연동화 및 축하 카드 제작, 감성적인 시 짓기와 힐링 음악 체험",
+                time: "2.0시간"
+            },
+            {
+                step: "STEP 3",
+                tag: "시니어 강사 & 일자리 창출",
+                title: "시니어 AI 코치로 도약하는 전문 강사 양성과정",
+                desc: "동년배의 눈높이에서 막힘없는 실습을 돕는 '시니어 맞춤형 티칭 스킬', 복지관·경로당 출강을 위한 표준 강의 교안 시연, 울산 동구노동자센터 등 검증된 시니어 일자리 연계",
+                time: "8.0시간"
+            }
+        ],
+        tools: ["ChatGPT Voice 모드", "네이버 클로바X", "뤼튼 모바일 앱", "DALL-E", "스마트폰 카메라/음성녹음기"],
+        deliverables: "AI 음성 인터뷰 기록집(전자책 초안), 손주 선물용 AI 카드/동화책, 시니어 AI 코치 수료 포트폴리오",
         insights: [
             "울산시 동구노동자센터 사례 등 전문 강사 양성과정을 통한 시니어 디지털 일자리 창출 전략",
             "6070 세대의 눈높이에 맞춘 단계별 생성형 AI 실전 활용 및 디지털 격차 해소 교육",
@@ -210,6 +350,81 @@ document.addEventListener("DOMContentLoaded", () => {
         const urlParams = new URLSearchParams(window.location.search);
         const initialTarget = urlParams.get('target') || 'business';
 
+        function renderCurriculumDashboard(target) {
+            const dashContainer = document.getElementById("curriculum-dashboard");
+            if (!dashContainer) return;
+            const data = contentData[target];
+            if (!data) return;
+
+            dashContainer.innerHTML = `
+                <div class="dash-card dash-overview-card">
+                    <div class="dash-badge-row">
+                        <span class="dash-pill pill-target"><i class="fa-solid fa-users"></i> ${data.badgeTarget}</span>
+                        <span class="dash-pill pill-duration"><i class="fa-solid fa-clock"></i> ${data.badgeDuration}</span>
+                        <span class="dash-pill pill-level"><i class="fa-solid fa-layer-group"></i> ${data.badgeLevel}</span>
+                    </div>
+                    <h2 class="dash-course-title">${data.courseTitle}</h2>
+                    <p class="dash-course-slogan"><i class="fa-solid fa-quote-left" style="opacity:0.35; margin-right:8px;"></i>${data.slogan}<i class="fa-solid fa-quote-right" style="opacity:0.35; margin-left:8px;"></i></p>
+                </div>
+
+                <div class="dash-metrics-grid">
+                    ${data.metrics.map(m => `
+                        <div class="metric-box">
+                            <div class="metric-icon-wrap"><i class="${m.icon}"></i></div>
+                            <div class="metric-content">
+                                <span class="metric-title">${m.label}</span>
+                                <strong class="metric-num">${m.value}</strong>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="dash-card dash-roadmap-box">
+                    <div class="dash-section-header">
+                        <div>
+                            <h3 class="dash-section-title"><i class="fa-solid fa-route" style="color:var(--accent-solid);"></i> 3단계 맞춤형 커리큘럼 로드맵</h3>
+                            <p class="dash-section-sub">기초 패러다임 이해부터 실무 워크플로우 자동화까지 현장 밀착형 설계</p>
+                        </div>
+                        <span class="dash-custom-badge"><i class="fa-solid fa-sliders"></i> 기관·기업 맞춤 커스터마이징 가능</span>
+                    </div>
+                    <div class="roadmap-grid">
+                        ${data.roadmap.map(r => `
+                            <div class="roadmap-step-item">
+                                <div class="step-head">
+                                    <span class="step-badge">${r.step}</span>
+                                    <span class="step-phase">${r.tag}</span>
+                                    <span class="step-duration"><i class="fa-regular fa-clock"></i> ${r.time}</span>
+                                </div>
+                                <h4 class="step-name">${r.title}</h4>
+                                <p class="step-description">${r.desc}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="dash-bottom-grid">
+                    <div class="dash-card dash-tools-box">
+                        <h4 class="dash-sub-title"><i class="fa-solid fa-screwdriver-wrench" style="color:#0284c7;"></i> 실습 AI 툴체인</h4>
+                        <div class="dash-tools-list">
+                            ${data.tools.map(tool => `<span class="tool-chip"><i class="fa-solid fa-check" style="color:#0284c7;"></i> ${tool}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div class="dash-card dash-deliverables-box">
+                        <h4 class="dash-sub-title"><i class="fa-solid fa-gift" style="color:#10b981;"></i> 수강생 최종 기대 산출물</h4>
+                        <div class="deliverables-content"><i class="fa-solid fa-circle-check" style="color:#10b981; margin-right:8px;"></i>${data.deliverables}</div>
+                    </div>
+                </div>
+
+                <div class="dash-cta-box">
+                    <div class="dash-cta-text">
+                        <strong>💡 [${data.title}] 맞춤형 출강 및 교육 제안서가 필요하신가요?</strong>
+                        <span>귀 조직의 목표와 대상자의 눈높이에 맞춘 상세 커리큘럼 교안 및 견적서를 신속하게 제공해 드립니다.</span>
+                    </div>
+                    <a href="index.html#cta" class="dash-cta-btn"><i class="fa-solid fa-paper-plane"></i> 강의 및 컨설팅 문의하기</a>
+                </div>
+            `;
+        }
+
         function updateShowcase(target) {
             const data = contentData[target];
             if (!data) return;
@@ -228,6 +443,8 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelectorAll(".target-btn").forEach(btn => {
                 btn.classList.toggle("active", btn.dataset.target === target);
             });
+
+            renderCurriculumDashboard(target);
         }
 
         document.querySelectorAll(".target-btn").forEach(btn => {
