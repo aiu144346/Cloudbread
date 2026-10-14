@@ -510,6 +510,12 @@ const requestListener = async (req, res) => {
     }
 
     // Static File Serving
+    try {
+        if (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) {
+            filePath = path.join(filePath, 'index.html');
+        }
+    } catch (e) {}
+
     const extname = path.extname(filePath);
     let contentType = 'text/html';
     switch (extname) {
@@ -524,6 +530,7 @@ const requestListener = async (req, res) => {
         case '.pptx': contentType = 'application/vnd.openxmlformats-officedocument.presentationml.presentation'; break;
         case '.mp4': contentType = 'video/mp4'; break;
         case '.webm': contentType = 'video/webm'; break;
+        case '.md': contentType = 'text/markdown; charset=utf-8'; break;
     }
 
     fs.readFile(filePath, (error, content) => {

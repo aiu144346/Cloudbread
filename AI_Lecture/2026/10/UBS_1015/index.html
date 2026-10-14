@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>울산 북구청 신규공무원 AI 행정혁신 특강 마스터클래스</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0f1d;
+      --bg-secondary: #111827;
+      --bg-card: rgba(26, 34, 52, 0.75);
+      --bg-card-hover: rgba(36, 48, 74, 0.85);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-focus: #38bdf8;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-highlight: #38bdf8;
+      --accent-admin: #3b82f6;
+      --accent-tech: #10b981;
+      --accent-warn: #f59e0b;
+      --accent-danger: #ef4444;
+      --accent-purple: #8b5cf6;
+      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      --glow-blue: 0 0 20px rgba(56, 189, 248, 0.35);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-card: rgba(255, 255, 255, 0.9);
+      --bg-card-hover: #f1f5f9;
+      --border-color: rgba(0, 0, 0, 0.08);
+      --border-focus: #0284c7;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-highlight: #0284c7;
+      --glass-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.08);
+      --glow-blue: 0 0 15px rgba(2, 132, 199, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.65;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Background decoration */
+    .bg-blobs {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.15;
+    }
+    .blob-1 {
+      width: 500px;
+      height: 500px;
+      background: #0284c7;
+      top: -100px;
+      right: -50px;
+    }
+    .blob-2 {
+      width: 450px;
+      height: 450px;
+      background: #8b5cf6;
+      bottom: 50px;
+      left: -100px;
+    }
+    .blob-3 {
+      width: 350px;
+      height: 350px;
+      background: #10b981;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Header Bar */
+    header {
+      background: rgba(17, 24, 39, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0.85rem 1.75rem;
+    }
+    [data-theme="light"] header {
+      background: rgba(255, 255, 255, 0.85);
+    }
+    .header-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .logo-icon {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, #0284c7 0%, #6366f1 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      box-shadow: var(--glow-blue);
+    }
+    .logo-text h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .logo-text h1 span.badge {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 20px;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--text-highlight);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      font-weight: 600;
+    }
+    .logo-text p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Live Timer Widget */
+    .timer-widget {
+      display: flex;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 0.4rem 0.85rem;
+      border-radius: var(--radius-sm);
+      gap: 0.6rem;
+      font-size: 0.85rem;
+    }
+    .timer-display {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: var(--text-highlight);
+      letter-spacing: 0.05em;
+      min-width: 65px;
+      text-align: center;
+    }
+    .timer-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    .timer-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Search Box */
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .search-box input {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.45rem 0.85rem 0.45rem 2rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      outline: none;
+      width: 180px;
+      transition: var(--transition);
+    }
+    .search-box input:focus {
+      width: 240px;
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+    }
+    .search-box svg {
+      position: absolute;
+      left: 0.65rem;
+      width: 14px;
+      height: 14px;
+      fill: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .theme-toggle-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.45rem 0.75rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+    .theme-toggle-btn:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-focus);
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      max-width: 1360px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.75rem 1.5rem 3rem 1.5rem;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--glass-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    [data-theme="light"] .hero-banner {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      border-color: rgba(2, 132, 199, 0.2);
+    }
+    .hero-banner::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+    .hero-badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-color);
+    }
+    .hero-badge.blue {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+    .hero-badge.green {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+    .hero-title {
+      font-size: 1.65rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, var(--text-main) 60%, var(--text-highlight) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 900px;
+    }
+
+    /* Filter & Track Bar */
+    .filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .track-tabs {
+      display: flex;
+      gap: 0.4rem;
+      background: var(--bg-card);
+      padding: 0.3rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+    }
+    .track-btn {
+      padding: 0.5rem 1.15rem;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .track-btn.active {
+      background: var(--text-highlight);
+      color: #04101e;
+      box-shadow: 0 2px 10px rgba(56, 189, 248, 0.3);
+    }
+    .track-btn.admin.active {
+      background: var(--accent-admin);
+      color: #ffffff;
+      box-shadow: 0 2px 10px rgba(59, 130, 246, 0.35);
+    }
+    .track-btn.tech.active {
+      background: var(--accent-tech);
+      color: #ffffff;
+      box-shadow: 0 2px 10px rgba(16, 185, 129, 0.35);
+    }
+
+    /* Module Navigation Cards Grid */
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.85rem;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 1200px) {
+      .modules-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .modules-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 480px) {
+      .modules-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .module-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.15rem 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(8px);
+      box-shadow: var(--glass-shadow);
+      text-align: left;
+    }
+    .module-card:hover {
+      background: var(--bg-card-hover);
+      transform: translateY(-3px);
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+    .module-card.active {
+      border-color: var(--border-focus);
+      background: rgba(30, 58, 102, 0.4);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+    }
+    [data-theme="light"] .module-card.active {
+      background: #e0f2fe;
+      border-color: #0284c7;
+    }
+    .module-card.active::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #38bdf8, #6366f1);
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+    }
+    .module-badge-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+    }
+    .m-id {
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: var(--text-highlight);
+    }
+    .m-time {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.06);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .m-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 0.45rem;
+      color: var(--text-main);
+    }
+    .m-sub {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Detail View Container */
+    .detail-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      box-shadow: var(--glass-shadow);
+      position: relative;
+    }
+    @media (max-width: 768px) {
+      .detail-container {
+        padding: 1.25rem;
+      }
+    }
+
+    .detail-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.75rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .detail-header-left h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .detail-header-left p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    .quick-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .action-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.5rem 0.9rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .action-btn:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-focus);
+    }
+
+    /* Content Cards & Sections */
+    .content-section {
+      margin-bottom: 2rem;
+    }
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-highlight);
+    }
+
+    /* Opening Quote Card */
+    .speech-box {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border-left: 4px solid var(--text-highlight);
+      padding: 1.5rem 1.75rem;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      margin-bottom: 1.75rem;
+      position: relative;
+    }
+    [data-theme="light"] .speech-box {
+      background: #f1f5f9;
+      border-left-color: #0284c7;
+    }
+    .speech-box p {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 0.85rem;
+      color: var(--text-main);
+    }
+    .speech-box p:last-child {
+      margin-bottom: 0;
+    }
+    .speech-box .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-highlight);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Policy Grid */
+    .policy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+    @media (max-width: 900px) {
+      .policy-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .policy-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      transition: var(--transition);
+    }
+    .policy-card:hover {
+      border-color: rgba(56, 189, 248, 0.3);
+      transform: translateY(-2px);
+    }
+    .policy-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--text-highlight);
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      margin-bottom: 0.75rem;
+    }
+    .policy-card h4 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+    .policy-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Two-Track Case Studies Grid */
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+    @media (max-width: 900px) {
+      .cases-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .case-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.4rem;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .case-card:hover {
+      border-color: var(--border-focus);
+      background: var(--bg-card-hover);
+    }
+    .case-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+    .case-track-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .case-track-badge.admin {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.35);
+    }
+    .case-track-badge.tech {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+    .case-card h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 0.6rem;
+    }
+    .case-detail-row {
+      margin-bottom: 0.6rem;
+      font-size: 0.85rem;
+    }
+    .case-detail-row strong {
+      color: var(--text-highlight);
+      font-weight: 600;
+      display: inline-block;
+      min-width: 85px;
+    }
+    .case-point-box {
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px dashed rgba(56, 189, 248, 0.3);
+      padding: 0.65rem 0.85rem;
+      border-radius: var(--radius-sm);
+      margin-top: 0.75rem;
+      font-size: 0.82rem;
+      color: #7dd3fc;
+    }
+    [data-theme="light"] .case-point-box {
+      color: #0369a1;
+      background: #f0f9ff;
+    }
+
+    /* Prompt Cards */
+    .prompt-card {
+      background: #0d1322;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+    [data-theme="light"] .prompt-card {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+    .prompt-topbar {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 0.85rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .prompt-title-group {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .prompt-title-group h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .copy-btn {
+      background: var(--text-highlight);
+      color: #0b1120;
+      border: none;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: var(--transition);
+    }
+    .copy-btn:hover {
+      background: #7dd3fc;
+      transform: scale(1.02);
+    }
+    .prompt-code {
+      padding: 1.25rem;
+      font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    [data-theme="light"] .prompt-code {
+      color: #334155;
+      background: #ffffff;
+    }
+    .prompt-output-box {
+      background: rgba(16, 185, 129, 0.08);
+      border-top: 1px solid rgba(16, 185, 129, 0.2);
+      padding: 0.85rem 1.25rem;
+      font-size: 0.82rem;
+      color: #6ee7b7;
+    }
+    [data-theme="light"] .prompt-output-box {
+      color: #047857;
+      background: #ecfdf5;
+    }
+
+    /* P-C-T-R-V Grid */
+    .pctrv-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.75rem;
+    }
+    @media (max-width: 992px) {
+      .pctrv-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .pctrv-item {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      text-align: center;
+    }
+    .pctrv-letter {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #0284c7 0%, #6366f1 100%);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.6rem auto;
+    }
+    .pctrv-item h5 {
+      font-size: 0.85rem;
+      margin-bottom: 0.35rem;
+    }
+    .pctrv-item p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #0284c7;
+      color: #ffffff;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Worksheet Box */
+    .worksheet-pre {
+      background: #090d16;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: #94a3b8;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    [data-theme="light"] .worksheet-pre {
+      background: #f8fafc;
+      color: #334155;
+    }
+
+    /* Security Notice Banner */
+    .security-banner {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .security-banner h4 {
+      color: #f87171;
+      font-size: 1rem;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .security-banner ul {
+      padding-left: 1.25rem;
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+
+    /* Masking Table */
+    .table-container {
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    th, td {
+      border: 1px solid var(--border-color);
+      padding: 0.75rem 1rem;
+      text-align: left;
+    }
+    th {
+      background: rgba(255, 255, 255, 0.05);
+      font-weight: 700;
+      color: var(--text-highlight);
+    }
+    [data-theme="light"] th {
+      background: #f1f5f9;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background: rgba(17, 24, 39, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <div class="logo-area">
+        <div class="logo-icon">🚀</div>
+        <div class="logo-text">
+          <h1>울산 북구청 신규공무원 AI 역량강화 특강 <span class="badge">120분 마스터클래스</span></h1>
+          <p>AI로 혁신하는 행정 실무: Two-Track (행정직 & 기술·연구직) 맞춤형 가이드</p>
+        </div>
+      </div>
+      <div class="header-controls">
+        <!-- Live Stopwatch / Timer -->
+        <div class="timer-widget" title="강사용 120분 타이머">
+          <span>⏱️</span>
+          <span class="timer-display" id="timerDisplay">120:00</span>
+          <button class="timer-btn" id="startTimerBtn" title="시작/일시정지">▶</button>
+          <button class="timer-btn" id="resetTimerBtn" title="초기화">↺</button>
+        </div>
+
+        <!-- Keyword Search -->
+        <div class="search-box">
+          <svg viewBox="0 0 24 24"><path d="M21.71 20.29l-5.01-5.01C17.54 13.68 18 11.91 18 10c0-4.41-3.59-8-8-8S2 5.59 2 10s3.59 8 8 8c1.91 0 3.68-.46 5.28-1.3l5.01 5.01c.39.39 1.02.39 1.41 0 .39-.39.39-1.01.01-1.42zM4 10c0-3.31 2.69-6 6-6s6 2.69 6 6-2.69 6-6 6-6-2.69-6-6z"/></svg>
+          <input type="text" id="searchInput" placeholder="키워드 검색 (예: 포트홀, 조례)...">
+        </div>
+
+        <!-- Theme Toggle -->
+        <button class="theme-toggle-btn" id="themeToggleBtn" title="다크/라이트 모드 전환">🌓</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main>
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+      <div class="hero-content">
+        <div class="hero-badge-row">
+          <span class="hero-badge blue">🏛️ 울산광역시 북구청</span>
+          <span class="hero-badge">📅 2026. 10. 15 (14:00~16:00)</span>
+          <span class="hero-badge green">👥 신규 공직자 20명 대상</span>
+          <span class="hero-badge">⚡ Two-Track 맞춤형 (행정직군 & 기술·연구직군)</span>
+        </div>
+        <h2 class="hero-title">"북구의 미래를 여는 24시간 스마트 AI 부사수 만들기"</h2>
+        <p class="hero-desc">
+          단순한 챗GPT 기초 사용법을 넘어, 북구 고유 현안(산업단지 환경 악취, 동천강 침수, 송정·강동 신도시 정주여건, 울산숲 감리)에 맞춘 실전 프롬프트와 행정·기술 융합 워크숍을 원클릭으로 열람하고 실습할 수 있습니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- Filter & Track Switcher -->
+    <div class="filter-bar">
+      <div class="track-tabs">
+        <button class="track-btn active" data-track="all">🌟 전체 모듈</button>
+        <button class="track-btn admin" data-track="admin">🏛️ Track A (행정직 집중)</button>
+        <button class="track-btn tech" data-track="tech">⚙️ Track B (기술·연구직 집중)</button>
+        <button class="track-btn" data-track="prompt">📝 프롬프트 레시피 4종</button>
+      </div>
+      <div style="font-size: 0.85rem; color: var(--text-muted);">
+        💡 모듈 카드를 클릭하면 상세 강의 스크립트와 실무 템플릿이 즉시 전환됩니다.
+      </div>
+    </div>
+
+    <!-- 6 Module Navigation Cards -->
+    <div class="modules-grid" id="moduleCards">
+      <!-- M1 -->
+      <div class="module-card active" data-module="1">
+        <div class="module-badge-top">
+          <span class="m-id">MODULE 1</span>
+          <span class="m-time">15분</span>
+        </div>
+        <div class="m-title">오프닝 & 정부 AI 정책</div>
+        <div class="m-sub">북구 비전 공유, DPG 초거대 AI 공공 로드맵, 데이터기반행정법</div>
+      </div>
+
+      <!-- M2 -->
+      <div class="module-card" data-module="2">
+        <div class="module-badge-top">
+          <span class="m-id">MODULE 2</span>
+          <span class="m-time">30분</span>
+        </div>
+        <div class="m-title">직렬별 AI 우수사례 6선</div>
+        <div class="m-sub">행정직 3선(당직봇/케어콜/외국인) & 기술직 3선(디지털트윈/포트홀/악취)</div>
+      </div>
+
+      <!-- M3 -->
+      <div class="module-card" data-module="3">
+        <div class="module-badge-top">
+          <span class="m-id">MODULE 3</span>
+          <span class="m-time">30분</span>
+        </div>
+        <div class="m-title">북구 맞춤형 프롬프트</div>
+        <div class="m-sub">P-C-T-R-V 5대 원칙, 정주여건 기획안, 시방서 체크리스트 추출</div>
+      </div>
+
+      <!-- M4 -->
+      <div class="module-card" data-module="4">
+        <div class="module-badge-top">
+          <span class="m-id">MODULE 4</span>
+          <span class="m-time">20분</span>
+        </div>
+        <div class="m-title">행정×기술 융합 워크숍</div>
+        <div class="m-sub">4개 분임 북구 현안 해결 실습, 1-Page AI 기획 워크시트 작성</div>
+      </div>
+
+      <!-- M5 -->
+      <div class="module-card" data-module="5">
+        <div class="module-badge-top">
+          <span class="m-id">MODULE 5</span>
+          <span class="m-time">15분</span>
+        </div>
+        <div class="m-title">분임 발표 및 강사 피드백</div>
+        <div class="m-sub">대표 2개 분임 3분 스피치, 조례 적합성 & 현장 기술 실현성 크리틱</div>
+      </div>
+
+      <!-- M6 -->
+      <div class="module-card" data-module="6">
+        <div class="module-badge-top">
+          <span class="m-id">MODULE 6</span>
+          <span class="m-time">10분</span>
+        </div>
+        <div class="m-title">공직자 AI 보안·윤리</div>
+        <div class="m-sub">3대 입력 불가 데이터, 가명화 마스킹 공식, 할루시네이션 교차 검증</div>
+      </div>
+    </div>
+
+    <!-- Detail View Container -->
+    <div class="detail-container" id="detailContainer">
+      <!-- Dynamic Content rendered by JS -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 울산광역시 북구청 신규공무원 역량강화 특강 | 강의안 뷰어 (Two-Track AI Innovation Series)</p>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">📋 프롬프트가 클립보드에 복사되었습니다!</div>
+
+  <script>
+    // Detailed Module Data
+    const modulesData = {
+      1: {
+        title: "Module 1. 오프닝 & 대한민국 정부 AI 정책 트렌드",
+        time: "00~15분 (총 15분)",
+        badge: "🏛️ 오프닝 & DPG 전략",
+        summary: "신규 공무원의 긴장 완화 및 북구청 특성(현대차·모듈화산단, 신도시, 울산숲)과 결합된 공공 AX의 방향성을 제시합니다.",
+        content: `
+          <div class="content-section">
+            <div class="section-title">🎤 강사 오프닝 스크립트 (현장 연출 가이드)</div>
+            <div class="speech-box">
+              <span class="tag">Speaker Opening Script</span>
+              <p>"울산 북구청 신규 주무관 여러분, 공직에 첫발을 내디디신 것을 진심으로 환영하고 축하드립니다!"</p>
+              <p>"여러분이 발령받으신 이곳 울산 북구는 어떤 곳입니까? 대한민국 자동차 산업의 심장인 현대자동차와 모듈화일반산업단지가 힘차게 뛰고 있고, 송정지구와 강동 바다를 중심으로 젊은 세대와 다문화 주민들이 역동적으로 유입되는 젊은 도시입니다. 동시에 동천강의 맑은 물줄기, 무룡산의 푸른 숲, 그리고 폐선부지를 주민의 품으로 돌려준 '울산숲'이 공존하는 무한한 잠재력의 도시입니다."</p>
+              <p>"하지만 신규 공무원으로 첫 출근을 하고 모니터 앞에 앉았을 때, 솔직히 막막하셨을 겁니다. 쏟아지는 민원 전화, 난생처음 보는 수백 페이지짜리 공사 시방서와 조례집, 선배들이 건네준 수많은 보고서 서식 앞에서 '내가 이걸 다 해낼 수 있을까?' 밤잠을 설치셨을지도 모릅니다."</p>
+              <p><strong>"단언컨대, 오늘 이 120분이 지나면 여러분 곁에는 대한민국에서 가장 유능하고 지치지 않는 24시간 인공지능 부사수가 생길 것입니다.</strong> 오늘 교육은 단순한 챗GPT 사용법이 아닙니다. 행정직의 치밀한 기획력과 기술직의 정밀한 데이터 감각을 AI로 결합하여, '일 잘하는 북구청 스마트 공무원'으로 거듭나는 실전 무기를 쥐여드리겠습니다."</p>
+            </div>
+          </div>
+
+          <div class="content-section">
+            <div class="section-title">📊 핵심 대한민국 정부 정책 브리핑 3선</div>
+            <div class="policy-grid">
+              <div class="policy-card">
+                <div class="policy-num">1</div>
+                <h4>디지털플랫폼정부(DPG) 로드맵</h4>
+                <p>중앙부처 및 지자체 업무망에 보안 생성형 AI 엔진(온프레미스/보안 클라우드)을 결합. 단순 반복 공문서 기획 및 조례 검색 시간을 50% 이상 단축하는 '공공 AI 어시스턴트' 전국 시범사업 확산.</p>
+              </div>
+              <div class="policy-card">
+                <div class="policy-num">2</div>
+                <h4>데이터기반행정 활성화법 개정</h4>
+                <p>직관이나 과거 관행에 의존하던 행정에서 '데이터 분석 기반 정책 결정'으로 패러다임 전환. 정부합동평가에 지자체 '데이터 기반 행정 우수사례 및 AX 성과' 배점 가중치 강화.</p>
+              </div>
+              <div class="policy-card">
+                <div class="policy-num">3</div>
+                <h4>지능형 AI 국민비서 & 민원 AX</h4>
+                <p>단순 텍스트 챗봇을 넘어 지자체 고유 조례와 행정 절차를 사전 학습한 맞춤형 LLM 보이스봇 도입 확산. 야간·휴일 무중단 대민 민원 응대 체계 구축.</p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      2: {
+        title: "Module 2. 직렬별 맞춤형 타 지자체 AI 혁신 우수사례 (Two-Track)",
+        time: "15~45분 (총 30분)",
+        badge: "💡 실전 우수사례 6선",
+        summary: "행정직(민원·복지)과 기술직(도로·하천·환경)을 분리하여 타 지자체 성공 공식과 북구청 즉시 적용점을 제시합니다.",
+        content: `
+          <div class="content-section">
+            <div class="section-title">🏛️ [Track A. 행정직 타깃 우수사례 3선]</div>
+            <div class="cases-grid">
+              <div class="case-card">
+                <div>
+                  <div class="case-header">
+                    <span class="case-track-badge admin">Track A · 민원/행정</span>
+                    <span style="font-size:0.75rem; color:var(--text-muted)">서울 S구, 대구 D구</span>
+                  </div>
+                  <h4>사례 A-1. 야간·휴일 당직 민원 지능형 보이스봇</h4>
+                  <div class="case-detail-row"><strong>기존 한계:</strong> 주말·야간 신규 당직자가 전 부서 민원(주정차, 동물사체, 누수 등)을 즉시 파악 불가하여 민원 마찰 빈번.</div>
+                  <div class="case-detail-row"><strong>AI 솔루션:</strong> 조례를 학습한 생성형 음성 AI가 단순 문의(주차단속 유예, 쓰레기 배출일 등)를 1차 음성 자동 답변하고, 긴급 현장 출동만 당직자에게 티켓 연계.</div>
+                  <div class="case-detail-row"><strong>실증 성과:</strong> 야간 단순 응대 68% 자동 처리, 당직자 피로도 획기적 경감.</div>
+                </div>
+                <div class="case-point-box">
+                  <strong>📍 북구청 시사점:</strong> 현대차 교대근무 등으로 야간 이동이 많은 북구 특성에 맞춰, 야간 불법주정차 및 생활 소음 민원에 즉시 적용 가능.
+                </div>
+              </div>
+
+              <div class="case-card">
+                <div>
+                  <div class="case-header">
+                    <span class="case-track-badge admin">Track A · 복지/안전</span>
+                    <span style="font-size:0.75rem; color:var(--text-muted)">부산 북구, 경기 성남시</span>
+                  </div>
+                  <h4>사례 A-2. 네이버 클로바 케어콜 고독사 예방 안부망</h4>
+                  <div class="case-detail-row"><strong>기존 한계:</strong> 1인 고령 및 중장년 고독사 위험이 급증하나, 동 복지전담 공무원 인력만으로 주 1회 전수 통화 물리적 불가능.</div>
+                  <div class="case-detail-row"><strong>AI 솔루션:</strong> 초대규모 AI가 주 1~2회 대화 전화를 걸어 안부·식사·수면 확인 및 이전 대화 기억(기억하기 기능). 식사 중단·미수신 등 위험 징후 시 즉각 복지 공무원에게 알림.</div>
+                  <div class="case-detail-row"><strong>실증 성과:</strong> 관내 고독사 0건 유지, 단순 통화 업무 80% 절감으로 고위험군 집중 방문 실현.</div>
+                </div>
+                <div class="case-point-box">
+                  <strong>📍 북구청 시사점:</strong> 강동지구 고령 독거노인뿐만 아니라, 산업단지 인근 원룸촌의 은퇴 독거 장년층 관리망 구축에 최적.
+                </div>
+              </div>
+
+              <div class="case-card" style="grid-column: span 2;">
+                <div>
+                  <div class="case-header">
+                    <span class="case-track-badge admin">Track A · 다문화/대민</span>
+                    <span style="font-size:0.75rem; color:var(--text-muted)">경기 안산시 등</span>
+                  </div>
+                  <h4>사례 A-3. 다문화·외국인 주민을 위한 AI 실시간 다국어 민원 어시스턴트</h4>
+                  <div class="case-detail-row"><strong>기존 한계:</strong> 외국인 근로자 방문 시 전문 통역 인력 부재로 체류지 변경, 세금 납부, 쓰레기 배출 안내 등에 극심한 소통 장애 발생.</div>
+                  <div class="case-detail-row"><strong>AI 솔루션:</strong> 13개 국어 실시간 양방향 번역 태블릿 LLM 솔루션을 민원대에 비치하여 음성 대화 및 행정 서식 작성법을 상호 모국어로 동시 표출.</div>
+                  <div class="case-detail-row"><strong>실증 성과:</strong> 민원 대기 시간 50% 단축, 행정 서식 오기 작성률 90% 감소.</div>
+                </div>
+                <div class="case-point-box">
+                  <strong>📍 북구청 시사점:</strong> 모듈화산단 등 제조업 사업장 외국인 근로자 증가 추세에 맞춰 북구청 민원여권과 및 읍·동 행정복지센터에 최우선 도입 권장.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-section" style="margin-top: 2rem;">
+            <div class="section-title">⚙️ [Track B. 기술·연구직 타깃 우수사례 3선]</div>
+            <div class="cases-grid">
+              <div class="case-card">
+                <div>
+                  <div class="case-header">
+                    <span class="case-track-badge tech">Track B · 방재/하천/토목</span>
+                    <span style="font-size:0.75rem; color:var(--text-muted)">환경부 · 서울 도림천 모델</span>
+                  </div>
+                  <h4>사례 B-1. 디지털 트윈 & AI 수위 예측 기반 하천 범람 예경보</h4>
+                  <div class="case-detail-row"><strong>기존 한계:</strong> 국지성 폭우 시 상류 강우량이 도심 하천 범람으로 이어지는 10~30분 골든타임 내 수동 모니터링 대응 한계.</div>
+                  <div class="case-detail-row"><strong>AI 솔루션:</strong> 상류 강우량·수위·관로 유량을 딥러닝 수문 모델로 학습하여 "30분 후 하천 수위 2.8m 도달(범람 위험)"을 95% 정확도로 사전 예측, 차단기 및 차량대피 자동 연계.</div>
+                  <div class="case-detail-row"><strong>실증 성과:</strong> 인명 피해 0건, 사전 대피 골든타임 25분 확보.</div>
+                </div>
+                <div class="case-point-box">
+                  <strong>📍 북구청 시사점:</strong> <strong>동천강 산책로 침수 및 둔치주차장 차량 대피</strong>에 100% 직결되는 기술로, 방재·하천·토목직 공무원의 필수 무기.
+                </div>
+              </div>
+
+              <div class="case-card">
+                <div>
+                  <div class="case-header">
+                    <span class="case-track-badge tech">Track B · 도로/스마트시티</span>
+                    <span style="font-size:0.75rem; color:var(--text-muted)">대전시, 대구 달서구</span>
+                  </div>
+                  <h4>사례 B-2. 관용차 탑재 온디바이스 AI 도로 위험(포트홀) 자동 탐지</h4>
+                  <div class="case-detail-row"><strong>기존 한계:</strong> 방대한 도로망을 보수원 육안 순찰에 의존하여 주로 사고 발생 및 주민 민원 접수 후 늑장 보수.</div>
+                  <div class="case-detail-row"><strong>AI 솔루션:</strong> 청소차·단속차 전면에 AI 비전 센서를 장착하여 주행 중 포트홀·도로파손·낙하물을 초당 30프레임으로 자동 식별하고 GPS 좌표 및 사진을 도로대장 시스템으로 전송.</div>
+                  <div class="case-detail-row"><strong>실증 성과:</strong> 보수 소요 시간 72시간에서 12시간으로 단축, 2차 차량 파손 민원 60% 감소.</div>
+                </div>
+                <div class="case-point-box">
+                  <strong>📍 북구청 시사점:</strong> 대형 화물차·트럭 통행량이 압도적으로 많은 산업로, 오토밸리로 등 북구 관내 주요 간선도로 신속 보수에 직결.
+                </div>
+              </div>
+
+              <div class="case-card" style="grid-column: span 2;">
+                <div>
+                  <div class="case-header">
+                    <span class="case-track-badge tech">Track B · 환경/공업</span>
+                    <span style="font-size:0.75rem; color:var(--text-muted)">경기 반월·시화산단, 인천 서구</span>
+                  </div>
+                  <h4>사례 B-3. IoT 악취 센서 × 대기확산 시뮬레이션 AI 역추적 시스템</h4>
+                  <div class="case-detail-row"><strong>기존 한계:</strong> 산단 인근 주거지에서 악취 민원이 밤마다 빗발치지만, 공무원 출동 시 이미 바람에 날아가 오염 배출원 특정 불가.</div>
+                  <div class="case-detail-row"><strong>AI 솔루션:</strong> 산단 경계에 복합악취 IoT 측정기 설치. 악취 발생 시 실시간 풍향·풍속 기상 데이터와 연동된 대기확산 AI 알고리즘이 "반경 500m 내 A도금공장 또는 B도장공장이 배출원일 확률 92%"를 GIS 지도에 표출.</div>
+                  <div class="case-detail-row"><strong>실증 성과:</strong> 불시 단속 적발률 3.5배 상승, 산단 인접 아파트 주민 민원 45% 감소.</div>
+                </div>
+                <div class="case-point-box">
+                  <strong>📍 북구청 시사점:</strong> 효문산단, 매곡산단, 모듈화산단과 송정·화봉 주거지역 간의 환경 분쟁 해결에 환경직·공업직 공무원이 활용할 핵심 솔루션.
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      3: {
+        title: "Module 3. 울산 북구 맞춤형 AI 실무 프롬프트 레시피",
+        time: "45~75분 (총 30분)",
+        badge: "📝 P-C-T-R-V & 템플릿 4종",
+        summary: "공공 행정 전용 5대 프롬프트 원칙과 복사하여 즉시 활용할 수 있는 직렬별 템플릿 4종을 제공합니다.",
+        content: `
+          <div class="content-section">
+            <div class="section-title">📐 공공 특화 프롬프트 작성 5대 원칙 (P-C-T-R-V)</div>
+            <div class="pctrv-grid">
+              <div class="pctrv-item">
+                <div class="pctrv-letter">P</div>
+                <h5>Persona (역할)</h5>
+                <p>"너는 15년 차 지방행정사무관(도시인프라 기술행정관)이야."</p>
+              </div>
+              <div class="pctrv-item">
+                <div class="pctrv-letter">C</div>
+                <h5>Context (맥락)</h5>
+                <p>"울산 북구는 산단, 신도시, 하천·해안이 공존하는 복합 기초지자체야."</p>
+              </div>
+              <div class="pctrv-item">
+                <div class="pctrv-letter">T</div>
+                <h5>Task (과업)</h5>
+                <p>"단순 줄글 요약이 아닌 [현황-문제점-추진방안-기대효과] 1페이지 기획안 작성."</p>
+              </div>
+              <div class="pctrv-item">
+                <div class="pctrv-letter">R</div>
+                <h5>Rule (제약)</h5>
+                <p>"지방재정법과 북구 조례 기준 준수, 미사여구 배제 및 개조식 명사형 종결(~함)."</p>
+              </div>
+              <div class="pctrv-item">
+                <div class="pctrv-letter">V</div>
+                <h5>Verification (검증)</h5>
+                <p>"인용한 법령 조항 및 데이터 출처의 정확성을 반드시 주석 표기할 것."</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-section">
+            <div class="section-title">🚀 울산 북구청 맞춤형 실전 프롬프트 4종 (원클릭 복사)</div>
+
+            <!-- Prompt 1 -->
+            <div class="prompt-card">
+              <div class="prompt-topbar">
+                <div class="prompt-title-group">
+                  <span class="case-track-badge admin">Recipe 1 · 행정직</span>
+                  <h4>송정·강동 신도시 정주여건 개선 1페이지 기획안 생성</h4>
+                </div>
+                <button class="copy-btn" onclick="copyPrompt('p1')">📋 프롬프트 복사</button>
+              </div>
+              <pre class="prompt-code" id="p1"># Role & Goal:
+너는 울산광역시 북구청의 기획예산실에 근무하는 10년 차 수석 행정주무관이야.
+송정지구와 강동지구의 급격한 인구 유입(영유아 부모, 청년, 제조업 산단 종사자)에 발맞추어,
+구민이 체감할 수 있는 '2027년도 신규 주민 밀착형 정주여건 개선 시책' 1페이지 기획안 초안을 작성해야 해.
+
+# Context (울산 북구 지역 특성):
+- 송정지구: 3040 맞벌이 및 영유아 비율이 높아 보육·돌봄·문화 인프라 확충 요구 지속
+- 강동지구: 해안 신도시 특성상 도심(삼산·성남)과의 교통 연계 및 주말 관광객 유입에 따른 주차·생활 편의 인프라 개선 필요
+- 대상 사업 아이디어: "송정·강동 스마트 야간 안심동행 및 패밀리 컬처 버스킹 플랫폼" (또는 적합한 창의적 아이디어 제시 가능)
+
+# Constraints & Tone:
+- 대한민국 표준 기획재정부·지자체 1페이지 기획서 양식 준수
+- 서술형 줄글 금지, 명확하고 단단한 개조식(단문, 명사형 종결: ~함, ~임, ~추진)으로 작성
+- 가상의 소요 예산안(구비, 시비 매칭) 및 기대효과(정량적 지표 포함)를 구조화할 것
+
+# Output Format:
+1. 추진 배경 및 필요성 (북구 인구통계 및 민원 트렌드 반영)
+2. 사업 개요 (사업명, 대상, 기간, 총사업비, 추진 주체)
+3. 세부 추진 계획 (단계별 3단계 전략: 인프라 구축 - 시범 운영 - 정례화)
+4. 소요 예산 및 재원 확보 방안 (시·구비 매칭 및 국비 공모 연계안)
+5. 기대 효과 (정량적 성과지표 및 정성적 구민 만족도)
+6. 향후 추진 일정</pre>
+              <div class="prompt-output-box">
+                💡 <strong>예상 출력 요약:</strong> "송정·강동 아이Dream & 청년 문화이음 플랫폼" (총사업비 3.5억, 시비 50% 매칭, 유아 만족도 25% 향상 개조식 보고서 완성)
+              </div>
+            </div>
+
+            <!-- Prompt 2 -->
+            <div class="prompt-card">
+              <div class="prompt-topbar">
+                <div class="prompt-title-group">
+                  <span class="case-track-badge admin">Recipe 2 · 행정직</span>
+                  <h4>복합 민원 조례 기반 정중·명확 응대문 생성</h4>
+                </div>
+                <button class="copy-btn" onclick="copyPrompt('p2')">📋 프롬프트 복사</button>
+              </div>
+              <pre class="prompt-code" id="p2"># Role:
+너는 울산 북구청 민원지적과 및 교통행정과에서 대민 민원을 전담하는 8년 차 민원 전문 주무관이야.
+감정적으로 격양된 구민의 민원을 경청하고 달래면서도, 행정 기준과 조례에 입각하여 법적으로 명확하고 반박 불가능한 정중한 공식 답변문을 작성해야 해.
+
+# Input Data (민원 내용):
+"송정지구 아파트 정문 앞 도로에 밤마다 대형 화물 트럭들이 불법 주차를 해놔서 시야도 가리고 시끄러워 죽겠습니다! 사고 나면 북구청이 책임질 겁니까? 당장 오늘 밤부터 견인하고 과태료 폭탄 때려주세요. 왜 단속 안 합니까?"
+
+# Legal & Admin Context:
+- 근거 법령: 도로교통법 제32조~제34조(정차 및 주차의 금지), 화물자동차 운수사업법 제11조(차고지 증명제 및 밤샘주차 규제)
+- 지자체 조례: 울산광역시 북구 주차위반차량 견인 등 조례
+- 행정 현실: 즉각적인 전면 견인은 견인 차량 규격 및 주차보관소 용량상 한계가 있으나, 심야 합동 단속(교통행정과-경찰서) 및 고정식/이동식 CCTV 단속 주기 강화 조치 가능
+
+# Prompt Guidelines:
+- 공감과 경청 (1단계): 구민의 불안감과 불편에 대한 진심 어린 공감 표명
+- 법적 근거 및 단속 현황 (2단계): 북구청이 시행 중인 규정과 조례에 근거한 객관적 조치 현황 설명
+- 구체적 개선 조치 계획 (3단계): 향후 단속 강화, 이동식 단속차량 순찰 배차, 유관기관(경찰서) 야간 합동 단속 일정 제시
+- 맺음말 및 추가 문의처 안내 (4단계): 담당 부서, 직급, 성명, 직통 내선번호 명기
+
+# Output Style:
+- 품격 있는 공공 행정 언어, 정중하고 신뢰감을 주는 어조, 법적 정확성 담보</pre>
+              <div class="prompt-output-box">
+                💡 <strong>예상 출력 요약:</strong> 감정적 공감 ➔ 화물자동차법/조례 근거 제시 ➔ 야간 이동식 순찰 강화 및 경찰서 합동 단속 계획 명시 ➔ 담당자 연락처로 품격있는 공공 답변 완결
+              </div>
+            </div>
+
+            <!-- Prompt 3 -->
+            <div class="prompt-card">
+              <div class="prompt-topbar">
+                <div class="prompt-title-group">
+                  <span class="case-track-badge tech">Recipe 3 · 기술·연구직</span>
+                  <h4>울산숲 시방서·용역서 5분 안전체크리스트 추출</h4>
+                </div>
+                <button class="copy-btn" onclick="copyPrompt('p3')">📋 프롬프트 복사</button>
+              </div>
+              <pre class="prompt-code" id="p3"># Tool Target: Google NotebookLM / Claude / GPT-4o Document Analysis
+# Role:
+너는 울산 북구청 도시과·산림녹지과 소속의 15년 차 시니어 토목/조경 기술감리관이야.
+첨부된 [동해남부선 폐선부지 '울산숲' 조성 공사 표준 시방서 및 안전관리계획 보고서] 전문을 분석하여, 신규 기술직 주무관이 현장 감리 시 즉시 들고 나갈 수 있는 '핵심 안전·법적 준수 체크리스트'를 추출해 줘.
+
+# Tasks:
+1. 법적 필수 안전 조치 추출: 산업안전보건법 및 건설기술진흥법상 공사 현장 필수 점검 항목 추출
+2. 울산숲 특화 리스크 분석:
+   - 폐철도 부지 특성상 발생 가능한 토양 오염(중금속, 유류 잔류) 모니터링 기준
+   - 보행로 데크 및 수목 식재 시 배수 불량에 따른 지반 침하 안전 기준
+3. 일일 현장 감리 체크리스트(표 형태) 작성:
+   [점검 분야 | 세부 점검 항목 | 법적·시방서 기준치 | 부적합 시 조치 사항 | 점검 주기]
+
+# Constraints:
+- 추상적인 문언("안전에 유의할 것") 배제, 정량적 수치와 명확한 기준치 명시 (예: "안전난간 높이 1.2m 이상", "토양 오염 우려 기준 1지역 준수")
+- 신규 공무원이 현장에서 시공사 현장소장을 상대로 시정명령을 내릴 수 있는 근거 조항 포함</pre>
+              <div class="prompt-output-box">
+                💡 <strong>예상 출력 요약:</strong> 폐선 레일 철거지 노상 다짐률 95% 이상 확인표, TPH 시험성적서, 데크 앵커 매립 깊이 및 난간 높이(1.2m) 등 정량적 감리표 도출
+              </div>
+            </div>
+
+            <!-- Prompt 4 -->
+            <div class="prompt-card">
+              <div class="prompt-topbar">
+                <div class="prompt-title-group">
+                  <span class="case-track-badge tech">Recipe 4 · 기술·연구직</span>
+                  <h4>환경·재난 데이터 이상치 탐색 및 시각화 파이썬 코드 기획</h4>
+                </div>
+                <button class="copy-btn" onclick="copyPrompt('p4')">📋 프롬프트 복사</button>
+              </div>
+              <pre class="prompt-code" id="p4"># Role & Context:
+너는 울산 북구청 환경위생과 및 안전총괄과를 지원하는 수석 공공 데이터 사이언티스트야.
+울산 북구 관내 모듈화산단, 매곡산단, 동천강 일대에 설치된 환경(복합악취, 미세먼지 PM2.5, NO2) 및 하천 수위 IoT 센서 30개 지점의 [1년간 시계열 CSV 데이터]를 전달받았어.
+
+# Goal:
+이 원천 데이터에서 신규 공무원이 정책 보고서에 삽입할 '이상치(Outlier) 패턴 분석'과 '구청장 보고용 고위험 시각화 차트 기획안'을 작성해 줘.
+
+# Tasks:
+1. 데이터 클리닝 및 이상치 탐지 로직 수립:
+   - 기상(풍향·풍속, 강우량) 데이터와 복합악취/수위 데이터의 상관관계 분석 알고리즘 설계
+   - 단순 센서 오작동(Spike)과 실제 오염물질 배출/급격한 하천 수위 상승을 구별하는 3-Sigma 및 IQR 임계치 기준 제시
+2. 파이썬(Python) 분석 스크립트 작성:
+   - Pandas, Matplotlib, Seaborn을 활용하여 시간대별/계절별 이상치 패턴을 히트맵(Heatmap)과 다중 시계열 꺾은선 그래프로 시각화하는 코드 작성 (한글 폰트 깨짐 방지 코드 포함)
+3. 1페이지 보고서용 인포그래픽 차트 구성안:
+   - "어떤 형태의 차트를 보고서에 배치해야 비전문가인 결재권자가 3초 만에 위험 구역을 인지할 수 있는가?" 레이아웃 가이드 제시</pre>
+              <div class="prompt-output-box">
+                💡 <strong>예상 출력 요약:</strong> 풍속 1m/s 이하 시 TVOCs 3배 이상 지속 시 '고의 배출' 라벨링 로직 + 산단-시간대 히트맵 차트 생성 파이썬 스크립트 완벽 추출
+              </div>
+            </div>
+
+          </div>
+        `
+      },
+      4: {
+        title: "Module 4. 행정×기술 융합 미니 워크숍 진행 가이드",
+        time: "75~95분 (총 20분)",
+        badge: "🤝 융합 실습 & 1-Page 시책 기획",
+        summary: "행정직의 제도·예산 기획력과 기술직의 센서·데이터 감각을 결합하여 북구 현안 해결 1페이지 기획안을 도출합니다.",
+        content: `
+          <div class="content-section">
+            <div class="section-title">👥 조 편성 및 워크숍 운영 가이드</div>
+            <div class="policy-grid">
+              <div class="policy-card">
+                <h4>대상 & 편성</h4>
+                <p>신규 공무원 20명, 총 4개 조(각 조 5명 = 행정직군 2~3명 + 기술·연구직군 2~3명 크로스 매칭 편성)</p>
+              </div>
+              <div class="policy-card">
+                <h4>실습 도구</h4>
+                <p>생성형 AI (챗GPT, Claude, Gemini, 스마트폰 및 비치 노트북 실시간 프롬프트 협업 질의)</p>
+              </div>
+              <div class="policy-card">
+                <h4>최종 결과물</h4>
+                <p>행정 조례·예산과 기술 센서·AI 모델이 상호 보완된 '1-Page 북구 미래 행정 기획 워크시트'</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-section">
+            <div class="section-title">🎯 분임별 부여 과제 (4대 북구 현안 과제)</div>
+            <div class="cases-grid">
+              <div class="case-card">
+                <span class="case-track-badge tech">제1조 [재난안전 × 행정]</span>
+                <h4 style="margin-top:0.5rem">여름철 국지성 호우 대비 동천강 하천 범람 예·경보 및 주민 긴급 대피 스마트 시스템</h4>
+                <p style="font-size:0.85rem; color:var(--text-muted)">수위 센서·CCTV 영상인식 AI + 재난안전특교세 확보 및 긴급 대피 재난문자/알림톡 연계</p>
+              </div>
+              <div class="case-card">
+                <span class="case-track-badge tech">제2조 [환경 × 주민소통]</span>
+                <h4 style="margin-top:0.5rem">모듈화·매곡산단 악취·미세먼지 실시간 AI 역추적 및 주민 신뢰 안심 전광판 구축</h4>
+                <p style="font-size:0.85rem; color:var(--text-muted)">대기확산 시뮬레이션 알고리즘 + 환경 기본 조례 개정 및 송정 주민 신뢰 전광판 설치</p>
+              </div>
+              <div class="case-card">
+                <span class="case-track-badge admin">제3조 [도시인프라 × 기획]</span>
+                <h4 style="margin-top:0.5rem">동해남부선 '울산숲' 연계 스마트 관광·보행 인프라 및 친환경 푸드트럭 빌리지 조성</h4>
+                <p style="font-size:0.85rem; color:var(--text-muted)">스마트 데크 조명·IoT 감리 체크리스트 + 청년 창업 지원 조례 및 주말 문화 버스킹 기획</p>
+              </div>
+              <div class="case-card">
+                <span class="case-track-badge admin">제4조 [교통안전 × 복지]</span>
+                <h4 style="margin-top:0.5rem">송정·강동지구 초등학교 주변 AI 스마트 스쿨존 및 야간 보행 안전 골든타임 확보</h4>
+                <p style="font-size:0.85rem; color:var(--text-muted)">온디바이스 과속·보행자 인식 비전 센서 + 도로교통 안전 조례 및 경찰서 합동 단속 체계</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-section">
+            <div class="section-title" style="justify-content:space-between">
+              <span>📄 [배포용 유인물] 1페이지 분임 토의 워크시트 양식</span>
+              <button class="copy-btn" onclick="copyPrompt('ws')">📋 워크시트 양식 복사</button>
+            </div>
+            <pre class="worksheet-pre" id="ws">┌──────────────────────────────────────────────────────────────────────────────┐
+│                  [울산 북구청 신규 공무원 역량강화 특강]                     │
+│               행정×기술 융합 AI 시책 기획 워크시트 (1-Page)                  │
+├─────────┬──────────────────────┬─────────┬───────────────────────────────────┤
+│ 분임 번호│ 제 (    ) 분임        │ 참여 직렬│ 행정(   ), 복지(   ), 토목(   ),  │
+│         │                      │         │ 환경(   ), 건축(   ), 기타(   )  │
+├─────────┼──────────────────────┴─────────┴───────────────────────────────────┤
+│ 프로젝트│                                                                   │
+│  명칭   │                                                                   │
+├─────────┴───────────────────────────────────────────────────────────────────┤
+│ 1. 현황 및 문제점 (구민이 겪는 진짜 고통은 무엇인가?)                        │
+│  •                                                                           │
+│  •                                                                           │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ 2. 기술·연구직 솔루션: "데이터와 기술로 해결하기" (Track B 파트)             │
+│  [사용 센서 / 데이터]: (예: IoT 대기 센서, 강우량 데이터, GIS 공간정보 등)   │
+│  •                                                                           │
+│  [AI 알고리즘 / 하드웨어]: (예: 딥러닝 영상 분석, 수위 예측 모델, 드론 등)    │
+│  •                                                                           │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ 3. 행정직 솔루션: "제도, 예산, 주민 소통으로 완성하기" (Track A 파트)       │
+│  [관련 조례 및 제도 정비]: (예: 북구 환경 기본 조례 개정, 안전 대피 매뉴얼) │
+│  •                                                                           │
+│  [예산 확보 및 대구민 홍보]: (예: 행안부 재난안전특교세 공모, 알림톡 발송)   │
+│  •                                                                           │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ 4. AI 프롬프트 협업 로그 (우리 조가 AI에게 물어본 질문과 그 결과)          │
+│  [질문 프롬프트 요약]:                                                        │
+│  [AI 추천 아이디어 중 채택한 내용]:                                         │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ 5. 최종 기대효과 (우리 북구 주민의 삶은 어떻게 바뀌는가?)                     │
+│  • 정량적 지표: (예: 침수 피해 0건, 악취 민원 50% 감축 등)                   │
+│  • 정성적 지표: (예: 구민의 구정 신뢰도 제고 등)                            │
+└──────────────────────────────────────────────────────────────────────────────┘</pre>
+          </div>
+        `
+      },
+      5: {
+        title: "Module 5. 분임 발표 및 강사 피드백",
+        time: "95~110분 (총 15분)",
+        badge: "🎤 현장 스피치 & 실무 크리틱",
+        summary: "2개 대표 분임의 3분 스피치와 함께 강사의 행정적 조례 적합성 및 기술적 실현 가능성 One-Point 코칭을 진행합니다.",
+        content: `
+          <div class="content-section">
+            <div class="section-title">⏱️ 분임 발표 진행 방식 (15분 타임테이블)</div>
+            <div class="policy-grid">
+              <div class="policy-card">
+                <h4>분임당 3분 압축 발표</h4>
+                <p>1페이지 워크시트를 화면에 미러링 후 [구민 고통 ➔ 기술 솔루션 ➔ 행정 제도·예산 ➔ AI 협업 교훈] 순서로 4단계 발표.</p>
+              </div>
+              <div class="policy-card">
+                <h4>분임당 4분 강사 크리틱</h4>
+                <p>행정직 관점(조례/예산/민원)과 기술직 관점(센서/AI 모델/안전기준)의 Two-Track 실무 타당성 즉각 피드백.</p>
+              </div>
+              <div class="policy-card">
+                <h4>전체 칭찬 & 총평</h4>
+                <p>행정과 기술 직렬 간의 협업 장벽을 허문 시너지 포인트 강조 및 실무 배치 후 협업 태도 독려.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-section">
+            <div class="section-title">🎯 강사 실무 크리틱 중점 피드백 포인트 (Two-Track)</div>
+            <div class="cases-grid">
+              <div class="case-card">
+                <span class="case-track-badge admin">Track A · 행정직군 피드백 관점</span>
+                <h4 style="margin-top:0.6rem">자치조례 및 재원 확보 현실성</h4>
+                <div class="case-detail-row"><strong>1. 조례 적합성:</strong> 북구 자치조례(환경 기본 조례, 주차 견인 조례 등) 및 지방재정법과 상충 여부 검토.</div>
+                <div class="case-detail-row"><strong>2. 예산 조달 논리:</strong> 구비 전액 지양, 행안부 특교세·과기정통부 AI 실증 R&D·시비 매칭 등 다각화된 국·시비 공모 전략 검토.</div>
+                <div class="case-detail-row"><strong>3. 주민 갈등 관리:</strong> 디지털 소외계층(어르신, 다문화) 민원 사전 예방책과 홍보(알림톡, 반상회보) 채널 적절성 평가.</div>
+              </div>
+
+              <div class="case-card">
+                <span class="case-track-badge tech">Track B · 기술·연구직군 피드백 관점</span>
+                <h4 style="margin-top:0.6rem">현장 센서 인프라 및 적정 AI 모델</h4>
+                <div class="case-detail-row"><strong>1. 센서 인프라 현실성:</strong> 센서 설치 위치(동천강 둔치, 산단 굴뚝), 통신 음영지역, 노이즈 필터링 대책 검토.</div>
+                <div class="case-detail-row"><strong>2. 적정 AI 기술:</strong> 무조건적인 LLM 대신 시계열 예측(머신러닝), 컴퓨터 비전(객체 검출) 등 과제 맞춤형 모델 선정 검증.</div>
+                <div class="case-detail-row"><strong>3. 현장 유지보수:</strong> 공사 시방서 표준 준수, 기상 악화 시 긴급 수동 전환 매뉴얼, 담당자 교체 시 인수인계 가능성 점검.</div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      6: {
+        title: "Module 6. 공직자 AI 보안·윤리 & Q&A",
+        time: "110~120분 (총 10분)",
+        badge: "🛡️ 보안 수칙 & 감동 클로징",
+        summary: "공공 AI 3대 입력 불가 데이터, 마스킹 공식, 환각 검증 3단계 및 신규 공직자를 응원하는 클로징 멘트로 마무리합니다.",
+        content: `
+          <div class="content-section">
+            <div class="security-banner">
+              <h4>🚨 절대 금지: 공공 AI 3대 입력 불가 데이터</h4>
+              <ul>
+                <li><strong>1. 구민 개인정보 (PII):</strong> 이름, 주민등록번호, 휴대전화번호, 상세 집 주소, 기초생활수급·장애인 복지 이력 등 민감정보</li>
+                <li><strong>2. 비공개 행정·안전 문서:</strong> 북구청 내부 보안망 전용 공문, 단속 계획서, 비공개 도시계획 심의자료, 방위·재난 보안 공간데이터</li>
+                <li><strong>3. 미공개 개발·입찰 정보:</strong> 산단 입주 예정 기업 정보, 미발표 토지수용 계획, 입찰 예정가 및 시방서 원가 계산서</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="content-section">
+            <div class="section-title">🔒 실무자를 위한 가명화·익명화 마스킹 공식</div>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>구분</th>
+                    <th>원천 데이터 (입력 불가 예시)</th>
+                    <th>안전한 마스킹 변환 공식 (입력 가능 예시)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>인명</strong></td>
+                    <td>홍길동 (민원인 실명)</td>
+                    <td><code>민원인 A</code> 또는 <code>구민 OO</code></td>
+                  </tr>
+                  <tr>
+                    <td><strong>상세 주소</strong></td>
+                    <td>울산 북구 송정동 123-45 한양수자인 101동 202호</td>
+                    <td><code>울산 북구 관내 신도시 아파트 단지 A</code></td>
+                  </tr>
+                  <tr>
+                    <td><strong>차량 번호</strong></td>
+                    <td>울산 12가 3456 (화물차 번호판)</td>
+                    <td><code>차량 01 (대형 화물트럭)</code></td>
+                  </tr>
+                  <tr>
+                    <td><strong>예산 / 수치</strong></td>
+                    <td>대외비 사업비 4억 8천 2백만 원</td>
+                    <td>비율(%) 표기 또는 <code>총 사업비 X억 원 중 구비 50%</code>로 변수화</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="content-section">
+            <div class="section-title">🔍 생성형 AI 할루시네이션(환각) 3단계 교차 검증법</div>
+            <div class="policy-grid">
+              <div class="policy-card">
+                <h4>1. 자치법규 교차 대조</h4>
+                <p>AI가 알려준 조례 조항은 반드시 자치법규정보시스템(<code>elis.go.kr</code>) 및 국가법령정보센터(<code>law.go.kr</code>)에서 실존 여부 및 최신 개정일 확인.</p>
+              </div>
+              <div class="policy-card">
+                <h4>2. 수치 계산 직접 검증</h4>
+                <p>AI는 자연어 통계 언어 모델이므로 예산 총계, 연산식에서 덧셈·곱셈 오류 빈번. 엑셀이나 계산기로 반드시 교차 검산.</p>
+              </div>
+              <div class="policy-card">
+                <h4>3. 공식 통계 출처 대조</h4>
+                <p>북구 인구수, 노인 가구 비율 등 통계는 반드시 행안부 주민등록 인구통계 또는 북구 통계연보 공식 수치와 대조 후 결재 기안.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-section">
+            <div class="section-title">🌟 강사 감동 클로징 멘트</div>
+            <div class="speech-box">
+              <span class="tag">Speaker Closing Speech</span>
+              <p>"신규 주무관 여러분! 오늘 배운 AI는 여러분의 일을 대신해 주는 요술봉이 아닙니다. 여러분의 탁월한 행정적 판단과 현장 전문성을 10배, 100배 증폭시켜 주는 <strong>'최고의 파트너'</strong>입니다."</p>
+              <p>"조례를 찾느라 밤새우지 마십시오. 방대한 시방서 앞에서 두려워하지 마십시오. 복잡한 데이터 분석과 초안 작성은 AI에게 맡기고, 여러분은 <strong>'울산 북구 구민의 목소리를 직접 듣고, 현장을 한 번 더 살피며, 더 따뜻한 행정을 고민하는 일'</strong>에 여러분의 소중한 시간과 에너지를 쏟으십시오."</p>
+              <p><strong>"여러분 한 분 한 분이 바로 울산 북구의 미래이자 혁신의 주인공입니다. 여러분의 당찬 공직 생활을 열렬히 응원합니다. 감사합니다!"</strong></p>
+            </div>
+          </div>
+        `
+      }
+    };
+
+    // Render Module Content
+    function renderModule(moduleId) {
+      const data = modulesData[moduleId];
+      if (!data) return;
+
+      const container = document.getElementById('detailContainer');
+      container.innerHTML = `
+        <div class="detail-header">
+          <div class="detail-header-left">
+            <h2>
+              ${data.title}
+              <span class="hero-badge blue">${data.time}</span>
+              <span class="hero-badge green">${data.badge}</span>
+            </h2>
+            <p>${data.summary}</p>
+          </div>
+          <div class="quick-actions">
+            <button class="action-btn" onclick="window.print()">🖨️ 인쇄 / PDF 저장</button>
+          </div>
+        </div>
+        ${data.content}
+      `;
+
+      // Update Card Active states
+      document.querySelectorAll('.module-card').forEach(card => {
+        if (card.getAttribute('data-module') == moduleId) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+      });
+
+      // Smooth scroll to detail
+      container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Module Card Click Event
+    document.querySelectorAll('.module-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const id = card.getAttribute('data-module');
+        renderModule(id);
+      });
+    });
+
+    // Track Filter Button Event
+    document.querySelectorAll('.track-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.track-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const track = btn.getAttribute('data-track');
+
+        if (track === 'all') {
+          renderModule(1);
+        } else if (track === 'admin') {
+          renderModule(2);
+        } else if (track === 'tech') {
+          renderModule(2);
+        } else if (track === 'prompt') {
+          renderModule(3);
+        }
+      });
+    });
+
+    // Copy Prompt Function
+    window.copyPrompt = function(elementId) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      const text = el.innerText || el.textContent;
+
+      navigator.clipboard.writeText(text).then(() => {
+        showToast("📋 내용이 클립보드에 성공적으로 복사되었습니다!");
+      }).catch(() => {
+        // Fallback
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        showToast("📋 내용이 클립보드에 복사되었습니다!");
+      });
+    };
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.innerText = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    // Keyword Search Filter
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      if (!query) return;
+
+      for (let i = 1; i <= 6; i++) {
+        const mod = modulesData[i];
+        if (mod.title.toLowerCase().includes(query) || mod.summary.toLowerCase().includes(query) || mod.content.toLowerCase().includes(query)) {
+          renderModule(i);
+          break;
+        }
+      }
+    });
+
+    // 120-minute Live Instructor Timer
+    let totalSeconds = 120 * 60;
+    let timerInterval = null;
+    let isRunning = false;
+    const timerDisplay = document.getElementById('timerDisplay');
+    const startTimerBtn = document.getElementById('startTimerBtn');
+    const resetTimerBtn = document.getElementById('resetTimerBtn');
+
+    function updateTimerDisplay() {
+      const m = Math.floor(totalSeconds / 60);
+      const s = totalSeconds % 60;
+      timerDisplay.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    startTimerBtn.addEventListener('click', () => {
+      if (!isRunning) {
+        isRunning = true;
+        startTimerBtn.textContent = '❚❚';
+        timerInterval = setInterval(() => {
+          if (totalSeconds > 0) {
+            totalSeconds--;
+            updateTimerDisplay();
+          } else {
+            clearInterval(timerInterval);
+            isRunning = false;
+            startTimerBtn.textContent = '▶';
+            showToast('⏰ 120분 특강 시간이 종료되었습니다!');
+          }
+        }, 1000);
+      } else {
+        isRunning = false;
+        clearInterval(timerInterval);
+        startTimerBtn.textContent = '▶';
+      }
+    });
+
+    resetTimerBtn.addEventListener('click', () => {
+      isRunning = false;
+      clearInterval(timerInterval);
+      startTimerBtn.textContent = '▶';
+      totalSeconds = 120 * 60;
+      updateTimerDisplay();
+    });
+
+    // Theme Toggle
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    let currentTheme = 'dark';
+    themeToggleBtn.addEventListener('click', () => {
+      currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.body.setAttribute('data-theme', currentTheme);
+      themeToggleBtn.textContent = currentTheme === 'dark' ? '🌓' : '☀️';
+    });
+
+    // Initial render
+    renderModule(1);
+  </script>
+</body>
+</html>
