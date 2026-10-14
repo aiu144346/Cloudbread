@@ -346,6 +346,393 @@
       line-height: 1.6;
     }
 
+    /* ==========================================================
+       Pre-Lecture AI Diagnostic Dashboard (Module 1 사전 진단)
+       ========================================================== */
+    .diag-section {
+      background: #FFFFFF;
+      border: 1.5px solid #CBD5E1;
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 25px rgba(0, 71, 171, 0.08);
+      position: relative;
+    }
+    .diag-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-bottom: 1.5px solid #F1F5F9;
+      padding-bottom: 1rem;
+    }
+    .diag-title-area h3 {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: #0047AB;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.35rem;
+    }
+    .diag-title-area p {
+      font-size: 0.88rem;
+      color: #475569;
+      line-height: 1.5;
+    }
+    .diag-preset-row {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .diag-preset-btn {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      border: 1px solid #CBD5E1;
+      background: #F8FAFC;
+      color: #334155;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .diag-preset-btn:hover {
+      background: #EBF3FF;
+      color: #0052CC;
+      border-color: #93C5FD;
+    }
+
+    /* Grid Layout */
+    .diag-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    @media (max-width: 960px) {
+      .diag-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Left: Question Cards */
+    .diag-questions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .diag-q-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: var(--radius-md);
+      padding: 0.9rem 1.1rem;
+      transition: var(--transition);
+    }
+    .diag-q-card:hover {
+      border-color: #0052CC;
+      background: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(0, 82, 204, 0.06);
+    }
+    .diag-q-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.45rem;
+      gap: 0.5rem;
+    }
+    .diag-q-label {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #0F172A;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .diag-tag {
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+    .diag-tag.green { background: #DCFCE7; color: #166534; }
+    .diag-tag.blue { background: #DBEAFE; color: #1E40AF; }
+    .diag-tag.black { background: #F1F5F9; color: #0F172A; border: 1px solid #CBD5E1; }
+
+    .diag-q-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .diag-step-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      border: 1px solid #CBD5E1;
+      background: #FFFFFF;
+      color: #0F172A;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .diag-step-btn:hover {
+      background: #0052CC;
+      color: #FFFFFF;
+      border-color: #0052CC;
+    }
+    .diag-slider {
+      flex: 1;
+      height: 7px;
+      border-radius: 4px;
+      outline: none;
+      accent-color: #0052CC;
+      cursor: pointer;
+    }
+    .diag-q-stats {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #0052CC;
+      min-width: 105px;
+      text-align: right;
+    }
+
+    /* Right: Visual Analytics Card */
+    .diag-visual-card {
+      background: #FFFFFF;
+      border: 1.5px solid #BFDBFE;
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      box-shadow: 0 4px 18px rgba(0, 71, 171, 0.05);
+    }
+    .diag-score-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, #F0F7FF 0%, #E0F2FE 100%);
+      border: 1px solid #BFDBFE;
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1.15rem;
+    }
+    .score-left h4 {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #0369A1;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 2px;
+    }
+    .score-number {
+      font-size: 1.7rem;
+      font-weight: 900;
+      color: #0047AB;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .score-badge {
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      background: #0052CC;
+      color: #FFFFFF;
+    }
+
+    /* Radar Chart Box */
+    .radar-container {
+      width: 100%;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .radar-container svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    /* Tier Distribution Bar */
+    .tier-bar-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .tier-bar-title {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #475569;
+    }
+    .tier-segmented-bar {
+      display: flex;
+      height: 12px;
+      border-radius: 9999px;
+      overflow: hidden;
+      background: #E2E8F0;
+    }
+    .tier-seg {
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+    .tier-seg.green { background: #10B981; }
+    .tier-seg.blue { background: #0052CC; }
+    .tier-seg.black { background: #0F172A; }
+
+    .tier-legend {
+      display: flex;
+      justify-content: space-around;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #475569;
+    }
+    .tier-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 4px;
+    }
+    .tier-dot.green { background: #10B981; }
+    .tier-dot.blue { background: #0052CC; }
+    .tier-dot.black { background: #0F172A; }
+
+    /* Insight Banner */
+    .diag-insight-box {
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-left: 4px solid #16A34A;
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 0.95rem;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: #14532D;
+    }
+    .diag-insight-box strong {
+      color: #15803D;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* Questions Drawer Accordion */
+    .diag-exam-drawer {
+      border-top: 1.5px dashed #CBD5E1;
+      padding-top: 1.1rem;
+      margin-top: 0.85rem;
+    }
+    .diag-exam-toggle-btn {
+      width: 100%;
+      background: #F8FAFC;
+      border: 1.5px solid #CBD5E1;
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 1rem;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #0047AB;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition);
+    }
+    .diag-exam-toggle-btn:hover {
+      background: #EBF3FF;
+      border-color: #0052CC;
+    }
+    .diag-exam-content {
+      display: none;
+      margin-top: 1.25rem;
+      gap: 1.1rem;
+      flex-direction: column;
+    }
+    .diag-exam-content.open {
+      display: flex;
+    }
+    .exam-tier-section {
+      background: #FFFFFF;
+      border: 1.5px solid #E2E8F0;
+      border-radius: var(--radius-md);
+      padding: 1.15rem 1.25rem;
+      box-shadow: 0 2px 10px rgba(0, 71, 171, 0.04);
+    }
+    .exam-tier-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 800;
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #F1F5F9;
+    }
+    .exam-tier-header.green { color: #166534; }
+    .exam-tier-header.blue { color: #1E40AF; }
+    .exam-tier-header.black { color: #0F172A; }
+
+    .exam-item {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.86rem;
+      line-height: 1.6;
+    }
+    .exam-item:last-child {
+      margin-bottom: 0;
+    }
+    .exam-item .q-title {
+      font-weight: 800;
+      color: #0F172A;
+      margin-bottom: 0.4rem;
+    }
+    .exam-item .q-opts {
+      margin-left: 0.35rem;
+      color: #334155;
+      font-size: 0.84rem;
+      line-height: 1.6;
+    }
+    .exam-answer-box {
+      margin-top: 0.6rem;
+      padding: 0.6rem 0.85rem;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      background: #FEF3C7;
+      color: #92400E;
+      border: 1px solid #FDE68A;
+      display: none;
+      line-height: 1.5;
+    }
+    .exam-answer-box.show {
+      display: block;
+    }
+    .reveal-ans-btn {
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 4px;
+      border: 1px solid #CBD5E1;
+      background: #FFFFFF;
+      cursor: pointer;
+      color: #0052CC;
+      font-weight: 700;
+      margin-top: 0.5rem;
+      transition: var(--transition);
+    }
+    .reveal-ans-btn:hover {
+      background: #0052CC;
+      color: #FFFFFF;
+      border-color: #0052CC;
+    }
+
     /* Filter & Track Bar */
     .filter-bar {
       display: flex;
@@ -1083,6 +1470,260 @@
         <p class="hero-desc">
           단순한 챗GPT 기초 사용법을 넘어, 북구 고유 현안(산업단지 환경 악취, 동천강 침수, 송정·강동 신도시 정주여건, 울산숲 감리)에 맞춘 실전 프롬프트와 행정·기술 융합 워크숍을 원클릭으로 열람하고 실습할 수 있습니다.
         </p>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         Pre-Lecture AI Competency Diagnostic Dashboard (Module 1 사전 역량 진단)
+         ========================================================== -->
+    <section class="diag-section" id="aiDiagnosticDashboard">
+      <div class="diag-topbar">
+        <div class="diag-title-area">
+          <h3>📊 [Module 1 사전 진단] 신임 공무원 AI 역량 실시간 진단 대시보드</h3>
+          <p>현장에서 5대 질문에 답한 인원(0~20명)을 조작하면, 북구청 신임 기수의 <strong>종합 AI 성숙도, 레이더 역량 맵, 3대 티어 분포 및 맞춤형 강의 전략</strong>이 즉시 실시간 계산됩니다.</p>
+        </div>
+        <div class="diag-preset-row">
+          <span style="font-size: 0.78rem; font-weight: 800; color: #64748B;">⚡ 빠른 프리셋:</span>
+          <button class="diag-preset-btn" onclick="applyDiagPreset('default')">기본값 (평균형)</button>
+          <button class="diag-preset-btn" onclick="applyDiagPreset('starter')">🟢 그린 우세 (입문형)</button>
+          <button class="diag-preset-btn" onclick="applyDiagPreset('practitioner')">🔵 블루 우세 (실무형)</button>
+          <button class="diag-preset-btn" onclick="applyDiagPreset('innovator')">⚫ 블랙 우세 (AX 선도형)</button>
+          <button class="diag-preset-btn" onclick="applyDiagPreset('reset')">↺ 초기화</button>
+        </div>
+      </div>
+
+      <!-- Grid: Left Inputs vs Right Analytics -->
+      <div class="diag-grid">
+        <!-- Left: 5 Survey Questions -->
+        <div class="diag-questions-list">
+          <!-- Q1 -->
+          <div class="diag-q-card">
+            <div class="diag-q-header">
+              <span class="diag-q-label">
+                <span>1️⃣</span> 생성형 AI를 업무 또는 일상에서 사용해 본 적이 있는가?
+              </span>
+              <span class="diag-tag green">기초 리터러시</span>
+            </div>
+            <div class="diag-q-controls">
+              <button class="diag-step-btn" onclick="stepDiag(1, -1)">-</button>
+              <input type="range" min="0" max="20" value="17" class="diag-slider" id="diagQ1" oninput="updateDiagDashboard()">
+              <button class="diag-step-btn" onclick="stepDiag(1, 1)">+</button>
+              <div class="diag-q-stats" id="diagQ1Text">17 / 20명 (85%)</div>
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="diag-q-card">
+            <div class="diag-q-header">
+              <span class="diag-q-label">
+                <span>2️⃣</span> 발표(PT)를 위해 생성형 AI로 슬라이드나 기획서 초안을 만들어 본 적이 있는가?
+              </span>
+              <span class="diag-tag blue">문서·발표 AX</span>
+            </div>
+            <div class="diag-q-controls">
+              <button class="diag-step-btn" onclick="stepDiag(2, -1)">-</button>
+              <input type="range" min="0" max="20" value="8" class="diag-slider" id="diagQ2" oninput="updateDiagDashboard()">
+              <button class="diag-step-btn" onclick="stepDiag(2, 1)">+</button>
+              <div class="diag-q-stats" id="diagQ2Text">8 / 20명 (40%)</div>
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="diag-q-card">
+            <div class="diag-q-header">
+              <span class="diag-q-label">
+                <span>3️⃣</span> 생성형 AI를 활용하여 음악이나 오디오를 직접 생성해 본 적이 있는가?
+              </span>
+              <span class="diag-tag blue">멀티모달 창의</span>
+            </div>
+            <div class="diag-q-controls">
+              <button class="diag-step-btn" onclick="stepDiag(3, -1)">-</button>
+              <input type="range" min="0" max="20" value="3" class="diag-slider" id="diagQ3" oninput="updateDiagDashboard()">
+              <button class="diag-step-btn" onclick="stepDiag(3, 1)">+</button>
+              <div class="diag-q-stats" id="diagQ3Text">3 / 20명 (15%)</div>
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="diag-q-card">
+            <div class="diag-q-header">
+              <span class="diag-q-label">
+                <span>4️⃣</span> 생성형 AI를 활용하여 웹자보, 카드뉴스, 이미지, 영상을 직접 제작해 본 적이 있는가?
+              </span>
+              <span class="diag-tag blue">비주얼 홍보</span>
+            </div>
+            <div class="diag-q-controls">
+              <button class="diag-step-btn" onclick="stepDiag(4, -1)">-</button>
+              <input type="range" min="0" max="20" value="6" class="diag-slider" id="diagQ4" oninput="updateDiagDashboard()">
+              <button class="diag-step-btn" onclick="stepDiag(4, 1)">+</button>
+              <div class="diag-q-stats" id="diagQ4Text">6 / 20명 (30%)</div>
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="diag-q-card">
+            <div class="diag-q-header">
+              <span class="diag-q-label">
+                <span>5️⃣</span> 자연어로 코드를 짜는 '바이브 코딩'이나 데이터 분석 코딩을 해 본 적이 있는가?
+              </span>
+              <span class="diag-tag black">AX 바이브 코딩</span>
+            </div>
+            <div class="diag-q-controls">
+              <button class="diag-step-btn" onclick="stepDiag(5, -1)">-</button>
+              <input type="range" min="0" max="20" value="2" class="diag-slider" id="diagQ5" oninput="updateDiagDashboard()">
+              <button class="diag-step-btn" onclick="stepDiag(5, 1)">+</button>
+              <div class="diag-q-stats" id="diagQ5Text">2 / 20명 (10%)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Visual Analytics Card -->
+        <div class="diag-visual-card">
+          <!-- Score Box -->
+          <div class="diag-score-box">
+            <div class="score-left">
+              <h4>종합 AI 성숙도 지수</h4>
+              <div class="score-number" id="diagScoreDisplay">62 <span style="font-size: 1rem; color: #64748B;">/ 100점</span></div>
+            </div>
+            <div class="score-badge" id="diagTierBadge">🔵 블루 등급 (실무 활용기)</div>
+          </div>
+
+          <!-- Radar Chart (SVG) -->
+          <div class="radar-container" id="diagRadarContainer">
+            <!-- Dynamic SVG Radar Chart inserted here -->
+          </div>
+
+          <!-- Tier Segmented Progress Bar -->
+          <div class="tier-bar-wrap">
+            <div class="tier-bar-title">
+              <span>참석자 역량 티어 분포 추정</span>
+              <span id="tierRatioText">그린 45% · 블루 45% · 블랙 10%</span>
+            </div>
+            <div class="tier-segmented-bar">
+              <div class="tier-seg green" id="segGreen" style="width: 45%;" title="그린"></div>
+              <div class="tier-seg blue" id="segBlue" style="width: 45%;" title="블루"></div>
+              <div class="tier-seg black" id="segBlack" style="width: 10%;" title="블랙"></div>
+            </div>
+            <div class="tier-legend">
+              <span><span class="tier-dot green"></span>🟢 그린(입문/보안)</span>
+              <span><span class="tier-dot blue"></span>🔵 블루(행정실무)</span>
+              <span><span class="tier-dot black"></span>⚫ 블랙(AX코딩)</span>
+            </div>
+          </div>
+
+          <!-- Real-time Pedagogical Insight -->
+          <div class="diag-insight-box" id="diagInsightBox">
+            <strong>🎯 강사용 실시간 강의 전략 제언</strong>
+            <span id="diagInsightText">기초 경험(Q1) 대비 실무 응용(Q2, Q4)의 격차가 확인됩니다. Module 1에서는 행안부 가이드라인으로 보안 우려를 해소하고, Module 3의 '조례 분석 및 시방서 체크리스트 프롬프트' 실습 비중을 확대하는 것이 효과적입니다.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Expandable Civil Servant AI Test Questions Drawer -->
+      <div class="diag-exam-drawer">
+        <button class="diag-exam-toggle-btn" onclick="toggleExamDrawer()">
+          <span>📝 [평가 기준] 대한민국 공무원 AI 활용능력 검증 시험문제 (그린·블루·블랙 5문항)</span>
+          <span id="examDrawerIcon">▼ 자세히 보기</span>
+        </button>
+        <div class="diag-exam-content" id="diagExamContent">
+          <!-- Green Tier Section -->
+          <div class="exam-tier-section">
+            <div class="exam-tier-header green">
+              <span>🟢 그린 등급 (Green Tier : 초급 - AI 리터러시 & 공공 보안/윤리)</span>
+            </div>
+            <div class="exam-item">
+              <div class="q-title">문항 1. [공공 데이터 보안 및 개인정보 비식별화]</div>
+              <p>신임 공무원 A는 울산 북구 주민들의 복지 지원금 신청 민원 내역을 AI로 분석하고자 한다. 다음 중 상용 생성형 AI 입력창에 <strong>절대 그대로 입력해서는 안 되는 내용</strong>은?</p>
+              <div class="q-opts">
+                ① 북구청 홈페이지에 이미 공고된 '2026년 청년 지원 조례' 전문<br>
+                ② 특정 민원인의 성명, 주민등록번호, 연락처, 계좌번호가 포함된 상담 엑셀 원본<br>
+                ③ 담당 공무원의 직무 수행을 위해 공개된 부서 대표 전화번호 및 업무 분장표<br>
+                ④ 행정안전부에서 발행한 정부 합동 업무 매뉴얼 공개 PDF 텍스트
+              </div>
+              <button class="reveal-ans-btn" onclick="toggleAnswer('ans1')">정답 및 행정 해설 확인</button>
+              <div class="exam-answer-box" id="ans1">
+                <strong>정답: ②번</strong><br>
+                <strong>해설:</strong> 주민등록번호, 계좌번호 등 고유식별정보 및 민감 개인정보는 개인정보보호법 및 행안부 보안 지침에 따라 비식별 마스킹(예: 홍*동, 90****) 처리 없이 상용 AI에 전송할 수 없습니다.
+              </div>
+            </div>
+
+            <div class="exam-item">
+              <div class="q-title">문항 2. [환각(Hallucination) 검증 및 책임성]</div>
+              <p>생성형 AI에게 "울산 북구청의 최근 보조금 관련 조례 번호와 지원 요건을 알려줘"라고 요청했을 때, 공문서 반영 전 공무원이 취해야 할 <strong>가장 올바른 조치</strong>는?</p>
+              <div class="q-opts">
+                ① AI가 그럴듯하게 출처를 적었으므로 검증 없이 즉시 공문 첨부문서로 인용한다.<br>
+                ② AI 답변에 나온 조례 번호와 수치를 국가법령정보센터 및 자치법규정보시스템에서 원문 대조 검증(Fact-Check)한다.<br>
+                ③ 최신 초거대 AI 모델은 오류가 없으므로 다른 동료에게 공유하여 서명만 받는다.<br>
+                ④ 생성된 문장의 어조만 공문서체(-바람, -하오니)로 다듬어 그대로 결재를 상신한다.
+              </div>
+              <button class="reveal-ans-btn" onclick="toggleAnswer('ans2')">정답 및 행정 해설 확인</button>
+              <div class="exam-answer-box" id="ans2">
+                <strong>정답: ②번</strong><br>
+                <strong>해설:</strong> 생성형 AI는 통계적 확률로 문장을 생성하므로 없는 조례를 만들어내는 환각이 발생할 수 있습니다. 행정 공문서에 반영되는 모든 법령·수치는 국가법령정보센터 원문 대조가 필수이며, 최종 책임은 작성 공무원 본인에게 있습니다.
+              </div>
+            </div>
+          </div>
+
+          <!-- Blue Tier Section -->
+          <div class="exam-tier-section">
+            <div class="exam-tier-header blue">
+              <span>🔵 블루 등급 (Blue Tier : 중급 - 행정 실무 AX & 멀티모달 활용)</span>
+            </div>
+            <div class="exam-item">
+              <div class="q-title">문항 3. [P-C-T-R-V 프롬프트 엔지니어링 기반 기획서 작성]</div>
+              <p>송정·강동 신도시 주민들의 정주여건 개선을 위한 '야간 문화행사 기획안' 초안을 AI로 작성하고자 한다. <strong>Context(배경 맥락)와 Role(역할)</strong>을 가장 탁월하게 부여한 프롬프트는?</p>
+              <div class="q-opts">
+                ① "문화 행사 기획서 멋있게 하나 써줘. 예산은 2천만 원이야."<br>
+                ② "너는 지자체 10년 차 축제 기획 총괄관이야. 송정·강동 신도시의 30~40대 맞벌이 부부와 영유아 비율이 높은 지역 인구 특성을 반영하여 기획안을 수립해줘."<br>
+                ③ "기획안 형식으로 3페이지 분량으로 표를 만들고 글머리 기호를 달아줘."<br>
+                ④ "AI야, 울산 북구의 문화 행사에 대해 아는 대로 설명해줘."
+              </div>
+              <button class="reveal-ans-btn" onclick="toggleAnswer('ans3')">정답 및 행정 해설 확인</button>
+              <div class="exam-answer-box" id="ans3">
+                <strong>정답: ②번</strong><br>
+                <strong>해설:</strong> 신도시의 고유한 인구 통계(3040 맞벌이, 영유아)라는 정밀한 배경 맥락(Context)과 10년 차 축제 기획 총괄관(Role) 페르소나를 부여해야 공공 행정에 적합한 고품질 기획 초안을 얻을 수 있습니다.
+              </div>
+            </div>
+
+            <div class="exam-item">
+              <div class="q-title">문항 4. [멀티모달 행정 홍보 & 발표 슬라이드 생성]</div>
+              <p>신임 공무원이 '북구 동천강 자전거길 플로깅 캠페인'을 홍보하기 위해 생성형 AI를 활용하는 단계로 <strong>가장 적절한 실무 프로세스</strong>는?</p>
+              <div class="q-opts">
+                ① AI 챗봇에게 행사 개요만 주고, 아무런 보정 없이 출력된 이미지를 구정 소식지 표지로 바로 인쇄한다.<br>
+                ② AI 도구를 활용해 기획서 텍스트를 슬라이드 초안으로 변환한 뒤, 이미지 생성 AI로 친환경 캠페인 비주얼을 제작하고 캔바(Canva) 등에서 북구 CI 로고와 필수 일정 텍스트를 합성·보정한다.<br>
+                ③ 음악 생성 AI로 테마송을 만들고, 저작권 및 라이선스 확인 없이 전 구역에 유료 음원으로 배포한다.<br>
+                ④ 텍스트 슬라이드만 고집하고 멀티모달 도구는 행정 실무에서 전면 배제한다.
+              </div>
+              <button class="reveal-ans-btn" onclick="toggleAnswer('ans4')">정답 및 행정 해설 확인</button>
+              <div class="exam-answer-box" id="ans4">
+                <strong>정답: ②번</strong><br>
+                <strong>해설:</strong> 멀티모달 AI는 신속한 시각/구성 초안 도출에 탁월하며, 지자체 공식 CI, 조례 규격 텍스트, 저작권 라이선스 등 최종 완성도는 공무원이 직접 검수·합성하여 완성도를 담보해야 합니다.
+              </div>
+            </div>
+          </div>
+
+          <!-- Black Tier Section -->
+          <div class="exam-tier-section">
+            <div class="exam-tier-header black">
+              <span>⚫ 블랙 등급 (Black Tier : 고급 - 바이브 코딩 & 지자체 특화 자동화 AX)</span>
+            </div>
+            <div class="exam-item">
+              <div class="q-title">문항 5. [바이브 코딩을 통한 민원/행정 데이터 분석 자동화]</div>
+              <p>매주 접수되는 산업단지 악취 및 소음 민원 엑셀 파일 수백 건을 요약하고, 동별 발생 빈도 히트맵(Heatmap) 차트를 만들어야 한다. <strong>바이브 코딩(Vibe Coding)을 활용한 가장 혁신적인 접근법</strong>은?</p>
+              <div class="q-opts">
+                ① 수작업으로 엑셀 피벗테이블을 돌려 매주 3시간씩 그래프를 직접 손으로 그린다.<br>
+                ② AI에게 "민원 데이터 엑셀의 접수일시, 발생동, 악취등급 컬럼을 읽어 주간 발생 추이를 반응형 웹 차트로 시각화하는 파이썬/HTML 스크립트를 작성해줘"라고 자연어로 지시하고, 코드를 실행하여 자동화 대시보드를 생성한다.<br>
+                ③ 데이터 분석은 기술직만의 영역이므로 행정직은 단순 건수만 합산하여 보고한다.<br>
+                ④ 외부 전문 용역을 발주하기 위해 6개월간 예산 심의를 기다린다.
+              </div>
+              <button class="reveal-ans-btn" onclick="toggleAnswer('ans5')">정답 및 행정 해설 확인</button>
+              <div class="exam-answer-box" id="ans5">
+                <strong>정답: ②번</strong><br>
+                <strong>해설:</strong> 바이브 코딩(Vibe Coding)은 전문 프로그래밍 지식이 없어도 자연어로 데이터 구조와 요구사항을 설명하여 실무용 분석 코드 및 시각화 도구를 즉시 도출·실행하는 공공 AX의 최고 단계입니다.
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1958,8 +2599,197 @@
       if (toggleIcon) toggleIcon.textContent = isOpen ? '▲' : '▼';
     }
 
+    // ==========================================================
+    // Pre-Lecture AI Competency Diagnostic Dashboard Logic
+    // ==========================================================
+    window.stepDiag = function(qNum, delta) {
+      const slider = document.getElementById(`diagQ${qNum}`);
+      if (!slider) return;
+      let val = parseInt(slider.value, 10) + delta;
+      if (val < 0) val = 0;
+      if (val > 20) val = 20;
+      slider.value = val;
+      updateDiagDashboard();
+    };
+
+    window.applyDiagPreset = function(type) {
+      const presets = {
+        'default': [17, 8, 3, 6, 2],
+        'starter': [19, 3, 1, 2, 0],
+        'practitioner': [20, 15, 7, 14, 4],
+        'innovator': [20, 18, 12, 16, 11],
+        'reset': [0, 0, 0, 0, 0]
+      };
+      const values = presets[type] || presets['default'];
+      for (let i = 1; i <= 5; i++) {
+        const slider = document.getElementById(`diagQ${i}`);
+        if (slider) slider.value = values[i - 1];
+      }
+      updateDiagDashboard();
+    };
+
+    window.updateDiagDashboard = function() {
+      const total = 20;
+      const qVals = [];
+      for (let i = 1; i <= 5; i++) {
+        const slider = document.getElementById(`diagQ${i}`);
+        const val = slider ? parseInt(slider.value, 10) : 0;
+        qVals.push(val);
+        const textEl = document.getElementById(`diagQ${i}Text`);
+        if (textEl) {
+          const pct = Math.round((val / total) * 100);
+          textEl.textContent = `${val} / 20명 (${pct}%)`;
+        }
+      }
+
+      // Weights: Q1: 15%, Q2: 25%, Q3: 15%, Q4: 25%, Q5: 20%
+      const weights = [0.15, 0.25, 0.15, 0.25, 0.20];
+      let weightedScore = 0;
+      for (let i = 0; i < 5; i++) {
+        weightedScore += (qVals[i] / total) * weights[i] * 100;
+      }
+      const finalScore = Math.round(weightedScore);
+      const scoreDisplay = document.getElementById('diagScoreDisplay');
+      if (scoreDisplay) {
+        scoreDisplay.innerHTML = `${finalScore} <span style="font-size: 1rem; color: #64748B;">/ 100점</span>`;
+      }
+
+      // Tier Determination & Badge
+      const tierBadge = document.getElementById('diagTierBadge');
+      let tierClass = 'blue';
+      let tierTitle = '🔵 블루 등급 (실무 활용기)';
+      if (finalScore >= 65) {
+        tierClass = 'black';
+        tierTitle = '⚫ 블랙 등급 (AX 혁신 선도형)';
+      } else if (finalScore < 40) {
+        tierClass = 'green';
+        tierTitle = '🟢 그린 등급 (기초 리터러시형)';
+      }
+      if (tierBadge) {
+        tierBadge.textContent = tierTitle;
+        tierBadge.style.background = tierClass === 'black' ? '#0F172A' : (tierClass === 'blue' ? '#0052CC' : '#059669');
+      }
+
+      // Tier Distribution Estimation
+      // Green = Q1 focus; Blue = average(Q2, Q3, Q4); Black = Q5
+      const blackCount = qVals[4];
+      const blueCount = Math.round((qVals[1] + qVals[2] + qVals[3]) / 3);
+      const greenOnly = Math.max(0, qVals[0] - Math.max(blueCount, blackCount));
+      const subTotal = Math.max(1, greenOnly + blueCount + blackCount);
+
+      const greenPct = Math.round((greenOnly / subTotal) * 100);
+      const bluePct = Math.round((blueCount / subTotal) * 100);
+      const blackPct = Math.max(0, 100 - greenPct - bluePct);
+
+      const segGreen = document.getElementById('segGreen');
+      const segBlue = document.getElementById('segBlue');
+      const segBlack = document.getElementById('segBlack');
+      const tierRatioText = document.getElementById('tierRatioText');
+
+      if (segGreen) segGreen.style.width = `${greenPct}%`;
+      if (segBlue) segBlue.style.width = `${bluePct}%`;
+      if (segBlack) segBlack.style.width = `${blackPct}%`;
+      if (tierRatioText) {
+        tierRatioText.textContent = `그린 ${greenPct}% · 블루 ${bluePct}% · 블랙 ${blackPct}%`;
+      }
+
+      // Dynamic Pedagogical Insight
+      const insightText = document.getElementById('diagInsightText');
+      if (insightText) {
+        if (finalScore < 35) {
+          insightText.textContent = '참석자 다수가 생성형 AI 입문 단계입니다. Module 1에서 DPG 정책 및 행안부 보안 기준(개인정보 비식별화)을 차분히 짚고, Module 3 프롬프트 실습 시 기본 템플릿(Recipe 1)의 입력-출력 구조를 친절히 시연하는 것이 효과적입니다.';
+        } else if (finalScore < 65) {
+          insightText.textContent = `기초 경험(Q1: ${Math.round(qVals[0]/total*100)}%) 대비 실무 응용(Q2 슬라이드: ${Math.round(qVals[1]/total*100)}%, Q4 홍보: ${Math.round(qVals[3]/total*100)}%)에 격차가 있습니다. Module 3의 '조례 기반 민원 응대 및 시방서 체크리스트 프롬프트' 실무 활용을 집중적으로 다루는 것이 가장 호응도가 높습니다.`;
+        } else {
+          insightText.textContent = `AI 성숙도가 매우 높은 선도형 기수입니다(종합 ${finalScore}점). 기초 설명은 신속히 넘어가고, Module 4의 행정×기술 융합 워크숍 및 바이브 코딩을 통한 '산업단지 악취·포트홀 자동 분석 스크립트' 구현 실습 비중을 대폭 확대하는 것을 강력 권장합니다.`;
+        }
+      }
+
+      // Render Dynamic SVG Radar Chart
+      renderSvgRadarChart(qVals.map(v => v / total));
+    };
+
+    function renderSvgRadarChart(ratios) {
+      const container = document.getElementById('diagRadarContainer');
+      if (!container) return;
+
+      const size = 220;
+      const center = size / 2;
+      const radius = 68;
+      const labels = ['기초 활용', '문서·PT', '음악 창의', '비주얼 제작', '바이브 코딩'];
+      const angleStep = (Math.PI * 2) / 5;
+      const startAngle = -Math.PI / 2; // start from top
+
+      let svgHtml = `<svg viewBox="0 0 ${size} ${size}">`;
+
+      // Concentric rings (25%, 50%, 75%, 100%)
+      const levels = [0.25, 0.5, 0.75, 1.0];
+      levels.forEach(lvl => {
+        let points = [];
+        for (let i = 0; i < 5; i++) {
+          const angle = startAngle + i * angleStep;
+          const r = radius * lvl;
+          const x = center + r * Math.cos(angle);
+          const y = center + r * Math.sin(angle);
+          points.push(`${x.toFixed(1)},${y.toFixed(1)}`);
+        }
+        svgHtml += `<polygon points="${points.join(' ')}" fill="none" stroke="#E2E8F0" stroke-width="1" />`;
+      });
+
+      // Axis spokes & labels
+      for (let i = 0; i < 5; i++) {
+        const angle = startAngle + i * angleStep;
+        const x = center + radius * Math.cos(angle);
+        const y = center + radius * Math.sin(angle);
+        svgHtml += `<line x1="${center}" y1="${center}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#CBD5E1" stroke-width="1" />`;
+
+        // Label position slightly outside
+        const labelR = radius + 22;
+        const lx = center + labelR * Math.cos(angle);
+        const ly = center + labelR * Math.sin(angle) + 4;
+        svgHtml += `<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">${labels[i]}</text>`;
+      }
+
+      // Data Polygon
+      let dataPoints = [];
+      for (let i = 0; i < 5; i++) {
+        const angle = startAngle + i * angleStep;
+        const r = Math.max(6, radius * Math.min(1, Math.max(0, ratios[i])));
+        const x = center + r * Math.cos(angle);
+        const y = center + r * Math.sin(angle);
+        dataPoints.push(`${x.toFixed(1)},${y.toFixed(1)}`);
+      }
+      svgHtml += `<polygon points="${dataPoints.join(' ')}" fill="rgba(0, 82, 204, 0.22)" stroke="#0052CC" stroke-width="2.5" />`;
+
+      // Data Vertex Circles
+      for (let i = 0; i < 5; i++) {
+        const angle = startAngle + i * angleStep;
+        const r = Math.max(6, radius * Math.min(1, Math.max(0, ratios[i])));
+        const x = center + r * Math.cos(angle);
+        const y = center + r * Math.sin(angle);
+        svgHtml += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5" fill="#0284C7" stroke="#FFFFFF" stroke-width="1.5" />`;
+      }
+
+      svgHtml += `</svg>`;
+      container.innerHTML = svgHtml;
+    }
+
+    window.toggleExamDrawer = function() {
+      const content = document.getElementById('diagExamContent');
+      const icon = document.getElementById('examDrawerIcon');
+      if (!content) return;
+      const isOpen = content.classList.toggle('open');
+      if (icon) icon.textContent = isOpen ? '▲ 접기' : '▼ 자세히 보기';
+    };
+
+    window.toggleAnswer = function(ansId) {
+      const el = document.getElementById(ansId);
+      if (el) el.classList.toggle('show');
+    };
+
     // Initial render
     renderModule(1);
+    updateDiagDashboard();
   </script>
 </body>
 </html>
