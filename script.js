@@ -415,6 +415,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                 </div>
 
+                ${target === 'business' ? `
+                    <div style="background: linear-gradient(135deg, #070F2B 0%, #14213D 60%, #0E7C7B 100%); color:#FFFFFF; border-radius:18px; padding:1.8rem 2.2rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 12px 30px rgba(14, 124, 123, 0.25); border:1px solid rgba(255,255,255,0.15);">
+                        <div>
+                            <span style="background:rgba(0,240,255,0.2); color:#00F0FF; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; display:inline-block; margin-bottom:8px;">🏢 실전 엔터프라이즈 ERM 포털 오픈</span>
+                            <h3 style="font-size:1.35rem; font-weight:800; margin:0; color:#FFFFFF;">제주개발공사(JPDC) 전사적 리스크 대응과 조직의 실행 (ERM) 마스터클래스</h3>
+                            <p style="font-size:0.9rem; color:#CBD5E1; margin:4px 0 0 0;">COSO ERM 5대 전략, 10인 실시간 협업 PESTEL · SWOT-Risk · 5×5 리스크 평가 매트릭스 전용 대시보드</p>
+                        </div>
+                        <a href="lecture-jpdc.html" style="background:#00F0FF; color:#030712; font-weight:800; font-size:0.95rem; padding:12px 24px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:transform 0.2s;"><i class="fa-solid fa-arrow-up-right-from-square"></i> 전용 실습 대시보드 입장하기 →</a>
+                    </div>
+                ` : ''}
+
                 ${target === 'public' ? `
                     <div style="background: linear-gradient(135deg, #002D62 0%, #0047AB 100%); color:#FFFFFF; border-radius:18px; padding:1.8rem 2.2rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 12px 30px rgba(0, 71, 171, 0.2); border:1px solid rgba(255,255,255,0.15);">
                         <div>

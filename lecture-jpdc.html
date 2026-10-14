@@ -1,0 +1,2193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[JPDC 특강] 전사적 리스크 대응과 조직의 실행: ERM 실시간 실습 포털 | 정우진 AI STRATEGIST</title>
+    <meta name="description" content="제주특별자치도개발공사(JPDC) 관리자를 위한 COSO ERM 기반 전사적 리스크 대응 실시간 협업 대시보드 및 실습 포털.">
+    <link rel="canonical" href="https://www.cloudbread.me/lecture-jpdc.html">
+    <meta property="og:title" content="[JPDC 특강] 전사적 리스크 대응과 조직의 실행: ERM 실시간 실습 포털">
+    <meta property="og:description" content="10인 실시간 협업 PESTEL · SWOT-Risk · 5×5 리스크 평가 매트릭스 및 전사 실행안 도출 플랫폼.">
+    <meta property="og:image" content="https://www.cloudbread.me/assets/images/infographic_business_ai.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Realtime MQTT WebSocket SDK & Firebase SDK -->
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+    <style>
+        /* ==========================================================================
+           Dedicated JPDC Lecture Portal Styling
+           ========================================================================== */
+        :root {
+            --jpdc-navy: #14213D;
+            --jpdc-navy-dark: #0B132B;
+            --jpdc-teal: #0E7C7B;
+            --jpdc-teal-light: #14B8A6;
+            --jpdc-gold: #C9A227;
+            --jpdc-bg: #F4F6F9;
+            --jpdc-card: #FFFFFF;
+            --jpdc-line: #E2E8F0;
+            --jpdc-text: #1E293B;
+            --jpdc-muted: #64748B;
+        }
+
+        body {
+            background-color: var(--jpdc-bg);
+            color: var(--jpdc-text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .jpdc-hero-section {
+            padding: 9.5rem 8% 4rem;
+            background: linear-gradient(135deg, #070F2B 0%, #14213D 50%, #0E7C7B 100%);
+            color: #FFFFFF;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .jpdc-hero-section::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 650px;
+            height: 650px;
+            background: radial-gradient(circle, rgba(14, 124, 123, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .jpdc-hero-content {
+            max-width: 1240px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .jpdc-badge-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 1.2rem;
+        }
+
+        .jpdc-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 9999px;
+            letter-spacing: -0.01em;
+        }
+
+        .jpdc-pill-org {
+            background: rgba(0, 240, 255, 0.15);
+            color: #00F0FF;
+            border: 1px solid rgba(0, 240, 255, 0.4);
+        }
+
+        .jpdc-pill-course {
+            background: rgba(201, 162, 39, 0.2);
+            color: #FDE047;
+            border: 1px solid rgba(201, 162, 39, 0.5);
+        }
+
+        .jpdc-main-title {
+            color: #FFFFFF !important;
+            font-size: 2.3rem;
+            font-weight: 900;
+            line-height: 1.25;
+            margin: 0 0 1rem;
+            letter-spacing: -0.03em;
+        }
+
+        .jpdc-hero-sub {
+            font-size: 1.1rem;
+            color: #E2E8F0;
+            max-width: 820px;
+            margin: 0 0 2rem;
+            line-height: 1.6;
+        }
+
+        .jpdc-meta-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .jpdc-meta-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 14px;
+            padding: 1.2rem 1.4rem;
+        }
+
+        .jpdc-meta-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .jpdc-meta-val {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #FFFFFF;
+        }
+
+        .jpdc-hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .jpdc-btn-primary {
+            background: linear-gradient(135deg, #00F0FF 0%, #00B4D8 100%);
+            color: #030712;
+            font-weight: 800;
+            font-size: 0.95rem;
+            padding: 12px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(0, 240, 255, 0.35);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .jpdc-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 240, 255, 0.5);
+        }
+
+        .jpdc-btn-secondary {
+            background: rgba(255, 255, 255, 0.12);
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 12px 22px;
+            border-radius: 10px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: background 0.2s;
+        }
+
+        .jpdc-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        /* Strategies Overview Box */
+        .jpdc-strategies-section {
+            max-width: 1240px;
+            margin: -2rem auto 2.5rem;
+            padding: 0 20px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .jpdc-strategies-card {
+            background: #FFFFFF;
+            border-radius: 18px;
+            padding: 1.8rem 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E2E8F0;
+        }
+
+        .jpdc-strat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .jpdc-strat-item {
+            background: #F8FAFC;
+            border-left: 4px solid var(--jpdc-teal);
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+
+        .jpdc-strat-item strong {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--jpdc-navy);
+            margin-bottom: 4px;
+        }
+
+        .jpdc-strat-item p {
+            font-size: 0.82rem;
+            color: #64748B;
+            margin: 0;
+            line-height: 1.45;
+        }
+
+        /* ==========================================================================
+           Interactive Digital Courseware (49 Slides Zero-Drop)
+           ========================================================================== */
+        .jpdc-courseware-section {
+            max-width: 1240px;
+            margin: 0 auto 3.5rem;
+            padding: 0 20px;
+        }
+
+        .jpdc-courseware-card {
+            background: #FFFFFF;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E2E8F0;
+            overflow: hidden;
+        }
+
+        .jpdc-cw-header {
+            background: linear-gradient(135deg, #0B132B 0%, #14213D 100%);
+            color: #FFFFFF;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .jpdc-cw-module-nav {
+            display: flex;
+            background: #070F2B;
+            border-bottom: 2px solid #1E293B;
+            padding: 0 1rem;
+            overflow-x: auto;
+        }
+
+        .jpdc-cw-mod-btn {
+            background: none;
+            border: none;
+            color: #94A3B8;
+            padding: 12px 18px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .jpdc-cw-mod-btn:hover {
+            color: #FFFFFF;
+        }
+
+        .jpdc-cw-mod-btn.active {
+            color: #00F0FF;
+            border-bottom-color: #00F0FF;
+            background: rgba(0, 240, 255, 0.08);
+        }
+
+        .jpdc-slide-viewport {
+            padding: 2.2rem 2.5rem;
+            min-height: 480px;
+            background: #FFFFFF;
+        }
+
+        .jpdc-slide-top-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .jpdc-slide-title {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--jpdc-navy);
+            margin: 0 0 1.2rem;
+            line-height: 1.35;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .jpdc-slide-content-box {
+            font-size: 0.98rem;
+            color: #334155;
+            line-height: 1.7;
+        }
+
+        .jpdc-slide-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .jpdc-slide-table th {
+            background: #F1F5F9;
+            color: var(--jpdc-navy);
+            font-weight: 800;
+            padding: 10px 14px;
+            border: 1px solid #E2E8F0;
+            font-size: 0.88rem;
+            text-align: left;
+        }
+
+        .jpdc-slide-table td {
+            padding: 10px 14px;
+            border: 1px solid #E2E8F0;
+            font-size: 0.88rem;
+            vertical-align: top;
+        }
+
+        .jpdc-cw-coach-box {
+            background: #F0FDF4;
+            border-left: 4px solid #16A34A;
+            border-radius: 8px;
+            padding: 1rem 1.2rem;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #166534;
+        }
+
+        .jpdc-cw-coach-box strong {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #14532D;
+            margin-bottom: 4px;
+        }
+
+        .jpdc-cw-jpdc-box {
+            background: #EFF6FF;
+            border-left: 4px solid #2563EB;
+            border-radius: 8px;
+            padding: 1rem 1.2rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #1E40AF;
+        }
+
+        .jpdc-cw-jpdc-box strong {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #1E3A8A;
+            margin-bottom: 4px;
+        }
+
+        .jpdc-cw-footer-controls {
+            background: #F8FAFC;
+            border-top: 1px solid #E2E8F0;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .jpdc-cw-nav-btns {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .jpdc-cw-ctrl-btn {
+            background: var(--jpdc-navy);
+            color: #FFFFFF;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .jpdc-cw-ctrl-btn:hover:not(:disabled) {
+            background: var(--jpdc-teal);
+        }
+
+        .jpdc-cw-ctrl-btn:disabled {
+            background: #CBD5E1;
+            cursor: not-allowed;
+            color: #94A3B8;
+        }
+
+        .jpdc-cw-jump-select {
+            padding: 7px 12px;
+            border-radius: 8px;
+            border: 1px solid #CBD5E1;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1E293B;
+            background: #FFFFFF;
+            cursor: pointer;
+        }
+
+        /* ==========================================================================
+           Scoped Isolated Styling for 10-User Interactive ERM Dashboard
+           ========================================================================== */
+        .jpdc-erm-wrapper {
+            max-width: 1240px;
+            margin: 0 auto 5rem;
+            padding: 0 20px;
+        }
+
+        .jpdc-erm-wrapper * {
+            box-sizing: border-box;
+        }
+
+        .jpdc-erm-header {
+            background: var(--jpdc-navy);
+            color: #fff;
+            padding: 18px 24px;
+            border-radius: 16px 16px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .jpdc-erm-header h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 800;
+            color: #FFFFFF;
+            letter-spacing: -0.5px;
+            border: none;
+            padding: 0;
+        }
+
+        .jpdc-erm-header p {
+            margin: 4px 0 0;
+            color: #94A3B8;
+            font-size: 13px;
+        }
+
+        .jpdc-top-tools {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .jpdc-session-bar {
+            background: var(--jpdc-navy-dark);
+            color: #E2E8F0;
+            padding: 10px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 13px;
+        }
+
+        .jpdc-session-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .jpdc-team-select {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid #3B82F6;
+            background: #1E293B;
+            color: #FFFFFF;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .jpdc-status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .jpdc-status-online { background: rgba(16, 185, 129, 0.2); color: #34D399; border: 1px solid #059669; }
+        .jpdc-status-offline { background: rgba(245, 158, 11, 0.2); color: #FBBF24; border: 1px solid #D97706; }
+        .jpdc-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            display: inline-block;
+        }
+        .jpdc-pulse {
+            animation: jpdc-pulse-dot 1.5s infinite;
+        }
+
+        @keyframes jpdc-pulse-dot {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        .jpdc-erm-nav {
+            display: flex;
+            background: #0B132B;
+            border-bottom: 2px solid #334155;
+            padding: 0 16px;
+            overflow-x: auto;
+        }
+
+        .jpdc-erm-nav button {
+            padding: 14px 20px;
+            background: none;
+            border: none;
+            color: #94A3B8;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .jpdc-erm-nav button:hover { color: #E2E8F0; }
+        .jpdc-erm-nav button.active {
+            color: #FFFFFF;
+            border-bottom-color: var(--jpdc-gold);
+            background: #182A4C;
+        }
+
+        .jpdc-main-container {
+            background: #FFFFFF;
+            border-radius: 0 0 16px 16px;
+            padding: 24px 24px 60px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+            border: 1px solid #E2E8F0;
+            border-top: none;
+        }
+
+        .jpdc-panel { display: none; }
+        .jpdc-panel.active { display: block; animation: jpdc-fadeIn 0.25s ease-in-out; }
+
+        @keyframes jpdc-fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .jpdc-panel h3 {
+            color: var(--jpdc-navy);
+            font-size: 19px;
+            font-weight: 800;
+            margin: 0 0 12px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--jpdc-line);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .jpdc-desc {
+            background: #F8FAFC;
+            border-left: 4px solid var(--jpdc-teal);
+            padding: 14px 18px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .jpdc-live-bar {
+            font-size: 13px;
+            color: #1E3A8A;
+            background: #EFF6FF;
+            border: 1px solid #BFDBFE;
+            padding: 8px 14px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        /* Scoped Tables */
+        .jpdc-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #FFFFFF;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 16px;
+            border: 1px solid #E2E8F0;
+        }
+
+        .jpdc-table th, .jpdc-table td {
+            border: 1px solid #E2E8F0;
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+            font-size: 13px;
+        }
+
+        .jpdc-table th {
+            background: var(--jpdc-navy);
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .jpdc-input, .jpdc-textarea, .jpdc-select {
+            width: 100%;
+            border: 1px solid #CBD5E1;
+            border-radius: 6px;
+            padding: 8px 10px;
+            font-family: inherit;
+            font-size: 13px;
+            color: #1E293B;
+            background: #FAFAFA;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+        .jpdc-textarea { min-height: 60px; resize: vertical; }
+
+        .jpdc-input:focus, .jpdc-textarea:focus, .jpdc-select:focus {
+            outline: none;
+            border-color: var(--jpdc-teal);
+            background: #FFFFFF;
+            box-shadow: 0 0 0 2px rgba(14, 124, 123, 0.15);
+        }
+
+        .jpdc-btn {
+            background: var(--jpdc-teal);
+            color: #fff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+
+        .jpdc-btn:hover { opacity: 0.9; }
+        .jpdc-btn:active { transform: scale(0.98); }
+        .jpdc-btn.secondary { background: #64748B; }
+        .jpdc-btn.danger { background: #DC2626; }
+        .jpdc-btn.outline { background: transparent; border: 1px solid #94A3B8; color: #E2E8F0; }
+        .jpdc-btn.gold { background: var(--jpdc-gold); color: #1E293B; }
+        .jpdc-btn.sm { padding: 4px 8px; font-size: 12px; }
+
+        .jpdc-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .badge-P { background: #3B82F6; }
+        .badge-E { background: #10B981; }
+        .badge-S { background: #F59E0B; }
+        .badge-T { background: #8B5CF6; }
+        .badge-Env { background: #14B8A6; }
+        .badge-L { background: #EF4444; }
+
+        .team-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #fff;
+            margin-right: 4px;
+        }
+
+        /* Filter buttons */
+        .jpdc-team-filters {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin: 12px 0;
+            align-items: center;
+        }
+
+        .jpdc-filter-btn {
+            background: #E2E8F0;
+            color: #475569;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .jpdc-filter-btn:hover { background: #CBD5E1; }
+        .jpdc-filter-btn.active {
+            background: var(--jpdc-navy);
+            color: #FFFFFF;
+        }
+
+        /* 5x5 Matrix Layout */
+        .jpdc-matrix-section {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .jpdc-matrix-container {
+            background: #F8FAFC;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+            flex: 1 1 540px;
+            min-width: 320px;
+        }
+
+        .jpdc-matrix-grid {
+            display: grid;
+            grid-template-columns: 55px repeat(5, 1fr);
+            grid-template-rows: repeat(5, 80px) 40px;
+            gap: 4px;
+            margin-top: 12px;
+        }
+
+        .jpdc-matrix-cell {
+            border-radius: 6px;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            padding: 4px;
+            gap: 4px;
+            position: relative;
+            font-size: 11px;
+            overflow-y: auto;
+            transition: transform 0.15s;
+        }
+
+        .jpdc-matrix-cell.axis {
+            background: transparent !important;
+            font-weight: 700;
+            color: var(--jpdc-navy);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            overflow: hidden;
+        }
+
+        .risk-dot {
+            padding: 2px 6px;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.8);
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: transform 0.15s;
+        }
+
+        .risk-dot:hover {
+            transform: scale(1.08);
+            z-index: 10;
+        }
+
+        .jpdc-legend-box {
+            display: flex;
+            gap: 16px;
+            margin-top: 12px;
+            font-size: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .jpdc-legend-item { display: flex; align-items: center; gap: 6px; }
+        .jpdc-legend-color { width: 14px; height: 14px; border-radius: 3px; }
+
+        .jpdc-rank-container {
+            flex: 1 1 420px;
+            min-width: 320px;
+            background: #F8FAFC;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+        }
+
+        /* Flow steps */
+        .jpdc-flow-steps {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .jpdc-flow-card {
+            background: var(--jpdc-navy);
+            color: #fff;
+            padding: 16px;
+            border-radius: 8px;
+            min-width: 170px;
+            flex: 1;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .jpdc-flow-card .step-num { font-size: 12px; color: var(--jpdc-gold); font-weight: 700; margin-bottom: 4px; }
+        .jpdc-flow-card .title { font-size: 15px; font-weight: 700; }
+        .jpdc-flow-card .sub { font-size: 12px; color: #94A3B8; margin-top: 6px; }
+        .jpdc-flow-arrow { font-size: 22px; color: var(--jpdc-teal); font-weight: bold; }
+
+        /* Overview grid */
+        .jpdc-overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .jpdc-team-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 16px;
+            border: 1px solid #E2E8F0;
+            border-top: 4px solid var(--jpdc-teal);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        }
+
+        .jpdc-team-card h4 {
+            margin: 0 0 8px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15px;
+            color: var(--jpdc-navy);
+        }
+
+        /* Modal Overlay */
+        .jpdc-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.65);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .jpdc-modal-box {
+            background: #fff;
+            border-radius: 14px;
+            padding: 26px;
+            max-width: 520px;
+            width: 90%;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @media (max-width: 768px) {
+            .jpdc-hero-section { padding-top: 8rem; }
+            .jpdc-main-title { font-size: 1.8rem; }
+            .jpdc-matrix-grid {
+                grid-template-columns: 45px repeat(5, 1fr);
+                grid-template-rows: repeat(5, 70px) 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Global Navigation -->
+    <header class="main-header dark-section">
+        <nav class="nav-container">
+            <div class="logo">CLOUD BREAD</div>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="showcase.html" class="active">강의쇼케이스</a></li>
+                <li><a href="youtube.html">유튜브Hub</a></li>
+                <li><a href="library.html">저서</a></li>
+                <li><a href="activities.html">언론 및 활동</a></li>
+                <li><a href="archive.html" class="nav-cta">강의 라이브러리</a></li>
+            </ul>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Sidebar -->
+    <div class="menu-overlay" id="menu-overlay"></div>
+    <div class="mobile-sidebar" id="mobile-sidebar">
+        <div class="mobile-sidebar-links">
+            <a href="index.html">홈</a>
+            <a href="showcase.html" class="active">강의쇼케이스</a>
+            <a href="youtube.html">유튜브Hub</a>
+            <a href="library.html">저서</a>
+            <a href="activities.html">언론 및 활동</a>
+            <a href="archive.html">강의 라이브러리</a>
+        </div>
+    </div>
+
+    <!-- JPDC Dedicated Hero Section -->
+    <section class="jpdc-hero-section">
+        <div class="jpdc-hero-content">
+            <div class="jpdc-badge-row">
+                <span class="jpdc-pill jpdc-pill-org">🏢 제주특별자치도개발공사 (JPDC) 관리자 3회차 최종</span>
+                <span class="jpdc-pill jpdc-pill-course">⚡ COSO ERM 5대 리스크 대응 실전</span>
+                <span class="jpdc-pill" style="background:rgba(255,255,255,0.15); color:#fff;"><i class="fa-solid fa-users"></i> 10인 실시간 클라우드 동기화</span>
+            </div>
+            
+            <h1 class="jpdc-main-title" style="color: #FFFFFF;">전사적 리스크 대응과 조직의 실행<br><span style="color:#00F0FF; font-size:0.85em;">(Top Risk '누가, 무엇을, 어떻게' 실행안 완성)</span></h1>
+            <p class="jpdc-hero-sub">
+                거시적 PESTEL 환경 식별부터 SWOT-Risk 연계, 5×5 리스크 평가 매트릭스, 그리고 10인 수강생의 실시간 협업을 통해 제주개발공사의 미래 불확실성을 관리하는 전사적 실행 포털입니다.
+            </p>
+
+            <div class="jpdc-meta-bar">
+                <div class="jpdc-meta-card">
+                    <div class="jpdc-meta-label"><i class="fa-regular fa-calendar-check"></i> 교육 일시 & 시간</div>
+                    <div class="jpdc-meta-val">10월 16일 (금) 10:00~16:00 (4시간)</div>
+                </div>
+                <div class="jpdc-meta-card">
+                    <div class="jpdc-meta-label"><i class="fa-solid fa-people-group"></i> 3기 조재편성 (Silo 파괴)</div>
+                    <div class="jpdc-meta-val">1조(3인) / 2조(3인) / 3조(4인)</div>
+                </div>
+                <div class="jpdc-meta-card">
+                    <div class="jpdc-meta-label"><i class="fa-solid fa-cloud-bolt"></i> 실시간 연동 채널</div>
+                    <div class="jpdc-meta-val" id="heroSessionId">세션: JPDC-ERM-2026 (Live)</div>
+                </div>
+            </div>
+
+            <div class="jpdc-hero-actions">
+                <a href="#jpdc-app" class="jpdc-btn-primary"><i class="fa-solid fa-play"></i> 10인 실시간 실습 시작하기</a>
+                <a href="assets/docs/JPDC_ERM_3강.pdf" download class="jpdc-btn-secondary"><i class="fa-solid fa-file-pdf"></i> 강의 교안 PDF 다운로드</a>
+                <button class="jpdc-btn-secondary" onclick="showQRCode()"><i class="fa-solid fa-qrcode"></i> 모바일 접속 QR코드</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- COSO ERM 5-Strategies Flashcards -->
+    <section class="jpdc-strategies-section">
+        <div class="jpdc-strategies-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                <div>
+                    <h3 style="margin:0; font-size:1.15rem; color:var(--jpdc-navy); font-weight:800;">
+                        <i class="fa-solid fa-shield-halved" style="color:var(--jpdc-teal); margin-right:6px;"></i> COSO ERM 5대 리스크 대응 전략 & 핵심 사례
+                    </h3>
+                    <p style="margin:4px 0 0; font-size:0.85rem; color:#64748B;">전사 리스크 평가 점수에 따라 최적의 대응 전략을 선택하고 책임자(Owner)를 지정합니다.</p>
+                </div>
+                <span style="font-size:0.8rem; font-weight:700; color:#059669; background:#DCFCE7; padding:4px 10px; border-radius:999px;">Impact-First 우선 모니터링</span>
+            </div>
+
+            <div class="jpdc-strat-grid">
+                <div class="jpdc-strat-item">
+                    <strong>1. 회피 (Avoid)</strong>
+                    <p>사업 중단 또는 철수를 통해 리스크 원인을 원천 차단<br><small>사례: 4대강 후속 사업, 극단적 신사업 재검토</small></p>
+                </div>
+                <div class="jpdc-strat-item">
+                    <strong>2. 감축 (Reduce)</strong>
+                    <p>내부 통제 강화로 발생가능성이나 충격을 완화<br><small>사례: 보잉 737 MAX 센서 다중화, 쿠팡 스프링클러 개선</small></p>
+                </div>
+                <div class="jpdc-strat-item">
+                    <strong>3. 공유 (Share)</strong>
+                    <p>보험, 외주, 컨소시엄을 통해 제3자와 리스크 분담<br><small>사례: 한진해운 해운동맹, 화재·배상책임 종합보험</small></p>
+                </div>
+                <div class="jpdc-strat-item">
+                    <strong>4. 수용 (Accept)</strong>
+                    <p>통제 비용이 손실보다 클 때 정해진 한도 내에서 감수<br><small>사례: 일상적 환율 변동성, 사소한 부품 마모</small></p>
+                </div>
+                <div class="jpdc-strat-item">
+                    <strong>5. 활용 (Exploit)</strong>
+                    <p>위기를 새로운 성장 기회와 경쟁력으로 전환<br><small>사례: 카카오 IDC 화재 후 재해복구(DR) 이원화 경쟁력화</small></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Digital Courseware (49 Slides Zero-Drop) Section -->
+    <section class="jpdc-courseware-section" id="courseware-section">
+        <div class="jpdc-courseware-card">
+            <!-- Header with Module Title & Progress -->
+            <div class="jpdc-cw-header">
+                <div>
+                    <span style="font-size:0.8rem; font-weight:800; color:#00F0FF; text-transform:uppercase; letter-spacing:0.05em; background:rgba(0,240,255,0.15); padding:4px 10px; border-radius:999px;">JPDC ERM 3강 무생략 디지털 마스터 교안</span>
+                    <h2 style="font-size:1.35rem; font-weight:800; margin:6px 0 0; color:#FFFFFF;">전사적 리스크 대응과 조직의 실행 (49개 슬라이드 전체 수록)</h2>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <span id="cwSlideCounter" style="font-size:0.95rem; font-weight:800; color:#FDE047; background:rgba(201,162,39,0.25); border:1px solid rgba(201,162,39,0.5); padding:6px 14px; border-radius:8px;">Slide 1 / 49</span>
+                    <button class="jpdc-btn gold sm" onclick="jumpToSlide(36)"><i class="fa-solid fa-bolt"></i> 실습 5단계 바로가기</button>
+                </div>
+            </div>
+
+            <!-- Module Tabs Navigator -->
+            <div class="jpdc-cw-module-nav">
+                <button class="jpdc-cw-mod-btn active" id="modBtn1" onclick="jumpToModule(1)">모듈 1: 5대 대응 전략 (P.1~16)</button>
+                <button class="jpdc-cw-mod-btn" id="modBtn2" onclick="jumpToModule(2)">모듈 2: 오너 & Silo 파괴 협업 (P.17~20)</button>
+                <button class="jpdc-cw-mod-btn" id="modBtn3" onclick="jumpToModule(3)">모듈 3: 위기 골든타임 & 소통 (P.21~27)</button>
+                <button class="jpdc-cw-mod-btn" id="modBtn4" onclick="jumpToModule(4)">모듈 4: KRI 조기경보 설계 (P.28~34)</button>
+                <button class="jpdc-cw-mod-btn" id="modBtn5" onclick="jumpToModule(5)">모듈 5: 종합 워크숍 & 로드맵 (P.35~49)</button>
+            </div>
+
+            <!-- Main Slide Viewport -->
+            <div class="jpdc-slide-viewport" id="slideViewport">
+                <!-- Dynamically populated by JS renderSlide(currentIndex) -->
+            </div>
+
+            <!-- Footer Controls -->
+            <div class="jpdc-cw-footer-controls">
+                <div class="jpdc-cw-nav-btns">
+                    <button class="jpdc-cw-ctrl-btn" id="btnPrevSlide" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i> 이전 슬라이드</button>
+                    <button class="jpdc-cw-ctrl-btn" id="btnNextSlide" onclick="nextSlide()">다음 슬라이드 <i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:0.85rem; font-weight:700; color:#64748B;">슬라이드 빠른 이동:</span>
+                    <select id="slideQuickSelect" class="jpdc-cw-jump-select" onchange="jumpToSlide(parseInt(this.value))">
+                        <!-- Populated by JS -->
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scoped Interactive ERM Dashboard App -->
+    <div class="jpdc-erm-wrapper" id="jpdc-app">
+        <!-- Control Header -->
+        <div class="jpdc-erm-header">
+            <div>
+                <h2>[JPDC 전사적 리스크관리] 실시간 협업 도구</h2>
+                <p>10인 수강생 실시간 협업 · PESTEL · SWOT-Risk · 5×5 리스크 평가 및 전사 통합 매트릭스</p>
+            </div>
+            <div class="jpdc-top-tools no-print">
+                <button class="jpdc-btn gold" onclick="openFirebaseModal()"><i class="fa-solid fa-gear"></i> 클라우드 설정</button>
+                <button class="jpdc-btn gold" onclick="showQRCode()"><i class="fa-solid fa-qrcode"></i> 모바일 QR</button>
+                <button class="jpdc-btn outline" onclick="saveToLocalStorage()"><i class="fa-solid fa-floppy-disk"></i> 브라우저 저장</button>
+                <button class="jpdc-btn outline" onclick="exportJSON()"><i class="fa-solid fa-download"></i> 내보내기</button>
+                <button class="jpdc-btn outline" onclick="importJSON()"><i class="fa-solid fa-upload"></i> 불러오기</button>
+                <button class="jpdc-btn gold" onclick="window.print()"><i class="fa-solid fa-print"></i> 인쇄</button>
+                <input type="file" id="fileInput" style="display:none" accept=".json" onchange="handleFileSelect(event)">
+            </div>
+        </div>
+
+        <!-- Session Bar -->
+        <div class="jpdc-session-bar no-print">
+            <div class="jpdc-session-info">
+                <span><b>👥 참여자 선택:</b></span>
+                <select id="currentTeamSelect" class="jpdc-team-select" onchange="changeTeam(this.value)">
+                    <option value="all">📊 [강사 모드] 10인 전체 통합 대시보드</option>
+                    <option value="team1" selected>👤 김미정</option>
+                    <option value="team2">👤 이성윤</option>
+                    <option value="team3">👤 김지연</option>
+                    <option value="team4">👤 강은철</option>
+                    <option value="team5">👤 조성수</option>
+                    <option value="team6">👤 강지연</option>
+                    <option value="team7">👤 변정훈</option>
+                    <option value="team8">👤 김만경</option>
+                    <option value="team9">👤 양근원</option>
+                    <option value="team10">👤 김유나</option>
+                </select>
+                <span style="color:#94A3B8;">| 세션 ID: <b id="sessionDisplay">JPDC-ERM-2026</b></span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+                <div id="syncStatusBadge" class="jpdc-status-badge jpdc-status-online">
+                    <span class="jpdc-status-dot jpdc-pulse"></span>
+                    <span id="syncStatusText">🟢 실시간 자동 동기화 가동 중</span>
+                </div>
+                <button class="jpdc-btn outline sm" onclick="syncNow()" title="실시간 데이터 새로고침"><i class="fa-solid fa-rotate"></i> 갱신</button>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <nav class="jpdc-erm-nav no-print">
+            <button class="tabbtn active" data-tab="pestel">① PESTEL 분석</button>
+            <button class="tabbtn" data-tab="swot">② SWOT-Risk 연계</button>
+            <button class="tabbtn" data-tab="matrix">③ 5×5 매트릭스 · 우선순위</button>
+            <button class="tabbtn" data-tab="overview">⑤ 10인 실시간 종합 현황</button>
+            <button class="tabbtn" data-tab="flow">④ 프로세스 흐름도</button>
+        </nav>
+
+        <!-- Main Panels Container -->
+        <div class="jpdc-main-container">
+
+            <!-- PESTEL Panel -->
+            <section id="pestel" class="jpdc-panel active">
+                <h3>
+                    <span>① PESTEL 거시환경 분석 실습</span>
+                    <span id="pestelTeamIndicator" class="jpdc-badge" style="background:var(--jpdc-teal); font-size:13px;">김미정 작성 화면</span>
+                </h3>
+                <div class="jpdc-desc">
+                    <b>PESTEL</b>은 통제 불가능한 거시 환경 변화를 6가지 축(정치·경제·사회·기술·환경·법률)으로 식별하는 도구입니다.<br>
+                    각 수강생별로 제주개발공사(JPDC)와 관련된 주요 리스크 요인을 입력하면 <b>실시간으로 클라우드에 자동 동기화</b>됩니다.
+                </div>
+
+                <div class="jpdc-live-bar no-print">
+                    <span>⚡ <b>실시간 자동 동기화 가동 중:</b> 입력 즉시 강사 대시보드 및 참여자 화면에 반영됩니다.</span>
+                    <button class="jpdc-btn sm secondary" onclick="forceSaveTeamData()">즉시 저장</button>
+                </div>
+
+                <table class="jpdc-table" id="pestelTable">
+                    <thead>
+                        <tr>
+                            <th style="width:90px;">구분</th>
+                            <th style="width:180px;">영역 및 의미</th>
+                            <th>내가 찾은 JPDC 리스크 요인</th>
+                            <th style="width:90px;" class="no-print">작업</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-category="P">
+                            <td><span class="jpdc-badge badge-P">P 정치</span></td>
+                            <td>정치·정책·지자체 규제 변화</td>
+                            <td><textarea class="jpdc-textarea" placeholder="예: 제주도정 정책 기조 변경, 공공기관 지정 및 평가 기준 강화" oninput="onInputPestel()"></textarea></td>
+                            <td class="no-print"><button class="jpdc-btn secondary sm" onclick="dupRow(this)">+ 행추가</button></td>
+                        </tr>
+                        <tr data-category="E">
+                            <td><span class="jpdc-badge badge-E">E 경제</span></td>
+                            <td>경제·금리·환율·물류비 변동</td>
+                            <td><textarea class="jpdc-textarea" placeholder="예: 해상 및 육상 운송 물류비 상승, 내수 소비 위축, 원자재가 인상" oninput="onInputPestel()"></textarea></td>
+                            <td class="no-print"><button class="jpdc-btn secondary sm" onclick="dupRow(this)">+ 행추가</button></td>
+                        </tr>
+                        <tr data-category="S">
+                            <td><span class="jpdc-badge badge-S">S 사회</span></td>
+                            <td>사회·인구구조·도민 여론 갈등</td>
+                            <td><textarea class="jpdc-textarea" placeholder="예: 도민 사회 여론 악화, 인구 고령화 및 삼다수 주 소비층 변화" oninput="onInputPestel()"></textarea></td>
+                            <td class="no-print"><button class="jpdc-btn secondary sm" onclick="dupRow(this)">+ 행추가</button></td>
+                        </tr>
+                        <tr data-category="T">
+                            <td><span class="jpdc-badge badge-T">T 기술</span></td>
+                            <td>기술 혁신·스마트팩토리·AI 전환</td>
+                            <td><textarea class="jpdc-textarea" placeholder="예: 스마트 팩토리 자동화 지연, IT/ERP 시스템 보안사고 및 장애" oninput="onInputPestel()"></textarea></td>
+                            <td class="no-print"><button class="jpdc-btn secondary sm" onclick="dupRow(this)">+ 행추가</button></td>
+                        </tr>
+                        <tr data-category="Env">
+                            <td><span class="jpdc-badge badge-Env">E 환경</span></td>
+                            <td>기후위기·지하수 수량 및 수질</td>
+                            <td><textarea class="jpdc-textarea" placeholder="예: 지하수 취수량 제한 규제 강화, 가뭄 등 기후위기 원수 수질 변동" oninput="onInputPestel()"></textarea></td>
+                            <td class="no-print"><button class="jpdc-btn secondary sm" onclick="dupRow(this)">+ 행추가</button></td>
+                        </tr>
+                        <tr data-category="L">
+                            <td><span class="jpdc-badge badge-L">L 법률</span></td>
+                            <td>중대재해·안전보건·환경 법령</td>
+                            <td><textarea class="jpdc-textarea" placeholder="예: 중대재해처벌법 및 산업안전보건법 위반 리스크, 먹는물관리법 개정" oninput="onInputPestel()"></textarea></td>
+                            <td class="no-print"><button class="jpdc-btn secondary sm" onclick="dupRow(this)">+ 행추가</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="display:flex; justify-content:flex-end;" class="no-print">
+                    <button class="jpdc-btn danger" onclick="clearPestel()"><i class="fa-solid fa-trash"></i> 전체 초기화</button>
+                </div>
+            </section>
+
+            <!-- SWOT Panel -->
+            <section id="swot" class="jpdc-panel">
+                <h3>
+                    <span>② SWOT-Risk 연계 매트릭스</span>
+                    <span id="swotTeamIndicator" class="jpdc-badge" style="background:var(--jpdc-teal); font-size:13px;">김미정 작성 화면</span>
+                </h3>
+                <div class="jpdc-desc">
+                    단순한 현황 분석(SWOT)을 넘어, 각 요소를 <b>리스크 관점</b>에서 재해석하여 JPDC의 실질적 대응 방안을 도출합니다.
+                </div>
+
+                <table class="jpdc-table" id="swotTable">
+                    <thead>
+                        <tr>
+                            <th style="width:180px;">연계 방향</th>
+                            <th style="width:280px;">핵심 질문</th>
+                            <th>작성란</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>강점(S) → 위협(T)</b></td>
+                            <td>우리의 핵심 강점(삼다수 1등 브랜드)이 어떤 외부 위협에 의해 무너질 수 있는가?</td>
+                            <td><textarea class="jpdc-textarea" placeholder="예: 삼다수 브랜드 인지도가 단 1건의 수질/위생 안전사고 및 가짜뉴스 여론으로 급락할 리스크" oninput="onInputSwot()"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td><b>약점(W) → 기회(O)</b></td>
+                            <td>우리의 약점(도외 물류 의존도)이 어떤 시장 기회를 가로막고 있는가?</td>
+                            <td><textarea class="jpdc-textarea" placeholder="예: 해상 운송 지연 및 물류비 한계로 인해 수도권 총알배송 및 신규 e커머스 진출 기회 지연" oninput="onInputSwot()"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td><b>기회(O) → 리스크</b></td>
+                            <td>이 기회(친환경 패키징, 해외 수출)를 제때 잡지 못하면 어떤 리스크가 되는가?</td>
+                            <td><textarea class="jpdc-textarea" placeholder="예: 무라벨·경량화 재생원료 도입 지연 시 ESG 규제 위반 및 글로벌 유통 채널 퇴출 위기" oninput="onInputSwot()"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td><b>위협(T) → 대응</b></td>
+                            <td>다가오는 외부 위협(경쟁사 저가 공세 등)에 대해 지금 우리는 무엇을 하고 있는가?</td>
+                            <td><textarea class="jpdc-textarea" placeholder="예: 프리미엄 품질 인증 체계 및 B2B 직배송 라인 다변화 구축 중" oninput="onInputSwot()"></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Matrix Panel -->
+            <section id="matrix" class="jpdc-panel">
+                <h3>
+                    <span>③ 5×5 리스크 평가 매트릭스 · 우선순위 계산</span>
+                    <span id="matrixTeamIndicator" class="jpdc-badge" style="background:var(--jpdc-teal); font-size:13px;">김미정 모드</span>
+                </h3>
+                <div class="jpdc-desc">
+                    수강생별로 리스크를 등록하고 <b>발생가능성(1~5)</b>과 <b>영향도(1~5)</b>를 설정하세요. 강사 모드(전체)에서는 <b>10명의 수강생이 도출한 리스크가 5×5 매트릭스 상에 실시간 통합 맵핑</b>됩니다.
+                </div>
+
+                <!-- Team Filters -->
+                <div class="jpdc-team-filters no-print">
+                    <span style="font-size:13px; font-weight:700; color:var(--jpdc-navy);">🔍 매트릭스 필터:</span>
+                    <button class="jpdc-filter-btn active" onclick="setMatrixFilter('all')">전체 보기</button>
+                    <button class="jpdc-filter-btn" onclick="setMatrixFilter('team1')">김미정</button>
+                    <button class="jpdc-filter-btn" onclick="setMatrixFilter('team2')">이성윤</button>
+                    <button class="jpdc-filter-btn" onclick="setMatrixFilter('team3')">김지연</button>
+                    <button class="jpdc-filter-btn" onclick="setMatrixFilter('team4')">강은철</button>
+                    <button class="jpdc-filter-btn" onclick="setMatrixFilter('team5')">조성수</button>
+                    <button class="jpdc-filter-btn" onclick="setMatrixFilter('team6')">강지연</button>
+                    <button class="jpdc-filter-btn" onclick="setMatrixFilter('team7')">변정훈</button>
+                    <button class="jpdc-filter-btn" onclick="setMatrixFilter('team8')">김만경</button>
+                    <button class="jpdc-filter-btn" onclick="setMatrixFilter('team9')">양근원</button>
+                    <button class="jpdc-filter-btn" onclick="setMatrixFilter('team10')">김유나</button>
+                </div>
+
+                <div id="riskInputSection">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;" class="no-print">
+                        <div style="font-size:13px; color:var(--jpdc-muted);">
+                            * 발생가능성: 1(연1회 미만) ~ 5(상시 발생) | 영향도: 1(경미) ~ 5(공사 존폐 위협/치명적)
+                        </div>
+                        <button class="jpdc-btn" onclick="addRisk()"><i class="fa-solid fa-plus"></i> 리스크 추가</button>
+                    </div>
+
+                    <table class="jpdc-table">
+                        <thead>
+                            <tr>
+                                <th style="width:75px;">작성자</th>
+                                <th>리스크명</th>
+                                <th style="width:120px;">발생가능성(1-5)</th>
+                                <th style="width:120px;">영향도(1-5)</th>
+                                <th style="width:80px;">점수</th>
+                                <th style="width:110px;">등급</th>
+                                <th style="width:60px;" class="no-print">삭제</th>
+                            </tr>
+                        </thead>
+                        <tbody id="riskTableBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="jpdc-matrix-section">
+                    <div class="jpdc-matrix-container">
+                        <h4 style="margin:0 0 8px 0; font-size:16px; color:var(--jpdc-navy); font-weight:800;">
+                            5×5 리스크 포지셔닝 맵 
+                            <span id="filterStatusText" style="font-size:12px; font-weight:normal; color:#64748B;">(10인 전체 표시)</span>
+                        </h4>
+                        <div class="jpdc-legend-box">
+                            <div class="jpdc-legend-item"><div class="jpdc-legend-color" style="background:#991B1B;"></div> CRITICAL (20~25점)</div>
+                            <div class="jpdc-legend-item"><div class="jpdc-legend-color" style="background:#DC2626;"></div> HIGH (15~19점)</div>
+                            <div class="jpdc-legend-item"><div class="jpdc-legend-color" style="background:#D97706;"></div> MODERATE (10~14점)</div>
+                            <div class="jpdc-legend-item"><div class="jpdc-legend-color" style="background:#16A34A;"></div> LOW (1~9점)</div>
+                            <div class="jpdc-legend-item" style="color:#C1440E; font-weight:700;">⚠️ Impact-First: 영향도 4~5점 집중 모니터링</div>
+                        </div>
+                        <div class="jpdc-matrix-grid" id="matrixGrid"></div>
+                    </div>
+
+                    <div class="jpdc-rank-container">
+                        <h4 style="margin:0 0 12px 0; font-size:16px; color:var(--jpdc-navy); font-weight:800;">전사 우선순위 순위표 (Top Risks)</h4>
+                        <table class="jpdc-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:45px;">순위</th>
+                                    <th style="width:75px;">작성자</th>
+                                    <th>리스크명</th>
+                                    <th style="width:55px;">점수</th>
+                                    <th style="width:100px;">등급</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rankTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 10-Users Overview Panel -->
+            <section id="overview" class="jpdc-panel">
+                <h3>
+                    <span>⑤ 10인 실시간 종합 현황판</span>
+                    <button class="jpdc-btn sm gold" onclick="syncNow()"><i class="fa-solid fa-rotate"></i> 실시간 갱신</button>
+                </h3>
+                <div class="jpdc-desc">
+                    10명의 수강생이 각자 작성 중인 PESTEL, SWOT, 리스크 등록 건수를 한눈에 비교하고 점검할 수 있는 종합 모니터링 화면입니다.
+                </div>
+
+                <div class="jpdc-overview-grid" id="overviewGrid"></div>
+            </section>
+
+            <!-- Flow Panel -->
+            <section id="flow" class="jpdc-panel">
+                <h3>④ 리스크관리 프로세스 흐름도 (COSO ERM 기반)</h3>
+                <div class="jpdc-desc">
+                    오늘 배운 분석 도구들이 전사적 리스크 관리 프로세스 내에서 어떻게 정합성을 가지고 연결되는지 보여줍니다.
+                </div>
+
+                <div class="jpdc-flow-steps">
+                    <div class="jpdc-flow-card">
+                        <div class="step-num">STEP 1</div>
+                        <div class="title">위험 식별</div>
+                        <div class="sub">PESTEL · SWOT-Risk</div>
+                    </div>
+                    <div class="jpdc-flow-arrow">→</div>
+                    <div class="jpdc-flow-card">
+                        <div class="step-num">STEP 2</div>
+                        <div class="title">위험 평가</div>
+                        <div class="sub">5×5 매트릭스 (L × I)</div>
+                    </div>
+                    <div class="jpdc-flow-arrow">→</div>
+                    <div class="jpdc-flow-card">
+                        <div class="step-num">STEP 3</div>
+                        <div class="title">우선순위 선정</div>
+                        <div class="sub">Top Risk 도출</div>
+                    </div>
+                    <div class="jpdc-flow-arrow">→</div>
+                    <div class="jpdc-flow-card">
+                        <div class="step-num">STEP 4</div>
+                        <div class="title">대응전략 수립</div>
+                        <div class="sub">회피·감축·공유·수용·활용</div>
+                    </div>
+                    <div class="jpdc-flow-arrow">→</div>
+                    <div class="jpdc-flow-card">
+                        <div class="step-num">STEP 5</div>
+                        <div class="title">모니터링 체계</div>
+                        <div class="sub">KRI 지표 및 리스크 오너</div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Cloud Sync Settings Modal -->
+    <div id="firebaseModal" class="jpdc-modal-overlay">
+        <div class="jpdc-modal-box">
+            <h3 style="margin:0 0 10px 0; color:var(--jpdc-navy); font-size:1.2rem; font-weight:800;">⚡ 클라우드 실시간 동기화 설정</h3>
+            <p style="font-size:13px; color:#64748B; margin-bottom:14px;">
+                현재 <b>글로벌 실시간 클라우드 릴레이 채널</b>이 자동 활성화되어 있어 별도 설정 없이 10인의 실시간 연동이 작동합니다.
+            </p>
+
+            <div style="margin-bottom:12px;">
+                <label style="font-size:12px; font-weight:700;">실습 세션(Room) ID:</label>
+                <input type="text" id="fbRoomInput" class="jpdc-input" value="JPDC-ERM-2026" placeholder="예: JPDC-ERM-2026" style="margin-top:4px;">
+            </div>
+
+            <div style="margin-bottom:12px;">
+                <label style="font-size:12px; font-weight:700;">(선택) 자체 Firebase Database URL 또는 Config JSON:</label>
+                <textarea id="fbConfigInput" class="jpdc-textarea" rows="4" placeholder='필요한 경우에만 입력 (기본 클라우드 자동 동기화 사용 시 비워두셔도 됩니다)' style="margin-top:4px; font-family:monospace; font-size:12px;"></textarea>
+            </div>
+
+            <div style="background:#F1F5F9; padding:10px 12px; border-radius:6px; font-size:12px; color:#475569; margin-bottom:16px;">
+                <b>💡 실시간 동기화 안내:</b><br>
+                • 별도 가입/설정 없이도 동일한 세션 ID(<code>JPDC-ERM-2026</code>)에 접속한 모든 수강생의 입력이 0.1초 만에 강사 화면으로 자동 전달됩니다.
+            </div>
+
+            <div style="display:flex; justify-content:flex-end; gap:8px;">
+                <button class="jpdc-btn secondary" onclick="closeFirebaseModal()">닫기</button>
+                <button class="jpdc-btn" onclick="saveFirebaseConfig()">세션 적용</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Master Footer -->
+    <footer class="master-footer dark-section" style="margin-top:5rem;">
+        <div class="footer-main">
+            <div class="footer-brand">
+                <div class="logo">CLOUD BREAD</div>
+                <p>제3의 지식 혁명을 선도하는 AI 전략 파트너.<br>공직자와 기업의 리스크 관리 및 실행력을 혁신하는 맞춤형 교육 솔루션.<br>Email: bluerain1026@gmail.com</p>
+            </div>
+            <div class="footer-col">
+                <h5>Platform</h5>
+                <ul>
+                    <li><a href="index.html">홈</a></li>
+                    <li><a href="showcase.html">강의 쇼케이스</a></li>
+                    <li><a href="lecture-jpdc.html">제주개발공사(JPDC) ERM</a></li>
+                    <li><a href="lecture-ubs.html">울산 북구청 특강</a></li>
+                    <li><a href="archive.html">강의 라이브러리</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Official Resources</h5>
+                <ul>
+                    <li><a href="https://www.jpdc.co.kr" target="_blank">제주특별자치도개발공사</a></li>
+                    <li><a href="https://www.coso.org" target="_blank">COSO ERM Framework</a></li>
+                </ul>
+            </div>
+            <div class="footer-col footer-connect">
+                <h5>Connect</h5>
+                <p>정우진 AI STRATEGIST 채널</p>
+                <div class="social-links">
+                    <a href="https://www.youtube.com/@aiu1443" class="social-icon" target="_blank">YT</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Woo Jin Jeong / CLOUD BREAD. All Rights Reserved. Designed for Jeju Special Self-Governing Province Development Corporation.</p>
+        </div>
+    </footer>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav">
+        <a href="index.html" class="mobile-nav-item">
+            <span class="mobile-nav-icon">🏠</span>
+            <span>홈</span>
+        </a>
+        <a href="showcase.html" class="mobile-nav-item active">
+            <span class="mobile-nav-icon">✨</span>
+            <span>쇼케이스</span>
+        </a>
+        <a href="archive.html" class="mobile-nav-item">
+            <span class="mobile-nav-icon">📚</span>
+            <span>아카이브</span>
+        </a>
+        <div class="mobile-nav-item" id="mobile-menu-trigger" style="cursor: pointer;">
+            <span class="mobile-nav-icon">☰</span>
+            <span>메뉴</span>
+        </div>
+    </nav>
+
+    <!-- 49-Slide Interactive Courseware Script -->
+    <script src="jpdc-courseware.js"></script>
+
+    <!-- Interactive Script -->
+    <script>
+        // Hamburger & Mobile Nav Controls
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenuTrigger = document.getElementById('mobile-menu-trigger');
+        const mobileSidebar = document.getElementById('mobile-sidebar');
+        const menuOverlay = document.getElementById('menu-overlay');
+
+        function toggleMenu() {
+            if (mobileSidebar && menuOverlay) {
+                mobileSidebar.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
+            }
+        }
+        if (hamburger) hamburger.addEventListener('click', toggleMenu);
+        if (mobileMenuTrigger) mobileMenuTrigger.addEventListener('click', toggleMenu);
+        if (menuOverlay) menuOverlay.addEventListener('click', toggleMenu);
+
+        // 10 Participants Configuration
+        const TEAM_COLORS = {
+            team1: { name: '김미정', color: '#2563EB', bg: '#DBEAFE' },
+            team2: { name: '이성윤', color: '#059669', bg: '#D1FAE5' },
+            team3: { name: '김지연', color: '#D97706', bg: '#FEF3C7' },
+            team4: { name: '강은철', color: '#7C3AED', bg: '#EDE9FE' },
+            team5: { name: '조성수', color: '#DB2777', bg: '#FCE7F3' },
+            team6: { name: '강지연', color: '#0891B2', bg: '#CFFAFE' },
+            team7: { name: '변정훈', color: '#EA580C', bg: '#FFEDD5' },
+            team8: { name: '김만경', color: '#0D9488', bg: '#CCFBF1' },
+            team9: { name: '양근원', color: '#4F46E5', bg: '#E0E7FF' },
+            team10: { name: '김유나', color: '#65A30D', bg: '#ECFCCB' }
+        };
+
+        let currentTeam = 'team1';
+        let currentRoomId = 'JPDC-ERM-2026';
+        let matrixFilter = 'all';
+        const clientId = 'client_' + Math.random().toString(36).substring(2, 9);
+
+        const allTeamsData = {};
+        for (let i = 1; i <= 10; i++) {
+            allTeamsData['team' + i] = { pestel: [], swot: [], risks: {} };
+        }
+
+        let mqttClient = null;
+        let firebaseApp = null;
+        let firebaseDb = null;
+        let saveDebounceTimer = null;
+
+        // Tab Navigation
+        document.querySelectorAll('.tabbtn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tabbtn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.jpdc-panel').forEach(p => p.classList.remove('active'));
+                btn.classList.add('active');
+                const targetPanel = document.getElementById(btn.dataset.tab);
+                if (targetPanel) targetPanel.classList.add('active');
+                if (btn.dataset.tab === 'overview') renderOverview();
+            });
+        });
+
+        function initUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('room')) {
+                currentRoomId = params.get('room');
+                const sessionEl = document.getElementById('sessionDisplay');
+                const heroSessionEl = document.getElementById('heroSessionId');
+                if (sessionEl) sessionEl.textContent = currentRoomId;
+                if (heroSessionEl) heroSessionEl.textContent = `세션: ${currentRoomId} (Live)`;
+            }
+            if (params.get('team')) {
+                const t = params.get('team').toLowerCase();
+                if (t === 'all' || allTeamsData[t]) {
+                    currentTeam = t;
+                    const selectEl = document.getElementById('currentTeamSelect');
+                    if (selectEl) selectEl.value = t;
+                }
+            }
+        }
+
+        function changeTeam(teamKey) {
+            if (currentTeam !== 'all') {
+                harvestCurrentFormToMemory(currentTeam);
+            }
+
+            currentTeam = teamKey;
+            updateTeamIndicators();
+            populateFormFromMemory(currentTeam);
+            renderAll();
+        }
+
+        function updateTeamIndicators() {
+            const isAll = (currentTeam === 'all');
+            const label = isAll ? '📊 [강사 모드] 10인 전체 통합 뷰' : `👤 ${TEAM_COLORS[currentTeam]?.name || currentTeam} 작성 화면`;
+            const bgColor = isAll ? '#1E293B' : (TEAM_COLORS[currentTeam]?.color || 'var(--jpdc-teal)');
+
+            const pInd = document.getElementById('pestelTeamIndicator');
+            const sInd = document.getElementById('swotTeamIndicator');
+            const mInd = document.getElementById('matrixTeamIndicator');
+
+            if (pInd) { pInd.textContent = label; pInd.style.background = bgColor; }
+            if (sInd) { sInd.textContent = label; sInd.style.background = bgColor; }
+            if (mInd) { mInd.textContent = label; mInd.style.background = bgColor; }
+
+            const inputSection = document.getElementById('riskInputSection');
+            if (inputSection) {
+                inputSection.style.display = isAll ? 'none' : 'block';
+            }
+        }
+
+        function harvestCurrentFormToMemory(teamKey) {
+            if (teamKey === 'all') return;
+            
+            const pestel = [];
+            document.querySelectorAll('#pestelTable tbody tr').forEach(tr => {
+                pestel.push({
+                    cat: tr.dataset.category || '',
+                    text: tr.querySelector('textarea')?.value || ''
+                });
+            });
+
+            const swot = [];
+            document.querySelectorAll('#swotTable tbody tr').forEach(tr => {
+                swot.push(tr.querySelector('textarea')?.value || '');
+            });
+
+            if (!allTeamsData[teamKey]) allTeamsData[teamKey] = { pestel: [], swot: [], risks: {} };
+            allTeamsData[teamKey].pestel = pestel;
+            allTeamsData[teamKey].swot = swot;
+        }
+
+        function populateFormFromMemory(teamKey) {
+            if (teamKey === 'all') return;
+
+            const tData = allTeamsData[teamKey] || { pestel: [], swot: [], risks: {} };
+
+            if (tData.pestel && tData.pestel.length) {
+                const textareas = document.querySelectorAll('#pestelTable tbody textarea');
+                tData.pestel.forEach((item, idx) => {
+                    if (textareas[idx]) textareas[idx].value = item.text || '';
+                });
+            } else {
+                document.querySelectorAll('#pestelTable tbody textarea').forEach(t => t.value = '');
+            }
+
+            if (tData.swot && tData.swot.length) {
+                const textareas = document.querySelectorAll('#swotTable tbody textarea');
+                tData.swot.forEach((text, idx) => {
+                    if (textareas[idx]) textareas[idx].value = text || '';
+                });
+            } else {
+                document.querySelectorAll('#swotTable tbody textarea').forEach(t => t.value = '');
+            }
+
+            renderRiskInputTable();
+        }
+
+        function onInputPestel() {
+            if (currentTeam === 'all') return;
+            harvestCurrentFormToMemory(currentTeam);
+            scheduleCloudPush();
+        }
+
+        function onInputSwot() {
+            if (currentTeam === 'all') return;
+            harvestCurrentFormToMemory(currentTeam);
+            scheduleCloudPush();
+        }
+
+        function scheduleCloudPush() {
+            if (saveDebounceTimer) clearTimeout(saveDebounceTimer);
+            saveDebounceTimer = setTimeout(() => {
+                broadcastTeamData(currentTeam);
+            }, 400);
+        }
+
+        function forceSaveTeamData() {
+            if (currentTeam === 'all') return;
+            harvestCurrentFormToMemory(currentTeam);
+            broadcastTeamData(currentTeam);
+            saveToLocalStorage(false);
+            alert('데이터가 성공적으로 클라우드에 저장되었습니다!');
+        }
+
+        function setMatrixFilter(filter) {
+            matrixFilter = filter;
+            document.querySelectorAll('.jpdc-filter-btn').forEach(btn => {
+                const targetName = filter === 'all' ? '전체' : (TEAM_COLORS[filter]?.name || filter);
+                btn.classList.toggle('active', btn.textContent.includes(targetName));
+            });
+
+            const statusText = document.getElementById('filterStatusText');
+            if (statusText) {
+                statusText.textContent = filter === 'all' ? '(10인 전체 표시)' : `(${TEAM_COLORS[filter]?.name || filter}만 표시)`;
+            }
+            renderMatrixGrid();
+            renderRankTable();
+        }
+
+        function addRisk(name = '', like = 3, imp = 3) {
+            if (currentTeam === 'all') {
+                alert('특정 작성자(이름)를 선택한 후 리스크를 추가해 주세요.');
+                return;
+            }
+
+            const id = 'r_' + Date.now() + '_' + Math.floor(Math.random()*1000);
+            if (!allTeamsData[currentTeam].risks) allTeamsData[currentTeam].risks = {};
+
+            allTeamsData[currentTeam].risks[id] = {
+                id,
+                team: currentTeam,
+                name: name || '',
+                like: parseInt(like),
+                imp: parseInt(imp)
+            };
+
+            renderRiskInputTable();
+            renderAll();
+            scheduleCloudPush();
+        }
+
+        function updateRiskField(teamKey, id, field, value) {
+            if (!allTeamsData[teamKey] || !allTeamsData[teamKey].risks[id]) return;
+            if (field === 'name') allTeamsData[teamKey].risks[id].name = value;
+            else allTeamsData[teamKey].risks[id][field] = parseInt(value);
+
+            renderAll();
+            scheduleCloudPush();
+        }
+
+        function removeRisk(teamKey, id) {
+            if (!allTeamsData[teamKey] || !allTeamsData[teamKey].risks[id]) return;
+            delete allTeamsData[teamKey].risks[id];
+            renderRiskInputTable();
+            renderAll();
+            scheduleCloudPush();
+        }
+
+        function renderRiskInputTable() {
+            const tbody = document.getElementById('riskTableBody');
+            tbody.innerHTML = '';
+
+            if (currentTeam === 'all') return;
+            const teamRisks = Object.values(allTeamsData[currentTeam]?.risks || {});
+
+            teamRisks.forEach(r => {
+                const tr = document.createElement('tr');
+                const score = r.like * r.imp;
+                const g = getGrade(score, r.imp);
+                const teamColor = TEAM_COLORS[currentTeam]?.color || '#3B82F6';
+
+                tr.innerHTML = `
+                    <td><span class="team-tag" style="background:${teamColor}">${TEAM_COLORS[currentTeam]?.name}</span></td>
+                    <td><input type="text" class="jpdc-input" value="${escapeHtml(r.name)}" placeholder="예: 설비 노후화로 인한 생산 지연 및 안전사고" oninput="updateRiskField('${currentTeam}', '${r.id}', 'name', this.value)"></td>
+                    <td>
+                        <select class="jpdc-select" onchange="updateRiskField('${currentTeam}', '${r.id}', 'like', this.value)">
+                            ${[1,2,3,4,5].map(v => `<option value="${v}" ${v == r.like ? 'selected' : ''}>${v}점</option>`).join('')}
+                        </select>
+                    </td>
+                    <td>
+                        <select class="jpdc-select" onchange="updateRiskField('${currentTeam}', '${r.id}', 'imp', this.value)">
+                            ${[1,2,3,4,5].map(v => `<option value="${v}" ${v == r.imp ? 'selected' : ''}>${v}점</option>`).join('')}
+                        </select>
+                    </td>
+                    <td><b>${score}점</b></td>
+                    <td><span class="jpdc-badge" style="background:${g.color}">${g.label}</span></td>
+                    <td class="no-print"><button class="jpdc-btn danger sm" onclick="removeRisk('${currentTeam}', '${r.id}')">삭제</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function getGrade(score, imp = 0) {
+            if (score >= 20) return { label: 'CRITICAL', color: '#991B1B', bg: '#FEE2E2' };
+            if (score >= 15) return { label: 'HIGH', color: '#DC2626', bg: '#FEE2E2' };
+            if (score >= 10) return { label: 'MODERATE', color: '#D97706', bg: '#FEF3C7' };
+            return { label: 'LOW', color: '#16A34A', bg: '#DCFCE7' };
+        }
+
+        function renderAll() {
+            renderMatrixGrid();
+            renderRankTable();
+        }
+
+        function getAllRisks() {
+            const list = [];
+            Object.keys(allTeamsData).forEach(tKey => {
+                const tRisks = allTeamsData[tKey]?.risks || {};
+                Object.values(tRisks).forEach(r => {
+                    list.push({ ...r, team: tKey });
+                });
+            });
+            return list;
+        }
+
+        function renderMatrixGrid() {
+            const grid = document.getElementById('matrixGrid');
+            grid.innerHTML = '';
+
+            const allRisks = getAllRisks();
+            const filteredRisks = (matrixFilter === 'all') ? allRisks : allRisks.filter(r => r.team === matrixFilter);
+
+            for (let imp = 5; imp >= 1; imp--) {
+                const yLabel = document.createElement('div');
+                yLabel.className = 'jpdc-matrix-cell axis';
+                yLabel.textContent = '영향 ' + imp;
+                grid.appendChild(yLabel);
+
+                for (let like = 1; like <= 5; like++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'jpdc-matrix-cell';
+                    const score = imp * like;
+                    const g = getGrade(score, imp);
+                    cell.style.background = g.bg;
+                    cell.style.border = (imp >= 4) 
+                        ? '2px solid #C1440E' 
+                        : ('1px solid ' + (score >= 20 ? '#B91C1C' : score >= 15 ? '#F87171' : score >= 10 ? '#FBBF24' : '#86EFAC'));
+
+                    const matches = filteredRisks.filter(r => r.like === like && r.imp === imp);
+                    matches.forEach(r => {
+                        const dot = document.createElement('div');
+                        dot.className = 'risk-dot';
+                        const tColor = TEAM_COLORS[r.team]?.color || '#14213D';
+                        const tName = TEAM_COLORS[r.team]?.name || r.team;
+                        dot.style.background = tColor;
+                        dot.innerHTML = `<span>[${tName}]</span> ${escapeHtml(r.name || '미입력')}`;
+                        dot.title = `[${tName}] ${r.name || '미입력'} (발생:${r.like} × 영향:${r.imp} = ${r.like*r.imp}점 / ${g.label})`;
+                        cell.appendChild(dot);
+                    });
+
+                    grid.appendChild(cell);
+                }
+            }
+
+            const corner = document.createElement('div');
+            corner.className = 'jpdc-matrix-cell axis';
+            grid.appendChild(corner);
+
+            for (let like = 1; like <= 5; like++) {
+                const xLabel = document.createElement('div');
+                xLabel.className = 'jpdc-matrix-cell axis';
+                xLabel.textContent = '가능성 ' + like;
+                grid.appendChild(xLabel);
+            }
+        }
+
+        function renderRankTable() {
+            const tbody = document.getElementById('rankTableBody');
+            tbody.innerHTML = '';
+
+            const allRisks = getAllRisks();
+            const filteredRisks = (matrixFilter === 'all') ? allRisks : allRisks.filter(r => r.team === matrixFilter);
+            const sorted = filteredRisks.sort((a, b) => (b.like * b.imp) - (a.like * a.imp));
+
+            if (sorted.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#94A3B8; padding:16px;">등록된 리스크가 없습니다.</td></tr>';
+                return;
+            }
+
+            sorted.forEach((r, idx) => {
+                const score = r.like * r.imp;
+                const g = getGrade(score, r.imp);
+                const tColor = TEAM_COLORS[r.team]?.color || '#3B82F6';
+                const tName = TEAM_COLORS[r.team]?.name || r.team;
+
+                const tr = document.createElement('tr');
+                if (r.imp >= 4) {
+                    tr.style.background = '#FFFBEB';
+                }
+                tr.innerHTML = `
+                    <td><b>${idx + 1}</b></td>
+                    <td><span class="team-tag" style="background:${tColor}">${tName}</span></td>
+                    <td>${escapeHtml(r.name) || '(이름 없음)'} ${r.imp >= 4 ? '<span title="Impact-First: 영향도 4 이상" style="color:#C1440E; font-size:11px; font-weight:700;">[치명적]</span>' : ''}</td>
+                    <td><b>${score}점</b></td>
+                    <td><span class="jpdc-badge" style="background:${g.color}">${g.label}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderOverview() {
+            const container = document.getElementById('overviewGrid');
+            container.innerHTML = '';
+
+            for (let i = 1; i <= 10; i++) {
+                const tKey = 'team' + i;
+                const tData = allTeamsData[tKey] || { pestel: [], swot: [], risks: {} };
+                const tColor = TEAM_COLORS[tKey].color;
+                const tName = TEAM_COLORS[tKey].name;
+                const riskCount = Object.keys(tData.risks || {}).length;
+
+                const card = document.createElement('div');
+                card.className = 'jpdc-team-card';
+                card.style.borderTopColor = tColor;
+
+                let pestelCount = (tData.pestel || []).filter(p => p.text && p.text.trim()).length;
+                let swotCount = (tData.swot || []).filter(s => s && s.trim()).length;
+
+                card.innerHTML = `
+                    <h4>
+                        <span>👤 ${tName}</span>
+                        <span class="jpdc-badge" style="background:${tColor}; font-size:11px;">리스크 ${riskCount}건</span>
+                    </h4>
+                    <div style="font-size:12px; color:#475569; margin-bottom:8px;">
+                        • PESTEL 작성: <b>${pestelCount}/6</b> 항목<br>
+                        • SWOT-Risk 작성: <b>${swotCount}/4</b> 항목
+                    </div>
+                    <button class="jpdc-btn sm secondary" onclick="changeTeam('${tKey}'); document.querySelector('[data-tab=pestel]').click();" style="width:100%; justify-content:center;">
+                        ${tName} 님 입력화면 이동
+                    </button>
+                `;
+                container.appendChild(card);
+            }
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.toString().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+        }
+
+        function dupRow(btn) {
+            const row = btn.closest('tr');
+            const clone = row.cloneNode(true);
+            clone.querySelectorAll('textarea').forEach(t => t.value = '');
+            row.parentNode.insertBefore(clone, row.nextSibling);
+        }
+
+        function clearPestel() {
+            if (confirm('현재 작성자의 PESTEL 분석 내용을 모두 초기화할까요?')) {
+                document.querySelectorAll('#pestelTable textarea').forEach(t => t.value = '');
+                onInputPestel();
+            }
+        }
+
+        // ==========================================
+        // REALTIME CLOUD ENGINE
+        // ==========================================
+        function initRealtimeCloud() {
+            const brokerUrl = 'wss://broker.emqx.io:8084/mqtt';
+
+            try {
+                mqttClient = mqtt.connect(brokerUrl, {
+                    clientId: 'jpdc_' + clientId,
+                    clean: true,
+                    connectTimeout: 5000,
+                    reconnectPeriod: 2500
+                });
+
+                const topicRoot = `jpdc-erm-2026/room/${currentRoomId}`;
+
+                mqttClient.on('connect', () => {
+                    updateSyncStatus(true, '🟢 실시간 자동 동기화 중 (클라우드 가동)');
+                    mqttClient.subscribe(`${topicRoot}/#`, err => {
+                        if (!err) {
+                            mqttClient.publish(`${topicRoot}/ping`, JSON.stringify({ sender: clientId, action: 'request_state' }));
+                            if (currentTeam !== 'all') {
+                                broadcastTeamData(currentTeam);
+                            }
+                        }
+                    });
+                });
+
+                mqttClient.on('message', (topic, payload) => {
+                    try {
+                        const data = JSON.parse(payload.toString());
+                        if (data.sender === clientId) return;
+
+                        if (topic.endsWith('/ping') && data.action === 'request_state') {
+                            if (currentTeam !== 'all') {
+                                broadcastTeamData(currentTeam);
+                            } else {
+                                broadcastAllTeams();
+                            }
+                            return;
+                        }
+
+                        if (topic.includes('/team/')) {
+                            const teamKey = topic.split('/team/')[1];
+                            if (teamKey && allTeamsData[teamKey]) {
+                                allTeamsData[teamKey] = data.teamData;
+                                if (currentTeam === teamKey) {
+                                    populateFormFromMemory(teamKey);
+                                }
+                                renderAll();
+                                if (document.getElementById('overview').classList.contains('active')) {
+                                    renderOverview();
+                                }
+                            }
+                        } else if (topic.endsWith('/all')) {
+                            if (data.allData) {
+                                Object.assign(allTeamsData, data.allData);
+                                populateFormFromMemory(currentTeam);
+                                renderAll();
+                                if (document.getElementById('overview').classList.contains('active')) {
+                                    renderOverview();
+                                }
+                            }
+                        }
+                    } catch(e) {
+                        console.error('MQTT parse error:', e);
+                    }
+                });
+
+                mqttClient.on('error', err => {
+                    console.warn('MQTT error:', err);
+                    updateSyncStatus(false, '🟡 로컬 모드 (재연결 중...)');
+                });
+
+                mqttClient.on('offline', () => {
+                    updateSyncStatus(false, '🟡 연결 대기 중...');
+                });
+
+            } catch (err) {
+                console.error('MQTT Init failed:', err);
+            }
+        }
+
+        function broadcastTeamData(teamKey) {
+            if (!teamKey || teamKey === 'all') return;
+            const tData = allTeamsData[teamKey] || { pestel: [], swot: [], risks: {} };
+
+            if (mqttClient && mqttClient.connected) {
+                const topic = `jpdc-erm-2026/room/${currentRoomId}/team/${teamKey}`;
+                mqttClient.publish(topic, JSON.stringify({ sender: clientId, teamData: tData }));
+            }
+
+            if (firebaseDb) {
+                firebaseDb.ref(`rooms/${currentRoomId}/teams/${teamKey}`).set(tData);
+            }
+        }
+
+        function broadcastAllTeams() {
+            if (mqttClient && mqttClient.connected) {
+                const topic = `jpdc-erm-2026/room/${currentRoomId}/all`;
+                mqttClient.publish(topic, JSON.stringify({ sender: clientId, allData: allTeamsData }));
+            }
+        }
+
+        function updateSyncStatus(online, text) {
+            const badge = document.getElementById('syncStatusBadge');
+            const badgeText = document.getElementById('syncStatusText');
+            const dot = badge ? badge.querySelector('.jpdc-status-dot') : null;
+
+            if (badge && badgeText) {
+                badgeText.textContent = text;
+                badge.className = 'jpdc-status-badge ' + (online ? 'jpdc-status-online' : 'jpdc-status-offline');
+                if (dot) dot.className = 'jpdc-status-dot ' + (online ? 'jpdc-pulse' : '');
+            }
+        }
+
+        function syncNow() {
+            if (mqttClient && mqttClient.connected) {
+                const topicRoot = `jpdc-erm-2026/room/${currentRoomId}`;
+                mqttClient.publish(`${topicRoot}/ping`, JSON.stringify({ sender: clientId, action: 'request_state' }));
+                if (currentTeam !== 'all') broadcastTeamData(currentTeam);
+                renderAll();
+                alert('최신 실시간 데이터를 클라우드로부터 요청하여 갱신했습니다!');
+            } else {
+                renderAll();
+                alert('화면이 갱신되었습니다.');
+            }
+        }
+
+        function openFirebaseModal() {
+            const modal = document.getElementById('firebaseModal');
+            document.getElementById('fbRoomInput').value = currentRoomId;
+            document.getElementById('fbConfigInput').value = localStorage.getItem('ERM_FIREBASE_CONFIG') || '';
+            modal.style.display = 'flex';
+        }
+
+        function closeFirebaseModal() {
+            document.getElementById('firebaseModal').style.display = 'none';
+        }
+
+        function saveFirebaseConfig() {
+            const room = document.getElementById('fbRoomInput').value.trim() || 'JPDC-ERM-2026';
+            const config = document.getElementById('fbConfigInput').value.trim();
+
+            localStorage.setItem('ERM_FIREBASE_ROOM', room);
+            localStorage.setItem('ERM_FIREBASE_CONFIG', config);
+            currentRoomId = room;
+            document.getElementById('sessionDisplay').textContent = currentRoomId;
+            const heroSessionEl = document.getElementById('heroSessionId');
+            if (heroSessionEl) heroSessionEl.textContent = `세션: ${currentRoomId} (Live)`;
+
+            closeFirebaseModal();
+            if (mqttClient && mqttClient.connected) {
+                mqttClient.subscribe(`jpdc-erm-2026/room/${currentRoomId}/#`);
+            }
+            alert('세션 ID가 성공적으로 설정되었습니다!');
+        }
+
+        function saveToLocalStorage(showAlert = true) {
+            harvestCurrentFormToMemory(currentTeam);
+            localStorage.setItem('ERM_ALL_TEAMS_DATA', JSON.stringify(allTeamsData));
+            if (showAlert) alert('10인의 전체 실습 데이터가 브라우저에 저장되었습니다!');
+        }
+
+        function exportJSON() {
+            harvestCurrentFormToMemory(currentTeam);
+            const blob = new Blob([JSON.stringify({ roomId: currentRoomId, teams: allTeamsData }, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ERM_Practice_${currentRoomId}_Full.json`;
+            a.click();
+        }
+
+        function importJSON() {
+            document.getElementById('fileInput').click();
+        }
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.teams) {
+                        Object.assign(allTeamsData, data.teams);
+                    } else {
+                        allTeamsData[currentTeam] = data;
+                    }
+                    populateFormFromMemory(currentTeam);
+                    renderAll();
+                    broadcastAllTeams();
+                    alert('파일을 성공적으로 불러왔으며, 클라우드로 동기화했습니다!');
+                } catch (err) {
+                    alert('올바른 JSON 파일이 아닙니다.');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function showQRCode() {
+            let modal = document.getElementById('qrModal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'qrModal';
+                modal.className = 'jpdc-modal-overlay';
+                modal.innerHTML = `
+                    <div class="jpdc-modal-box" style="text-align:center; max-width:380px;">
+                        <h3 style="margin:0 0 10px 0; color:var(--jpdc-navy); font-size:18px; font-weight:800;">📱 스마트폰 실습 접속 QR코드</h3>
+                        <p style="font-size:12px; color:#64748B; margin-bottom:14px;">
+                            수강생들이 스마트폰 카메라로 스캔하면 이 실습 페이지로 즉시 접속합니다.
+                        </p>
+                        <img id="qrImg" src="assets/images/jpdc_erm_qr.png" alt="QR Code" style="width:220px; height:220px; border:1px solid #E2E8F0; border-radius:8px; padding:6px; object-fit:contain;">
+                        <div style="margin-top:10px; font-size:12px; color:#3B82F6; word-break:break-all;" id="qrUrlText"></div>
+                        <div style="margin-top:16px;">
+                            <button class="jpdc-btn secondary" onclick="document.getElementById('qrModal').style.display='none'">닫기</button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+            }
+            
+            const currentUrl = window.location.href.split('?')[0] + `?room=${encodeURIComponent(currentRoomId)}`;
+            document.getElementById('qrUrlText').textContent = currentUrl;
+            modal.style.display = 'flex';
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', () => {
+            initUrlParams();
+
+            const saved = localStorage.getItem('ERM_ALL_TEAMS_DATA');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    Object.assign(allTeamsData, parsed);
+                } catch(e){}
+            } else {
+                allTeamsData.team1.risks['r1'] = { id: 'r1', team: 'team1', name: '설비 노후화로 인한 생산 중단 및 안전사고', like: 4, imp: 4 };
+                allTeamsData.team2.risks['r2'] = { id: 'r2', team: 'team2', name: '원자재 및 해상/육상 물류비 급등', like: 3, imp: 4 };
+                allTeamsData.team3.risks['r3'] = { id: 'r3', team: 'team3', name: '디지털 전환 지연에 따른 유통 채널 경쟁력 저하', like: 2, imp: 3 };
+            }
+
+            updateTeamIndicators();
+            populateFormFromMemory(currentTeam);
+            renderAll();
+            initRealtimeCloud();
+        });
+    </script>
+</body>
+</html>
