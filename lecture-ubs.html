@@ -529,18 +529,36 @@
         }
 
         .output-header span {
-            font-size: 0.85rem;
-            color: #94A3B8;
+            font-size: 0.95rem;
+            color: #FFFFFF;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .output-header span i {
+            color: #00F0FF;
+            font-size: 1rem;
+        }
+
+        .output-header .badge-ready {
+            color: #38BDF8;
+            font-size: 0.8rem;
             font-weight: 600;
+            background: rgba(56, 189, 248, 0.15);
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 6px;
         }
 
         .btn-copy-prompt {
-            background: #00F0FF;
-            color: #030712;
-            border: none;
-            padding: 6px 14px;
+            background: linear-gradient(135deg, #0052CC 0%, #0038A8 100%);
+            color: #FFFFFF !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.4);
+            padding: 7px 18px;
             border-radius: 8px;
-            font-size: 0.82rem;
+            font-size: 0.92rem;
             font-weight: 800;
             cursor: pointer;
             display: inline-flex;
@@ -548,24 +566,30 @@
             justify-content: center;
             gap: 8px;
             line-height: 1.25;
-            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 2px 8px rgba(0, 240, 255, 0.25);
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px rgba(0, 82, 204, 0.45);
         }
 
         .btn-copy-prompt .btn-copy-text {
             display: inline-block;
             text-align: center;
             line-height: 1.25;
+            color: #FFFFFF !important;
+            font-weight: 800;
+            font-size: 0.92rem;
+            letter-spacing: -0.01em;
         }
 
         .btn-copy-prompt i {
-            font-size: 1rem;
+            font-size: 1.15rem;
+            color: #FFFFFF !important;
         }
 
         .btn-copy-prompt:hover {
-            background: #38BDF8;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.35);
+            background: linear-gradient(135deg, #0066FF 0%, #0047AB 100%);
+            border-color: #00F0FF;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 240, 255, 0.45);
         }
 
         .prompt-code-view {
@@ -1177,8 +1201,8 @@
                 <!-- Right: Generated Prompt Preview & Copy -->
                 <div class="lab-output-panel">
                     <div class="output-header">
-                        <span><i class="fa-solid fa-terminal"></i> 완성된 생성형 AI 프롬프트 (Ready to Copy)</span>
-                        <button class="btn-copy-prompt" id="btn-copy-prompt" title="프롬프트 복사하기"><i class="fa-regular fa-copy"></i><span class="btn-copy-text">프롬프트<br>복사하기</span></button>
+                        <span><i class="fa-solid fa-terminal"></i> 완성된 생성형 AI 프롬프트 <span class="badge-ready">(Ready to Copy)</span></span>
+                        <button class="btn-copy-prompt" id="btn-copy-prompt" title="프롬프트 복사하기"><i class="fa-solid fa-copy"></i><span class="btn-copy-text">프롬프트<br>복사하기</span></button>
                     </div>
                     <pre class="prompt-code-view" id="prompt-code-view"></pre>
                 </div>
