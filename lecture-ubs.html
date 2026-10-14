@@ -539,19 +539,33 @@
             color: #030712;
             border: none;
             padding: 6px 14px;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 0.82rem;
             font-weight: 800;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            transition: background 0.2s, transform 0.2s;
+            justify-content: center;
+            gap: 8px;
+            line-height: 1.25;
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(0, 240, 255, 0.25);
+        }
+
+        .btn-copy-prompt .btn-copy-text {
+            display: inline-block;
+            text-align: center;
+            line-height: 1.25;
+        }
+
+        .btn-copy-prompt i {
+            font-size: 1rem;
         }
 
         .btn-copy-prompt:hover {
             background: #38BDF8;
             transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.35);
         }
 
         .prompt-code-view {
@@ -1164,7 +1178,7 @@
                 <div class="lab-output-panel">
                     <div class="output-header">
                         <span><i class="fa-solid fa-terminal"></i> 완성된 생성형 AI 프롬프트 (Ready to Copy)</span>
-                        <button class="btn-copy-prompt" id="btn-copy-prompt"><i class="fa-regular fa-copy"></i> 프롬프트 복사하기</button>
+                        <button class="btn-copy-prompt" id="btn-copy-prompt" title="프롬프트 복사하기"><i class="fa-regular fa-copy"></i><span class="btn-copy-text">프롬프트<br>복사하기</span></button>
                     </div>
                     <pre class="prompt-code-view" id="prompt-code-view"></pre>
                 </div>
