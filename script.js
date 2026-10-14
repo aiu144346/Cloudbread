@@ -415,6 +415,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                 </div>
 
+                ${target === 'public' ? `
+                    <div style="background: linear-gradient(135deg, #002D62 0%, #0047AB 100%); color:#FFFFFF; border-radius:18px; padding:1.8rem 2.2rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 12px 30px rgba(0, 71, 171, 0.2); border:1px solid rgba(255,255,255,0.15);">
+                        <div>
+                            <span style="background:rgba(0,240,255,0.2); color:#00F0FF; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; display:inline-block; margin-bottom:8px;">🏛️ 실전 마스터클래스 전용 포털 오픈</span>
+                            <h3 style="font-size:1.35rem; font-weight:800; margin:0; color:#FFFFFF;">울산 북구청 신규 공무원 AI 행정혁신 120분 마스터클래스</h3>
+                            <p style="font-size:0.9rem; color:#CBD5E1; margin:4px 0 0 0;">행정×기술 투트랙 실시간 프롬프트 랩, 과제 실시간 업로드 및 라이브 쇼케이스 전용 페이지</p>
+                        </div>
+                        <a href="lecture-ubs.html" style="background:#00F0FF; color:#030712; font-weight:800; font-size:0.95rem; padding:12px 24px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:transform 0.2s;"><i class="fa-solid fa-arrow-up-right-from-square"></i> 전용 실습 대시보드 입장하기 →</a>
+                    </div>
+                ` : ''}
+
                 <div class="dash-cta-box">
                     <div class="dash-cta-text">
                         <strong>💡 [${data.title}] 맞춤형 출강 및 교육 제안서가 필요하신가요?</strong>

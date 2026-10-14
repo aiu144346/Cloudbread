@@ -12,6 +12,7 @@ const authClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 const port = 3001;
 const SESSIONS_FILE = path.join(__dirname, 'sessions.json');
 const BOARD_FILE = path.join(__dirname, 'board.json');
+const WORKSHOP_FILE = path.join(__dirname, 'workshop_submissions.json');
 const DRIVE_INDEX_FILE = path.join(__dirname, 'drive_index.json');
 
 let driveIndexCache = null;
@@ -233,6 +234,77 @@ const requestListener = async (req, res) => {
 
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ success: true, post: newPost }));
+            } catch (err) {
+                res.writeHead(500); res.end('Server Error');
+            }
+        });
+        return;
+    }
+
+    // 6-1. Workshop: Get Submissions
+    if (req.method === 'GET' && cleanUrl === '/api/workshop') {
+        const submissions = readJsonDb(WORKSHOP_FILE, []);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify(submissions));
+    }
+
+    // 6-2. Workshop: Submit Assignment (Trainee submission with live reflection)
+    if (req.method === 'POST' && cleanUrl === '/api/workshop') {
+        let body = '';
+        req.on('data', chunk => { body += chunk.toString(); });
+        req.on('end', () => {
+            try {
+                const data = JSON.parse(body);
+                if (!data.projectTitle || !data.team) {
+                    res.writeHead(400); return res.end('Missing required fields');
+                }
+
+                const submissions = readJsonDb(WORKSHOP_FILE, []);
+                const newSubmission = {
+                    id: 'sub-' + (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2)),
+                    team: data.team,
+                    projectTitle: data.projectTitle,
+                    author: data.author || '신규 주무관',
+                    problem: data.problem || '',
+                    techSolution: data.techSolution || '',
+                    adminSolution: data.adminSolution || '',
+                    promptLog: data.promptLog || '',
+                    expectedEffect: data.expectedEffect || '',
+                    fileName: data.fileName || null,
+                    fileData: data.fileData || null,
+                    createdAt: new Date().toISOString(),
+                    likes: 0
+                };
+
+                submissions.unshift(newSubmission);
+                writeJsonDb(WORKSHOP_FILE, submissions);
+
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, submission: newSubmission }));
+            } catch (err) {
+                console.error("Workshop submit error:", err);
+                res.writeHead(500); res.end('Server Error');
+            }
+        });
+        return;
+    }
+
+    // 6-3. Workshop: Like Submission
+    if (req.method === 'POST' && cleanUrl === '/api/workshop/like') {
+        let body = '';
+        req.on('data', chunk => { body += chunk.toString(); });
+        req.on('end', () => {
+            try {
+                const { id } = JSON.parse(body);
+                const submissions = readJsonDb(WORKSHOP_FILE, []);
+                const target = submissions.find(s => s.id === id);
+                if (target) {
+                    target.likes = (target.likes || 0) + 1;
+                    writeJsonDb(WORKSHOP_FILE, submissions);
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({ success: true, likes: target.likes }));
+                }
+                res.writeHead(404); res.end('Not found');
             } catch (err) {
                 res.writeHead(500); res.end('Server Error');
             }
