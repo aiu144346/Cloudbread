@@ -255,6 +255,19 @@ const requestListener = async (req, res) => {
         req.on('end', () => {
             try {
                 const data = JSON.parse(body);
+
+                if (data.action === 'like') {
+                    const submissions = readJsonDb(WORKSHOP_FILE, []);
+                    const target = submissions.find(s => s.id === data.id);
+                    if (target) {
+                        target.likes = (target.likes || 0) + 1;
+                        writeJsonDb(WORKSHOP_FILE, submissions);
+                        res.writeHead(200, { 'Content-Type': 'application/json' });
+                        return res.end(JSON.stringify({ success: true, likes: target.likes }));
+                    }
+                    res.writeHead(404); return res.end('Not found');
+                }
+
                 if (!data.projectTitle || !data.team) {
                     res.writeHead(400); return res.end('Missing required fields');
                 }

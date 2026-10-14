@@ -1633,10 +1633,10 @@ ${v.p4_goal}을(를) 달성하기 위해, 구청장 보고서에 삽입할 파�
 
         async function likeSubmission(id, btn) {
             try {
-                const res = await fetch("/api/workshop/like", {
+                const res = await fetch("/api/workshop", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ id })
+                    body: JSON.stringify({ action: "like", id })
                 });
                 const data = await res.json();
                 if (data.success) {
