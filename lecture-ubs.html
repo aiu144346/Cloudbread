@@ -83,6 +83,8 @@
             padding: 6px 16px;
             border-radius: 9999px;
             letter-spacing: -0.01em;
+            text-decoration: none;
+            transition: all 0.25s ease;
         }
 
         .ubs-pill-location {
@@ -95,6 +97,36 @@
             background: rgba(255, 255, 255, 0.1);
             color: #FFFFFF;
             border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .ubs-pill-lecture-link {
+            background: linear-gradient(135deg, #0052CC 0%, #00C6FF 100%);
+            color: #FFFFFF !important;
+            border: 1px solid rgba(0, 240, 255, 0.8);
+            box-shadow: 0 0 16px rgba(0, 198, 255, 0.45);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            animation: ubsPulseGlow 2.5s infinite;
+        }
+
+        .ubs-pill-lecture-link:hover {
+            background: linear-gradient(135deg, #0038A8 0%, #00F0FF 100%);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 4px 22px rgba(0, 240, 255, 0.75);
+            border-color: #00F0FF;
+            color: #FFFFFF !important;
+        }
+
+        @keyframes ubsPulseGlow {
+            0%, 100% {
+                box-shadow: 0 0 12px rgba(0, 198, 255, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 22px rgba(0, 240, 255, 0.75);
+            }
         }
 
         .ubs-main-title {
@@ -963,6 +995,9 @@
             <div class="ubs-badge-row">
                 <span class="ubs-pill ubs-pill-location"><i class="fa-solid fa-location-dot"></i> 울산광역시 북구청 신규 공무원 역량강화 특강</span>
                 <span class="ubs-pill ubs-pill-track"><i class="fa-solid fa-code-branch"></i> 행정직(Track A) × 기술·연구직(Track B) 융합</span>
+                <a href="/AI_Lecture/2026/10/UBS_1015/" class="ubs-pill ubs-pill-lecture-link" title="2번 특강 전용 페이지 (https://www.cloudbread.me/AI_Lecture/2026/10/UBS_1015/) 바로가기">
+                    <i class="fa-solid fa-rocket"></i> 10.15 특강 전용 강의장 바로가기 <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem; margin-left: 2px;"></i>
+                </a>
             </div>
             
             <h1 class="ubs-main-title">
