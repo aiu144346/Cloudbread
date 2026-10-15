@@ -346,6 +346,310 @@
       line-height: 1.6;
     }
 
+    .hero-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 992px) {
+      .hero-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* Hero Image Thumbnail Card */
+    .hero-image-box {
+      flex-shrink: 0;
+      width: 290px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+      border-radius: var(--radius-md);
+      padding: 0.6rem;
+      backdrop-filter: blur(8px);
+      transition: var(--transition);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+    }
+    @media (max-width: 992px) {
+      .hero-image-box {
+        width: 100%;
+        max-width: 380px;
+        margin-top: 1.25rem;
+      }
+    }
+    .hero-image-box:hover {
+      transform: translateY(-3px) scale(1.02);
+      border-color: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.26);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+    }
+    .hero-image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 160px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #0F172A;
+    }
+    .hero-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .hero-image-box:hover .hero-thumb {
+      transform: scale(1.05);
+    }
+    .hero-image-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, transparent 100%);
+      padding: 0.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: var(--transition);
+    }
+    .hero-image-box:hover .hero-image-overlay {
+      background: linear-gradient(to top, rgba(0, 82, 204, 0.85) 0%, transparent 100%);
+    }
+    .zoom-badge {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      padding: 3px 9px;
+      border-radius: 9999px;
+      backdrop-filter: blur(4px);
+    }
+    .hero-image-tag {
+      margin-top: 0.45rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    /* Vision Card inside Module 1 */
+    .vision-banner-card {
+      background: #FFFFFF;
+      border: 1.5px solid #BFDBFE;
+      border-radius: var(--radius-md);
+      padding: 1.15rem 1.35rem;
+      margin-bottom: 1.75rem;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 16px rgba(0, 71, 171, 0.06);
+    }
+    .vision-banner-card:hover {
+      border-color: #0052CC;
+      background: #F8FAFC;
+      box-shadow: 0 8px 24px rgba(0, 82, 204, 0.12);
+      transform: translateY(-2px);
+    }
+    .vision-thumb-row {
+      display: flex;
+      gap: 1.35rem;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .vision-thumb-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+    .vision-card-img {
+      width: 230px;
+      height: 130px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid #CBD5E1;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease;
+    }
+    .vision-banner-card:hover .vision-card-img {
+      transform: scale(1.03);
+    }
+    .vision-card-info {
+      flex: 1;
+    }
+    .vision-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #0052CC;
+      background: #EBF3FF;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 0.35rem;
+      border: 1px solid #BFDBFE;
+    }
+    .vision-card-info h4 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0F172A;
+      margin-bottom: 0.35rem;
+    }
+    .vision-card-info p {
+      font-size: 0.85rem;
+      color: #475569;
+      line-height: 1.55;
+      margin-bottom: 0.6rem;
+    }
+    .vision-zoom-btn {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #0052CC;
+      background: #EBF3FF;
+      border: 1px solid #BFDBFE;
+      padding: 4px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: var(--transition);
+    }
+    .vision-banner-card:hover .vision-zoom-btn {
+      background: #0052CC;
+      color: #FFFFFF;
+      border-color: #0052CC;
+    }
+
+    /* Lightbox Modal */
+    .image-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(10px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .image-modal-backdrop.open {
+      display: flex;
+      opacity: 1;
+    }
+    .image-modal-dialog {
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      max-width: 1200px;
+      width: 100%;
+      max-height: 94vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      border: 1.5px solid #CBD5E1;
+      transform: scale(0.95);
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .image-modal-backdrop.open .image-modal-dialog {
+      transform: scale(1);
+    }
+    .image-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.9rem 1.4rem;
+      background: #F8FAFC;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    .image-modal-header h4 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0F172A;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .modal-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .modal-btn-download {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #0052CC;
+      background: #EBF3FF;
+      border: 1px solid #BFDBFE;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .modal-btn-download:hover {
+      background: #0052CC;
+      color: #FFFFFF;
+    }
+    .modal-btn-close {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #E2E8F0;
+      border: none;
+      color: #0F172A;
+      font-size: 1.1rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .modal-btn-close:hover {
+      background: #DC2626;
+      color: #FFFFFF;
+    }
+    .image-modal-body {
+      flex: 1;
+      overflow: auto;
+      background: #0A0F1D;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem;
+    }
+    .image-modal-body img {
+      max-width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+    .image-modal-footer {
+      padding: 0.65rem 1.4rem;
+      background: #F8FAFC;
+      border-top: 1px solid #E2E8F0;
+      font-size: 0.8rem;
+      color: #64748B;
+      text-align: right;
+    }
+
     /* ==========================================================
        Pre-Lecture AI Diagnostic Dashboard (Module 1 사전 진단)
        ========================================================== */
@@ -1459,17 +1763,31 @@
   <main>
     <!-- Hero Banner -->
     <section class="hero-banner">
-      <div class="hero-content">
-        <div class="hero-badge-row">
-          <span class="hero-badge blue">🏛️ 울산광역시 북구청</span>
-          <span class="hero-badge">📅 2026. 10. 15 (14:00~16:00)</span>
-          <span class="hero-badge green">👥 신규 공직자 20명 대상</span>
-          <span class="hero-badge">⚡ Two-Track 맞춤형 (행정직군 & 기술·연구직군)</span>
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-badge-row">
+            <span class="hero-badge blue">🏛️ 울산광역시 북구청</span>
+            <span class="hero-badge">📅 2026. 10. 15 (14:00~16:00)</span>
+            <span class="hero-badge green">👥 신규 공직자 20명 대상</span>
+            <span class="hero-badge">⚡ Two-Track 맞춤형 (행정직군 & 기술·연구직군)</span>
+          </div>
+          <h2 class="hero-title">"북구의 미래를 여는 24시간 스마트 AI 부사수 만들기"</h2>
+          <p class="hero-desc">
+            단순한 챗GPT 기초 사용법을 넘어, 북구 고유 현안(산업단지 환경 악취, 동천강 침수, 송정·강동 신도시 정주여건, 울산숲 감리)에 맞춘 실전 프롬프트와 행정·기술 융합 워크숍을 원클릭으로 열람하고 실습할 수 있습니다.
+          </p>
         </div>
-        <h2 class="hero-title">"북구의 미래를 여는 24시간 스마트 AI 부사수 만들기"</h2>
-        <p class="hero-desc">
-          단순한 챗GPT 기초 사용법을 넘어, 북구 고유 현안(산업단지 환경 악취, 동천강 침수, 송정·강동 신도시 정주여건, 울산숲 감리)에 맞춘 실전 프롬프트와 행정·기술 융합 워크숍을 원클릭으로 열람하고 실습할 수 있습니다.
-        </p>
+        <!-- Thumbnail Image Box: Click to zoom -->
+        <div class="hero-image-box" onclick="openImageModal('Gemini_Generated_Image_북구이미지.png', '울산 북구 AI 스마트 미래 비전 (Gemini AI 생성)')" title="클릭하여 원본 고화질(2752×1536) 확대 보기">
+          <div class="hero-image-wrapper">
+            <img src="gemini_ubs_vision_thumb.webp" alt="울산 북구 AI 스마트 미래 비전" class="hero-thumb">
+            <div class="hero-image-overlay">
+              <span class="zoom-badge">🔍 클릭하여 확대</span>
+            </div>
+          </div>
+          <div class="hero-image-tag">
+            <span>✨ Gemini 생성: 북구 미래 비전</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1817,6 +2135,25 @@
   <!-- Toast Notification -->
   <div class="toast" id="toast">📋 프롬프트가 클립보드에 복사되었습니다!</div>
 
+  <!-- Lightbox Modal for Zooming Image -->
+  <div class="image-modal-backdrop" id="imageModalBackdrop" onclick="closeImageModal(event)">
+    <div class="image-modal-dialog">
+      <div class="image-modal-header">
+        <h4 id="imageModalTitle">울산 북구 AI 스마트 미래 비전 (Gemini AI 생성)</h4>
+        <div class="modal-controls">
+          <a id="imageModalDownload" href="Gemini_Generated_Image_북구이미지.png" download="울산북구_AI미래비전_Gemini.png" class="modal-btn-download" title="원본 다운로드">💾 원본 다운로드</a>
+          <button class="modal-btn-close" onclick="closeImageModalDirect()" title="닫기 (ESC)">✕</button>
+        </div>
+      </div>
+      <div class="image-modal-body">
+        <img id="imageModalImg" src="Gemini_Generated_Image_북구이미지.png" alt="확대 이미지">
+      </div>
+      <div class="image-modal-footer">
+        <span>💡 팁: ESC 키를 누르거나 바깥 어두운 배경을 클릭하면 닫힙니다. (초고해상도 2752 × 1536)</span>
+      </div>
+    </div>
+  </div>
+
   <script>
     // Detailed Module Data
     const modulesData = {
@@ -1834,6 +2171,21 @@
               <p>"여러분이 발령받으신 이곳 울산 북구는 어떤 곳입니까? 대한민국 자동차 산업의 심장인 현대자동차와 모듈화일반산업단지가 힘차게 뛰고 있고, 송정지구와 강동 바다를 중심으로 젊은 세대와 다문화 주민들이 역동적으로 유입되는 젊은 도시입니다. 동시에 동천강의 맑은 물줄기, 무룡산의 푸른 숲, 그리고 폐선부지를 주민의 품으로 돌려준 '울산숲'이 공존하는 무한한 잠재력의 도시입니다."</p>
               <p>"하지만 신규 공무원으로 첫 출근을 하고 모니터 앞에 앉았을 때, 솔직히 막막하셨을 겁니다. 쏟아지는 민원 전화, 난생처음 보는 수백 페이지짜리 공사 시방서와 조례집, 선배들이 건네준 수많은 보고서 서식 앞에서 '내가 이걸 다 해낼 수 있을까?' 밤잠을 설치셨을지도 모릅니다."</p>
               <p><strong>"단언컨대, 오늘 이 120분이 지나면 여러분 곁에는 대한민국에서 가장 유능하고 지치지 않는 24시간 인공지능 부사수가 생길 것입니다.</strong> 오늘 교육은 단순한 챗GPT 사용법이 아닙니다. 행정직의 치밀한 기획력과 기술직의 정밀한 데이터 감각을 AI로 결합하여, '일 잘하는 북구청 스마트 공무원'으로 거듭나는 실전 무기를 쥐여드리겠습니다."</p>
+            </div>
+          </div>
+
+          <div class="content-section">
+            <div class="section-title">🖼️ 울산 북구 AI 스마트 행정혁신 비전 조감도 <span style="font-size:0.75rem; font-weight:normal; color:var(--text-muted); margin-left:8px;">(클릭 시 고해상도 확대)</span></div>
+            <div class="vision-banner-card" onclick="openImageModal('Gemini_Generated_Image_북구이미지.png', '울산 북구 AI 스마트 미래 비전 (Gemini AI 생성)')">
+              <div class="vision-thumb-row">
+                <img src="gemini_ubs_vision_thumb.webp" alt="울산 북구 AI 스마트 미래 비전" class="vision-card-img">
+                <div class="vision-card-info">
+                  <span class="vision-badge">✨ Gemini AI 비전 조감도</span>
+                  <h4>"북구의 미래를 여는 24시간 스마트 AI 부사수" 비전 인포그래픽</h4>
+                  <p>현대자동차·모듈화산단 첨단 모빌리티, 동천강 재난안전 스마트 하천, 송정·강동 신도시 주민 체감 서비스, 도심 폐선부지 '울산숲'이 유기적으로 연결된 2026 울산 북구의 미래상입니다. 카드를 클릭하면 고해상도(2752×1536) 원본으로 상세히 열람할 수 있습니다.</p>
+                  <button class="vision-zoom-btn">🔍 원본 이미지 전체화면 확대 보기</button>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -2786,6 +3138,40 @@
       const el = document.getElementById(ansId);
       if (el) el.classList.toggle('show');
     };
+
+    // Lightbox Image Modal Functions
+    window.openImageModal = function(src, title) {
+      const modal = document.getElementById('imageModalBackdrop');
+      const img = document.getElementById('imageModalImg');
+      const titleEl = document.getElementById('imageModalTitle');
+      const dlLink = document.getElementById('imageModalDownload');
+      if (!modal || !img) return;
+
+      img.src = src;
+      if (titleEl && title) titleEl.textContent = title;
+      if (dlLink) dlLink.href = src;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    };
+
+    window.closeImageModalDirect = function() {
+      const modal = document.getElementById('imageModalBackdrop');
+      if (!modal) return;
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    };
+
+    window.closeImageModal = function(e) {
+      if (e.target && e.target.id === 'imageModalBackdrop') {
+        closeImageModalDirect();
+      }
+    };
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeImageModalDirect();
+      }
+    });
 
     // Initial render
     renderModule(1);
