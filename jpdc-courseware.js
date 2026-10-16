@@ -267,8 +267,8 @@ const COURSEWARE_SLIDES = [
       </div>
     `,
     coaching: "단순히 '감축'만 고르지 말고, 왜 '회피'나 '공유'가 아닌지 이유를 묻도록 유도하세요.",
-    jpdcTip: "하단의 [5×5 매트릭스 도구]를 클릭하여 실제 등록된 리스크 점수를 확인하면서 토론하세요.",
-    jumpTab: "matrix"
+    jpdcTip: "하단의 [① PESTEL 분석 도구] 내 '셀프 체크리스트 생성기' 및 [③ 5×5 매트릭스]와 연계하여 월별/분기별 점검 항목으로 DB화할 수 있습니다.",
+    jumpTab: "pestel"
   },
   {
     page: 13,
@@ -783,30 +783,59 @@ const COURSEWARE_SLIDES = [
     page: 32,
     module: 4,
     moduleName: "모듈 4: KRI 조기경보 설계",
-    title: "실무 도구: 전사 리스크 등록부 (Risk Register)",
-    sub: "오늘 만든 모든 분석 결과가 이 한 장의 표준 양식으로 완성된다",
+    title: "실무 도구: PESTEL 기반 셀프 체크리스트 & SOP 매뉴얼 (DB 축적형)",
+    sub: "목적·방법·이행 3단계 체계로 직군별 선제적 대응 시스템을 현업에 안착시킨다",
     body: `
       <div style="background:#F8FAFC; border:1px solid #CBD5E1; border-radius:10px; padding:1.2rem;">
-        <table class="jpdc-slide-table" style="font-size:0.85rem;">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px; margin-bottom:12px;">
+          <div style="background:#EFF6FF; border-left:4px solid #2563EB; padding:10px 12px; border-radius:6px; font-size:0.83rem;">
+            <b style="color:#1D4ED8;">🎯 1. 목적 (Why)</b><br>
+            각 직군(수자원·생산·품질, 물류·유통·영업, 안전·IT·기획) 맞춤형 잠재 리스크 선제적 격리 및 대처.
+          </div>
+          <div style="background:#FFFBEB; border-left:4px solid #F59E0B; padding:10px 12px; border-radius:6px; font-size:0.83rem;">
+            <b style="color:#B45309;">⏱️ 2. 방법 (How)</b><br>
+            월별·분기별 자율 셀프 체크리스트 점검 (🟢 정상 / 🟡 주의(1차조치) / 🔴 위험(비상가동) 3단계 임계치).
+          </div>
+          <div style="background:#ECFDF5; border-left:4px solid #10B981; padding:10px 12px; border-radius:6px; font-size:0.83rem;">
+            <b style="color:#047857;">💾 3. 이행 (Action & DB)</b><br>
+            체크리스트 점검 이력의 실시간 DB 누적 축적으로 상황 발생 시 선제 보고 및 표준대응(SOP) 즉시 실행.
+          </div>
+        </div>
+
+        <table class="jpdc-slide-table" style="font-size:0.83rem;">
           <thead>
-            <tr><th style="width:20%;">표준 등록부 항목</th><th>구체적 기재 내용 및 작성 가이드</th></tr>
+            <tr><th style="width:18%;">직군(조)</th><th style="width:14%;">점검 주기</th><th>PESTEL 핵심 점검 항목</th><th>3단계 조기경보 판정치</th><th>선제적 SOP 및 보고라인</th></tr>
           </thead>
           <tbody>
-            <tr><td><b>1. 리스크명</b></td><td>구체적인 문장으로 기술 <b>(원인 ➔ 현상 ➔ 결과 영향)</b></td></tr>
-            <tr><td><b>2. 식별 근거</b></td><td>PESTEL 6축 또는 SWOT-Risk 연계 매트릭스 중 어떤 도구로 찾았는가?</td></tr>
-            <tr><td><b>3. 위험 평가 점수</b></td><td>발생가능성(1~5) × 영향도(1~5) = 최종 점수 및 4등급(CRITICAL~LOW)</td></tr>
-            <tr><td><b>4. 대응 전략</b></td><td>회피(Avoid) · 감축(Reduce) · 공유(Share) · 수용(Accept) · 활용(Exploit) 중 택1</td></tr>
-            <tr><td><b>5. 리스크 오너</b></td><td>담당 직책 (예: 물류지원팀장), 상위 보고 대상, 긴급 보고 주기</td></tr>
-            <tr><td><b>6. KRI & 경고기준</b></td><td>사전 조기경보 지표명 및 정상/주의/경보 임계 수치</td></tr>
-            <tr><td><b>7. 최종 갱신일/주기</b></td><td>정기 재평가 주기 (분기 1회 재스캔 원칙)</td></tr>
+            <tr>
+              <td><b>1조 (수자원·생산)</b></td>
+              <td>월별/분기별</td>
+              <td>지하수위 급강하 & 패키징 센서 오작동</td>
+              <td>🟢 정상 ±3% | 🟡 주의 -10% | 🔴 위험 -20%</td>
+              <td>예비 관정 전환 시운전 ➔ 환경기획본부장 긴급보고</td>
+            </tr>
+            <tr>
+              <td><b>2조 (물류·영업)</b></td>
+              <td>월별/분기별</td>
+              <td>해상 화물선 운임비 인상 & 항만 파업</td>
+              <td>🟢 운임 ±5% | 🟡 10% 상승 | 🔴 선박 결항</td>
+              <td>복수 선사 스팟 계약 & 내륙 안전재고 25일분 선비축</td>
+            </tr>
+            <tr>
+              <td><b>3조 (안전·IT·기획)</b></td>
+              <td>월별/분기별</td>
+              <td>중대재해 위험성평가 & ERP 백업 무결성</td>
+              <td>🟢 조치 100% | 🟡 2건 미흡 | 🔴 위험 방치</td>
+              <td>즉각 작업중지권 ➔ 안전실장 & 사장 핫라인 직보고</td>
+            </tr>
           </tbody>
         </table>
-        <p style="margin-top:10px; font-size:0.85rem; color:#0E7C7B;"><b>🎯 오늘 실습의 최종 종착점:</b> 하단의 10인 실시간 협업 도구에서 입력한 데이터가 이 리스크 등록부로 자동 정렬됩니다.</p>
+        <p style="margin-top:10px; font-size:0.84rem; color:#0E7C7B;"><b>🎯 오늘 실습 핵심:</b> 하단 <b>[① PESTEL 분석 탭]</b>에 구축된 <b>'실무 셀프 체크리스트 생성기'</b>에서 우리 조 추천 템플릿을 불러와 DB에 등록하세요.</p>
       </div>
     `,
-    coaching: "이 리스크 등록부 양식은 향후 감사원 감사나 경영평가 수검 시 전사적 리스크 관리 증빙 자료로 쓰입니다.",
-    jpdcTip: "하단 실습 도구의 [파일 내보내기] 버튼을 누르면 이 형식의 JSON/데이터가 다운로드됩니다.",
-    jumpTab: "overview"
+    coaching: "수강생들이 '체크리스트가 늘어나면 일만 많아진다'고 느끼지 않도록, '사고 한 번으로 직위해제되거나 공사가 마비되는 것을 막아주는 개인의 방탄조끼'임을 각인시키세요.",
+    jpdcTip: "하단 실습 도구의 [① PESTEL 분석 도구]를 클릭하면 즉시 나만의 체크리스트를 DB에 축적할 수 있습니다.",
+    jumpTab: "pestel"
   },
   {
     page: 33,

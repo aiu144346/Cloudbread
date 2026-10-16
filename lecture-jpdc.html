@@ -1055,6 +1055,172 @@
             overflow-y: auto;
         }
 
+        /* ==========================================================================
+           PESTEL Self-Checklist & SOP Manual Builder Styles
+           ========================================================================== */
+        .jpdc-checklist-builder-card {
+            background: #FFFFFF;
+            border: 1px solid #CBD5E1;
+            border-radius: 14px;
+            padding: 24px;
+            margin-top: 2.2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        .jpdc-checklist-principles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+            margin: 16px 0 20px;
+        }
+
+        .jpdc-principle-box {
+            background: #F8FAFC;
+            border-radius: 10px;
+            padding: 14px 16px;
+            border-left: 4px solid var(--jpdc-navy);
+        }
+
+        .jpdc-principle-box.p1 { border-left-color: #2563EB; background: #EFF6FF; }
+        .jpdc-principle-box.p2 { border-left-color: #F59E0B; background: #FFFBEB; }
+        .jpdc-principle-box.p3 { border-left-color: #10B981; background: #ECFDF5; }
+
+        .jpdc-principle-box strong {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.95rem;
+            color: var(--jpdc-navy);
+            margin-bottom: 6px;
+        }
+
+        .jpdc-principle-box p {
+            margin: 0;
+            font-size: 0.83rem;
+            color: #475569;
+            line-height: 1.5;
+        }
+
+        .jpdc-preset-loader-box {
+            background: #F1F5F9;
+            border: 1px dashed #94A3B8;
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .jpdc-preset-btn-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .jpdc-preset-btn {
+            background: #FFFFFF;
+            border: 1px solid #CBD5E1;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.84rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #1E293B;
+        }
+
+        .jpdc-preset-btn:hover {
+            background: var(--jpdc-navy);
+            color: #FFFFFF;
+            border-color: var(--jpdc-navy);
+            transform: translateY(-1px);
+        }
+
+        .jpdc-chk-form {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 22px;
+        }
+
+        .jpdc-chk-form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .jpdc-chk-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .jpdc-chk-field label {
+            font-size: 0.83rem;
+            font-weight: 700;
+            color: var(--jpdc-navy);
+        }
+
+        .jpdc-signal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 10px;
+            margin: 10px 0 14px;
+        }
+
+        .jpdc-signal-box {
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 0.82rem;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .jpdc-signal-green { background: #DCFCE7; border: 1px solid #86EFAC; color: #166534; }
+        .jpdc-signal-yellow { background: #FEF3C7; border: 1px solid #FDE68A; color: #92400E; }
+        .jpdc-signal-red { background: #FEE2E2; border: 1px solid #FCA5A5; color: #991B1B; }
+
+        .jpdc-signal-box input {
+            width: 100%;
+            padding: 6px 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(0,0,0,0.15);
+            font-size: 0.8rem;
+            background: rgba(255,255,255,0.9);
+        }
+
+        .jpdc-status-pill {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+        .pill-green { background: #DCFCE7; color: #166534; border: 1px solid #86EFAC; }
+        .pill-yellow { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+        .pill-red { background: #FEE2E2; color: #991B1B; border: 1px solid #FCA5A5; }
+
+        .jpdc-chk-actions-bar {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
         @media (max-width: 768px) {
             .jpdc-hero-section { padding-top: 8rem; }
             .jpdc-main-title { font-size: 1.8rem; }
@@ -1404,7 +1570,194 @@
                     </tbody>
                 </table>
                 <div style="display:flex; justify-content:flex-end;" class="no-print">
-                    <button class="jpdc-btn danger" onclick="clearPestel()"><i class="fa-solid fa-trash"></i> 전체 초기화</button>
+                    <button class="jpdc-btn danger" onclick="clearPestel()"><i class="fa-solid fa-trash"></i> PESTEL 초기화</button>
+                </div>
+
+                <!-- PESTEL Based Job-Specific Self-Checklist & SOP Manual Builder (DB 축적형) -->
+                <div class="jpdc-checklist-builder-card" id="checklistBuilderSection">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; margin-bottom:6px;">
+                        <div>
+                            <h3 style="margin:0 0 6px; font-size:1.25rem; color:var(--jpdc-navy); display:flex; align-items:center; gap:8px;">
+                                <span>📋 PESTEL 기반 직군별 실무 대응 매뉴얼 &amp; 주기별 셀프 체크리스트 생성기</span>
+                                <span class="jpdc-badge" style="background:#1E293B; font-size:11px;">DB 누적 축적형</span>
+                            </h3>
+                            <p style="margin:0; font-size:0.88rem; color:#64748B;">
+                                거시환경 분석(PESTEL)을 현업 실무로 연결하여, <b>월별·분기별 셀프 체크리스트</b>를 통해 선제적 조기경보 및 SOP(표준대응)를 실행하고 데이터베이스로 누적 관리합니다.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 3대 운영 원칙 배너 -->
+                    <div class="jpdc-checklist-principles">
+                        <div class="jpdc-principle-box p1">
+                            <strong>🎯 1. 목적 (Why)</strong>
+                            <p><b>각 직군별 잠재 리스크 선제 대처:</b> 수자원·생산·물류·안전·IT·기획 등 본인 직무에서 일어날 수 있는 장애 및 손실을 사전에 차단합니다.</p>
+                        </div>
+                        <div class="jpdc-principle-box p2">
+                            <strong>⏱️ 2. 방법 (How)</strong>
+                            <p><b>월별·분기별 3단계 셀프 체크리스트:</b> 🟢 정상(안정) / 🟡 주의(경고신호 1차 조치) / 🔴 위험(골든타임 비상대응) 기준치를 정의하고 자율 점검합니다.</p>
+                        </div>
+                        <div class="jpdc-principle-box p3">
+                            <strong>💾 3. 이행 (Action &amp; DB)</strong>
+                            <p><b>체크리스트 누적 축적 &amp; 즉시 보고:</b> 점검 이력을 실시간 DB에 누적 축적하고, 이상 징후 감지 시 C-Level 및 전사 위원회에 즉각 선제 보고하여 문제를 해결합니다.</p>
+                        </div>
+                    </div>
+
+                    <!-- 빠른 프리셋 불러오기 -->
+                    <div class="jpdc-preset-loader-box no-print">
+                        <div>
+                            <span style="font-weight:800; font-size:0.88rem; color:var(--jpdc-navy);">💡 우리 조(직군) 추천 체크리스트 빠른 불러오기:</span>
+                            <div style="font-size:0.78rem; color:#64748B; margin-top:2px;">클릭 시 공사 실무에 최적화된 3대 핵심 점검 항목과 SOP가 입력창에 자동으로 채워집니다.</div>
+                        </div>
+                        <div class="jpdc-preset-btn-group">
+                            <button class="jpdc-preset-btn" onclick="loadTrackPreset(1)" title="김미정, 이성윤, 김지연, 강은철">
+                                💧 1조 (수자원·생산·품질)
+                            </button>
+                            <button class="jpdc-preset-btn" onclick="loadTrackPreset(2)" title="조성수, 강지연, 변정훈">
+                                🚚 2조 (물류·유통·영업)
+                            </button>
+                            <button class="jpdc-preset-btn" onclick="loadTrackPreset(3)" title="김만경, 양근원, 김유나">
+                                🛡️ 3조 (안전·IT·경영기획)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 체크리스트 입력 폼 -->
+                    <div class="jpdc-chk-form no-print">
+                        <h4 style="margin:0 0 14px; font-size:1.02rem; color:var(--jpdc-navy); display:flex; align-items:center; justify-content:space-between;">
+                            <span>✍️ 신규 실무 셀프 체크리스트 등록 &amp; SOP 매뉴얼 작성</span>
+                            <span id="chkFormAuthorBadge" class="jpdc-badge" style="background:var(--jpdc-teal); font-size:11px;">김미정 작성 중</span>
+                        </h4>
+
+                        <div class="jpdc-chk-form-grid">
+                            <div class="jpdc-chk-field">
+                                <label>점검 주기 (주기성)</label>
+                                <select id="chkCycle" class="jpdc-select">
+                                    <option value="월별">월별 정기점검 (Monthly KRI)</option>
+                                    <option value="분기별">분기별 전략점검 (Quarterly Review)</option>
+                                    <option value="수시/주간">주간/수시 집중점검 (Weekly / Spot)</option>
+                                </select>
+                            </div>
+                            <div class="jpdc-chk-field">
+                                <label>PESTEL 거시환경 축 연계</label>
+                                <select id="chkPestel" class="jpdc-select">
+                                    <option value="P 정치">P 정치 (도정 정책·공공기관 평가 규제)</option>
+                                    <option value="E 경제">E 경제 (물류비·환율·금리·원자재가)</option>
+                                    <option value="S 사회">S 사회 (도민 여론·소비자 트렌드·인구구조)</option>
+                                    <option value="T 기술">T 기술 (스마트팩토리·IT/ERP·AI 전환)</option>
+                                    <option value="Env 환경" selected>Env 환경 (지하수 수위/수질·기후위기·ESG)</option>
+                                    <option value="L 법률">L 법률 (중대재해처벌법·안전환경 법령)</option>
+                                </select>
+                            </div>
+                            <div class="jpdc-chk-field" style="grid-column: span 2;">
+                                <label>점검 항목 및 발생 가능한 예상 리스크 명</label>
+                                <input type="text" id="chkRiskItem" class="jpdc-input" placeholder="예: 하절기 성수기 취수정 지하수위 급강하 및 원수 탁도 변동 리스크">
+                            </div>
+                        </div>
+
+                        <!-- 3단계 신호 판정 기준 (Signal Thresholds) -->
+                        <div style="margin-top:10px;">
+                            <label style="font-size:0.84rem; font-weight:700; color:var(--jpdc-navy);">🚥 3단계 조기경보 신호등 판정 기준치 (Thresholds)</label>
+                            <div class="jpdc-signal-grid">
+                                <div class="jpdc-signal-box jpdc-signal-green">
+                                    <b>🟢 정상 신호 (Green - 안정)</b>
+                                    <input type="text" id="chkGreenCrit" placeholder="예: 수위 변동률 ±3% 이내 및 탁도 0.1 NTU 이하 안정">
+                                </div>
+                                <div class="jpdc-signal-box jpdc-signal-yellow">
+                                    <b>🟡 주의 신호 (Yellow - 경고/1차 조치)</b>
+                                    <input type="text" id="chkYellowCrit" placeholder="예: 수위 -10% 강하 또는 탁도 0.3 NTU 초과 시 경고">
+                                </div>
+                                <div class="jpdc-signal-box jpdc-signal-red">
+                                    <b>🔴 위험 신호 (Red - 비상/C-Level 보고)</b>
+                                    <input type="text" id="chkRedCrit" placeholder="예: 수위 -20% 급락 또는 탁도 0.5 NTU 초과 시 비상">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="jpdc-chk-form-grid" style="margin-top:12px;">
+                            <div class="jpdc-chk-field">
+                                <label>선제적 표준대응 (SOP 조치 내용)</label>
+                                <textarea id="chkSopAction" class="jpdc-textarea" style="height:68px;" placeholder="예: 🟡 감지 시 예비 2호 관정 전환 시운전 및 수질연구소 24시간 정밀성분 분석 / 🔴 감지 시 취수 즉시 중단 및 공장장 긴급보고"></textarea>
+                            </div>
+                            <div class="jpdc-chk-field">
+                                <label>골든타임 선제 보고라인 &amp; 담당 오너</label>
+                                <textarea id="chkReportLine" class="jpdc-textarea" style="height:68px;" placeholder="예: 현장 점검자 ➔ 생산운영팀장 ➔ 생산공장장 ➔ 환경기획본부장 긴급 직보고 (골든타임: 1시간 이내)"></textarea>
+                            </div>
+                        </div>
+
+                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-top:14px; padding-top:12px; border-top:1px solid #E2E8F0;">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <label style="font-size:0.84rem; font-weight:700; color:var(--jpdc-navy);">현재 상태 판정:</label>
+                                <select id="chkCurrentStatus" class="jpdc-select" style="width:140px;">
+                                    <option value="green">🟢 정상 (Green)</option>
+                                    <option value="yellow">🟡 주의 (Yellow)</option>
+                                    <option value="red">🔴 위험 (Red)</option>
+                                </select>
+                            </div>
+                            <div style="display:flex; gap:8px;">
+                                <button class="jpdc-btn primary" onclick="addNewChecklist()"><i class="fa-solid fa-plus"></i> 실무 체크리스트 DB에 축적 등록</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 누적 축적 데이터베이스 대시보드 -->
+                    <div style="margin-top:1.5rem;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+                            <div>
+                                <h4 style="margin:0 0 4px; font-size:1.05rem; color:var(--jpdc-navy); display:flex; align-items:center; gap:8px;">
+                                    <span>🗄️ 누적 축적된 직군별 체크리스트 DB</span>
+                                    <span class="jpdc-badge" id="chkTotalCountBadge" style="background:#2563EB; font-size:11px;">총 0건</span>
+                                </h4>
+                                <div style="font-size:0.8rem; color:#64748B;">
+                                    상태 요약: <span class="jpdc-status-pill pill-green" id="chkStatGreen">🟢 정상 0건</span>
+                                    <span class="jpdc-status-pill pill-yellow" id="chkStatYellow">🟡 주의 0건</span>
+                                    <span class="jpdc-status-pill pill-red" id="chkStatRed">🔴 위험 0건</span>
+                                </div>
+                            </div>
+
+                            <!-- 필터 바 -->
+                            <div class="jpdc-team-filters no-print" style="margin:0;">
+                                <span style="font-size:12px; font-weight:700; color:var(--jpdc-navy);">필터:</span>
+                                <button class="jpdc-filter-btn active" onclick="setChecklistFilter('all', this)">전체</button>
+                                <button class="jpdc-filter-btn" onclick="setChecklistFilter('my', this)">내 작성분</button>
+                                <button class="jpdc-filter-btn" onclick="setChecklistFilter('cycle_monthly', this)">월별만</button>
+                                <button class="jpdc-filter-btn" onclick="setChecklistFilter('cycle_quarterly', this)">분기별만</button>
+                                <button class="jpdc-filter-btn" onclick="setChecklistFilter('status_alert', this)">🟡/🔴 경보만</button>
+                            </div>
+                        </div>
+
+                        <!-- 실시간 테이블 -->
+                        <div style="overflow-x:auto;">
+                            <table class="jpdc-table" id="checklistTable">
+                                <thead>
+                                    <tr>
+                                        <th style="width:45px;">No</th>
+                                        <th style="width:105px;">작성자(직군)</th>
+                                        <th style="width:80px;">주기</th>
+                                        <th style="width:90px;">PESTEL</th>
+                                        <th style="width:240px;">점검 항목 및 예상 리스크</th>
+                                        <th style="width:130px;">현재 점검 상태</th>
+                                        <th>선제적 SOP 조치 &amp; 긴급 보고라인</th>
+                                        <th style="width:90px;">등록일시</th>
+                                        <th style="width:65px;" class="no-print">관리</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="checklistTableBody">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- DB 관리 액션 버튼 바 -->
+                        <div class="jpdc-chk-actions-bar no-print">
+                            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                                <button class="jpdc-btn secondary sm" onclick="exportChecklistJSON()"><i class="fa-solid fa-download"></i> 체크리스트 DB 다운로드 (JSON)</button>
+                                <button class="jpdc-btn secondary sm" onclick="copyChecklistCSV()"><i class="fa-solid fa-file-csv"></i> 엑셀/CSV 데이터 복사</button>
+                                <button class="jpdc-btn secondary sm" onclick="copyExecutiveSummary()"><i class="fa-solid fa-clipboard-list"></i> 경영진 선제보고 요약문 복사</button>
+                            </div>
+                            <button class="jpdc-btn primary sm" onclick="window.print()"><i class="fa-solid fa-print"></i> 실무 대응 매뉴얼 인쇄 / PDF 출력</button>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -1739,7 +2092,7 @@
 
         const allTeamsData = {};
         for (let i = 1; i <= 10; i++) {
-            allTeamsData['team' + i] = { pestel: [], swot: [], risks: {} };
+            allTeamsData['team' + i] = { pestel: [], swot: [], risks: {}, checklists: [] };
         }
 
         let mqttClient = null;
@@ -1797,10 +2150,15 @@
             const pInd = document.getElementById('pestelTeamIndicator');
             const sInd = document.getElementById('swotTeamIndicator');
             const mInd = document.getElementById('matrixTeamIndicator');
+            const chkBadge = document.getElementById('chkFormAuthorBadge');
 
             if (pInd) { pInd.textContent = label; pInd.style.background = bgColor; }
             if (sInd) { sInd.textContent = label; sInd.style.background = bgColor; }
             if (mInd) { mInd.textContent = label; mInd.style.background = bgColor; }
+            if (chkBadge) {
+                chkBadge.textContent = isAll ? '전체 보기 (개별 작성자 선택 필요)' : `${TEAM_COLORS[currentTeam]?.name || currentTeam} 작성 중`;
+                chkBadge.style.background = bgColor;
+            }
 
             const inputSection = document.getElementById('riskInputSection');
             if (inputSection) {
@@ -1980,6 +2338,7 @@
         function renderAll() {
             renderMatrixGrid();
             renderRankTable();
+            renderChecklistTable();
         }
 
         function getAllRisks() {
@@ -2084,7 +2443,7 @@
 
             for (let i = 1; i <= 10; i++) {
                 const tKey = 'team' + i;
-                const tData = allTeamsData[tKey] || { pestel: [], swot: [], risks: {} };
+                const tData = allTeamsData[tKey] || { pestel: [], swot: [], risks: {}, checklists: [] };
                 const tColor = TEAM_COLORS[tKey].color;
                 const tName = TEAM_COLORS[tKey].name;
                 const riskCount = Object.keys(tData.risks || {}).length;
@@ -2095,15 +2454,19 @@
 
                 let pestelCount = (tData.pestel || []).filter(p => p.text && p.text.trim()).length;
                 let swotCount = (tData.swot || []).filter(s => s && s.trim()).length;
+                let chkList = tData.checklists || [];
+                let chkCount = chkList.length;
+                let chkAlertCount = chkList.filter(c => c.currentStatus === 'yellow' || c.currentStatus === 'red').length;
 
                 card.innerHTML = `
                     <h4>
                         <span>👤 ${tName}</span>
                         <span class="jpdc-badge" style="background:${tColor}; font-size:11px;">리스크 ${riskCount}건</span>
                     </h4>
-                    <div style="font-size:12px; color:#475569; margin-bottom:8px;">
+                    <div style="font-size:12px; color:#475569; margin-bottom:8px; line-height:1.6;">
                         • PESTEL 작성: <b>${pestelCount}/6</b> 항목<br>
-                        • SWOT-Risk 작성: <b>${swotCount}/4</b> 항목
+                        • SWOT-Risk 작성: <b>${swotCount}/4</b> 항목<br>
+                        • 셀프 체크리스트: <b>${chkCount}건</b> ${chkAlertCount > 0 ? `<span style="color:#DC2626; font-weight:700;">(경보 ${chkAlertCount}건)</span>` : '<span style="color:#16A34A;">(정상)</span>'}
                     </div>
                     <button class="jpdc-btn sm secondary" onclick="changeTeam('${tKey}'); document.querySelector('[data-tab=pestel]').click();" style="width:100%; justify-content:center;">
                         ${tName} 님 입력화면 이동
@@ -2111,6 +2474,440 @@
                 `;
                 container.appendChild(card);
             }
+        }
+
+        // ==========================================
+        // PESTEL SELF-CHECKLIST & SOP MANUAL LOGIC
+        // ==========================================
+        let checklistFilter = 'all';
+
+        const TRACK_PRESETS = {
+            1: {
+                trackName: '1조 (수자원·생산·품질)',
+                items: [
+                    {
+                        cycle: '월별',
+                        pestel: 'Env 환경',
+                        riskItem: '하절기 성수기 대비 취수정 지하수위 급강하 및 원수 탁도 변동 리스크',
+                        greenCrit: '수위 변동률 ±3% 이내 및 원수 탁도 0.1 NTU 이하 안정 유지',
+                        yellowCrit: '수위 -10% 이상 강하 또는 탁도 0.3 NTU 초과 시 경고',
+                        redCrit: '수위 -20% 급락 또는 탁도 0.5 NTU 초과 시 비상정지',
+                        currentStatus: 'yellow',
+                        sopAction: '즉시 예비 2·3호 관정 전환 시운전 및 수질연구소 24시간 정밀 성분 분석 의뢰',
+                        reportLine: '현장 계측담당 ➔ 생산운영팀장 ➔ 생산공장장 ➔ 환경기획본부장 (골든타임: 1시간 이내)'
+                    },
+                    {
+                        cycle: '월별',
+                        pestel: 'T 기술',
+                        riskItem: '스마트팩토리 제1·2공장 병입 패키징 고속 설비 비상 센서 및 안전방호장치 오작동',
+                        greenCrit: '센서 및 비상 인터록 장치 100% 정상 반응 확인',
+                        yellowCrit: '센서 반응속도 0.5초 지연 또는 간헐적 에러 코드 발생 시',
+                        redCrit: '센서 차단 불능 또는 안전 펜스 개방 시 라인 미정지 위험 발생',
+                        currentStatus: 'green',
+                        sopAction: '해당 패키징 라인 일시 감속 운전 및 설비예방정비팀 긴급 센서 교체 투입',
+                        reportLine: '설비담당자 ➔ 생산기술팀장 ➔ 안전환경처장 (골든타임: 30분 이내)'
+                    },
+                    {
+                        cycle: '분기별',
+                        pestel: 'E 경제',
+                        riskItem: '삼다수 성수기 대비 친환경 원부자재(재생 프리폼, 무라벨 캡) 공급망 수급 차질',
+                        greenCrit: '비축 안전재고 45일분 이상 확보 및 2개 협력사 공급망 안정화',
+                        yellowCrit: '안전재고 30일분 미만 축소 또는 원가 8% 이상 급등 시',
+                        redCrit: '주요 협력사 납품 중단으로 안전재고 15일분 이하 급감 시',
+                        currentStatus: 'green',
+                        sopAction: '서브 협력사 추가 물량 긴급 발주 및 대체 원자재 스팟 구매 전환',
+                        reportLine: '자재구매팀장 ➔ 경영지원본부장 ➔ 사장 직보고'
+                    }
+                ]
+            },
+            2: {
+                trackName: '2조 (물류·유통·영업)',
+                items: [
+                    {
+                        cycle: '월별',
+                        pestel: 'E 경제',
+                        riskItem: '제주-내륙 간 삼다수 전용 해상 화물선 운임 인상 및 선복(적재공간) 부족',
+                        greenCrit: '해상 운임 편차 ±5% 이내 및 수도권 물류센터 25일분 이상 비축',
+                        yellowCrit: '유가 급등으로 운임 10% 이상 상승 또는 선복 확보율 85% 하락 시',
+                        redCrit: '선박 결항 장기화로 수도권 대형마트/쿠팡 결품 페널티 직면 시',
+                        currentStatus: 'green',
+                        sopAction: '복수 선사 스팟 선복 추가 계약 및 도외 거점 물류기지 재고 우선 할당',
+                        reportLine: '물류운영팀장 ➔ 유통영업본부장 ➔ 경영기획실장 긴급 핫라인'
+                    },
+                    {
+                        cycle: '월별',
+                        pestel: 'S 사회',
+                        riskItem: '주요 대형 e커머스 및 편의점 채널 삼다수 재고 소진율 불균형 및 배송 지연 클레임',
+                        greenCrit: '정시 배송률 98.5% 이상 유지 및 클레임 발생률 0.1% 이하',
+                        yellowCrit: '클레임 발생률 1.5% 돌파 또는 물류 허브 지연 조짐 감지 시',
+                        redCrit: '핵심 유통 플랫폼 판매 일시 중단 및 공급 계약 페널티 발생 시',
+                        currentStatus: 'yellow',
+                        sopAction: '권역별 광역물류센터(CDC) 긴급 교차 재고 전용 및 CS 전담 대응팀 투입',
+                        reportLine: 'e커머스영업팀장 ➔ 영업마케팅본부장 (골든타임: 2시간 이내)'
+                    },
+                    {
+                        cycle: '분기별',
+                        pestel: 'P 정치',
+                        riskItem: '화물연대 및 제주항 항만 노조 파업 징후 및 기상 악화(태풍) 비상 운송망 차질',
+                        greenCrit: '항만 노사 협의 안정 유지 및 기상 관측 리드타임 5일 확보',
+                        yellowCrit: '노사 협상 결렬 분위기 포착 또는 48시간 내 태풍 직격 예보 시',
+                        redCrit: '항만 전면 파업 돌입 또는 연속 4일 이상 선박 출항 통제 시',
+                        currentStatus: 'green',
+                        sopAction: '사전 30일분 내륙 물류센터 선제 분산 수송 및 민간 특수 바지선 예비선복 확보',
+                        reportLine: '물류본부장 ➔ 비상대책위원회 ➔ 사장 직보고'
+                    }
+                ]
+            },
+            3: {
+                trackName: '3조 (안전·IT·경영기획)',
+                items: [
+                    {
+                        cycle: '월별',
+                        pestel: 'L 법률',
+                        riskItem: '중대재해처벌법 대비 공사 전 사업장 및 외주 수탁사 위험성평가 이행률 점검',
+                        greenCrit: '현장 유해위험요인 발굴 개선 조치율 100% 완료',
+                        yellowCrit: '개선 미흡 항목 2건 이상 또는 고위험 구역 보호구 미착용 지적 시',
+                        redCrit: '중대 유해 위험 방치 및 사망사고 우려 구역 안전수칙 위반 발견 시',
+                        currentStatus: 'green',
+                        sopAction: '즉각 작업중지권 발동, 현장 접근 차단 및 3일 이내 전문기관 합동 재검증',
+                        reportLine: '현장 안전감독관 ➔ 안전보건팀장 ➔ 안전경영실장 ➔ 사장 직보고'
+                    },
+                    {
+                        cycle: '월별',
+                        pestel: 'T 기술',
+                        riskItem: '전사 ERP 및 스마트팩토리 MES 시스템 오프라인 백업 무결성 & 랜섬웨어 방화벽 점검',
+                        greenCrit: '주 1회 백업 무결성 검증 완료 및 랜섬웨어 탐지 0건',
+                        yellowCrit: '비정상 IP의 외부 접근 시도 3회 이상 탐지 또는 백업 동기화 지연 시',
+                        redCrit: '랜섬웨어 감염 징후 또는 핵심 데이터베이스 암호화 시도 포착 시',
+                        currentStatus: 'green',
+                        sopAction: '사내 전 네트워크 즉각 물리적 분리 차단 및 오프라인 에어갭(Air-gap) DR 복구',
+                        reportLine: '정보보안담당자 ➔ 정보화지원팀장 ➔ 경영기획이사 (골든타임: 15분 이내)'
+                    },
+                    {
+                        cycle: '분기별',
+                        pestel: 'P 정치',
+                        riskItem: '언론·SNS 삼다수 브랜드 여론 모니터링 및 제주도의회 정기 행정사무감사 안건 사전 점검',
+                        greenCrit: '브랜드 긍정 버즈량 90% 이상 유지 및 감사 지적 예상 0건',
+                        yellowCrit: '수질/가격 관련 왜곡 루머성 부정 키워드 15% 이상 급증 시',
+                        redCrit: '악의적 가짜뉴스 지상파 보도화 및 도의회 특별조사 착수 요구 시',
+                        currentStatus: 'yellow',
+                        sopAction: '즉각 공인 시험성적서 기반 팩트체크 보도자료 배포 및 언론·도민 소통 창구 일원화',
+                        reportLine: '홍보소통팀장 ➔ 기획조정실장 ➔ 감사실장 ➔ 사장 직보고'
+                    }
+                ]
+            }
+        };
+
+        function loadTrackPreset(trackNum) {
+            const preset = TRACK_PRESETS[trackNum];
+            if (!preset) return;
+
+            // Load first item to form
+            const item = preset.items[0];
+            document.getElementById('chkCycle').value = item.cycle;
+            document.getElementById('chkPestel').value = item.pestel;
+            document.getElementById('chkRiskItem').value = item.riskItem;
+            document.getElementById('chkGreenCrit').value = item.greenCrit;
+            document.getElementById('chkYellowCrit').value = item.yellowCrit;
+            document.getElementById('chkRedCrit').value = item.redCrit;
+            document.getElementById('chkCurrentStatus').value = item.currentStatus;
+            document.getElementById('chkSopAction').value = item.sopAction;
+            document.getElementById('chkReportLine').value = item.reportLine;
+
+            if (currentTeam === 'all') {
+                alert(`'${preset.trackName}' 템플릿의 첫 번째 항목이 입력창에 채워졌습니다. 특정 수강생을 선택한 뒤 등록해 주세요.`);
+                return;
+            }
+
+            const currentList = allTeamsData[currentTeam]?.checklists || [];
+            if (currentList.length === 0) {
+                if (confirm(`'${preset.trackName}'의 3대 핵심 체크리스트를 현재 작성자(${TEAM_COLORS[currentTeam]?.name})의 DB에 일괄 등록할까요?`)) {
+                    preset.items.forEach((pItem, idx) => {
+                        const newId = 'chk_' + Date.now() + '_' + idx;
+                        allTeamsData[currentTeam].checklists.push({
+                            id: newId,
+                            team: currentTeam,
+                            cycle: pItem.cycle,
+                            pestel: pItem.pestel,
+                            riskItem: pItem.riskItem,
+                            greenCrit: pItem.greenCrit,
+                            yellowCrit: pItem.yellowCrit,
+                            redCrit: pItem.redCrit,
+                            currentStatus: pItem.currentStatus,
+                            sopAction: pItem.sopAction,
+                            reportLine: pItem.reportLine,
+                            createdAt: new Date().toISOString().replace('T', ' ').substring(0, 16)
+                        });
+                    });
+                    renderChecklistTable();
+                    renderOverview();
+                    scheduleCloudPush();
+                    alert(`'${preset.trackName}'의 3대 체크리스트가 성공적으로 DB에 등록되었습니다!`);
+                    return;
+                }
+            }
+
+            alert(`'${preset.trackName}' 추천 항목이 입력창에 자동으로 입력되었습니다. 내용을 검토하신 후 하단의 [실무 체크리스트 DB에 축적 등록] 버튼을 눌러주세요.`);
+        }
+
+        function addNewChecklist() {
+            if (currentTeam === 'all') {
+                alert('특정 작성자(이름)를 선택한 후 체크리스트를 등록해 주세요.');
+                return;
+            }
+
+            const riskItem = document.getElementById('chkRiskItem').value.trim();
+            if (!riskItem) {
+                alert('점검 항목 및 예상 리스크 명을 입력해 주세요.');
+                document.getElementById('chkRiskItem').focus();
+                return;
+            }
+
+            const cycle = document.getElementById('chkCycle').value;
+            const pestel = document.getElementById('chkPestel').value;
+            const greenCrit = document.getElementById('chkGreenCrit').value.trim() || '기준치 내 정상 유지';
+            const yellowCrit = document.getElementById('chkYellowCrit').value.trim() || '주의 기준 초과 ➔ 1차 부서 조치';
+            const redCrit = document.getElementById('chkRedCrit').value.trim() || '한계치 초과 ➔ C-Level 즉시 직보고';
+            const currentStatus = document.getElementById('chkCurrentStatus').value;
+            const sopAction = document.getElementById('chkSopAction').value.trim() || '표준 SOP 절차에 따라 즉각 조치';
+            const reportLine = document.getElementById('chkReportLine').value.trim() || '소관 부서장 및 리스크관리실 보고';
+
+            if (!allTeamsData[currentTeam].checklists) {
+                allTeamsData[currentTeam].checklists = [];
+            }
+
+            const id = 'chk_' + Date.now() + '_' + Math.floor(Math.random()*1000);
+            const nowStr = new Date().toISOString().replace('T', ' ').substring(0, 16);
+
+            allTeamsData[currentTeam].checklists.push({
+                id,
+                team: currentTeam,
+                cycle,
+                pestel,
+                riskItem,
+                greenCrit,
+                yellowCrit,
+                redCrit,
+                currentStatus,
+                sopAction,
+                reportLine,
+                createdAt: nowStr
+            });
+
+            // Reset input form
+            document.getElementById('chkRiskItem').value = '';
+            document.getElementById('chkGreenCrit').value = '';
+            document.getElementById('chkYellowCrit').value = '';
+            document.getElementById('chkRedCrit').value = '';
+            document.getElementById('chkSopAction').value = '';
+            document.getElementById('chkReportLine').value = '';
+            document.getElementById('chkCurrentStatus').value = 'green';
+
+            renderChecklistTable();
+            renderOverview();
+            scheduleCloudPush();
+            alert('새로운 실무 셀프 체크리스트가 DB에 성공적으로 축적되었습니다!');
+        }
+
+        function updateChecklistStatus(teamKey, id, newStatus) {
+            if (!allTeamsData[teamKey] || !allTeamsData[teamKey].checklists) return;
+            const item = allTeamsData[teamKey].checklists.find(c => c.id === id);
+            if (item) {
+                item.currentStatus = newStatus;
+                renderChecklistTable();
+                renderOverview();
+                scheduleCloudPush();
+            }
+        }
+
+        function removeChecklist(teamKey, id) {
+            if (!allTeamsData[teamKey] || !allTeamsData[teamKey].checklists) return;
+            if (confirm('해당 체크리스트 항목을 삭제하시겠습니까?')) {
+                allTeamsData[teamKey].checklists = allTeamsData[teamKey].checklists.filter(c => c.id !== id);
+                renderChecklistTable();
+                renderOverview();
+                scheduleCloudPush();
+            }
+        }
+
+        function getAllChecklists() {
+            const list = [];
+            Object.keys(allTeamsData).forEach(tKey => {
+                const arr = allTeamsData[tKey]?.checklists || [];
+                arr.forEach(c => list.push({ ...c, team: tKey }));
+            });
+            return list;
+        }
+
+        function setChecklistFilter(filter, btn) {
+            checklistFilter = filter;
+            if (btn) {
+                btn.parentNode.querySelectorAll('.jpdc-filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            }
+            renderChecklistTable();
+        }
+
+        function renderChecklistTable() {
+            const tbody = document.getElementById('checklistTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            const allList = getAllChecklists();
+
+            let greenCount = 0;
+            let yellowCount = 0;
+            let redCount = 0;
+
+            allList.forEach(c => {
+                if (c.currentStatus === 'green') greenCount++;
+                else if (c.currentStatus === 'yellow') yellowCount++;
+                else if (c.currentStatus === 'red') redCount++;
+            });
+
+            const badgeTotal = document.getElementById('chkTotalCountBadge');
+            const statGreen = document.getElementById('chkStatGreen');
+            const statYellow = document.getElementById('chkStatYellow');
+            const statRed = document.getElementById('chkStatRed');
+
+            if (badgeTotal) badgeTotal.textContent = `총 ${allList.length}건`;
+            if (statGreen) statGreen.textContent = `🟢 정상 ${greenCount}건`;
+            if (statYellow) statYellow.textContent = `🟡 주의 ${yellowCount}건`;
+            if (statRed) statRed.textContent = `🔴 위험 ${redCount}건`;
+
+            let displayList = allList;
+            if (checklistFilter === 'my') {
+                displayList = (currentTeam === 'all') ? allList : allList.filter(c => c.team === currentTeam);
+            } else if (checklistFilter === 'cycle_monthly') {
+                displayList = allList.filter(c => c.cycle === '월별');
+            } else if (checklistFilter === 'cycle_quarterly') {
+                displayList = allList.filter(c => c.cycle === '분기별');
+            } else if (checklistFilter === 'status_alert') {
+                displayList = allList.filter(c => c.currentStatus === 'yellow' || c.currentStatus === 'red');
+            }
+
+            if (displayList.length === 0) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td colspan="9" style="text-align:center; padding:2rem; color:#94A3B8;">
+                    등록된 체크리스트가 없습니다. 상단의 <b>[추천 체크리스트 빠른 불러오기]</b>를 누르거나 직접 입력하여 DB를 축적해보세요!
+                </td>`;
+                tbody.appendChild(tr);
+                return;
+            }
+
+            displayList.forEach((c, idx) => {
+                const tr = document.createElement('tr');
+                const tName = TEAM_COLORS[c.team]?.name || c.team;
+                const tColor = TEAM_COLORS[c.team]?.color || '#2563EB';
+
+                let statusBadge = '';
+                if (c.currentStatus === 'green') {
+                    statusBadge = `<span class="jpdc-status-pill pill-green">🟢 정상</span>`;
+                } else if (c.currentStatus === 'yellow') {
+                    statusBadge = `<span class="jpdc-status-pill pill-yellow">🟡 주의 (경고)</span>`;
+                } else {
+                    statusBadge = `<span class="jpdc-status-pill pill-red">🔴 위험 (비상)</span>`;
+                }
+
+                tr.innerHTML = `
+                    <td><b>${idx + 1}</b></td>
+                    <td><span class="team-tag" style="background:${tColor}">${tName}</span></td>
+                    <td><span class="jpdc-badge" style="background:#475569; font-size:11px;">${escapeHtml(c.cycle || '월별')}</span></td>
+                    <td><b style="color:var(--jpdc-navy); font-size:12px;">${escapeHtml(c.pestel || '-')}</b></td>
+                    <td>
+                        <div style="font-weight:700; color:#1E293B; margin-bottom:4px;">${escapeHtml(c.riskItem)}</div>
+                        <div style="font-size:11px; color:#64748B; background:#F8FAFC; padding:4px 6px; border-radius:4px; border:1px solid #E2E8F0;">
+                            <b>기준:</b> 🟢 ${escapeHtml(c.greenCrit)} | 🟡 ${escapeHtml(c.yellowCrit)} | 🔴 ${escapeHtml(c.redCrit)}
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-bottom:4px;">${statusBadge}</div>
+                        <select class="jpdc-select" style="font-size:11px; padding:3px 6px; height:auto;" onchange="updateChecklistStatus('${c.team}', '${c.id}', this.value)">
+                            <option value="green" ${c.currentStatus === 'green' ? 'selected' : ''}>🟢 정상</option>
+                            <option value="yellow" ${c.currentStatus === 'yellow' ? 'selected' : ''}>🟡 주의(1차조치)</option>
+                            <option value="red" ${c.currentStatus === 'red' ? 'selected' : ''}>🔴 위험(비상대응)</option>
+                        </select>
+                    </td>
+                    <td>
+                        <div style="font-size:12px; color:#1E293B; margin-bottom:3px;"><b>[SOP]</b> ${escapeHtml(c.sopAction)}</div>
+                        <div style="font-size:11px; color:#2563EB;"><b>[보고]</b> ${escapeHtml(c.reportLine)}</div>
+                    </td>
+                    <td style="font-size:11px; color:#64748B;">${escapeHtml(c.createdAt || '-')}</td>
+                    <td class="no-print">
+                        <button class="jpdc-btn danger sm" onclick="removeChecklist('${c.team}', '${c.id}')" style="padding:4px 8px; font-size:11px;">삭제</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function exportChecklistJSON() {
+            const list = getAllChecklists();
+            const blob = new Blob([JSON.stringify({ 
+                title: "JPDC ERM PESTEL Self-Checklist & SOP Database", 
+                exportedAt: new Date().toISOString(),
+                totalCount: list.length,
+                checklists: list 
+            }, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `JPDC_ERM_PESTEL_Checklist_DB_${currentRoomId}.json`;
+            a.click();
+        }
+
+        function copyChecklistCSV() {
+            const list = getAllChecklists();
+            if (list.length === 0) {
+                alert('복사할 체크리스트 데이터가 없습니다.');
+                return;
+            }
+            let csv = "No,작성자,주기,PESTEL,점검항목및리스크,현재상태,정상기준,주의기준,위험기준,SOP조치,보고라인,등록일시\n";
+            list.forEach((c, idx) => {
+                const tName = TEAM_COLORS[c.team]?.name || c.team;
+                csv += `"${idx + 1}","${tName}","${c.cycle}","${c.pestel}","${(c.riskItem||'').replace(/"/g, '""')}","${c.currentStatus}","${(c.greenCrit||'').replace(/"/g, '""')}","${(c.yellowCrit||'').replace(/"/g, '""')}","${(c.redCrit||'').replace(/"/g, '""')}","${(c.sopAction||'').replace(/"/g, '""')}","${(c.reportLine||'').replace(/"/g, '""')}","${c.createdAt||''}"\n`;
+            });
+
+            navigator.clipboard.writeText(csv).then(() => {
+                alert('체크리스트 CSV 데이터가 클립보드에 복사되었습니다! 엑셀(Excel)에 [붙여넣기] 하실 수 있습니다.');
+            }).catch(err => {
+                alert('클립보드 복사 중 오류가 발생했습니다.');
+            });
+        }
+
+        function copyExecutiveSummary() {
+            const list = getAllChecklists();
+            if (list.length === 0) {
+                alert('요약할 체크리스트 데이터가 없습니다.');
+                return;
+            }
+
+            const alertList = list.filter(c => c.currentStatus === 'yellow' || c.currentStatus === 'red');
+            let summary = `[제주개발공사(JPDC) 전사적 리스크 관리(ERM) 월별/분기별 체크리스트 선제보고 요약]\n`;
+            summary += `일시: ${new Date().toLocaleDateString('ko-KR')}\n`;
+            summary += `총 점검 항목: ${list.length}건 (정상: ${list.filter(c=>c.currentStatus==='green').length}건 / 주의: ${list.filter(c=>c.currentStatus==='yellow').length}건 / 위험: ${list.filter(c=>c.currentStatus==='red').length}건)\n\n`;
+            summary += `■ 주요 조기경보 및 선제 대응 현황 (주의/위험 안건):\n`;
+
+            if (alertList.length === 0) {
+                summary += `- 현재 모든 직군의 점검 항목이 '정상(Green)' 범위 내에서 안정적으로 통제되고 있습니다.\n`;
+            } else {
+                alertList.forEach((a, i) => {
+                    const tName = TEAM_COLORS[a.team]?.name || a.team;
+                    const stText = a.currentStatus === 'red' ? '🔴 위험(비상)' : '🟡 주의(경고)';
+                    summary += `${i+1}. [${stText}] ${a.riskItem} (${tName} / ${a.cycle} / ${a.pestel})\n`;
+                    summary += `   - 현황: ${a.currentStatus === 'red' ? a.redCrit : a.yellowCrit}\n`;
+                    summary += `   - SOP 조치: ${a.sopAction}\n`;
+                    summary += `   - 보고경로: ${a.reportLine}\n\n`;
+                });
+            }
+
+            summary += `\n※ 본 보고서는 PESTEL 기반 자율 셀프 체크리스트 DB 누적 분석을 통해 실시간 도출되었습니다.`;
+
+            navigator.clipboard.writeText(summary).then(() => {
+                alert('경영진 선제보고 요약문이 클립보드에 복사되었습니다! 사내 메신저나 보고서에 바로 활용하세요.');
+            }).catch(err => {
+                alert('클립보드 복사 중 오류가 발생했습니다.');
+            });
         }
 
         function escapeHtml(str) {
@@ -2370,10 +3167,66 @@
                     const parsed = JSON.parse(saved);
                     Object.assign(allTeamsData, parsed);
                 } catch(e){}
-            } else {
+            }
+
+            // Ensure all teams have valid structure and checklists array
+            for (let i = 1; i <= 10; i++) {
+                const k = 'team' + i;
+                if (!allTeamsData[k]) allTeamsData[k] = { pestel: [], swot: [], risks: {}, checklists: [] };
+                if (!allTeamsData[k].checklists) allTeamsData[k].checklists = [];
+                if (!allTeamsData[k].risks) allTeamsData[k].risks = {};
+            }
+
+            if (!saved) {
                 allTeamsData.team1.risks['r1'] = { id: 'r1', team: 'team1', name: '설비 노후화로 인한 생산 중단 및 안전사고', like: 4, imp: 4 };
                 allTeamsData.team2.risks['r2'] = { id: 'r2', team: 'team2', name: '원자재 및 해상/육상 물류비 급등', like: 3, imp: 4 };
                 allTeamsData.team3.risks['r3'] = { id: 'r3', team: 'team3', name: '디지털 전환 지연에 따른 유통 채널 경쟁력 저하', like: 2, imp: 3 };
+
+                // Seed initial realistic checklists across the 3 tracks
+                allTeamsData.team1.checklists.push({
+                    id: 'chk_init_1',
+                    team: 'team1',
+                    cycle: '월별',
+                    pestel: 'Env 환경',
+                    riskItem: '하절기 성수기 대비 취수정 지하수위 급강하 및 원수 탁도 변동 리스크',
+                    greenCrit: '수위 변동률 ±3% 이내 및 원수 탁도 0.1 NTU 이하 안정 유지',
+                    yellowCrit: '수위 -10% 이상 강하 또는 탁도 0.3 NTU 초과 시 경고',
+                    redCrit: '수위 -20% 급락 또는 탁도 0.5 NTU 초과 시 비상정지',
+                    currentStatus: 'yellow',
+                    sopAction: '즉시 예비 2·3호 관정 전환 시운전 및 수질연구소 24시간 정밀 성분 분석 의뢰',
+                    reportLine: '현장 계측담당 ➔ 생산운영팀장 ➔ 생산공장장 ➔ 환경기획본부장 (골든타임: 1시간 이내)',
+                    createdAt: '2026-10-16 09:00'
+                });
+
+                allTeamsData.team5.checklists.push({
+                    id: 'chk_init_2',
+                    team: 'team5',
+                    cycle: '월별',
+                    pestel: 'E 경제',
+                    riskItem: '제주-내륙 간 삼다수 전용 해상 화물선 운임 인상 및 선복(적재공간) 부족',
+                    greenCrit: '해상 운임 편차 ±5% 이내 및 수도권 물류센터 25일분 이상 비축',
+                    yellowCrit: '유가 급등으로 운임 10% 이상 상승 또는 선복 확보율 85% 하락 시',
+                    redCrit: '선박 결항 장기화로 수도권 대형마트/쿠팡 결품 페널티 직면 시',
+                    currentStatus: 'green',
+                    sopAction: '복수 선사 스팟 선복 추가 계약 및 도외 거점 물류기지 재고 우선 할당',
+                    reportLine: '물류운영팀장 ➔ 유통영업본부장 ➔ 경영기획실장 긴급 핫라인',
+                    createdAt: '2026-10-16 09:30'
+                });
+
+                allTeamsData.team8.checklists.push({
+                    id: 'chk_init_3',
+                    team: 'team8',
+                    cycle: '분기별',
+                    pestel: 'L 법률',
+                    riskItem: '중대재해처벌법 대비 공사 전 사업장 및 외주 수탁사 위험성평가 이행률 점검',
+                    greenCrit: '현장 유해위험요인 발굴 개선 조치율 100% 완료',
+                    yellowCrit: '개선 미흡 항목 2건 이상 또는 고위험 구역 보호구 미착용 지적 시',
+                    redCrit: '중대 유해 위험 방치 및 사망사고 우려 구역 안전수칙 위반 발견 시',
+                    currentStatus: 'green',
+                    sopAction: '즉각 작업중지권 발동, 현장 접근 차단 및 3일 이내 전문기관 합동 재검증',
+                    reportLine: '현장 안전감독관 ➔ 안전보건팀장 ➔ 안전경영실장 ➔ 사장 직보고',
+                    createdAt: '2026-10-16 10:00'
+                });
             }
 
             updateTeamIndicators();
