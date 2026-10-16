@@ -61,15 +61,15 @@ const COURSEWARE_SLIDES = [
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1rem;">
         <div style="background:#EFF6FF; border:1px solid #BFDBFE; border-radius:10px; padding:1.2rem;">
           <h4 style="color:#1D4ED8; margin:0 0 8px;">1조 (3인) - 환경·생산 트랙</h4>
-          <p style="margin:0; font-size:0.9rem; color:#1E3A8A;"><b>참여자:</b> 김미정, 이성윤, 김지연<br><b>주요 미션:</b> 지하수 수량/수질 변동 및 취수 규제 대응</p>
+          <p style="margin:0; font-size:0.9rem; color:#1E3A8A;"><b>참여자:</b> Peter Parker, David Miller, Sarah Jenkins<br><b>주요 미션:</b> 지하수 수량/수질 변동 및 취수 규제 대응</p>
         </div>
         <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:10px; padding:1.2rem;">
           <h4 style="color:#15803D; margin:0 0 8px;">2조 (3인) - 물류·유통 트랙</h4>
-          <p style="margin:0; font-size:0.9rem; color:#14532D;"><b>참여자:</b> 강은철, 조성수, 강지연<br><b>주요 미션:</b> 해상 물류 차질 및 유통 파트너사 신용 리스크</p>
+          <p style="margin:0; font-size:0.9rem; color:#14532D;"><b>참여자:</b> James Wilson, Robert Taylor, Olivia Brown<br><b>주요 미션:</b> 해상 물류 차질 및 유통 파트너사 신용 리스크</p>
         </div>
         <div style="background:#FAF5FF; border:1px solid #E9D5FF; border-radius:10px; padding:1.2rem;">
           <h4 style="color:#7E22CE; margin:0 0 8px;">3조 (4인) - 안전·IT·지배구조 트랙</h4>
-          <p style="margin:0; font-size:0.9rem; color:#581C87;"><b>참여자:</b> 변정훈, 김만경, 양근원, 김유나<br><b>주요 미션:</b> 스마트팩토리 보안, 산업안전, 언론/도민 평판 리스크</p>
+          <p style="margin:0; font-size:0.9rem; color:#581C87;"><b>참여자:</b> Daniel Clark, Thomas Anderson, Alex Morgan, Sophia Martinez<br><b>주요 미션:</b> 스마트팩토리 보안, 산업안전, 언론/도민 평판 리스크</p>
         </div>
       </div>
       <p style="margin-top:1rem; font-size:0.9rem; color:#64748B;">* 규칙: 지금까지 조장을 맡지 않은 구성원이 이번 최종 회차의 조장을 맡아 의사결정을 이끕니다.</p>
