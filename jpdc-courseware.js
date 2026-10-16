@@ -1401,6 +1401,9 @@ function jumpToPracticeTab(tabId) {
   if (tabBtn) {
     tabBtn.click();
   }
+  if (typeof toggleGuideBanner === 'function') {
+    toggleGuideBanner(true);
+  }
   const appEl = document.getElementById("jpdc-app");
   if (appEl) {
     appEl.scrollIntoView({ behavior: 'smooth' });

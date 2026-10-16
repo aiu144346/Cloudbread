@@ -452,6 +452,121 @@
             cursor: pointer;
         }
 
+        /* 10-Participants Action Guide Banner */
+        .jpdc-guide-banner {
+            background: #0B132B;
+            border-bottom: 2px solid #1E293B;
+            color: #FFFFFF;
+        }
+
+        .jpdc-guide-header {
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background: linear-gradient(90deg, #0B132B 0%, #14213D 100%);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            transition: background 0.2s;
+        }
+
+        .jpdc-guide-header:hover {
+            background: #182A4C;
+        }
+
+        .jpdc-guide-badge {
+            background: #00F0FF;
+            color: #030712;
+            font-size: 0.78rem;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 999px;
+            letter-spacing: -0.01em;
+        }
+
+        .jpdc-guide-toggle-btn {
+            background: rgba(255,255,255,0.1);
+            color: #E2E8F0;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .jpdc-guide-body {
+            padding: 18px 24px 16px;
+            background: #0F1A30;
+            transition: all 0.3s ease;
+        }
+
+        .jpdc-guide-steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .jpdc-guide-step-card {
+            background: #182A4C;
+            border: 1px solid #2A3F66;
+            border-radius: 10px;
+            padding: 14px 16px;
+            position: relative;
+        }
+
+        .jpdc-step-num {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #00F0FF;
+            background: rgba(0, 240, 255, 0.15);
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 6px;
+        }
+
+        .jpdc-guide-step-card h4 {
+            margin: 0 0 6px;
+            font-size: 0.98rem;
+            color: #FFFFFF;
+            font-weight: 800;
+        }
+
+        .jpdc-guide-step-card p {
+            margin: 0;
+            font-size: 0.84rem;
+            color: #CBD5E1;
+            line-height: 1.5;
+        }
+
+        .jpdc-guide-teams-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.85rem;
+        }
+
+        .jpdc-team-pill-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .jpdc-group-title {
+            color: #94A3B8;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
         /* ==========================================================================
            Scoped Isolated Styling for 10-User Interactive ERM Dashboard
            ========================================================================== */
@@ -1153,6 +1268,65 @@
             </div>
         </div>
 
+        <!-- 10-Participants Action Guide Banner (Collapsible) -->
+        <div class="jpdc-guide-banner no-print" id="jpdcGuideBanner">
+            <div class="jpdc-guide-header" onclick="toggleGuideBanner()">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span class="jpdc-guide-badge">💡 실습 안내</span>
+                    <strong style="font-size:1.05rem; color:#FFFFFF;">10인 실시간 리스크 매핑 & 시각화 3-STEP 참여 가이드</strong>
+                </div>
+                <button class="jpdc-guide-toggle-btn" id="guideToggleBtn" type="button">
+                    <span id="guideToggleText">접기</span> <i class="fa-solid fa-chevron-up" id="guideToggleIcon"></i>
+                </button>
+            </div>
+            
+            <div class="jpdc-guide-body" id="guideBody">
+                <div class="jpdc-guide-steps-grid">
+                    <div class="jpdc-guide-step-card">
+                        <div class="jpdc-step-num">STEP 1</div>
+                        <h4>내 프로필 선택</h4>
+                        <p>상단 검은색 바의 <b>[👥 참여자 선택]</b>에서 본인 이름(김미정, 이성윤 등)을 선택하세요. 화면에 나만의 고유 색상 배지가 활성화됩니다.</p>
+                    </div>
+                    <div class="jpdc-guide-step-card">
+                        <div class="jpdc-step-num">STEP 2</div>
+                        <h4>내 분야 리스크 등록</h4>
+                        <p><b>[③ 5×5 매트릭스]</b> 탭 클릭 ➔ <b>[+ 리스크 추가]</b> 클릭 ➔ 리스크명과 발생가능성(1~5), 영향도(1~5)를 입력하세요. 점수가 자동 계산됩니다.</p>
+                    </div>
+                    <div class="jpdc-guide-step-card">
+                        <div class="jpdc-step-num">STEP 3</div>
+                        <h4>내 리스크 시각화 확인</h4>
+                        <p>필터에서 <b>[내 이름]</b>을 눌러 내 위험 위치를 확인하고, <b>[전체 보기]</b>를 눌러 10명의 동료 리스크와 전사 순위표를 실시간 비교하세요.</p>
+                    </div>
+                </div>
+
+                <!-- 10 Participants Color Chips & Team Track Mapping -->
+                <div class="jpdc-guide-teams-row">
+                    <div class="jpdc-team-pill-group">
+                        <span class="jpdc-group-title">1조 (수자원·생산):</span>
+                        <span class="team-tag" style="background:#2563EB;">김미정</span>
+                        <span class="team-tag" style="background:#059669;">이성윤</span>
+                        <span class="team-tag" style="background:#D97706;">김지연</span>
+                    </div>
+                    <div class="jpdc-team-pill-group">
+                        <span class="jpdc-group-title">2조 (물류·유통):</span>
+                        <span class="team-tag" style="background:#7C3AED;">강은철</span>
+                        <span class="team-tag" style="background:#DB2777;">조성수</span>
+                        <span class="team-tag" style="background:#0891B2;">강지연</span>
+                    </div>
+                    <div class="jpdc-team-pill-group">
+                        <span class="jpdc-group-title">3조 (안전·IT·지배구조):</span>
+                        <span class="team-tag" style="background:#EA580C;">변정훈</span>
+                        <span class="team-tag" style="background:#0D9488;">김만경</span>
+                        <span class="team-tag" style="background:#4F46E5;">양근원</span>
+                        <span class="team-tag" style="background:#65A30D;">김유나</span>
+                    </div>
+                    <div style="margin-left:auto; font-size:0.85rem; color:#94A3B8;">
+                        * 프로젝터 스크린은 <b>[📊 강사 모드]</b>로 10인 통합 맵핑이 실시간 중계됩니다.
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Tab Navigation -->
         <nav class="jpdc-erm-nav no-print">
             <button class="tabbtn active" data-tab="pestel">① PESTEL 분석</button>
@@ -1524,6 +1698,25 @@
         if (hamburger) hamburger.addEventListener('click', toggleMenu);
         if (mobileMenuTrigger) mobileMenuTrigger.addEventListener('click', toggleMenu);
         if (menuOverlay) menuOverlay.addEventListener('click', toggleMenu);
+
+        // 10-Participants Action Guide Banner Toggle
+        function toggleGuideBanner(forceOpen = false) {
+            const body = document.getElementById('guideBody');
+            const text = document.getElementById('guideToggleText');
+            const icon = document.getElementById('guideToggleIcon');
+            if (!body) return;
+
+            const isHidden = (body.style.display === 'none');
+            if (forceOpen || isHidden) {
+                body.style.display = 'block';
+                if (text) text.textContent = '접기';
+                if (icon) icon.className = 'fa-solid fa-chevron-up';
+            } else {
+                body.style.display = 'none';
+                if (text) text.textContent = '펼치기';
+                if (icon) icon.className = 'fa-solid fa-chevron-down';
+            }
+        }
 
         // 10 Participants Configuration
         const TEAM_COLORS = {
