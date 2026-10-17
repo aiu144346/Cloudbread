@@ -38,6 +38,12 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        @media (max-width: 900px) {
+            .spotlight-grid-responsive {
+                grid-template-columns: 1fr !important;
+                gap: 24px !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -81,6 +87,57 @@
             전국 각지의 AI 특강 현장의 생생한 기록과, 다양한 매체를 통해 전달해 온<br>인공지능 지식 혁명의 발자취를 한눈에 확인하십시오.
         </p>
     </div>
+
+    <!-- Spotlight: Featured Tech Journalist Insight (JPDC Case Study) -->
+    <section class="spotlight-insight-section dark-section" style="padding: 3.5rem 10% 4.5rem; background: linear-gradient(180deg, var(--bg-navy) 0%, #0d1b3e 100%); border-bottom: 1px solid rgba(0, 245, 212, 0.25);">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+                <span style="background: rgba(0, 245, 212, 0.15); color: #00F5D4; border: 1px solid rgba(0, 245, 212, 0.4); font-size: 12px; font-weight: 800; padding: 5px 14px; border-radius: 999px; letter-spacing: 0.5px;">
+                    <i class="fas fa-star" style="margin-right: 4px;"></i> FEATURED TECH INSIGHT
+                </span>
+                <span style="color: #94A3B8; font-size: 13.5px; font-weight: 600;">제주개발공사(JPDC) 공기업관리자과정 심층 리포트</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: center;" class="spotlight-grid-responsive">
+                <!-- Left: Content & Narrative -->
+                <div>
+                    <h2 style="font-size: 2.15rem; font-weight: 800; color: #FFFFFF; line-height: 1.35; margin-bottom: 18px; word-break: keep-all;">
+                        사무직군 AX의 본질: <br>
+                        <span style="background: linear-gradient(90deg, #00F5D4, #3A86FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">'고립된 로컬 데이터'를 실시간 협업 대시보드로 깨우다</span>
+                    </h2>
+                    <p style="font-size: 1.05rem; color: #CBD5E1; line-height: 1.8; margin-bottom: 24px; word-break: keep-all;">
+                        수억 원짜리 거대 시스템이 아닌, 사내 서버와 개인 폴더에 잠든 비정형 데이터를 유기적인 웹 대시보드 위에서 저비용·초신속으로 생산하고 실시간 공유하는 것이 공공·사무직 AX의 마스터키입니다.
+                    </p>
+                    <div style="display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 22px;">
+                        <a href="article-jpdc-ax.html" class="primary-btn" style="background: linear-gradient(135deg, #00F5D4, #3A86FF); color: #070F2B; font-weight: 800; padding: 13px 26px; border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 8px 20px rgba(0,245,212,0.25);">
+                            <span>기사 전문 읽기</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="lecture-jpdc.html" target="_blank" class="secondary-btn" style="border: 1px solid rgba(255,255,255,0.25); color: #fff; padding: 13px 22px; border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                            <span>실시간 협업 도구 체험</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                    <div style="font-size: 13px; color: #64748B;">
+                        <i class="fas fa-user-edit" style="color: #00F5D4; margin-right: 4px;"></i> 작성: <strong>정우진 테크저널리스트 & AI STRATEGIST</strong> | 2026.10
+                    </div>
+                </div>
+
+                <!-- Right: Visual Cards (Dual Preview: Onsite & Dashboard) -->
+                <div>
+                    <div style="background: #101B3B; border-radius: 16px; overflow: hidden; border: 1px solid rgba(58, 134, 255, 0.35); box-shadow: 0 16px 40px rgba(0,0,0,0.5);">
+                        <a href="article-jpdc-ax.html" style="display: block; text-decoration: none;">
+                            <img src="assets/images/jpdc_lecture_onsite_2026.jpg" alt="JPDC 강의 현장 사진" style="width: 100%; height: auto; display: block; transition: transform 0.3s ease;">
+                        </a>
+                        <div style="padding: 14px 18px; background: rgba(7, 15, 43, 0.95); display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 13px; color: #E2E8F0; font-weight: 600;">2026 JPDC 관리자과정 특강 현장</span>
+                            <span style="font-size: 11px; background: rgba(0, 245, 212, 0.15); color: #00F5D4; padding: 3px 8px; border-radius: 4px; font-weight: 700;">Top Risk 실행안</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Full 3-Row Marquee -->
     <section class="activity-section" style="background: var(--navy-light);">

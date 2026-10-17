@@ -178,6 +178,7 @@ const contentData = {
 };
 
 const mediaData = [
+    { title: "[테크 인사이트] 사무직군 AX의 본질: 고립된 로컬 데이터를 실시간 협업 대시보드로 깨우다 (JPDC 사례)", type: "column", source: "테크저널리스트 특별기고", url: "article-jpdc-ax.html", date: "2026.10", ogImage: "assets/images/jpdc_lecture_onsite_2026.jpg" },
     { title: "정우진 “구민배심원단 50인과 북구 대개조 100일 플랜 실현”", type: "article", source: "울산저널", url: "https://www.usjournal.kr/news/newsview.php?ncode=179513676709502", date: "2024", ogImage: "https://www.usjournal.kr/news/data/20180417/p179513676709502_688.jpg" },
     { title: "[울산人터뷰] 워커홀릭에 진심, 어공 정우진", type: "article", source: "울산저널", url: "https://www.usjournal.kr/news/newsview.php?ncode=1065564671845236", date: "2024", ogImage: "https://www.usjournal.kr/news/data/20230211/p1065564671845236_237_thum.jpg" },
     { title: "울산人터뷰 영상 보도", type: "video", source: "울산저널", url: "https://www.usjournal.kr/news/newsview.php?ncode=1065580712197790", date: "2024", ogImage: "https://www.usjournal.kr/news/data/20230319/p1065580712197790_681.jpg" },

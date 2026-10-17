@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[테크 인사이트] 사무직군 AX의 본질: '고립된 로컬 데이터'를 실시간 협업 대시보드로 깨우다 | 정우진 AI STRATEGIST</title>
+    <meta name="description" content="제주개발공사(JPDC) 공기업관리자과정 '전사적 리스크 대응과 조직의 실행' 현장에서 입증된 저비용·초신속 사무직 AX 아키텍처.">
+    <link rel="canonical" href="https://www.cloudbread.me/article-jpdc-ax.html">
+
+    <!-- Open Graph / Social Meta -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.cloudbread.me/article-jpdc-ax.html">
+    <meta property="og:title" content="[테크 인사이트] 사무직군 AX의 본질: 고립된 로컬 데이터를 실시간 협업 대시보드로 깨우다">
+    <meta property="og:description" content="사내 서버와 개인 폴더에 잠든 데이터를 저비용·초신속 실시간 대시보드로 전환하는 최적의 방안. JPDC 특강 현장 리포트.">
+    <meta property="og:image" content="assets/images/jpdc_lecture_onsite_2026.jpg">
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        :root {
+            --article-bg: #070F2B;
+            --article-card: #101B3B;
+            --article-card-inner: #16244C;
+            --tech-blue: #3A86FF;
+            --tech-cyan: #00F5D4;
+            --tech-teal: #0E7C7B;
+            --text-heading: #FFFFFF;
+            --text-content: #E2E8F0;
+            --text-sub: #94A3B8;
+            --accent-border: rgba(58, 134, 255, 0.25);
+        }
+
+        body {
+            background-color: var(--article-bg);
+            color: var(--text-content);
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.85;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ARTICLE HERO SECTION */
+        .article-hero {
+            padding: 9.5rem 8% 4.5rem;
+            background: linear-gradient(180deg, #070F2B 0%, #0F1D40 70%, #070F2B 100%);
+            border-bottom: 1px solid var(--accent-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-hero::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: 10%;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(0, 245, 212, 0.12) 0%, transparent 70%);
+            filter: blur(50px);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            max-width: 920px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .article-badge-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tech-badge {
+            background: rgba(0, 245, 212, 0.12);
+            color: var(--tech-cyan);
+            border: 1px solid rgba(0, 245, 212, 0.3);
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 999px;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tech-badge-secondary {
+            background: rgba(58, 134, 255, 0.12);
+            color: #93C5FD;
+            border: 1px solid rgba(58, 134, 255, 0.3);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 999px;
+        }
+
+        .article-headline {
+            font-size: 2.65rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1.35;
+            letter-spacing: -0.8px;
+            margin-bottom: 20px;
+            word-break: keep-all;
+        }
+
+        .article-subheadline {
+            font-size: 1.25rem;
+            color: #CBD5E1;
+            font-weight: 400;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            word-break: keep-all;
+            border-left: 3px solid var(--tech-cyan);
+            padding-left: 16px;
+        }
+
+        .author-meta-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1E3A8A, var(--tech-cyan));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #070F2B;
+            font-size: 18px;
+        }
+
+        .author-details h4 {
+            color: #FFFFFF;
+            font-size: 15px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .author-details p {
+            color: var(--text-sub);
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .article-stats {
+            color: var(--text-sub);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* ARTICLE BODY LAYOUT */
+        .article-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px 24px 100px;
+        }
+
+        .article-lead {
+            font-size: 1.22rem;
+            color: #F1F5F9;
+            font-weight: 500;
+            line-height: 1.9;
+            margin-bottom: 40px;
+            padding: 28px 32px;
+            background: linear-gradient(135deg, rgba(16, 27, 59, 0.9), rgba(22, 36, 76, 0.7));
+            border-radius: 16px;
+            border: 1px solid var(--accent-border);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+            word-break: keep-all;
+        }
+
+        .article-content h2 {
+            font-size: 1.85rem;
+            color: #FFFFFF;
+            font-weight: 800;
+            margin: 60px 0 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .article-content h2::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 26px;
+            background: linear-gradient(180deg, var(--tech-cyan), var(--tech-blue));
+            border-radius: 4px;
+        }
+
+        .article-content h3 {
+            font-size: 1.4rem;
+            color: #93C5FD;
+            font-weight: 700;
+            margin: 36px 0 18px;
+        }
+
+        .article-content p {
+            font-size: 1.1rem;
+            color: var(--text-content);
+            margin-bottom: 24px;
+            word-break: keep-all;
+        }
+
+        .article-content strong {
+            color: #FFFFFF;
+            font-weight: 700;
+        }
+
+        /* BLOCKQUOTE / CALLOUT */
+        .quote-box {
+            margin: 40px 0;
+            padding: 30px 36px;
+            background: rgba(14, 124, 123, 0.12);
+            border-left: 4px solid var(--tech-cyan);
+            border-radius: 0 16px 16px 0;
+            position: relative;
+        }
+
+        .quote-box p {
+            font-size: 1.25rem;
+            color: #E0F2FE;
+            font-weight: 600;
+            line-height: 1.7;
+            margin: 0;
+            font-style: italic;
+        }
+
+        .quote-box .quote-author {
+            margin-top: 14px;
+            font-size: 0.95rem;
+            color: var(--tech-cyan);
+            font-style: normal;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        /* MEDIA / IMAGE FIGURE */
+        .article-figure {
+            margin: 45px 0;
+            background: var(--article-card);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--accent-border);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .article-figure img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .figure-caption {
+            padding: 16px 20px;
+            font-size: 0.95rem;
+            color: var(--text-sub);
+            background: rgba(7, 15, 43, 0.7);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .figure-caption i {
+            color: var(--tech-cyan);
+        }
+
+        /* HIGHLIGHT CARDS GRID */
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin: 35px 0;
+        }
+
+        .highlight-card {
+            background: var(--article-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 24px;
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--tech-cyan);
+        }
+
+        .highlight-card .card-num {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--tech-cyan);
+            margin-bottom: 10px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .highlight-card h4 {
+            font-size: 1.15rem;
+            color: #FFFFFF;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .highlight-card p {
+            font-size: 0.96rem;
+            color: var(--text-sub);
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        /* INTERACTIVE CTA BANNER */
+        .portal-cta-banner {
+            margin: 60px 0 30px;
+            padding: 40px;
+            background: linear-gradient(135deg, #0E7C7B 0%, #14213D 60%, #070F2B 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 245, 212, 0.35);
+            box-shadow: 0 20px 50px rgba(0, 245, 212, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .cta-text h3 {
+            font-size: 1.6rem;
+            color: #FFFFFF;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .cta-text p {
+            font-size: 1.05rem;
+            color: #E2E8F0;
+            margin: 0;
+            max-width: 520px;
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, #00F5D4, #3A86FF);
+            color: #070F2B;
+            font-weight: 800;
+            font-size: 15px;
+            padding: 16px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.25s ease;
+            box-shadow: 0 10px 25px rgba(0, 245, 212, 0.3);
+            white-space: nowrap;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(0, 245, 212, 0.5);
+            color: #070F2B;
+        }
+
+        /* ARTICLE FOOTER TAGS */
+        .article-tags-wrap {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .article-tag {
+            background: rgba(255, 255, 255, 0.05);
+            color: #94A3B8;
+            font-size: 13px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .article-tag:hover {
+            background: rgba(0, 245, 212, 0.15);
+            color: var(--tech-cyan);
+        }
+
+        @media (max-width: 768px) {
+            .article-headline {
+                font-size: 2rem;
+            }
+            .article-hero {
+                padding: 7.5rem 5% 3.5rem;
+            }
+            .article-container {
+                padding: 30px 16px 60px;
+            }
+            .portal-cta-banner {
+                padding: 28px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Notice Bar -->
+    <div class="top-notice-bar" id="top-notice-bar">
+        <div class="notice-bar-content">
+            <span class="notice-badge">ARTICLE</span>
+            <div class="notice-ticker">
+                <span class="ticker-item">[테크 인사이트] 사무직군 AX와 실시간 협업 대시보드의 미래</span>
+            </div>
+            <a href="activities.html" class="notice-more">아카이브 보기 <i class="fas fa-chevron-right"></i></a>
+        </div>
+        <button class="close-notice-bar" id="close-notice-bar">&times;</button>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="main-header dark-section">
+        <nav class="nav-container">
+            <div class="logo"><a href="index.html" style="color: inherit; text-decoration: none;">CLOUD BREAD</a></div>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="showcase.html">강의쇼케이스</a></li>
+                <li><a href="youtube.html">유튜브Hub</a></li>
+                <li><a href="library.html">저서</a></li>
+                <li><a href="activities.html" class="active">언론 및 활동</a></li>
+                <li><a href="notice.html">공지사항</a></li>
+                <li><a href="archive.html" class="nav-cta">강의 라이브러리</a></li>
+            </ul>
+
+            <!-- Hamburger Menu for Mobile -->
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Sidebar Structure -->
+    <div class="menu-overlay" id="menu-overlay"></div>
+    <div class="mobile-sidebar" id="mobile-sidebar">
+        <div class="mobile-sidebar-links">
+            <a href="index.html">홈</a>
+            <a href="showcase.html">강의쇼케이스</a>
+            <a href="youtube.html">유튜브Hub</a>
+            <a href="library.html">저서</a>
+            <a href="activities.html" class="active">언론 및 활동</a>
+            <a href="notice.html">공지사항</a>
+            <a href="archive.html">강의 라이브러리</a>
+        </div>
+    </div>
+
+    <!-- ARTICLE HERO -->
+    <section class="article-hero">
+        <div class="hero-inner">
+            <div class="article-badge-wrap">
+                <span class="tech-badge"><i class="fas fa-newspaper"></i> TECH JOURNALIST INSIGHT</span>
+                <span class="tech-badge-secondary">공공·공기업 리스크 거버넌스 & AX</span>
+                <span class="tech-badge-secondary">제주개발공사(JPDC) 특강 리포트</span>
+            </div>
+
+            <h1 class="article-headline">
+                사무직군 AX(인공지능 대전환)의 본질:<br>
+                '고립된 로컬 데이터'를 실시간 협업 대시보드로 깨우다
+            </h1>
+
+            <p class="article-subheadline">
+                "수억 원짜리 거대 시스템이 아닌, 사내 서버와 개인 폴더에 잠든 비정형 데이터를<br>
+                유기적인 웹 대시보드 위에서 저비용·초신속으로 생산·공유하는 것이 실무 AX의 해답이다."
+            </p>
+
+            <div class="author-meta-bar">
+                <div class="author-info">
+                    <div class="author-avatar">JW</div>
+                    <div class="author-details">
+                        <h4>정우진 테크저널리스트 & AI STRATEGIST</h4>
+                        <p>행정안전부 찾아가는 컨설팅 위원 · 전) 울산정보산업진흥원 이노베이션스쿨 팀장</p>
+                    </div>
+                </div>
+                <div class="article-stats">
+                    <span><i class="far fa-calendar-alt"></i> 2026. 10.</span>
+                    <span><i class="far fa-clock"></i> 7분 완독</span>
+                    <span><i class="fas fa-eye"></i> 기획 심층 보도</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ARTICLE MAIN CONTAINER -->
+    <main class="article-container">
+        <!-- Lead In Paragraph -->
+        <div class="article-lead">
+            오늘날 수많은 공공기관과 기업들이 'AX(AI Transformation)'라는 거대한 파도 앞에 서 있다. 
+            그러나 막대한 예산을 투입해 대형 솔루션을 도입하고도, 정작 사무직 실무 현장에서는 여전히 이메일로 엑셀 파일을 주고받고 
+            담당자 개인 PC 폴더에 기안서가 파편화되는 모순이 반복된다. 
+            본 기사는 <strong>제주개발공사(JPDC) 공기업관리자과정</strong>에서 진행된 <span style="color: var(--tech-cyan);">"전사적 리스크 대응과 조직의 실행"</span> 특강 실증 사례를 통해, 
+            사무직군이 체감할 수 있는 현실적이고 강력한 AX 아키텍처의 청사진을 제시한다.
+        </div>
+
+        <div class="article-content">
+            <!-- SECTION 1 -->
+            <h2>1. 공허한 AI 구호와 '사일로(Silo)'에 갇힌 사무직의 현실</h2>
+            <p>
+                인공지능 기술의 진보는 눈부시지만, 기업의 의사결정 현장으로 한 걸음 들어가 보면 기이한 단절이 목격된다. 
+                경영진은 '전사적 AI 도입'을 선언하지만, 관리자와 실무진이 마주하는 일상은 10년 전과 크게 다르지 않다. 
+                사내 공용 서버에는 버전 관리가 되지 않는 수백 개의 엑셀 파일이 엉켜 있고, 각 부서의 핵심 분석과 리스크 진단 데이터는 
+                개별 담당자의 로컬 폴더 속에 폐쇄적으로 잠들어 있다.
+            </p>
+            <p>
+                이른바 <strong>'데이터 사일로(Data Silo)'</strong> 현상이다. 
+                기존의 시스템 구축(SI) 방식은 수개월에서 수년의 개발 기간과 수억 원의 라이선스 비용을 요구하지만, 
+                프로젝트가 완료되는 시점에는 이미 현업의 요구사항과 비즈니스 환경이 변해버린다. 
+                사무직군에 진정으로 필요한 것은 무거운 엔터프라이즈 ERP가 아니라, 
+                <strong>"지금 내가 다루는 로컬 데이터를 즉시 살아있는 형태로 시각화하고 동료들과 실시간 공유할 수 있는 민첩한 도구"</strong>다.
+            </p>
+
+            <!-- PHOTO 1: ONSITE LECTURE -->
+            <figure class="article-figure">
+                <img src="assets/images/jpdc_lecture_onsite_2026.jpg" alt="2026년 JPDC 공기업관리자과정 특강 현장">
+                <figcaption class="figure-caption">
+                    <i class="fas fa-camera"></i>
+                    <strong>[현장 스케치]</strong> 2026년 JPDC 공기업관리자과정 「전사적 리스크 대응과 조직의 실행」 특강. 관리자 수강생들이 각자의 노트북에서 실시간 웹 대시보드에 접속해 조별 리스크를 동시 매핑하고 있다.
+                </figcaption>
+            </figure>
+
+            <!-- SECTION 2 -->
+            <h2>2. 패러다임 전환: "저비용·초신속 데이터 생산과 실시간 동기화"</h2>
+            <p>
+                그렇다면 사무직군에서 AX를 가장 성공적으로 안착시키는 최적의 방안은 무엇인가? 
+                답은 <strong>"데이터 생산과 유통의 한계비용을 '0'으로 수렴시키는 것"</strong>에 있다.
+            </p>
+            <p>
+                기존의 전사적 리스크 관리(ERM) 프로세스는 지극히 정적이었다. 
+                부서별로 워드나 엑셀 양식을 배포하고, 취합자가 수십 통의 메일을 열어 복사·붙여넣기를 거듭한 뒤, 
+                이를 다시 파워포인트로 가공해 보고하기까지 최소 수주의 시간이 소요되었다. 
+                그 과정에서 데이터의 정시성(Real-time)은 상실되고, 위험 징후에 대한 '조직의 실행'은 한발 늦어질 수밖에 없었다.
+            </p>
+
+            <div class="quote-box">
+                <p>"사무직군의 AX는 값비싼 외부 시스템을 설치하는 것이 아닙니다. 기존 서버와 개인 폴더에 흩어져 있던 원천 데이터를 가벼운 웹 아키텍처와 LLM 기반 지능형 파이프라인으로 연결하여, 누구나 저비용으로 즉시 대시보드를 생성하고 실시간 공유할 수 있도록 만드는 조직 내 '데이터 활성화(Data Activation)' 과정입니다."</p>
+                <div class="quote-author">- 정우진 AI STRATEGIST</div>
+            </div>
+
+            <!-- SECTION 3 -->
+            <h2>3. JPDC 실증 사례: 10인 실시간 협업 도구의 3-STEP 아키텍처</h2>
+            <p>
+                이번 제주개발공사(JPDC) 특강에서 선보인 <strong>[JPDC 전사적 리스크관리 실시간 협업 도구]</strong>는 이러한 철학을 완벽하게 증명해낸 모범 사례다. 
+                클라우드 웹 표준 기술과 WebSocket/MQTT 경량 브로커를 결합하여, 
+                별도의 프로그램 설치 없이 단 1초 만에 모바일과 노트북에서 다자간 동시 동기화가 이뤄지는 인터랙티브 환경을 구현했다.
+            </p>
+
+            <div class="highlight-grid">
+                <div class="highlight-card">
+                    <div class="card-num">STEP 1</div>
+                    <h4>내 프로필 선택</h4>
+                    <p>상단 참여자 선택 바에서 본인 식별자 선택 시 고유 컬러 배지 부여. 개인별 책임성과 실시간 입력 주체를 명확히 시각화.</p>
+                </div>
+                <div class="highlight-card">
+                    <div class="card-num">STEP 2</div>
+                    <h4>분야별 리스크 등록</h4>
+                    <p>PESTEL 및 SWOT-Risk 관점에서 발생가능성(1~5)과 영향도(1~5)를 다이내믹 폼에 입력, 즉시 5×5 리스크 스코어링 산출.</p>
+                </div>
+                <div class="highlight-card">
+                    <div class="card-num">STEP 3</div>
+                    <h4>전사 통합 매트릭스 동기화</h4>
+                    <p>수자원·생산, 물류·유통, 안전·IT 등 조별 데이터가 강사 스크린 및 모든 참가자 화면에 0.1초 단위로 실시간 클러스터링.</p>
+                </div>
+            </div>
+
+            <!-- PHOTO 2 & 3: DASHBOARD SCREENSHOTS -->
+            <figure class="article-figure">
+                <img src="assets/images/jpdc_erm_dashboard_step.png" alt="JPDC 전사적 리스크관리 실시간 협업 도구 화면">
+                <figcaption class="figure-caption">
+                    <i class="fas fa-desktop"></i>
+                    <strong>[시스템 인터페이스]</strong> JPDC 전사적 리스크관리 실시간 협업 포털. 10인의 관리자가 PESTEL 분석부터 5×5 리스크 평가 매트릭스를 클라우드 실시간 동기화로 협업 수행하는 UI 구조.
+                </figcaption>
+            </figure>
+
+            <p>
+                특히 주목할 점은 <strong>조직 구조와 실무 롤(Role)의 정밀한 매핑</strong>이다. 
+                1조(수자원·생산), 2조(물류·유통), 3조(안전·IT·지배구조)로 구성된 참가자들이 
+                자신의 담당 영역에서 발생 가능한 Top Risk를 입력하는 순간, 
+                전사 차원의 5×5 히트맵 매트릭스에 즉각 점들이 찍히며 <strong>'누가, 무엇을, 어떻게 대응해야 하는가'</strong>에 대한 
+                우선순위가 실시간으로 가시화되었다.
+            </p>
+
+            <figure class="article-figure">
+                <img src="assets/images/jpdc_erm_dashboard_groups.png" alt="조별 실시간 매핑 인터페이스">
+                <figcaption class="figure-caption">
+                    <i class="fas fa-users-cog"></i>
+                    <strong>[조별 실시간 협업 체계]</strong> 조별·개인별 고유 컬러 태그를 통해 프로젝터 스크린과 개인 모니터 간의 시선 일치(Visual Alignment)를 달성한 협업 아키텍처.
+                </figcaption>
+            </figure>
+
+            <!-- SECTION 4 -->
+            <h2>4. 결론: "실시간 대시보드가 전사적 실행력을 완성한다"</h2>
+            <p>
+                이번 JPDC 공기업관리자과정이 남긴 가장 큰 시사점은, 
+                <strong>"보이지 않던 리스크가 시각화되는 순간, 조직의 실행(Execution)은 저절로 발동한다"</strong>는 점이다.
+            </p>
+            <p>
+                사무직 AX의 궁극적인 지향점은 거창한 기술 과시가 아니다. 
+                기존에 캐비닛과 로컬 하드디스크 속에서 침묵하던 데이터들을 양지로 끌어올려, 
+                팀원 모두가 동일한 관제 화면(Single Source of Truth)을 바라보며 합의를 이끌어내는 환경을 조성하는 것이다.
+            </p>
+            <p>
+                생성형 AI와 경량 웹 대시보드의 결합은 이제 소수 빅테크의 전유물이 아니다. 
+                조직 내 사일로를 깨부수고, 저비용으로 현장의 지적 자산을 실시간 대시보드화하는 기민한 접근이야말로 
+                대한민국 모든 공공기관과 기업이 즉시 도입해야 할 가장 확실한 <strong>'사무직 AX의 마스터키'</strong>가 될 것이다.
+            </p>
+
+            <!-- INTERACTIVE SHOWCASE CTA -->
+            <div class="portal-cta-banner">
+                <div class="cta-text">
+                    <h3>JPDC 실시간 리스크관리 협업 도구 직접 체험하기</h3>
+                    <p>기사에서 소개된 10인 실시간 협업 PESTEL · SWOT-Risk · 5×5 인터랙티브 대시보드를 라이브 웹에서 직접 확인해보세요.</p>
+                </div>
+                <a href="lecture-jpdc.html" class="cta-btn" target="_blank">
+                    <span>실습 포털 열기</span>
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+
+            <!-- TAGS -->
+            <div class="article-tags-wrap">
+                <span style="font-size: 13px; color: #64748B; font-weight: 700; margin-right: 6px;">TAGS:</span>
+                <span class="article-tag">#사무직AX</span>
+                <span class="article-tag">#AITransformation</span>
+                <span class="article-tag">#JPDC</span>
+                <span class="article-tag">#제주개발공사</span>
+                <span class="article-tag">#전사적리스크관리</span>
+                <span class="article-tag">#COSO_ERM</span>
+                <span class="article-tag">#실시간대시보드</span>
+                <span class="article-tag">#데이터사일로극복</span>
+                <span class="article-tag">#스마트행정</span>
+                <span class="article-tag">#정우진AI전문가</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="footer dark-section" style="border-top: 1px solid var(--accent-border); padding: 40px 8%; text-align: center; color: var(--text-sub); font-size: 14px;">
+        <p>© 2026 CLOUD BREAD · 정우진 AI STRATEGIST. All Rights Reserved.</p>
+        <p style="margin-top: 6px;">본 기사는 정우진 AI STRATEGIST의 공공·기업 교육 현장 아카이브 및 테크 저널 기고문입니다.</p>
+    </footer>
+
+    <!-- Script for Navigation -->
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileSidebar = document.getElementById('mobile-sidebar');
+        const menuOverlay = document.getElementById('menu-overlay');
+
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                mobileSidebar.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
+            });
+        }
+        if (menuOverlay) {
+            menuOverlay.addEventListener('click', () => {
+                mobileSidebar.classList.remove('active');
+                menuOverlay.classList.remove('active');
+            });
+        }
+    </script>
+</body>
+
+</html>
