@@ -452,12 +452,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         <!-- 배너 2: 중구 조례 Semantic RAG -->
                         <div style="background: linear-gradient(135deg, #002D62 0%, #0047AB 60%, #0284C7 100%); color:#FFFFFF; border-radius:18px; padding:1.8rem 2.2rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 12px 30px rgba(0, 71, 171, 0.25); border:1px solid rgba(255,255,255,0.2);">
-                            <div>
-                                <span style="background:rgba(0,240,255,0.2); color:#00F0FF; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; display:inline-block; margin-bottom:8px;">🏛️ 공공 자치법규 AI 어드바이저</span>
+                            <div style="max-width:650px;">
+                                <span style="background:rgba(0,240,255,0.2); color:#00F0FF; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; display:inline-block; margin-bottom:8px;">🏛️ 기초 자치법규 AI 어드바이저</span>
                                 <h3 style="font-size:1.35rem; font-weight:800; margin:0; color:#FFFFFF;">울산광역시 중구청 조례 Semantic RAG 마스터랩</h3>
                                 <p style="font-size:0.9rem; color:#CBD5E1; margin:6px 0 0 0;">432개 지자체 조례 및 372개 정밀 조문 청크 기반 법조문 인용 및 의도 분석 실시간 답변 포털</p>
                             </div>
-                            <a href="rag-ordinance.html" style="background:#00F0FF; color:#030712; font-weight:800; font-size:0.95rem; padding:12px 24px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s;"><i class="fa-solid fa-arrow-up-right-from-square"></i> 중구 조례 RAG 입장하기 →</a>
+                            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                                <a href="rag-ordinance.html" style="background:#00F0FF; color:#030712; font-weight:800; font-size:0.9rem; padding:11px 20px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s;"><i class="fa-solid fa-robot"></i> 챗봇 체험하기 →</a>
+                                <a href="lecture-rag-ordinance.html" style="background:rgba(255,255,255,0.12); border:1px solid rgba(0,240,255,0.4); color:#00F0FF; font-weight:700; font-size:0.9rem; padding:11px 18px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s;"><i class="fa-solid fa-chalkboard-user"></i> 강의안 보기</a>
+                            </div>
+                        </div>
+
+                        <!-- 배너 3: 울산시(광역) 조례 Semantic RAG -->
+                        <div style="background: linear-gradient(135deg, #042f2e 0%, #0f766e 50%, #0284c7 100%); color:#FFFFFF; border-radius:18px; padding:1.8rem 2.2rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 12px 30px rgba(15, 118, 110, 0.25); border:1px solid rgba(0, 240, 255, 0.35);">
+                            <div style="max-width:650px;">
+                                <span style="background:rgba(0,240,255,0.2); color:#00F0FF; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; display:inline-block; margin-bottom:8px;">🌆 광역 자치법규 AI 어드바이저</span>
+                                <h3 style="font-size:1.35rem; font-weight:800; margin:0; color:#FFFFFF;">울산광역시(광역) 조례 Semantic RAG 마스터랩</h3>
+                                <p style="font-size:0.9rem; color:#CBD5E1; margin:6px 0 0 0;">청년 기본 조례, 저출생/난임 지원, 소상공인 경영안정자금, 침수방지시설, 교통약자 부름콜 등 104개 조항 실시간 시맨틱 검색</p>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                                <a href="rag-ulsan.html" style="background:#00F0FF; color:#030712; font-weight:800; font-size:0.9rem; padding:11px 20px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s;"><i class="fa-solid fa-city"></i> 울산시 RAG 체험 →</a>
+                                <a href="lecture-rag-ulsan.html" style="background:rgba(255,255,255,0.12); border:1px solid rgba(0,240,255,0.4); color:#00F0FF; font-weight:700; font-size:0.9rem; padding:11px 18px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s;"><i class="fa-solid fa-chalkboard-user"></i> 강의안 보기</a>
+                            </div>
                         </div>
                     </div>
                 ` : ''}

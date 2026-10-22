@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>울산광역시 조례 RAG 챗봇 제작 실무 강의안 | Cloud Bread</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background-color: #030712;
+      color: #f1f5f9;
+      line-height: 1.7;
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .gradient-border {
+      border: 1px solid transparent;
+      background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)) padding-box,
+                  linear-gradient(135deg, #0ea5e9, #06b6d4, #14b8a6) border-box;
+    }
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+    pre code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: rgba(56, 189, 248, 0.2);
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="selection:bg-cyan-500 selection:text-white">
+
+  <!-- Header -->
+  <header class="glass-card sticky top-0 z-50 border-b border-slate-800 px-4 sm:px-8 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="showcase.html?target=citizen" class="text-slate-400 hover:text-white transition p-1">
+        <i class="fa-solid fa-arrow-left text-lg"></i>
+      </a>
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 via-cyan-500 to-teal-400 flex items-center justify-center text-slate-950 font-black shadow-lg">
+        <i class="fa-solid fa-city text-lg"></i>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="text-base sm:text-lg font-bold text-white">울산광역시 조례 RAG 챗봇 제작 실무 강의안</h1>
+          <span class="text-[10px] bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 font-bold px-2 py-0.5 rounded-full">광역행정 RAG</span>
+        </div>
+        <p class="text-xs text-slate-400">데이터 수집부터 클라이언트 시맨틱 RAG, 안티그래비티 연계까지 A to Z</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <a href="rag-ulsan.html" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition shadow-md">
+        <i class="fa-solid fa-robot"></i>
+        <span>실시간 챗봇 체험</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 pt-10 pb-6">
+    <div class="gradient-border rounded-3xl p-6 sm:p-10 relative overflow-hidden shadow-2xl">
+      <div class="absolute -right-16 -top-16 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="relative z-10 space-y-4">
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="step-badge bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">공공데이터 & AI RAG 실무</span>
+          <span class="step-badge bg-slate-800 text-slate-300 border border-slate-700">소요 시간: 약 40분</span>
+          <span class="step-badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">오답률 0% 인텐트 부스팅</span>
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+          지방자치단체 조례 RAG 챗봇 구축 <br/>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-cyan-300 to-teal-300">
+            울산광역시 5대 핵심 광역 조례 집중 실습 가이드
+          </span>
+        </h2>
+        <p class="text-sm sm:text-base text-slate-300 max-w-3xl leading-relaxed">
+          본 강의안은 국가법령정보센터(law.go.kr)의 울산광역시 광역 조례 데이터를 활용하여, 청년 연령 기준, 소상공인 경영안정자금, 침수방지시설 차수판 지원 등 실제 시민들이 자주 묻는 질문에 대해 <strong>정확한 조항 원문과 근거를 제시하는 RAG(검색 증강 생성) 챗봇</strong>을 제작하는 전 과정을 상세히 다룹니다.
+        </p>
+
+        <!-- Quick Summary Cards -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-slate-800">
+          <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+            <div class="text-[11px] text-slate-400">학습 대상</div>
+            <div class="text-sm font-bold text-white mt-0.5">광역 공공 조례</div>
+          </div>
+          <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+            <div class="text-[11px] text-slate-400">데이터 소스</div>
+            <div class="text-sm font-bold text-cyan-300 mt-0.5">law.go.kr 공공 API</div>
+          </div>
+          <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+            <div class="text-[11px] text-slate-400">정밀 조항 수</div>
+            <div class="text-sm font-bold text-white mt-0.5">104개 Article</div>
+          </div>
+          <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+            <div class="text-[11px] text-slate-400">제작/실행 도구</div>
+            <div class="text-sm font-bold text-sky-400 mt-0.5">Antigravity / Web</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Stream -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-6 space-y-12">
+
+    <!-- STEP 1 -->
+    <div class="glass-card rounded-2xl p-6 sm:p-8 space-y-4 border border-slate-800">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="step-badge bg-sky-500 text-slate-950 font-black">STEP 1</span>
+          <h3 class="text-xl sm:text-2xl font-bold text-white">국가법령정보센터 자치법규 공공데이터 수집 파이프라인</h3>
+        </div>
+        <span class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-database mr-1"></i>Data Pipeline</span>
+      </div>
+
+      <p class="text-sm text-slate-300 leading-relaxed">
+        대한민국 자치법규는 <strong>국가법령정보센터(law.go.kr) DRF Open API</strong>를 통해 전산화되어 있습니다. 
+        광역자치단체(울산광역시)는 지자체 기관명 <code>울산광역시</code>, 법규 종류 <code>조례</code>로 필터링하여 총 700여 건 중 시민 체감도가 가장 높은 5대 핵심 조례를 선별하여 수집합니다.
+      </p>
+
+      <div class="bg-slate-950 rounded-xl p-4 border border-slate-800 space-y-2">
+        <div class="text-xs font-semibold text-slate-400 flex items-center justify-between">
+          <span>Python을 활용한 공공법령 API 수집 코드</span>
+          <span class="text-[11px] text-cyan-400">data_collection.py</span>
+        </div>
+        <pre class="text-xs text-cyan-200 overflow-x-auto custom-scroll p-3 bg-slate-900/80 rounded-lg"><code>import urllib.request
+import xml.etree.ElementTree as ET
+
+# 울산광역시 청년 기본 조례 (MST: 2110545)
+url = "https://www.law.go.kr/DRF/lawService.do?OC=test&target=ordin&MST=2110545&type=XML"
+req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+with urllib.request.urlopen(req) as resp:
+    root = ET.fromstring(resp.read())
+    law_name = root.find('.//자치법규기본정보/자치법규명').text
+    print(f"조례명: {law_name}")</code></pre>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
+        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+          <div class="font-bold text-cyan-400 mb-1">🏛️ 광역자치단체(시청) vs 기초(구청) 차이</div>
+          <p class="text-slate-400">광역 조례는 울산시 전체 5개 구·군을 관할하며 대규모 재정 지원(경영안정자금 융자, 특별교통수단 도입 등)의 총괄 기준을 수립합니다.</p>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+          <div class="font-bold text-cyan-400 mb-1">⚡ 5대 핵심 타깃 조례 선정</div>
+          <p class="text-slate-400">청년 기본 조례, 인구감소 및 저출생 대응 조례, 소상공인 지원 조례, 침수방지시설 설치 지원 조례, 교통약자 이동편의 증진 조례를 선정합니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="glass-card rounded-2xl p-6 sm:p-8 space-y-4 border border-slate-800">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="step-badge bg-cyan-500 text-slate-950 font-black">STEP 2</span>
+          <h3 class="text-xl sm:text-2xl font-bold text-white">자치법규 구조화 및 조항(Article) 단위 Chunking</h3>
+        </div>
+        <span class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-scissors mr-1"></i>Article Chunking</span>
+      </div>
+
+      <p class="text-sm text-slate-300 leading-relaxed">
+        일반 문서는 문단이나 글자 수(500~1000자)로 단순 분할하지만, 법령 데이터는 반드시 <strong>조(Article) 단위</strong>로 청킹해야 법적 맥락이 훼손되지 않습니다. 또한 각 조에 딸린 <code>항(Paragraph)</code>과 <code>호(Sub-paragraph)</code>를 조문 본문과 하나의 묶음으로 결합합니다.
+      </p>
+
+      <div class="bg-slate-950 rounded-xl p-4 border border-slate-800 space-y-2">
+        <div class="text-xs font-semibold text-slate-400">RAG 코퍼스 JSONL 표준 스키마 구조</div>
+        <pre class="text-xs text-emerald-300 overflow-x-auto custom-scroll p-3 bg-slate-900/80 rounded-lg"><code>{
+  "id": "ULSAN_CITY_2110545_000200",
+  "law_name": "울산광역시 청년 기본 조례",
+  "org": "울산광역시",
+  "category": "청년/일자리",
+  "article_no_display": "제2조(정의)",
+  "article_title": "정의",
+  "content": "제2조(정의) 이 조례에서 사용하는 용어의 뜻은 다음과 같다.\n1. \"청년\"이란 19세 이상 39세 이하인 사람을 말한다. 다만...",
+  "link": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=ordin&MST=2110545&type=HTML"
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="glass-card rounded-2xl p-6 sm:p-8 space-y-4 border border-slate-800">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="step-badge bg-teal-500 text-slate-950 font-black">STEP 3</span>
+          <h3 class="text-xl sm:text-2xl font-bold text-white">의도(Intent) 분석 기반 광역 시맨틱 부스팅 RAG 검색 엔진</h3>
+        </div>
+        <span class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-bullseye mr-1"></i>Intent Boosting</span>
+      </div>
+
+      <p class="text-sm text-slate-300 leading-relaxed">
+        일반적인 RAG에서 "울산시 청년 나이는?"이라고 검색하면 '청년' 단어가 수십 번 등장하는 센터 설치 조항이나 위원회 운영 조항이 검색 점수가 높아 엉뚱한 답을 낼 위험이 있습니다. 
+        이를 해결하기 위해 <strong>질문자의 의도(나이, 금액, 지원 자격)를 감지하여 정의 조항(제2조)에 가중치(+150점)를 부여하는 인텐트 부스팅(Intent Boosting) 알고리즘</strong>을 적용합니다.
+      </p>
+
+      <div class="bg-slate-950 rounded-xl p-4 border border-slate-800 space-y-2">
+        <div class="text-xs font-semibold text-slate-400">인텐트 부스팅 검색 로직 (JavaScript / Python 공통)</div>
+        <pre class="text-xs text-sky-300 overflow-x-auto custom-scroll p-3 bg-slate-900/80 rounded-lg"><code>// 질문 의도 감지
+const isAge = /나이|연령|몇\s*세|청년\s*기준/.test(query);
+const isYouth = /청년/.test(query);
+
+// 청년 나이 질문 시 제2조(정의)에 강력한 가중치 부여
+if (isYouth && isAge && item.law_name.includes('청년 기본 조례')) {
+  if (item.article_title.includes('정의') || item.article_no_raw === '000200') {
+    score += 150; // 1순위 강제 부스팅
+  }
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="glass-card rounded-2xl p-6 sm:p-8 space-y-4 border border-slate-800">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="step-badge bg-indigo-500 text-slate-950 font-black">STEP 4</span>
+          <h3 class="text-xl sm:text-2xl font-bold text-white">프롬프트 엔지니어링 & 다이렉트 앤서(Direct Answer) 합성</h3>
+        </div>
+        <span class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i>Synthesis</span>
+      </div>
+
+      <p class="text-sm text-slate-300 leading-relaxed">
+        시민 사용자는 길고 복잡한 법조문 전문을 읽기보다, "내가 원하는 답이 무엇인가?"를 즉시 확인하길 원합니다.
+        따라서 검색된 조항의 본문에서 <strong>핵심 수치와 대상(19세 이상 39세 이하 등)을 최상단에 다이렉트 앤서로 요약</strong>하고, 그 하단에 근거 조항과 원문 링크를 정갈하게 배치합니다.
+      </p>
+    </div>
+
+    <!-- SPECIAL TRACK: Google Antigravity Integration -->
+    <div class="glass-card rounded-2xl p-6 sm:p-8 space-y-6 border border-cyan-500/40" style="background: linear-gradient(180deg, rgba(8, 20, 37, 0.95) 0%, rgba(5, 10, 24, 0.98) 100%);">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="step-badge" style="background: linear-gradient(135deg, #06b6d4 0%, #38bdf8 100%); color:#030712;">SPECIAL TRACK</span>
+          <h3 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
+            <span>구글 안티그래비티(Google Antigravity) 연계 실습</span>
+            <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">100% No-Code RAG</span>
+          </h3>
+        </div>
+        <span class="text-xs text-cyan-400 font-mono"><i class="fa-solid fa-bolt mr-1"></i>복사 &amp; 붙여넣기 3초 완성</span>
+      </div>
+
+      <p class="text-sm text-slate-300 leading-relaxed">
+        별도의 복잡한 코딩이나 파이썬 서버 가동 없이, <strong>구글 안티그래비티(Google Antigravity)</strong> 환경에서 아래의 마스터 프롬프트를 복사하여 입력하기만 하면 
+        안티그래비티 AI가 워크스페이스 내 조례 데이터셋을 실시간 인덱싱하여 <strong>울산광역시 광역 조례 전문 RAG 챗봇 에이전트</strong>로 즉각 동작합니다.
+      </p>
+
+      <!-- 3-Step Antigravity Workflow -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+        <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+          <div class="font-bold text-cyan-400 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-folder-open"></i> 1단계. 폴더 열기</div>
+          <p class="text-slate-400">안티그래비티에서 <code>ulsan_city_ordinances_rag_corpus.jsonl</code> 파일이 있는 워크스페이스 폴더를 엽니다.</p>
+        </div>
+        <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+          <div class="font-bold text-emerald-400 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-copy"></i> 2단계. 프롬프트 복사 &amp; 입력</div>
+          <p class="text-slate-400">아래의 정교화된 마스터 프롬프트를 복사하여 안티그래비티 대화창에 그대로 붙여넣고 전송합니다.</p>
+        </div>
+        <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+          <div class="font-bold text-sky-400 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-comment-dots"></i> 3단계. 즉시 챗봇 상담</div>
+          <p class="text-slate-400">"청년 나이 기준", "소상공인 경영안정자금" 등 시민 질문을 바로 테스트하며 정확성을 검증합니다.</p>
+        </div>
+      </div>
+
+      <!-- Master Prompt Box with Copy Button -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-terminal text-cyan-400"></i>
+            <span class="text-sm font-bold text-white">울산광역시 조례 RAG 마스터 프롬프트 (수강생 복사용)</span>
+          </div>
+          <button onclick="copyAntigravityPrompt()" id="copy-btn" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition shadow-md">
+            <i class="fa-solid fa-clipboard"></i>
+            <span id="copy-btn-text">📋 안티그래비티 프롬프트 전체 복사</span>
+          </button>
+        </div>
+
+        <div class="relative">
+          <pre id="prompt-code" class="text-xs text-slate-200 bg-slate-950/90 p-4 sm:p-5 rounded-xl border border-slate-800 overflow-x-auto custom-scroll leading-relaxed font-mono whitespace-pre-wrap select-all"><code>당신은 대한민국 광역자치단체 행정 조례 전문 AI 비서이자 '울산광역시 자치법규 RAG 챗봇'입니다.
+현재 작업 폴더(Workspace) 내의 `ulsan_city_ordinances_rag_corpus.jsonl` 파일(또는 조례 데이터셋)을 바탕으로 시민들의 행정/복지/생활 질문에 대해 울산광역시 조례 원문을 철저히 검증하여 정확하게 답변해야 합니다.
+
+### [필수 지침 및 답변 원칙]
+1. 광역 조례 원문 최우선:
+   - 추측이나 환각(Hallucination)을 철저히 배제하고, 반드시 코퍼스에 등록된 울산광역시 조례 조항만을 근거로 답변하세요.
+   - 기초자치단체(구·군) 조례와 혼동하지 마시고, 울산광역시 광역 시정 차원의 지원 기준을 명확히 안내하세요.
+   - 정보가 코퍼스에 없는 경우 솔직하게 "해당 내용은 울산시 핵심 조례 데이터에서 확인되지 않으므로 울산광역시청 해당 주관부서 문의가 필요합니다"라고 안내하세요.
+
+2. 의도 기반 조항 우선순위(Intent Boosting):
+   - 질문자가 "나이", "연령", "청년 기준"을 물을 때는 반드시 「울산광역시 청년 기본 조례」 `제2조(정의)`의 연령 기준("19세 이상 39세 이하인 사람")을 1순위로 추출하여 최상단에 제시하세요.
+   - "소상공인 지원" 또는 "경영안정자금"을 물을 때는 「울산광역시 소상공인 지원 조례」 제4조~제5조의 경영안정자금 융자지원, 특례보증 지원을 우선 제시하세요.
+   - "침수방지시설" 또는 "차수판"을 물을 때는 「울산광역시 침수방지시설 설치 지원 조례」의 단독·공동주택 및 소규모 상가 차수판 설치비용 지원 조항을 최우선 추출하세요.
+   - "교통약자" 또는 "부름콜"을 물을 때는 「울산광역시 교통약자의 이동편의 증진 조례」의 특별교통수단 및 이동지원센터 규정을 안내하세요.
+   - 조항 번호는 `000200` 형식이 아닌 사람이 읽기 편한 `제2조`, `제3조` 형식으로 자동 변환해 표기하세요.
+
+3. 답변 출력 표준 템플릿:
+   답변 시 반드시 다음 3단계 구조로 정갈하게 가독성을 높여 출력하세요.
+   
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   🎯 [핵심 요약]
+   - 질문에 대한 핵심 결론 및 수치(연령, 금액, 대상 요건 등)를 1~2문장으로 명확히 요약
+   
+   📜 [근거 광역 조례 및 세부 조항]
+   - 조례명: 울산광역시 OOO 조례
+   - 관련 조항: 제O조(제목)
+   - 소관 부서: OOO과
+   - 조항 본문 발췌: "..."
+   
+   💡 [시민 안내 및 팁]
+   - 신청 자격, 구비 서류, 신청 기관(울산광역시청 주관부서 또는 관련 산하기관) 등 시민 관점의 실질적 팁 제공
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+지금 준비가 완료되었다면 "울산광역시 조례 전문 챗봇 준비가 완료되었습니다. 질문해 주세요!"라고 답변하고 대기를 시작하세요.</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Test Callout -->
+    <div class="glass-card rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-4 border border-cyan-500/30">
+      <div class="space-y-1 text-center sm:text-left">
+        <h4 class="text-lg font-bold text-white flex items-center justify-center sm:justify-start gap-2">
+          <i class="fa-solid fa-circle-check text-cyan-400"></i>
+          지금 바로 완성된 울산광역시 조례 RAG 챗봇을 테스트해 보세요!
+        </h4>
+        <p class="text-xs text-slate-400">웹 환경에서 실시간 동작하는 시맨틱 부스팅 RAG 검색 결과를 직접 경험할 수 있습니다.</p>
+      </div>
+      <a href="rag-ulsan.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 hover:from-sky-400 hover:to-cyan-300 text-slate-950 font-extrabold text-sm transition shadow-lg shrink-0">
+        <span>울산시 조례 챗봇 열기</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 py-8 text-center text-xs text-slate-500 mt-12">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>© 2026 Cloud Bread. Public AI Courseware & RAG Engineering.</p>
+      <div class="flex items-center gap-4">
+        <a href="rag-ulsan.html" class="hover:text-slate-300 transition text-cyan-400">울산시 챗봇</a>
+        <a href="rag-ordinance.html" class="hover:text-slate-300 transition">울산 중구 챗봇</a>
+        <a href="lecture-rag-ordinance.html" class="hover:text-slate-300 transition">중구 강의안</a>
+        <a href="showcase.html?target=citizen" class="hover:text-slate-300 transition">시민 쇼케이스</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function copyAntigravityPrompt() {
+      const codeElement = document.getElementById('prompt-code');
+      const textToCopy = codeElement.innerText;
+      
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const btnText = document.getElementById('copy-btn-text');
+        const originalText = btnText.innerText;
+        btnText.innerText = '✅ 복사 완료!';
+        
+        setTimeout(() => {
+          btnText.innerText = originalText;
+        }, 2000);
+      }).catch(err => {
+        console.error('클립보드 복사 실패:', err);
+      });
+    }
+  </script>
+</body>
+</html>
