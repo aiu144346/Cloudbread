@@ -107,24 +107,23 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
-        <!-- Profile Image (Background Removed & Cyber/Tech Aura Backdrop) -->
+        <!-- Profile Image -->
         <div class="lg:col-span-5 flex justify-center">
           <div class="relative group">
-            <!-- Ambient Glow -->
-            <div class="absolute -inset-2 bg-gradient-to-tr from-[#00f0ff]/40 via-indigo-500/30 to-purple-600/40 rounded-3xl blur-xl opacity-60 group-hover:opacity-90 transition duration-700"></div>
+            <!-- Subtle Ambient Glow -->
+            <div class="absolute -inset-2 bg-gradient-to-tr from-[#00f0ff]/30 via-indigo-500/20 to-purple-600/30 rounded-3xl blur-xl opacity-60 group-hover:opacity-90 transition duration-700"></div>
             
-            <!-- Portrait Container with Tech Aurora Gradient -->
-            <div class="relative w-64 h-80 sm:w-72 sm:h-96 rounded-2xl overflow-hidden shadow-2xl border-2 border-[#00f0ff]/40 flex items-end justify-center"
-                 style="background: radial-gradient(circle at 50% 35%, rgba(0, 240, 255, 0.25) 0%, rgba(13, 71, 161, 0.4) 45%, #0a192f 85%);">
-              <picture class="w-full h-full flex items-end justify-center">
-                <source srcset="./assets/profile_nobg.webp" type="image/webp">
-                <img src="./assets/profile_nobg.png" alt="정우진 대표 프로필 사진" 
-                     class="w-full h-full object-contain object-bottom hover:scale-105 transition duration-500 drop-shadow-[0_10px_25px_rgba(0,0,0,0.6)]">
+            <!-- Portrait Container -->
+            <div class="relative w-64 h-80 sm:w-72 sm:h-96 rounded-2xl overflow-hidden shadow-2xl border-2 border-white/20 bg-slate-800">
+              <picture class="w-full h-full">
+                <source srcset="./assets/profile_main.webp" type="image/webp">
+                <img src="./assets/profile_main.jpg" alt="정우진 대표 프로필 사진" 
+                     class="w-full h-full object-cover object-top hover:scale-105 transition duration-500">
               </picture>
             </div>
             
             <!-- Status Badge -->
-            <div class="absolute -bottom-4 right-4 bg-[#0a192f]/95 backdrop-blur px-4 py-2 rounded-xl shadow-xl border border-[#00f0ff]/30 flex items-center gap-2">
+            <div class="absolute -bottom-4 right-4 bg-[#0a192f]/95 backdrop-blur px-4 py-2 rounded-xl shadow-xl border border-white/10 flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
               <span class="text-xs font-semibold text-slate-200">AX 컨설팅 & 강연 진행 중</span>
             </div>
