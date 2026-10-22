@@ -3972,3 +3972,18 @@ body.has-notice-bar .hero {
     }
 }
 
+/* AX Roadmap 3-Step Styling */
+.roadmap-step-card:hover {
+    transform: translateY(-6px);
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(0, 240, 255, 0.5) !important;
+    box-shadow: 0 15px 35px rgba(0, 240, 255, 0.12) !important;
+}
+
+@media (max-width: 960px) {
+    .ax-roadmap-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+}
+
