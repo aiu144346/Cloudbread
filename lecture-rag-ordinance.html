@@ -284,6 +284,99 @@ for (const item of corpus) {
       </div>
     </div>
 
+    
+    <!-- SPECIAL TRACK: Google Antigravity Integration -->
+    <div class="glass-card rounded-2xl p-6 sm:p-8 space-y-6 border border-sky-500/30" style="background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(10, 15, 29, 0.95) 100%);">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="step-badge" style="background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%); color:#030712;">SPECIAL TRACK</span>
+          <h3 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
+            <span>구글 안티그래비티(Google Antigravity) 연계 실습</span>
+            <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30">100% No-Code RAG</span>
+          </h3>
+        </div>
+        <span class="text-xs text-sky-400 font-mono"><i class="fa-solid fa-bolt mr-1"></i>복사 &amp; 붙여넣기로 3분 완성</span>
+      </div>
+
+      <p class="text-sm text-slate-300 leading-relaxed">
+        복잡한 파이썬 코딩이나 서버 구축 없이도, <strong>구글 안티그래비티(Google Antigravity)</strong> 환경에 아래 프롬프트를 복사하여 입력하기만 하면 
+        안티그래비티가 스스로 조례 데이터셋을 인덱싱하고 <strong>울산 중구청 전문 법률 RAG 챗봇 에이전트</strong>로 즉각 변신합니다.
+      </p>
+
+      <!-- 3-Step Antigravity Workflow -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+        <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+          <div class="font-bold text-sky-400 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-folder-open"></i> 1단계. 폴더 열기</div>
+          <p class="text-slate-400">안티그래비티에서 <code>ulsan_junggu_ordinances_rag_corpus.jsonl</code> 파일이 있는 워크스페이스 폴더를 엽니다.</p>
+        </div>
+        <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+          <div class="font-bold text-emerald-400 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-copy"></i> 2단계. 프롬프트 복사 &amp; 입력</div>
+          <p class="text-slate-400">아래 마스터 프롬프트를 복사하여 안티그래비티 대화창에 그대로 붙여넣고 전송합니다.</p>
+        </div>
+        <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+          <div class="font-bold text-indigo-400 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-comments"></i> 3단계. 즉시 RAG 대화</div>
+          <p class="text-slate-400">"청년 나이 기준은?", "침수방지시설 지원 요건은?" 등 질문을 던져 실시간 답변을 검증합니다.</p>
+        </div>
+      </div>
+
+      <!-- Master Prompt Box -->
+      <div class="space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-sky-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-terminal"></i> [원클릭 복사용] 구글 안티그래비티 자치법규 RAG 마스터 프롬프트
+          </span>
+          <span class="text-[11px] text-slate-400">안티그래비티 입력창에 그대로 붙여넣으세요</span>
+        </div>
+
+        <div class="code-container p-4 font-mono text-xs text-slate-300">
+          <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> 마스터 프롬프트 전체 복사</button>
+          <pre><code>당신은 지금부터 '울산광역시 중구 자치법규(조례) 전문 AI 법률 어드바이저' 역할을 수행합니다.
+현재 워크스페이스에 저장된 'ulsan_junggu_ordinances_rag_corpus.jsonl' (또는 'data/ulsan_ordinances.json') 조례 데이터셋을 지식베이스(Knowledge Base)로 활용하여 사용자의 질문에 정확한 법적 근거를 바탕으로 답변하세요.
+
+[동작 원칙 및 RAG 가이드라인]
+1. 데이터 검색:
+   - 사용자가 질문을 입력하면, 질문과 관련된 울산광역시 중구 조례명과 조문(제1조~부칙)을 검색하세요.
+   - 불용어(울산, 중구, 조례상, 기준은, 몇세, 어떻게 등)를 제외하고 핵심 키워드 및 의도(Intent)를 파악하세요.
+
+2. 질문 의도(Intent)별 핵심 조항 매핑:
+   - '청년 나이/기준/연령': 『울산광역시 중구 청년 기본 조례』 제2조(정의)를 참조하여 반드시 "19세 이상 39세 이하"를 명시하세요. (제21조 청년센터 설치 조항과 혼동 금지)
+   - '출산지원금/임신 지원/거주요건': 『울산광역시 중구 출산지원금 지급 조례』 제3조의2(지원대상)를 참조하여 "출생일 기준 1개월 전부터 울산 중구 주민등록 거주"를 명시하세요.
+   - '침수방지시설/차수판 지원': 『울산광역시 중구 침수방지시설 설치 지원에 관한 조례』 제3조(지원대상) 및 제4조를 참조하세요.
+   - '골목상권/상점가 지원': 『울산광역시 중구 골목상권 활성화에 관한 조례』 제4조(골목상권공동체 지정)를 참조하세요.
+   - '소상공인 융자/이자 지원': 『울산광역시 중구 소상공인 지원 조례』 제4조(경영안정자금 지원)를 참조하세요.
+
+3. 답변 출력 표준 포맷 (아래 3단계 양식을 철저히 준수하세요):
+   ### 💡 핵심 답변 요약
+   (질문자의 질문에 1:1로 직접 대답하는 명쾌한 결론 1~2문장)
+
+   ---
+   #### 🏛️ 근거 자치법규
+   * **소관 조례**: 『정확한 조례명』 (공포번호: 제O호)
+   * **근거 조항**: 제O조 (조문제목)
+
+   #### 📜 주요 법조문 원문 발췌
+   > (조문 본문 2~4줄 인용)
+
+4. 준비 완료 확인:
+   - 위 내용을 이해했다면 "울산광역시 중구 자치법규 RAG 챗봇 에이전트 준비가 완료되었습니다. 질문을 입력해 주세요!"라고 응답하고 대기를 시작하세요.</code></pre>
+        </div>
+      </div>
+
+      <!-- Real Example Output -->
+      <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 text-xs space-y-2">
+        <strong class="text-emerald-400 block"><i class="fa-solid fa-circle-check"></i> 안티그래비티 실제 실행 테스트 예시:</strong>
+        <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-1.5 text-slate-300">
+          <p class="text-sky-400 font-bold">👤 사용자: "울산 중구 청년 기본 조례상 지원받을 수 있는 청년의 나이 기준은 몇 세부터 몇 세까지인가요?"</p>
+          <div class="text-slate-200 pl-3 border-l-2 border-emerald-500 py-1 space-y-1">
+            <p><strong>💡 핵심 답변 요약:</strong> 울산광역시 중구 청년 기본 조례 제2조에 따르면, 지원 대상 청년의 나이 기준은 <strong>「19세 이상 39세 이하」</strong>인 사람입니다.</p>
+            <p class="text-slate-400 text-[11px]">🏛️ 근거 자치법규: 『울산광역시 중구 청년 기본 조례』 제2조(정의) [공포번호 제1336호]</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
     <!-- Bottom Action CTA -->
     <div class="bg-gradient-to-r from-sky-900/40 via-indigo-900/40 to-blue-900/40 border border-sky-500/30 rounded-2xl p-6 sm:p-8 text-center space-y-4">
       <h3 class="text-xl sm:text-2xl font-bold text-white">지금 바로 완성된 RAG 챗봇을 테스트해 보세요!</h3>
