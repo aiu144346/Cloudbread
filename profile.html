@@ -68,22 +68,34 @@
         <a href="notice.html" class="hover:text-[#00f0ff] transition-colors">공지사항</a>
       </nav>
 
-      <!-- Nav Action Buttons -->
+      <!-- Nav Action Buttons & Language Switcher -->
       <div class="hidden sm:flex items-center gap-3">
-        <a href="https://cloudbread-rag.streamlit.app" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-xl bg-sky-500/10 text-[#00f0ff] border border-[#00f0ff]/40 hover:bg-[#00f0ff]/20 transition-all shadow-sm">
+        <!-- Language Switcher Pill -->
+        <div class="flex items-center bg-white/10 rounded-xl p-1 border border-white/15 text-xs font-bold mr-1">
+          <span class="px-2.5 py-1 rounded-lg bg-sky-500 text-white shadow-sm">KR</span>
+          <a href="profile-en.html" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">EN</a>
+        </div>
+
+        <a href="https://cloudbread-rag.streamlit.app" target="_blank" class="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-bold rounded-xl bg-sky-500/10 text-[#00f0ff] border border-[#00f0ff]/40 hover:bg-[#00f0ff]/20 transition-all shadow-sm">
           <i class="fa-solid fa-robot"></i>
           <span>RAG 챗봇 실습</span>
         </a>
-        <a href="archive.html" class="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white hover:opacity-95 transition-all shadow-md shadow-sky-500/20">
+        <a href="archive.html" class="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-bold rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white hover:opacity-95 transition-all shadow-md shadow-sky-500/20">
           <i class="fa-solid fa-folder-open"></i>
           <span>강의 라이브러리</span>
         </a>
       </div>
 
       <!-- Mobile Menu Toggle Button -->
-      <button id="mobileMenuBtn" class="lg:hidden p-2 text-slate-300 hover:text-white focus:outline-none">
-        <i class="fa-solid fa-bars text-xl" id="menuIcon"></i>
-      </button>
+      <div class="flex items-center gap-2 lg:hidden">
+        <div class="flex items-center bg-white/10 rounded-lg p-0.5 border border-white/15 text-xs font-bold mr-1">
+          <span class="px-2 py-0.5 bg-sky-500 text-white rounded">KR</span>
+          <a href="profile-en.html" class="px-2 py-0.5 text-slate-400">EN</a>
+        </div>
+        <button id="mobileMenuBtn" class="p-2 text-slate-300 hover:text-white focus:outline-none">
+          <i class="fa-solid fa-bars text-xl" id="menuIcon"></i>
+        </button>
+      </div>
     </div>
 
     <!-- Mobile Dropdown Menu -->
@@ -139,10 +151,13 @@
           
           <div>
             <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
-              정 우 진 <span class="text-xl sm:text-2xl font-semibold text-slate-400">(鄭 宇 眞)</span>
+              정 우 진 <span class="text-xl sm:text-2xl font-semibold text-slate-400">Woo Jin Jeong</span>
             </h1>
+            <p class="mt-1 text-sm font-semibold text-sky-300">
+              English Moniker: <span class="text-[#00f0ff] font-bold">Cloud Bread</span> (구름빵)
+            </p>
             <p class="mt-2 text-lg sm:text-xl font-medium text-[#00f0ff]">
-              네오픽스에이아이(주) 대표이사 | 한국장학재단 감사위원회 자문위원
+              네오픽스에이아이(주) (Neopeaks AI, Inc.) 대표이사 | 한국장학재단 감사위원회 자문위원
             </p>
           </div>
 
