@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>대표 소개 | 정우진 (鄭 宇 眞) - CLOUD BREAD</title>
+  <meta name="description" content="네오픽스에이아이(주) 대표이사 정우진. 생성형 AI, 프롬프트 엔지니어링, 공공기관 및 기업 AX 전환 컨설팅 전문가 프로필 및 전체 강의 실적.">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="정우진 대표 소개 | AI·AX 혁신 전략가 - CLOUD BREAD">
+  <meta property="og:description" content="공공기관 및 기업 맞춤형 AI/AX 전환 컨설턴트, 누적 교육 8,092명+, 베스트셀러 저자 정우진 대표 프로필">
+  <meta property="og:image" content="./assets/profile_main.jpg">
+  <meta property="og:url" content="https://www.cloudbread.me/profile.html">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Pretendard & Inter -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            navy: {
+              900: '#0a192f',
+              800: '#112240',
+              700: '#233554',
+            },
+            electric: {
+              blue: '#00f0ff',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Pretendard', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-sky-500 selection:text-white">
+
+  <!-- Main Navigation Bar (CloudBread Universal Nav) -->
+  <header class="sticky top-0 z-50 bg-[#0a192f]/95 backdrop-blur-md border-b border-white/10 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <span class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 text-white flex items-center justify-center font-extrabold text-sm shadow-lg shadow-sky-500/20 group-hover:scale-105 transition-transform">CB</span>
+        <span class="text-xl font-black tracking-wider text-white">CLOUD BREAD</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-300">
+        <a href="index.html" class="hover:text-[#00f0ff] transition-colors">홈</a>
+        <a href="profile.html" class="text-[#00f0ff] font-bold border-b-2 border-[#00f0ff] pb-1">대표소개</a>
+        <a href="showcase.html" class="hover:text-[#00f0ff] transition-colors">강의쇼케이스</a>
+        <a href="youtube.html" class="hover:text-[#00f0ff] transition-colors">유튜브Hub</a>
+        <a href="library.html" class="hover:text-[#00f0ff] transition-colors">저서</a>
+        <a href="activities.html" class="hover:text-[#00f0ff] transition-colors">언론 및 활동</a>
+        <a href="notice.html" class="hover:text-[#00f0ff] transition-colors">공지사항</a>
+      </nav>
+
+      <!-- Nav Action Buttons -->
+      <div class="hidden sm:flex items-center gap-3">
+        <a href="https://cloudbread-rag.streamlit.app" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-xl bg-sky-500/10 text-[#00f0ff] border border-[#00f0ff]/40 hover:bg-[#00f0ff]/20 transition-all shadow-sm">
+          <i class="fa-solid fa-robot"></i>
+          <span>RAG 챗봇 실습</span>
+        </a>
+        <a href="archive.html" class="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white hover:opacity-95 transition-all shadow-md shadow-sky-500/20">
+          <i class="fa-solid fa-folder-open"></i>
+          <span>강의 라이브러리</span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button id="mobileMenuBtn" class="lg:hidden p-2 text-slate-300 hover:text-white focus:outline-none">
+        <i class="fa-solid fa-bars text-xl" id="menuIcon"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobileDropdown" class="hidden lg:hidden bg-[#0a192f] border-b border-white/10 px-4 py-5 space-y-3">
+      <a href="index.html" class="block py-2 text-slate-300 hover:text-[#00f0ff]">홈</a>
+      <a href="profile.html" class="block py-2 text-[#00f0ff] font-bold">대표소개</a>
+      <a href="showcase.html" class="block py-2 text-slate-300 hover:text-[#00f0ff]">강의쇼케이스</a>
+      <a href="youtube.html" class="block py-2 text-slate-300 hover:text-[#00f0ff]">유튜브Hub</a>
+      <a href="library.html" class="block py-2 text-slate-300 hover:text-[#00f0ff]">저서</a>
+      <a href="activities.html" class="block py-2 text-slate-300 hover:text-[#00f0ff]">언론 및 활동</a>
+      <a href="notice.html" class="block py-2 text-slate-300 hover:text-[#00f0ff]">공지사항</a>
+      <div class="pt-3 border-t border-white/10 flex flex-col gap-2">
+        <a href="https://cloudbread-rag.streamlit.app" target="_blank" class="text-center py-2 text-xs font-bold rounded-lg bg-sky-500/20 text-[#00f0ff] border border-[#00f0ff]/30">RAG 챗봇 실습</a>
+        <a href="archive.html" class="text-center py-2 text-xs font-bold rounded-lg bg-sky-600 text-white">강의 라이브러리</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Header Section -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-[#0a192f] via-[#112240] to-slate-900 text-white py-16 lg:py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Profile Image -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="relative group">
+            <div class="absolute -inset-1.5 bg-gradient-to-r from-[#00f0ff] to-indigo-500 rounded-3xl blur opacity-30 group-hover:opacity-60 transition duration-500"></div>
+            <div class="relative w-64 h-80 sm:w-72 sm:h-96 rounded-2xl overflow-hidden shadow-2xl bg-slate-800 border-2 border-white/20">
+              <picture>
+                <source srcset="./assets/profile_main.webp" type="image/webp">
+                <img src="./assets/profile_main.jpg" alt="정우진 대표 프로필 사진" class="w-full h-full object-cover object-top hover:scale-105 transition duration-500">
+              </picture>
+            </div>
+            <!-- Status Badge -->
+            <div class="absolute -bottom-4 right-4 bg-[#0a192f]/95 backdrop-blur px-4 py-2 rounded-xl shadow-lg border border-white/10 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span class="text-xs font-semibold text-slate-200">AX 컨설팅 & 강연 진행 중</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bio & Title -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-400/30 text-[#00f0ff] text-xs font-bold tracking-wide uppercase">
+            <i class="fa-solid fa-sparkles"></i>
+            <span>AI & AX Transformation Leader</span>
+          </div>
+          
+          <div>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
+              정 우 진 <span class="text-xl sm:text-2xl font-semibold text-slate-400">(鄭 宇 眞)</span>
+            </h1>
+            <p class="mt-2 text-lg sm:text-xl font-medium text-[#00f0ff]">
+              네오픽스에이아이(주) 대표이사 | 한국장학재단 감사위원회 자문위원
+            </p>
+          </div>
+
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl font-normal">
+            "기술의 정점에서 사람을 봅니다. 내일을 바꾸는 AI, 그 이상의 가치를 설계합니다."<br>
+            공공기관과 기업의 성공적인 <strong>AX(인공지능 전환)</strong> 및 <strong>생성형 AI 실무 도입</strong>을 선도하며, 
+            프롬프트 엔지니어링과 행정 혁신 교육을 통해 8,000명 이상의 리더 및 실무자들과 함께해 왔습니다.
+          </p>
+
+          <!-- Contact & Action Buttons -->
+          <div class="flex flex-wrap gap-3 justify-center lg:justify-start pt-2">
+            <a href="tel:010-3616-2140" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:opacity-95 text-white text-sm font-bold shadow-lg shadow-sky-500/20 transition-all">
+              <i class="fa-solid fa-phone"></i>
+              <span>직통 문의: 010-3616-2140</span>
+            </a>
+            <a href="#lectures" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/20 text-sm font-semibold backdrop-blur transition-all">
+              <i class="fa-solid fa-list-check text-[#00f0ff]"></i>
+              <span>전체 강의·컨설팅 실적 (75건)</span>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Metric Dashboard -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      
+      <div class="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-xl text-center hover:-translate-y-1 transition duration-300">
+        <div class="text-sky-600 mb-1"><i class="fa-solid fa-users text-2xl"></i></div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-slate-900">8,092명+</div>
+        <div class="text-xs sm:text-sm text-slate-500 mt-1 font-semibold">총 누적 교육 인원</div>
+      </div>
+
+      <div class="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-xl text-center hover:-translate-y-1 transition duration-300">
+        <div class="text-indigo-600 mb-1"><i class="fa-solid fa-building-columns text-2xl"></i></div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-slate-900">120개+</div>
+        <div class="text-xs sm:text-sm text-slate-500 mt-1 font-semibold">공공기관·대학·기업 출강</div>
+      </div>
+
+      <div class="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-xl text-center hover:-translate-y-1 transition duration-300">
+        <div class="text-amber-500 mb-1"><i class="fa-solid fa-book-open text-2xl"></i></div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-slate-900">3권</div>
+        <div class="text-xs sm:text-sm text-slate-500 mt-1 font-semibold">국내외 저서 및 번역서</div>
+      </div>
+
+      <div class="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-xl text-center hover:-translate-y-1 transition duration-300">
+        <div class="text-emerald-600 mb-1"><i class="fa-solid fa-chalkboard-user text-2xl"></i></div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-slate-900">8년</div>
+        <div class="text-xs sm:text-sm text-slate-500 mt-1 font-semibold">울산대 정책대학원 외래강사</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Core Expertise -->
+  <section id="expertise" class="py-16 sm:py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h2 class="text-xs sm:text-sm font-bold text-sky-600 tracking-wider uppercase">Core Expertise</h2>
+        <p class="mt-2 text-2xl sm:text-3xl font-black text-slate-900">핵심 강의 및 컨설팅 분야</p>
+        <p class="mt-2 text-slate-600 text-sm sm:text-base">변화하는 AI 환경에 맞춘 실질적이고 즉각적인 생산성 혁신 솔루션을 제시합니다.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">생성형 AI & 프롬프트 엔지니어링</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            최신 대규모 언어모델(LLM) 활용법, 정교한 프롬프트 작성 기법 및 실무 자동화 워크플로우 구축.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-briefcase"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">공공 및 기업 맞춤형 AI 역량 강화</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            공직자·시민·임직원 대상 생성형 AI 활용 기획서 작성, 보고서 고도화 및 행정 혁신 교육.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-network-wired"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">공공기관 및 기업 AX 전환 컨설팅</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            리스크 관리, 데이터센터 인프라 이슈 분석, 조직 프로세스의 AI 전환(AX) 전략 수립 및 자문.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-clapperboard"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">AI 크리에이티브 & 콘텐츠 제작</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            AI 동영상 제작, 멀티미디어 크리에이티브, 홍보 미디어 및 온라인 콘텐츠 고도화 강좌.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">신기술 트렌드 & DX 컨설팅</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            글로벌 신기술 동향, 디지털 전환(DX) 로드맵, 미래 경영 환경 변화에 대응하는 중소기업 도입 전략.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-code"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">RAG 챗봇 & 대시보드 구축 강좌</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            검색증강생성(RAG) 챗봇 구현, 최신 Gemini LM 및 안티그래비티 대시보드 실습 연계 교육.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Career & Education -->
+  <section id="career" class="py-16 bg-white border-y border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        
+        <!-- Career -->
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+            <span class="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-user-tie"></i>
+            </span>
+            <h2 class="text-2xl font-bold text-slate-900">주요 경력 (Career)</h2>
+          </div>
+
+          <div class="space-y-4 border-l-2 border-slate-200 pl-4 sm:pl-6 ml-4">
+            <div class="relative">
+              <span class="absolute -left-[23px] sm:-left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-sky-600 border-2 border-white"></span>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-sky-50 text-sky-700">2024년 ~ 현재</span>
+              <h3 class="text-base font-bold text-slate-900 mt-1">네오픽스에이아이㈜</h3>
+              <p class="text-sm text-slate-600">대표이사</p>
+            </div>
+
+            <div class="relative">
+              <span class="absolute -left-[23px] sm:-left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-slate-400 border-2 border-white"></span>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700">2026년 ~ 현재</span>
+              <h3 class="text-base font-bold text-slate-900 mt-1">한국장학재단 감사위원회</h3>
+              <p class="text-sm text-slate-600">자문위원</p>
+            </div>
+
+            <div class="relative">
+              <span class="absolute -left-[23px] sm:-left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-slate-400 border-2 border-white"></span>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700">2022년 ~ 현재</span>
+              <h3 class="text-base font-bold text-slate-900 mt-1">한국면접관협회</h3>
+              <p class="text-sm text-slate-600">회원 / 면접관</p>
+            </div>
+
+            <div class="relative">
+              <span class="absolute -left-[23px] sm:-left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-slate-400 border-2 border-white"></span>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700">2022년 ~ 현재</span>
+              <h3 class="text-base font-bold text-slate-900 mt-1">프라임디지털커뮤니케이션</h3>
+              <p class="text-sm text-slate-600">대표</p>
+            </div>
+
+            <div class="relative">
+              <span class="absolute -left-[23px] sm:-left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-slate-400 border-2 border-white"></span>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700">2021년 ~ 2022년</span>
+              <h3 class="text-base font-bold text-slate-900 mt-1">울산정보산업진흥원</h3>
+              <p class="text-sm text-slate-600">팀장 (울산이노베이션스쿨 기획운영·총괄)</p>
+            </div>
+
+            <div class="relative">
+              <span class="absolute -left-[23px] sm:-left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-slate-400 border-2 border-white"></span>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700">2020년 ~ 2020년</span>
+              <h3 class="text-base font-bold text-slate-900 mt-1">울산연구원</h3>
+              <p class="text-sm text-slate-600">팀장 (울산열린시민대학 기획운영·총괄)</p>
+            </div>
+
+            <div class="relative">
+              <span class="absolute -left-[23px] sm:-left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-slate-400 border-2 border-white"></span>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700">2018년 ~ 2019년</span>
+              <h3 class="text-base font-bold text-slate-900 mt-1">울산광역시청</h3>
+              <p class="text-sm text-slate-600">교육보좌관 (울산광역시장 교육보좌)</p>
+            </div>
+
+            <div class="relative">
+              <span class="absolute -left-[23px] sm:-left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-slate-400 border-2 border-white"></span>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700">2009년 ~ 2016년</span>
+              <h3 class="text-base font-bold text-slate-900 mt-1">울산대학교 정책대학원</h3>
+              <p class="text-sm text-slate-600">외래강사 (영어강의)</p>
+            </div>
+
+            <div class="relative">
+              <span class="absolute -left-[23px] sm:-left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-slate-400 border-2 border-white"></span>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700">2003년 ~ 2018년</span>
+              <h3 class="text-base font-bold text-slate-900 mt-1">미시간어학원</h3>
+              <p class="text-sm text-slate-600">원장 (대표 운영)</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education & Projects -->
+        <div class="space-y-10">
+          
+          <div>
+            <div class="flex items-center gap-3 mb-6">
+              <span class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-lg">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </span>
+              <h2 class="text-2xl font-bold text-slate-900">학력 (Education)</h2>
+            </div>
+
+            <div class="space-y-4 border-l-2 border-slate-200 pl-4 sm:pl-6 ml-4">
+              <div class="relative">
+                <span class="absolute -left-[23px] sm:-left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-indigo-600 border-2 border-white"></span>
+                <span class="text-xs font-semibold px-2 py-0.5 rounded bg-indigo-50 text-indigo-700">2022년 ~ 2024년</span>
+                <h3 class="text-base font-bold text-slate-900 mt-1">울산대학교 대학원 경영학과</h3>
+                <p class="text-sm text-slate-600 font-medium">박사과정 수료</p>
+              </div>
+
+              <div class="relative">
+                <span class="absolute -left-[23px] sm:-left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-slate-400 border-2 border-white"></span>
+                <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700">2009년 ~ 2011년</span>
+                <h3 class="text-base font-bold text-slate-900 mt-1">울산대학교 정책대학원 공공정책</h3>
+                <p class="text-sm text-slate-600 font-medium">석사</p>
+              </div>
+
+              <div class="relative">
+                <span class="absolute -left-[23px] sm:-left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-slate-400 border-2 border-white"></span>
+                <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700">1997년 ~ 2001년</span>
+                <h3 class="text-base font-bold text-slate-900 mt-1">미시간주립대학교 (Michigan State University)</h3>
+                <p class="text-sm text-slate-600 font-medium">텔레커뮤니케이션 학사</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Development Projects -->
+          <div>
+            <div class="flex items-center gap-3 mb-6">
+              <span class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-lg">
+                <i class="fa-solid fa-laptop-code"></i>
+              </span>
+              <h2 class="text-2xl font-bold text-slate-900">시스템 구축 및 개발 실적</h2>
+            </div>
+            
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <i class="fa-solid fa-tree"></i>
+                </div>
+                <div>
+                  <span class="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">지자체 프로젝트</span>
+                  <h3 class="text-base font-bold text-slate-900 mt-1">광주전라남도특별시 - 남도예술정원 홈페이지 구축 및 개발</h3>
+                  <p class="text-sm text-slate-600 mt-1 leading-relaxed">
+                    지역 특화 문화예술 및 정원 플랫폼을 위한 공식 홈페이지 웹 개발 및 시스템 구축 용역 수행.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Books Section -->
+  <section id="books" class="py-16 sm:py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h2 class="text-xs sm:text-sm font-bold text-sky-600 tracking-wider uppercase">Publications</h2>
+        <p class="mt-2 text-2xl sm:text-3xl font-black text-slate-900">저서 및 출간 실적</p>
+        <p class="mt-2 text-slate-600 text-sm sm:text-base">AI 프롬프트 실무부터 글로벌 메타버스 담론, 치유 서적 번역까지 다양한 저작 활동을 이어가고 있습니다.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Book 1 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between hover:border-sky-300 transition">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200">
+                국내 3대 서점 베스트
+              </span>
+              <span class="text-xs text-slate-400">2023.12</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">챗GPT 엔지니어링</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              3대 인터넷 서점 주간 베스트셀러에 선정된 생성형 AI 실무 지침서로, 업무 생산성을 극대화하는 프롬프트 엔지니어링의 핵심 원리를 다룹니다.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center text-xs font-semibold text-slate-500">
+            <i class="fa-solid fa-pen-nib mr-1.5 text-sky-600"></i> 단독 저서 (국문판)
+          </div>
+        </div>
+
+        <!-- Book 2 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between hover:border-sky-300 transition">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-200">
+                글로벌 영문판
+              </span>
+              <span class="text-xs text-slate-400">2023.02</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">A Deep Dive into the Metaverse from ChatGPT</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              *110 Questions, 110 Answers*<br>
+              ChatGPT와의 심도 깊은 문답을 통해 메타버스와 첨단 기술의 본질을 분석한 글로벌 영문 출간물.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center text-xs font-semibold text-slate-500">
+            <i class="fa-solid fa-globe mr-1.5 text-sky-600"></i> 영어판 출간
+          </div>
+        </div>
+
+        <!-- Book 3 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between hover:border-sky-300 transition">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-purple-50 text-purple-700 border border-purple-200">
+                공동 번역서
+              </span>
+              <span class="text-xs text-slate-400">2025.04</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">ALL IS WELL</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              루이스 헤이, 모나리자 슐츠 저 | 케이미라클모닝 출간.<br>
+              엄남미 번역 / 정우진 번역으로 건강과 내면 치유를 안내하는 번역서.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center text-xs font-semibold text-slate-500">
+            <i class="fa-solid fa-language mr-1.5 text-sky-600"></i> 공역 (번역 출간)
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Lectures & Consulting Table -->
+  <section id="lectures" class="py-16 bg-white border-t border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        <div>
+          <h2 class="text-xs sm:text-sm font-bold text-sky-600 tracking-wider uppercase">Lectures & Consulting</h2>
+          <p class="mt-1 text-2xl sm:text-3xl font-black text-slate-900">전체 강의 및 컨설팅 실적</p>
+          <p class="mt-1 text-slate-500 text-sm">총 75건의 공공기관, 기업, 대학 및 시민 대상 출강 내역 (누적 교육인원 8,092명+)</p>
+        </div>
+
+        <!-- Filter & Search Controls -->
+        <div class="flex flex-wrap items-center gap-2">
+          <div class="relative">
+            <input type="text" id="searchInput" placeholder="기관명, 주제, 대상 검색..." class="w-56 sm:w-64 pl-9 pr-4 py-2 text-sm border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Year Filter Tabs -->
+      <div class="flex flex-wrap gap-2 mb-6" id="yearFilterTabs">
+        <button class="filter-tab active px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold bg-sky-600 text-white" data-year="ALL">전체 보기 (75)</button>
+        <button class="filter-tab px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200" data-year="2026">2026년</button>
+        <button class="filter-tab px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200" data-year="2025">2025년</button>
+        <button class="filter-tab px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200" data-year="2024">2024년</button>
+        <button class="filter-tab px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200" data-year="2023">2023년</button>
+      </div>
+
+      <!-- Table Wrapper -->
+      <div class="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
+        <table class="min-w-full divide-y divide-slate-200 text-left text-sm" id="lectureTable">
+          <thead class="bg-slate-50 text-slate-600 font-semibold text-xs tracking-wider uppercase">
+            <tr>
+              <th scope="col" class="py-3.5 px-4 text-center w-14">No</th>
+              <th scope="col" class="py-3.5 px-4 w-28">시기</th>
+              <th scope="col" class="py-3.5 px-4 w-44">장소 / 기관</th>
+              <th scope="col" class="py-3.5 px-6">강의 및 컨설팅 주제</th>
+              <th scope="col" class="py-3.5 px-4 w-32">대상</th>
+              <th scope="col" class="py-3.5 px-4 text-right w-20">인원</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 bg-white" id="lectureTableBody">
+            <!-- Dynamic Rows will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-4 flex items-center justify-between text-xs text-slate-500 px-1">
+        <span id="filteredCount">검색 결과: 75건 표시 중</span>
+        <span>* 인원 수 미기재 행사는 비공개 및 프로젝트 자문 형태</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Contact & Footer -->
+  <footer id="contact" class="bg-[#0a192f] text-white py-16 border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center border-b border-white/10 pb-12">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">강연 및 AX 컨설팅 의뢰</h2>
+          <p class="mt-3 text-slate-400 text-sm sm:text-base max-w-lg leading-relaxed">
+            공공기관, 자치단체, 기업 임직원 대상 생성형 AI 활용 직무역량 강화 교육 및 맞춤형 AX 전환 전략 자문 문의를 환영합니다.
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-start md:justify-end">
+          <a href="tel:010-3616-2140" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:opacity-95 text-white font-bold text-sm shadow-lg shadow-sky-500/20 transition">
+            <i class="fa-solid fa-phone"></i>
+            <span>010-3616-2140 문의하기</span>
+          </a>
+          <a href="index.html" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 transition">
+            <i class="fa-solid fa-home"></i>
+            <span>메인 홈으로 이동</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <div>
+          <p class="font-semibold text-white">네오픽스에이아이(주) | 대표이사 정우진 (鄭 宇 眞)</p>
+          <p class="mt-1">Copyright © 2026 Cloud Bread & Jung Woo Jin. All rights reserved.</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="#" class="hover:text-white">맨 위로 이동 ↑</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Table Data Script & Mobile Nav -->
+  <script>
+    // Mobile Dropdown Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileDropdown = document.getElementById('mobileDropdown');
+    const menuIcon = document.getElementById('menuIcon');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      const isHidden = mobileDropdown.classList.contains('hidden');
+      if (isHidden) {
+        mobileDropdown.classList.remove('hidden');
+        menuIcon.classList.replace('fa-bars', 'fa-xmark');
+      } else {
+        mobileDropdown.classList.add('hidden');
+        menuIcon.classList.replace('fa-xmark', 'fa-bars');
+      }
+    });
+
+    const lectures = [
+      { id: 1, date: "2023년 3월", location: "온라인", title: "ChatGPT 활용기초", target: "일반인", count: "100" },
+      { id: 2, date: "2023년 3월", location: "온라인", title: "ChatGPT 필수과정", target: "일반인", count: "100" },
+      { id: 3, date: "2023년 3월", location: "온라인", title: "ChatGPT 중급과정 패키지", target: "일반인", count: "100" },
+      { id: 4, date: "2023년 4월", location: "온라인", title: "ChatGPT 전문면접관 특강", target: "일반인", count: "100" },
+      { id: 5, date: "2023년 5월", location: "온라인", title: "ChatGPT 크리에이터 과정", target: "일반인", count: "100" },
+      { id: 6, date: "2023년 5월", location: "행정안전부-청년멘토링", title: "생성형 AI를 활용한 참여청년 직무역량 강화교육", target: "청년", count: "10" },
+      { id: 7, date: "2023년 6월", location: "정당", title: "ChatGPT 선거전략 분석-데이터 기반 선거 캠페인", target: "정당인", count: "50" },
+      { id: 8, date: "2023년 7월", location: "정당", title: "ChatGPT For Election", target: "정당인", count: "50" },
+      { id: 9, date: "2023년 8월", location: "울산저널", title: "울산저널-AI 동영상제작 특강", target: "이사진 및 직원", count: "20" },
+      { id: 10, date: "2023년 9월", location: "울산테크노파크", title: "울산주력산업은 사라지는가?-울산테크노파크", target: "직원", count: "100" },
+      { id: 11, date: "2023년 10월", location: "동의대", title: "My Life 동의대 청년멘토링", target: "대학생", count: "100" },
+      { id: 12, date: "2023년 10월", location: "기업", title: "ChatGPT 에센셜 아산애스엔테크", target: "전체 임직원", count: "200" },
+      { id: 13, date: "2023년 10월", location: "온라인 동영상 강좌", title: "AI시대, ChatGPT 마스터 클래스 25강 제작", target: "온라인동영상강좌", count: "-" },
+      { id: 14, date: "2023년 10월", location: "온라인 동영상 강좌", title: "AI레불루션- A부터 Z까지-산업편-25강 제작", target: "온라인동영상강좌", count: "-" },
+      { id: 15, date: "2023년 10월", location: "부산동구청", title: "ChatGPT 활용능력교육과정-36시간", target: "일반시민", count: "200" },
+      { id: 16, date: "2024년 10월", location: "울산교육청", title: "AI 리터러시 활용교육", target: "삼산고", count: "50" },
+      { id: 17, date: "2024년 10월", location: "울산교육청", title: "AI 리터러시 활용교육", target: "성신고", count: "50" },
+      { id: 18, date: "2024년 10월", location: "울산교육청", title: "AI 리터러시 활용교육", target: "연암초", count: "50" },
+      { id: 19, date: "2024년 10월", location: "울산교육청", title: "AI 리터러시 활용교육", target: "은월초", count: "50" },
+      { id: 20, date: "2024년 10월", location: "울산교육청", title: "AI 리터러시 활용교육", target: "대현초", count: "50" },
+      { id: 21, date: "2024년 10월", location: "울산교육청", title: "AI 리터러시 활용교육", target: "농소초", count: "50" },
+      { id: 22, date: "2024년 11월", location: "울산노동자센터", title: "AX 전환에 따른 노동현장의 변화", target: "시민", count: "50" },
+      { id: 23, date: "2024년 11월", location: "간호사협회", title: "논문작성법 특강", target: "회원", count: "70" },
+      { id: 24, date: "2024년 12월", location: "울산과학대", title: "AX 산업변화에 따른 대학교육의 현재와 미래", target: "교직원", count: "50" },
+      { id: 25, date: "2024년 12월", location: "화봉중학교", title: "AI 리터러시 활용교육", target: "전교생", count: "450" },
+      { id: 26, date: "2024년 12월", location: "인제대", title: "AI 활용과 대학교육", target: "교직원", count: "50" },
+      { id: 27, date: "2024년 1월", location: "RIS교육강좌-12회차", title: "AI 활용강좌 (기초-중급-고급) 48시간 강좌", target: "시민", count: "450" },
+      { id: 28, date: "2024년 2월", location: "RIS교육강좌-12회차", title: "AI 활용강좌 (기초-중급-고급) 49시간 강좌", target: "시민", count: "450" },
+      { id: 29, date: "2024년 3월", location: "국가교육위원회", title: "AI와 대한민국 교육", target: "교육위원 전원", count: "50" },
+      { id: 30, date: "2024년 3월", location: "시민연대", title: "시민을 위한 AI", target: "시민", count: "50" },
+      { id: 31, date: "2024년 5월", location: "김해도서관", title: "AI 직무역량 강화 교육", target: "직원", count: "50" },
+      { id: 32, date: "2024년 5월", location: "노무현재단", title: "AI와 시민교육", target: "시민", count: "100" },
+      { id: 33, date: "2024년 5월", location: "부여군청", title: "행정과 AI", target: "전 공무원", count: "450" },
+      { id: 34, date: "2024년 5월", location: "광주", title: "AI 활용을 통한 창업컨설팅", target: "청년컨설팅", count: "10" },
+      { id: 35, date: "2024년 7월", location: "인제대", title: "AI 직원 활용교육", target: "도서관", count: "50" },
+      { id: 36, date: "2024년 7월", location: "GW퍼시픽강의", title: "중소기업의 AI 도입 활용전략", target: "온라인", count: "100" },
+      { id: 37, date: "2024년 9월", location: "울산대", title: "AI활용 교습법", target: "울산대 교수", count: "10" },
+      { id: 38, date: "2025년 10월", location: "문경 호서남초", title: "AI 리터러시 활용교육", target: "학부형", count: "50" },
+      { id: 39, date: "2025년 10월", location: "시민연대", title: "데이터센터 확장에 따른 이면-쩐과 전기와 물의 전쟁", target: "시민", count: "20" },
+      { id: 40, date: "2025년 10월", location: "전남 목포", title: "AI 활용-for 블로거", target: "AI리서처-블로거", count: "10" },
+      { id: 41, date: "2025년 10월", location: "전남 나주", title: "AI 활용-for 블로거", target: "AI리서처-블로거", count: "10" },
+      { id: 42, date: "2025년 10월", location: "춘천시민연대", title: "시민운동과 AX 변화", target: "시민", count: "50" },
+      { id: 43, date: "2025년 11월", location: "포항동지여고", title: "AI 리터러시 활용교육", target: "학부형", count: "50" },
+      { id: 44, date: "2025년 11월", location: "전국 건강연대", title: "AI 발전과 보건분야의 접목 사례를 중심으로", target: "약사", count: "50" },
+      { id: 45, date: "2025년 11월-12월", location: "경기도 화성시 4개권역-16회차", title: "화성시민 AI 양성교육 (초급-중급-고급-콘서트)", target: "화성시민", count: "780" },
+      { id: 46, date: "2025년 11월-12월", location: "울산노동자센터", title: "AI와 노동의 미래 특강", target: "시민", count: "50" },
+      { id: 47, date: "2025년 12월", location: "노무현재단", title: "AI 활용과 시민운동", target: "시민", count: "100" },
+      { id: 48, date: "2025년 12월", location: "화봉중학교", title: "AI 리터러시 활용교육", target: "전교생", count: "450" },
+      { id: 49, date: "2025년 12월", location: "천곡중학교", title: "AI 리터러시 활용교육", target: "전교생", count: "540" },
+      { id: 50, date: "2025년 12월", location: "고헌중학교", title: "AI 리터러시 활용교육", target: "전교생", count: "480" },
+      { id: 51, date: "2025년 12월", location: "농소중학교", title: "AI 리터러시 활용교육", target: "전교생", count: "460" },
+      { id: 52, date: "2025년 3월", location: "서귀포여고", title: "AI 리터러시 활용교육", target: "학부형", count: "50" },
+      { id: 53, date: "2025년 3월", location: "광주고", title: "AI 리터러시 활용교육", target: "학부형", count: "50" },
+      { id: 54, date: "2025년 4월", location: "경기 수진초", title: "AI 리터러시 활용교육", target: "학부형", count: "50" },
+      { id: 55, date: "2025년 4월", location: "안산 청석초", title: "AI 리터러시 활용교육", target: "학부형", count: "50" },
+      { id: 56, date: "2025년 5월", location: "성북구청", title: "AI와 의회활동", target: "성북구의원 및 직원", count: "50" },
+      { id: 57, date: "2025년 7월", location: "경기 화홍초등학교", title: "AI 활용 리터러시", target: "학부형", count: "50" },
+      { id: 58, date: "2025년 9월", location: "순창군의회", title: "순창군 AX변화 적영", target: "순창군의원 및 직원", count: "15" },
+      { id: 59, date: "2025년 9월", location: "전남 목포", title: "AI 활용교육", target: "시민교육", count: "20" },
+      { id: 60, date: "2025년 9월", location: "울산시민연대", title: "울산과 AI 산업의 미래", target: "시민", count: "50" },
+      { id: 61, date: "2026년 1월", location: "한국경영컨설팅협회", title: "2026년 경영환경 변화-AI분야를 중심으로", target: "서울 강남 로타리클럽 회원", count: "20" },
+      { id: 62, date: "2026년 1월", location: "전라남도도청", title: "AI 리처서 활용교육", target: "전남 AI리서처 교육", count: "8" },
+      { id: 63, date: "2026년 2월", location: "노무현재단", title: "울산 데이터센터 설립의 향후 과제", target: "재단회원", count: "100" },
+      { id: 64, date: "2026년 2월", location: "상명대학교", title: "구글 클라이드 웍스 활용법", target: "교직원", count: "250" },
+      { id: 65, date: "2026년 2월", location: "청담 리베라 호텔", title: "중소기업 대표를 위한 AI 경영환경변화의 사례", target: "서울 강남 로타리클럽 회원", count: "100" },
+      { id: 66, date: "2026년 7월", location: "전라남도 도청", title: "AI 리처서 활용교육", target: "블로거", count: "20" },
+      { id: 67, date: "2626년 4월", location: "민주노총 울산", title: "데이터센터의 진실", target: "민주노총 간부", count: "100" },
+      { id: 68, date: "2026년 3월~현재", location: "울산광역시 동구청", title: "공무원 AI활용 교육 프로젝트", target: "공무원", count: "14" },
+      { id: 69, date: "2026년 7월", location: "폴리텍대학-울산", title: "구글 안티그래비티 활용과 최신 제미나이 LM 활용교육", target: "특강", count: "25" },
+      { id: 70, date: "2026년 7월", location: "울산시 교육청", title: "교육과 AI-인수위원", target: "인수위원", count: "-" },
+      { id: 71, date: "2026년 7월", location: "울산시 북구청", title: "AI와 행정-인수위원", target: "인수위원", count: "-" },
+      { id: 72, date: "2026년 9월, 10월", location: "한국능률협회", title: "제주특별자치도개발공사 \"리스크전략 관리\"를 위한 AX전략 컨설팅 (2회)", target: "임직원/관계자", count: "-" },
+      { id: 73, date: "2026년 9월", location: "부산과학기술대학교", title: "AX전환 교육 특강", target: "교직원 및 학생", count: "특강" },
+      { id: 74, date: "2026년 10월", location: "울산북구청", title: "신규공무원 연수강의", target: "신규공무원", count: "-" },
+      { id: 75, date: "2026년 10월", location: "한국폴리텍대학-울산", title: "RAG 챗봇 구현, 구글 안티그래비티를 활용한 대시보드 개발 강좌", target: "교육생/재학생", count: "-" }
+    ];
+
+    let currentYear = "ALL";
+    let searchQuery = "";
+
+    function renderTable() {
+      const tbody = document.getElementById("lectureTableBody");
+      tbody.innerHTML = "";
+
+      const filtered = lectures.filter(item => {
+        const matchesYear = (currentYear === "ALL") || item.date.includes(currentYear);
+        const text = `${item.date} ${item.location} ${item.title} ${item.target} ${item.count}`.toLowerCase();
+        const matchesSearch = text.includes(searchQuery.toLowerCase());
+        return matchesYear && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-400">일치하는 강의 및 컨설팅 내역이 없습니다.</td></tr>`;
+      } else {
+        filtered.forEach(item => {
+          const row = document.createElement("tr");
+          row.className = "hover:bg-sky-50/50 transition-colors";
+          row.innerHTML = `
+            <td class="py-3 px-4 text-center font-medium text-slate-400 text-xs">${item.id}</td>
+            <td class="py-3 px-4 text-xs font-semibold text-slate-600 whitespace-nowrap">${item.date}</td>
+            <td class="py-3 px-4 font-bold text-slate-900">${item.location}</td>
+            <td class="py-3 px-6 text-slate-700">${item.title}</td>
+            <td class="py-3 px-4 text-xs text-slate-600">${item.target}</td>
+            <td class="py-3 px-4 text-right font-semibold text-sky-700 text-xs">${item.count}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+
+      document.getElementById("filteredCount").textContent = `검색 결과: 총 ${filtered.length}건 표시 중 (전체 75건)`;
+    }
+
+    // Tabs Event
+    document.querySelectorAll(".filter-tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".filter-tab").forEach(t => {
+          t.classList.remove("active", "bg-sky-600", "text-white");
+          t.classList.add("bg-slate-100", "text-slate-600");
+        });
+        tab.classList.add("active", "bg-sky-600", "text-white");
+        tab.classList.remove("bg-slate-100", "text-slate-600");
+        currentYear = tab.dataset.year;
+        renderTable();
+      });
+    });
+
+    // Search Input Event
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      searchQuery = e.target.value.trim();
+      renderTable();
+    });
+
+    // Initial Render
+    renderTable();
+  </script>
+</body>
+</html>

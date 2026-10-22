@@ -3959,3 +3959,16 @@ body.has-notice-bar .hero {
     }
 }
 
+/* Expert Spotlight Responsive */
+@media (max-width: 900px) {
+    .expert-spotlight-inner {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+        text-align: center;
+    }
+    .expert-spotlight-inner .expertise-tags,
+    .expert-spotlight-inner div[style*="justify-content: flex-start"] {
+        justify-content: center !important;
+    }
+}
+
