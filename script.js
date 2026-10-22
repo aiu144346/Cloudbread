@@ -477,6 +477,19 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <a href="lecture-rag-ulsan.html" style="background:rgba(255,255,255,0.12); border:1px solid rgba(0,240,255,0.4); color:#00F0FF; font-weight:700; font-size:0.9rem; padding:11px 18px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s;"><i class="fa-solid fa-chalkboard-user"></i> 강의안 보기</a>
                             </div>
                         </div>
+
+                        <!-- 배너 4: 울산광역시 5개 구·군 보건소 생애주기 활용 Semantic RAG -->
+                        <div class="rag-card" style="background: linear-gradient(135deg, #064e3b 0%, #047857 50%, #0d9488 100%); color:#FFFFFF; border-radius:18px; padding:1.8rem 2.2rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 12px 30px rgba(16, 185, 129, 0.28); border:1px solid rgba(52, 211, 153, 0.45);">
+                            <div style="max-width:650px;">
+                                <span style="background:rgba(16,185,129,0.25); color:#6EE7B7; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; display:inline-block; margin-bottom:8px;">🏥 생애주기별 공공의료 AI 어드바이저</span>
+                                <h3 style="font-size:1.35rem; font-weight:800; margin:0; color:#FFFFFF;">울산광역시 보건소 생애주기 활용 Semantic RAG 마스터랩</h3>
+                                <p style="font-size:0.9rem; color:#D1FAE5; margin:6px 0 0 0;">영유아 예방접종·임산부 엽산/철분/산후조리·성인 보건증/금연·어르신 치매검진/대상포진 등 5개 구·군 보건소 혜택 &amp; 법규 통합 가이드</p>
+                            </div>
+                            <div class="rag-card-actions" style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                                <a href="rag-health.html" style="background:#34D399; color:#030712; font-weight:800; font-size:0.9rem; padding:11px 20px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s;"><i class="fa-solid fa-hospital-user"></i> 보건소 RAG 체험 →</a>
+                                <a href="lecture-rag-health.html" style="background:rgba(255,255,255,0.12); border:1px solid rgba(52,211,153,0.5); color:#6EE7B7; font-weight:700; font-size:0.9rem; padding:11px 18px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s;"><i class="fa-solid fa-chalkboard-user"></i> 강의안 보기</a>
+                            </div>
+                        </div>
                     </div>
                 ` : ''}
 
