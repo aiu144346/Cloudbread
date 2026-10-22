@@ -271,16 +271,22 @@
     let healthData = [];
     let currentThemeFilter = '전체';
 
-    // Load Dataset
-    fetch('data/ulsan_health_centers.json')
-      .then(res => res.json())
-      .then(data => {
-        healthData = data;
-        console.log(`Loaded ${healthData.length} Ulsan Health Center chunks.`);
-      })
-      .catch(err => {
+    async function ensureHealthDataLoaded() {
+      if (healthData && healthData.length > 0) return healthData;
+      try {
+        const res = await fetch('data/ulsan_health_centers.json?v=2');
+        if (res.ok) {
+          healthData = await res.json();
+          console.log(`Loaded ${healthData.length} Ulsan Health Center chunks.`);
+        }
+      } catch (err) {
         console.warn('Could not load data/ulsan_health_centers.json', err);
-      });
+      }
+      return healthData;
+    }
+
+    // Load Dataset on page init
+    ensureHealthDataLoaded();
 
     function setThemeFilter(theme, btn) {
       currentThemeFilter = theme;
@@ -318,24 +324,65 @@
       `;
     }
 
-    function searchHealthCorpus(query, topK = 3) {
-      if (!healthData || healthData.length === 0) return [];
+    function stripKoreanJosa(word) {
+      return word.replace(/(은|는|이|가|을|를|의|에|에서|으로|로|과|와|도|만|까지|부터|에게|한테|께|랑|이랑|이란|란|인가요|나요|가요|할까요|뭔가요|무엇인가요|대해서|대해|관해서|관해)$/, '');
+    }
 
+    function expandQueryTerms(query) {
+      const rawTokens = query.split(/[\s,?!·.~"']+/);
       const stopwords = new Set([
-        '은', '는', '이', '가', '을', '를', '에', '에서', '울산', '보건소',
-        '무엇인가요', '어떻게', '되나요', '알려주세요', '알려줘', '어디서', '받나요'
+        '은', '는', '이', '가', '을', '를', '에', '에서', '울산', '울산시', '울산광역시', '보건소',
+        '무엇인가요', '어떻게', '되나요', '알려주세요', '알려줘', '어디서', '받나요', '대해서', '대해',
+        '어떤', '무슨', '있나요', '있을까요', '궁금합니다', '질문', '문의'
       ]);
 
-      const tokens = query.split(/[\s,?!·]+/).filter(k => k.length >= 2 && !stopwords.has(k));
+      const termSet = new Set();
+      for (const raw of rawTokens) {
+        if (!raw || raw.length < 2 || stopwords.has(raw)) continue;
+        termSet.add(raw);
+        const stemmed = stripKoreanJosa(raw);
+        if (stemmed && stemmed.length >= 2 && !stopwords.has(stemmed)) {
+          termSet.add(stemmed);
+        }
+      }
 
+      // Synonym & Medical Term Expansion
+      const synonymRules = [
+        { pattern: /독감|인플루엔자/, adds: ['독감', '인플루엔자', '예방접종', '백신'] },
+        { pattern: /백신|주사|접종/, adds: ['예방접종', '백신', '무료접종'] },
+        { pattern: /어르신|노인|할머니|할아버지|부모님|고령|연세|65세|60세/, adds: ['어르신', '노인', '65세'] },
+        { pattern: /아기|아이|애기|신생아|영아|유아|어린이|소아/, adds: ['영유아', '어린이', '신생아'] },
+        { pattern: /임산부|임신|산모|출산|태아|예비맘/, adds: ['임산부', '산모', '모자보건'] },
+        { pattern: /보건증|알바|아르바이트|위생증/, adds: ['보건증', '건강진단결과서', '수수료'] },
+        { pattern: /치과|이빨|치아|잇몸|구강/, adds: ['구강', '불소도포', '스케일링', '틀니', '임플란트'] },
+        { pattern: /물리치료|한의원|한방|침|진료|내과|감기|처방|휠체어|목발/, adds: ['일반진료', '물리치료', '한의과', '휠체어', '수가'] },
+        { pattern: /암|암검진|암환자|희귀질환/, adds: ['암검진', '암환자', '희귀질환', '의료비'] },
+        { pattern: /결핵|기침|엑스레이|에이즈|HIV|성병|심폐소생술|CPR|응급처치/, adds: ['결핵', '익명검사', '심폐소생술'] },
+        { pattern: /피검사|혈액검사|건강검진|체성분/, adds: ['대사증후군', '인바디', '혈액검사'] }
+      ];
+
+      for (const rule of synonymRules) {
+        if (rule.pattern.test(query)) {
+          rule.adds.forEach(a => termSet.add(a));
+        }
+      }
+
+      return Array.from(termSet);
+    }
+
+    function scoreCorpusItems(query, tokens, applyCategoryFilter = true) {
       // Lifecycle & Topic Intent Detectors
-      const isInfant = /영유아|아기|신생아|기저귀|분유|영양플러스|미숙아|발달|백일해|어린이/.test(query);
+      const isFluOrVaccine = /독감|인플루엔자|백신|예방접종|주사|폐렴구균|대상포진|백일해/.test(query);
+      const isInfant = /영유아|아기|아이|신생아|기저귀|분유|영양플러스|미숙아|발달|백일해|어린이/.test(query);
       const isMaternal = /임산부|임신|엽산|철분|유축기|산후조리|산후도우미|산모|출산|난임|시술비|체외수정|고위험/.test(query);
       const isCert = /보건증|건강진단결과서|알바|아르바이트|식품위생|예비부부|신혼부부/.test(query);
       const isAdultHealth = /성인|인바디|체성분|대사증후군|혈압|혈당|콜레스테롤|금연|패치|마음투자|심리상담|우울|정신건강/.test(query);
       const isDementia = /치매|치매안심|기억력|인지선별|조호물품|배회감지기|치매약/.test(query);
-      const isSenior = /어르신|노인|65세|폐렴구균|독감|인플루엔자|대상포진|틀니|임플란트|불소|스케일링|백내장|방문간호|방문건강/.test(query);
-      const isLocation = /위치|주소|전화번호|연락처|어디|중구보건소|남구보건소|동구보건소|북구보건소|울주군보건소|지소/.test(query);
+      const isSenior = /어르신|노인|할머니|할아버지|부모님|65세|60세|폐렴구균|독감|인플루엔자|대상포진|틀니|임플란트|불소|스케일링|백내장|방문간호|방문건강/.test(query);
+      const isGeneralClinic = /물리치료|한의과|한방|침|내과|일반진료|진료비|처방|휠체어|목발|보행기|재활/.test(query);
+      const isCancerOrRare = /암검진|암환자|국가암|위암|대장암|유방암|희귀질환/.test(query);
+      const isInfectOrCpr = /결핵|기침|에이즈|HIV|익명검사|성매개|성병|심폐소생술|CPR|자동심장충격기|AED/.test(query);
+      const isLocation = /위치|주소|전화번호|연락처|어디|운영시간|진료시간|중구보건소|남구보건소|동구보건소|북구보건소|울주군보건소|지소/.test(query);
 
       const scored = [];
 
@@ -347,74 +394,130 @@
         const body = item.content || '';
         const category = item.category || '';
 
-        if (currentThemeFilter !== '전체' && category !== currentThemeFilter) {
+        if (applyCategoryFilter && currentThemeFilter !== '전체' && category !== currentThemeFilter) {
           continue;
         }
 
-        // Token matching
+        // Token & Stem matching
         for (const t of tokens) {
           if (name.includes(t)) score += 18;
           if (title.includes(t)) score += 35;
-          if (body.includes(t)) score += Math.min((body.match(new RegExp(t, 'g')) || []).length * 4, 20);
+          if (body.includes(t)) score += Math.min((body.match(new RegExp(t, 'g')) || []).length * 5, 25);
         }
 
         // Practical Guide Priority Boost
         if (id.startsWith('HEALTH_GUIDE_')) {
-          score += 15;
+          score += 18;
         }
 
         // --- Precision Intent Boosting ---
+        // Flu & Vaccine specific boost (solves "어르신 독감 백신의 대상에 대해서 알려주세요")
+        if (isFluOrVaccine) {
+          if (id === 'HEALTH_GUIDE_SENIOR_FLU_01' && /독감|인플루엔자|백신|대상/.test(query)) score += 240;
+          if (id === 'HEALTH_GUIDE_SENIOR_02' && /어르신|노인|65세|독감|폐렴|대상포진|백신/.test(query)) score += 210;
+          if (id === 'HEALTH_GUIDE_INFANT_01' && (/영유아|아기|어린이|백일해|임신부/.test(query) || !isSenior)) score += 150;
+          if (name.includes('예방접종')) score += 95;
+        }
+
         if (isInfant) {
-          if (id === 'HEALTH_GUIDE_INFANT_01' && /예방접종|백일해/.test(query)) score += 160;
-          if (id === 'HEALTH_GUIDE_INFANT_02' && /기저귀|분유|영양/.test(query)) score += 160;
-          if (id === 'HEALTH_GUIDE_INFANT_03' && /발달|미숙아|난청/.test(query)) score += 160;
+          if (id === 'HEALTH_GUIDE_INFANT_01' && /예방접종|백신|주사|백일해/.test(query)) score += 170;
+          if (id === 'HEALTH_GUIDE_INFANT_02' && /기저귀|분유|영양|우유/.test(query)) score += 170;
+          if (id === 'HEALTH_GUIDE_INFANT_03' && /발달|미숙아|난청|보청기/.test(query)) score += 170;
           if (category === '영유아(0~6세)') score += 60;
         }
 
         if (isMaternal) {
-          if (id === 'HEALTH_GUIDE_MATERNAL_01' && /엽산|철분|유축기|임산부\s*등록|혜택/.test(query)) score += 170;
-          if (id === 'HEALTH_GUIDE_MATERNAL_02' && /산후조리|산후도우미|공공산후/.test(query)) score += 170;
-          if (id === 'HEALTH_GUIDE_MATERNAL_03' && /난임|시술비|고위험/.test(query)) score += 170;
+          if (id === 'HEALTH_GUIDE_MATERNAL_01' && /엽산|철분|유축기|임산부|등록|혜택|산전/.test(query)) score += 175;
+          if (id === 'HEALTH_GUIDE_MATERNAL_02' && /산후조리|산후도우미|공공산후/.test(query)) score += 175;
+          if (id === 'HEALTH_GUIDE_MATERNAL_03' && /난임|시술비|인공수정|체외수정|고위험/.test(query)) score += 175;
           if (category === '임산부/출산') score += 60;
         }
 
         if (isCert) {
-          if (id === 'HEALTH_GUIDE_ADULT_01') score += 180;
-          if (name.includes('수가 조례')) score += 80;
+          if (id === 'HEALTH_GUIDE_ADULT_01') score += 200;
+          if (name.includes('수가 조례')) score += 85;
         }
 
         if (isAdultHealth) {
-          if (id === 'HEALTH_GUIDE_ADULT_02' && /인바디|체성분|대사증후군|금연|혈압|혈당/.test(query)) score += 170;
-          if (id === 'HEALTH_GUIDE_ADULT_03' && /마음|심리|우울|정신/.test(query)) score += 170;
+          if (id === 'HEALTH_GUIDE_ADULT_02' && /인바디|체성분|대사증후군|금연|혈압|혈당|콜레스테롤/.test(query)) score += 180;
+          if (id === 'HEALTH_GUIDE_ADULT_03' && /마음|심리|우울|정신|스트레스|상담/.test(query)) score += 180;
           if (category === '청장년/성인(19~64세)') score += 60;
         }
 
         if (isDementia) {
-          if (id === 'HEALTH_GUIDE_SENIOR_01') score += 180;
-          if (name.includes('치매')) score += 90;
+          if (id === 'HEALTH_GUIDE_SENIOR_01') score += 200;
+          if (name.includes('치매')) score += 95;
         }
 
         if (isSenior) {
-          if (id === 'HEALTH_GUIDE_SENIOR_02' && /폐렴|독감|대상포진|예방접종|진료비/.test(query)) score += 170;
-          if (id === 'HEALTH_GUIDE_SENIOR_03' && /틀니|임플란트|불소|스케일링|백내장|방문/.test(query)) score += 170;
-          if (category === '어르신/노인(65세+)') score += 60;
+          if (id === 'HEALTH_GUIDE_SENIOR_FLU_01' && /독감|인플루엔자|백신/.test(query)) score += 230;
+          if (id === 'HEALTH_GUIDE_SENIOR_02' && /폐렴|독감|인플루엔자|대상포진|예방접종|백신|주사|진료비/.test(query)) score += 195;
+          if (id === 'HEALTH_GUIDE_SENIOR_03' && /틀니|임플란트|불소|스케일링|치과|치아|구강|백내장|안과|방문/.test(query)) score += 195;
+          if (category === '어르신/노인(65세+)') score += 65;
+        }
+
+        if (isGeneralClinic) {
+          if (id === 'HEALTH_GUIDE_GENERAL_CLINIC_01') score += 210;
+          if (name.includes('수가 조례')) score += 90;
+        }
+
+        if (isCancerOrRare) {
+          if (id === 'HEALTH_GUIDE_GENERAL_CANCER_01') score += 210;
+        }
+
+        if (isInfectOrCpr) {
+          if (id === 'HEALTH_GUIDE_GENERAL_INFECT_01') score += 210;
         }
 
         if (isLocation) {
-          if (id === 'HEALTH_GUIDE_DIRECTORY_01') score += 190;
+          if (id === 'HEALTH_GUIDE_DIRECTORY_01') score += 200;
         }
 
-        if (score > 15) {
+        if (score > 18) {
           scored.push({ score, item });
         }
       }
 
       scored.sort((a, b) => b.score - a.score);
+      return scored;
+    }
+
+    function searchHealthCorpus(query, topK = 3) {
+      if (!healthData || healthData.length === 0) return [];
+
+      const tokens = expandQueryTerms(query);
+      let scored = scoreCorpusItems(query, tokens, true);
+
+      // Smart Filter Override: If a specific lifecycle tab was selected, but the user asked about another lifecycle (resulting in 0 matches), automatically search across ALL categories!
+      if (scored.length === 0 && currentThemeFilter !== '전체') {
+        scored = scoreCorpusItems(query, tokens, false);
+        if (scored.length > 0) {
+          const allBtn = document.querySelector('.filter-btn');
+          if (allBtn) setThemeFilter('전체', allBtn);
+        }
+      }
+
+      // Intelligent General Fallback: If the user asks a very broad question (e.g. "보건소에서 어떤 혜택을 받을 수 있나요?"), return the representative lifecycle guides instead of an empty error!
+      if (scored.length === 0) {
+        const fallbackIds = [
+          'HEALTH_GUIDE_DIRECTORY_01',
+          'HEALTH_GUIDE_MATERNAL_01',
+          'HEALTH_GUIDE_ADULT_02',
+          'HEALTH_GUIDE_SENIOR_02'
+        ];
+        return healthData.filter(d => fallbackIds.includes(d.id)).slice(0, topK);
+      }
+
       return scored.slice(0, topK).map(s => s.item);
     }
 
     function synthesizeDirectAnswer(query, topDoc) {
       if (!topDoc) return null;
+
+      // 0. Flu Vaccine (독감 백신 대상 질문 최우선 정밀 답변)
+      if (/독감|인플루엔자/.test(query) || (topDoc.id === 'HEALTH_GUIDE_SENIOR_FLU_01')) {
+        return `울산광역시 보건소 및 지정 병·의원(위탁의료기관)의 **인플루엔자(독감) 백신 무료 접종 대상**은 다음과 같습니다:\n1️⃣ **만 65세 이상 어르신 전체**: 연령대별(75세+ → 70~74세 → 65~69세) 순차 개시하며 **신분증 지참 시 전국 지정 병·의원 및 보건소에서 전액 무료** (폐렴구균·코로나19 백신 동시 접종 가능)\n2️⃣ **생후 6개월 ~ 만 13세 어린이 및 모든 임신부**: 주수에 관계없이 전액 무료\n3️⃣ **구·군 조례 추가 지원 대상**: 만 14~64세 기초생활수급자, 차상위계층, 심한 장애인, 국가유공자 (관할 보건소 방문 접종)`;
+      }
 
       // 1. Maternal registration / Folic acid / Iron / Breast pump
       if (/임산부|엽산|철분|유축기/.test(query) && !/산후조리|난임/.test(query)) {
@@ -447,28 +550,45 @@
       }
 
       // 7. Senior Vaccination / Dental / Home Visit
-      if (/어르신|노인|65세|폐렴구균|독감|대상포진|틀니|불소|백내장|방문/.test(query)) {
+      if (/어르신|노인|할머니|할아버지|부모님|65세|폐렴구균|대상포진|백신|주사|틀니|불소|백내장|방문/.test(query)) {
         return `만 65세 이상 어르신은 **① 폐렴구균(평생 1회 무료)·독감(매년 무료)·대상포진(구·군 조례 기준 무료) 예방접종**, **② 보건소 내과·한의과 진료비 본인부담금 감면**, **③ 무료 불소도포·스케일링 및 저소득 어르신 틀니·임플란트·백내장 수술비 지원**, **④ 거동불편 어르신 찾아가는 방문간호 서비스**를 이용하실 수 있습니다.`;
       }
 
-      // 8. Directory / Location / Phone
+      // 8. General Clinic / Physical Therapy / Oriental Medicine / Wheelchair
+      if (/물리치료|한의과|한방|침|내과|일반진료|처방|휠체어|목발|재활/.test(query)) {
+        return `울산 5개 구·군 보건소는 **① 일반 내과(감기·고혈압·당뇨 진료 및 처방전 발급), ② 한의과(침·부항·한약제제), ③ 물리치료실(온열·전기 재활치료)**을 일반 병원 대비 매우 저렴한 수가(500~1,500원 내외, 65세 이상 감면)로 운영하며, 부상·수술 환자를 위한 **수동 휠체어·목발·보행기 무료 대여 서비스**도 제공합니다.`;
+      }
+
+      // 9. National Cancer Screening / Medical Expense Support
+      if (/암검진|암환자|국가암|희귀질환/.test(query)) {
+        return `울산 각 보건소는 **① 국가 6대 암(위·대장·간·유방·자궁경부·폐암) 무료검진 안내 및 대장암 채변통 배부**, **② 저소득 성인 암환자(연 최대 300만원) 및 소아암 환자(연 최대 3,000만원) 의료비 지원**, **③ 산정특례 등록 희귀질환자 요양급여 본인부담금 지원**을 시행하고 있습니다.`;
+      }
+
+      // 10. TB / HIV / CPR Training
+      if (/결핵|기침|에이즈|HIV|익명검사|성병|심폐소생술|CPR/.test(query)) {
+        return `보건소 감염·응급 지원으로 **① 2주 이상 기침 지속 시 결핵(흉부 X-선·객담) 무료검진 및 65세 이상 연 1회 무료 결핵검진**, **② 신분 노출 없는 100% 비밀보장 에이즈(HIV)·성매개감염병 무료 익명검사**, **③ 시민 대상 심폐소생술(CPR) 및 자동심장충격기(AED) 상설 무료 교육**을 운영합니다.`;
+      }
+
+      // 11. Directory / Location / Phone
       if (/위치|주소|전화|연락처|중구보건소|남구보건소|동구보건소|북구보건소|울주군보건소/.test(query)) {
         return `울산 5개 구·군 보건소 대표 연락처는 **중구(052-290-4300, 남외동)**, **남구(052-226-2400, 달동)**, **동구(052-209-4114, 화정동)**, **북구(052-241-8100, 연암동)**, **울주군(052-204-2700, 삼남읍 신청사 / 온양 남부지소 204-2800 / 범서지소 204-2860)**이며, 평일 09:00~18:00 운영합니다.`;
       }
 
       const firstLine = (topDoc.content || '').split('\n').filter(l => l.trim())[0] || '';
-      return `「${topDoc.law_name}」 ${topDoc.article_no_display || ''} 기준에 따라 안내해 드립니다:\n**${firstLine}**`;
+      return `「${topDoc.law_name}」 ${topDoc.article_no_display || ''} 기준에 따라 안내해 드립니다:\n**${firstLine}** (자세한 지원 대상, 준비물, 직통 연락처는 아래 카드를 확인해 주세요.)`;
     }
 
-    function processQuery(query) {
+    async function processQuery(query) {
       appendUserMessage(query);
       const loadingId = appendLoadingMessage();
+
+      await ensureHealthDataLoaded();
 
       setTimeout(() => {
         removeLoadingMessage(loadingId);
         const retrieved = searchHealthCorpus(query, 3);
         appendAssistantResponse(query, retrieved);
-      }, 320);
+      }, 280);
     }
 
     function appendUserMessage(text) {
