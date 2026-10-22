@@ -92,35 +92,41 @@ h5 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 10%;
-    max-width: 1400px;
+    padding: 0.85rem 3%;
+    max-width: 1440px;
     margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .logo {
-    font-size: 26px;
-    /* 더 시인성 있게 확대 */
+    font-size: 22px;
     font-weight: 850;
     color: var(--text-white);
-    letter-spacing: -1px;
+    letter-spacing: -0.5px;
     display: flex;
     align-items: center;
+    flex-shrink: 0;
+    margin-right: 2rem;
+    white-space: nowrap;
 }
 
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 1.25rem;
+    align-items: center;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-links a {
     text-decoration: none;
     color: var(--text-white);
-    /* 텍스트 흰색 */
-    font-size: 1.1rem;
-    /* 폰트 크기 확장 */
-    font-weight: 700;
-    /* 시인성 높은 볼드 */
+    font-size: 0.95rem;
+    font-weight: 600;
+    white-space: nowrap;
+    letter-spacing: -0.3px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
 }
@@ -141,12 +147,35 @@ h5 {
     box-shadow: 0 0 10px var(--electric-blue);
 }
 
+.nav-links li a.nav-rag-btn {
+    border: 1px solid rgba(0, 240, 255, 0.7);
+    background: rgba(0, 240, 255, 0.08);
+    color: #00f0ff;
+    padding: 0.4rem 0.85rem;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.15);
+}
+
+.nav-links li a.nav-rag-btn:hover {
+    background: rgba(0, 240, 255, 0.25);
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.45);
+    transform: translateY(-1px);
+}
+
 .nav-links li a.nav-cta {
     background: var(--electric-blue);
     color: var(--bg-navy);
-    padding: 0.5rem 1.2rem;
+    padding: 0.4rem 1rem;
     border-radius: 50px;
     font-weight: 700;
+    font-size: 0.9rem;
     transition: all 0.3s ease;
     box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
 }
