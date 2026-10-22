@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>울산광역시 중구청 조례 RAG 챗봇 | Cloud Bread</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <style>
+    body { font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-sky-500 selection:text-white">
+
+  <!-- Header -->
+  <header class="border-b border-slate-800 bg-slate-900/80 sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2 group">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20 font-black text-white text-lg">CB</div>
+          <span class="font-bold text-lg tracking-tight group-hover:text-sky-400 transition">Cloud Bread</span>
+        </a>
+        <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20">AI &amp; AX Solution</span>
+      </div>
+      <nav class="flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="index.html" class="hover:text-white transition">홈</a>
+        <a href="profile.html" class="hover:text-white transition">강사 프로필</a>
+        <a href="showcase.html" class="hover:text-white transition">쇼케이스</a>
+        <a href="archive.html" class="hover:text-white transition">아카이브</a>
+        <a href="rag-ordinance.html" class="text-sky-400 font-semibold flex items-center gap-1.5 bg-sky-500/10 px-3 py-1 rounded-lg border border-sky-500/20">
+          <span>🏛️ 조례 RAG 챗봇</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col lg:flex-row gap-6">
+
+    <!-- Left Sidebar: Controls & Stats -->
+    <aside class="w-full lg:w-80 flex flex-col gap-5">
+      <div class="glass-card rounded-2xl p-5 shadow-xl">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold text-lg border border-sky-500/30">🏛️</div>
+          <div>
+            <h2 class="font-bold text-base text-white">울산 중구청 조례 RAG</h2>
+            <p class="text-xs text-slate-400">지자체 자치법규 AI 어드바이저</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 mb-5">
+          <div class="bg-slate-900/70 p-3 rounded-xl border border-slate-800">
+            <div class="text-xs text-slate-400">전체 조례</div>
+            <div class="text-xl font-bold text-sky-400 mt-0.5">432건</div>
+          </div>
+          <div class="bg-slate-900/70 p-3 rounded-xl border border-slate-800">
+            <div class="text-xs text-slate-400">RAG 조문 청크</div>
+            <div class="text-xl font-bold text-emerald-400 mt-0.5">358개</div>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <label class="block text-xs font-semibold text-slate-300">조례 분야 필터</label>
+          <div class="grid grid-cols-2 gap-1.5" id="filter-buttons">
+            <button onclick="setThemeFilter('전체', this)" class="filter-btn active px-3 py-2 text-xs font-medium rounded-lg bg-sky-600 text-white transition">전체</button>
+            <button onclick="setThemeFilter('복지/청년', this)" class="filter-btn px-3 py-2 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition">복지·청년</button>
+            <button onclick="setThemeFilter('안전/재난', this)" class="filter-btn px-3 py-2 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition">안전·재난</button>
+            <button onclick="setThemeFilter('소상공인', this)" class="filter-btn px-3 py-2 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition">소상공인</button>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-5 border-t border-slate-800 text-xs text-slate-400 leading-relaxed">
+          <strong class="text-slate-300 block mb-1">💡 교육 및 실습 안내</strong>
+          구글 안티그래비티 및 RAG 강의 실습용으로 제작된 자치법규 실시간 검색 서비스입니다. 조례 원문 인용 및 정확한 조항 번호를 안내합니다.
+        </div>
+      </div>
+
+      <!-- Reference Documents Link Box -->
+      <div class="glass-card rounded-2xl p-4 shadow-xl">
+        <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2.5">관련 자료 다운로드</h3>
+        <ul class="text-xs space-y-2 text-slate-400">
+          <li class="flex items-center gap-2">
+            <span class="text-red-400 font-bold">PDF</span>
+            <span>울산광역시 중구 핵심조례집 전문</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-emerald-400 font-bold">CSV</span>
+            <span>432개 전체 조례 목록 인덱스</span>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Right: Chatbot Interface -->
+    <section class="flex-1 flex flex-col glass-card rounded-2xl shadow-xl overflow-hidden min-h-[640px]">
+      
+      <!-- Chat Header -->
+      <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/50">
+        <div>
+          <h1 class="font-bold text-lg text-white flex items-center gap-2">
+            <span>울산 중구청 조례 지능형 Q&amp;A</span>
+            <span class="text-[11px] font-semibold bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/30">RAG Live</span>
+          </h1>
+          <p class="text-xs text-slate-400 mt-0.5">질문하시면 RAG 엔진이 가장 정확한 중구 조례 조항을 검색하여 답변합니다.</p>
+        </div>
+        <button onclick="clearChat()" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition">대화 초기화</button>
+      </div>
+
+      <!-- Quick Prompt Chips -->
+      <div class="px-6 py-3 bg-slate-900/30 border-b border-slate-800 flex items-center gap-2 overflow-x-auto text-xs">
+        <span class="text-slate-400 shrink-0 font-medium">추천 질문:</span>
+        <button onclick="sendQuickPrompt('울산 중구 청년 기본 조례상 지원받을 수 있는 청년의 나이 기준은 몇 세부터 몇 세까지인가요?')" class="shrink-0 px-3 py-1 rounded-full bg-slate-800 hover:bg-sky-600/30 hover:border-sky-500/50 text-slate-300 border border-slate-700 transition">👦 청년 나이 기준은?</button>
+        <button onclick="sendQuickPrompt('출산지원금이나 임신 지원금을 받기 위한 주민등록 거주 요건은 어떻게 되나요?')" class="shrink-0 px-3 py-1 rounded-full bg-slate-800 hover:bg-sky-600/30 hover:border-sky-500/50 text-slate-300 border border-slate-700 transition">👶 출산·임신 지원금 요건</button>
+        <button onclick="sendQuickPrompt('주택이나 상가에 침수방지시설(차수판) 설치 비용을 지원받으려면 어떻게 해야 하나요?')" class="shrink-0 px-3 py-1 rounded-full bg-slate-800 hover:bg-sky-600/30 hover:border-sky-500/50 text-slate-300 border border-slate-700 transition">🌊 침수방지 차수판 지원</button>
+        <button onclick="sendQuickPrompt('골목형상점가로 지정받기 위한 점포 밀집도와 상인 조직 요건은 무엇인가요?')" class="shrink-0 px-3 py-1 rounded-full bg-slate-800 hover:bg-sky-600/30 hover:border-sky-500/50 text-slate-300 border border-slate-700 transition">🏪 골목형 상점가 지정 요건</button>
+      </div>
+
+      <!-- Chat Messages Container -->
+      <div id="chat-messages" class="flex-1 p-6 overflow-y-auto space-y-4 max-h-[500px]">
+        <!-- Welcome Message -->
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-lg bg-sky-500 flex items-center justify-center font-bold text-white text-sm shrink-0">AI</div>
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl rounded-tl-sm p-4 text-sm leading-relaxed max-w-2xl text-slate-200">
+            안녕하세요! <strong>울산광역시 중구청 자치법규(조례) 전문 RAG 챗봇</strong>입니다.<br>
+            울산 중구의 청년, 출산, 노인 복지 지원금부터 침수방지시설, 소상공인 혜택, 공무원 복무 규정까지 무엇이든 질문해 보세요.
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Input Area -->
+      <div class="p-4 bg-slate-900/60 border-t border-slate-800">
+        <form id="chat-form" onsubmit="handleFormSubmit(event)" class="flex gap-2">
+          <input type="text" id="user-input" placeholder="울산 중구 조례에 대해 질문을 입력하세요... (예: 청년 지원 대상 나이, 침수방지시설 지원금)" class="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition" />
+          <button type="submit" class="px-5 py-3 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-semibold text-sm rounded-xl shadow-lg shadow-sky-500/20 transition flex items-center gap-1.5 shrink-0">
+            <span>전송</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          </button>
+        </form>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500 bg-slate-950">
+    <p>© 2026 Cloud Bread (Neopeaks AI, Inc.) · 울산광역시 중구 자치법규 RAG 데이터셋 연동</p>
+  </footer>
+
+  <!-- RAG Engine Script -->
+  <script>
+    let ordinancesData = [];
+    let currentThemeFilter = '전체';
+
+    // Fetch Corpus
+    fetch('data/ulsan_ordinances.json')
+      .then(res => res.json())
+      .then(data => {
+        ordinancesData = data;
+        console.log(`Loaded ${ordinancesData.length} ordinance chunks.`);
+      })
+      .catch(err => {
+        console.warn('Could not load data/ulsan_ordinances.json directly, fallback local.', err);
+      });
+
+    function setThemeFilter(theme, btn) {
+      currentThemeFilter = theme;
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('bg-sky-600', 'text-white');
+        b.classList.add('bg-slate-800', 'text-slate-300');
+      });
+      btn.classList.remove('bg-slate-800', 'text-slate-300');
+      btn.classList.add('bg-sky-600', 'text-white');
+    }
+
+    function sendQuickPrompt(promptText) {
+      document.getElementById('user-input').value = promptText;
+      processQuery(promptText);
+    }
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('user-input');
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+      processQuery(text);
+    }
+
+    function clearChat() {
+      const container = document.getElementById('chat-messages');
+      container.innerHTML = `
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-lg bg-sky-500 flex items-center justify-center font-bold text-white text-sm shrink-0">AI</div>
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl rounded-tl-sm p-4 text-sm leading-relaxed max-w-2xl text-slate-200">
+            대화가 초기화되었습니다. 궁금하신 울산광역시 중구 조례 내용을 질문해 주세요!
+          </div>
+        </div>
+      `;
+    }
+
+    // In-Browser RAG Retrieval Algorithm
+    function searchOrdinances(query, topK = 3) {
+      if (!ordinancesData || ordinancesData.length === 0) return [];
+      
+      const keywords = query.split(/[\s,?!]+/).filter(k => k.length >= 2);
+      const themeMap = {
+        '복지/청년': ['청년', '출산', '노인', '복지', '임신', '양육', '아동', '보육', '장애인', '1인'],
+        '안전/재난': ['안전', '재난', '침수', '화재', '대피', '방재', '보호'],
+        '소상공인': ['소상공인', '상점가', '시장', '골목', '일자리', '상권', '창업']
+      };
+
+      const scored = [];
+
+      for (const item of ordinancesData) {
+        if (currentThemeFilter !== '전체') {
+          const filterKws = themeMap[currentThemeFilter] || [];
+          const text = (item.ordinance_name + ' ' + item.article_body);
+          if (!filterKws.some(fk => text.includes(fk))) continue;
+        }
+
+        let score = 0;
+        const body = item.article_body || '';
+        const title = item.article_title || '';
+        const name = item.ordinance_name || '';
+
+        for (const kw of keywords) {
+          if (title.includes(kw)) score += 6.0;
+          if (name.includes(kw)) score += 5.0;
+          if (body.includes(kw)) {
+            const matches = (body.match(new RegExp(kw, 'g')) || []).length;
+            score += Math.min(matches * 2.0, 8.0);
+          }
+        }
+
+        if (score > 0) {
+          scored.push({ score, item });
+        }
+      }
+
+      scored.sort((a, b) => b.score - a.score);
+      return scored.slice(0, topK).map(s => s.item);
+    }
+
+    function processQuery(query) {
+      appendUserMessage(query);
+
+      // Loading state
+      const loadingId = appendLoadingMessage();
+
+      setTimeout(() => {
+        removeLoadingMessage(loadingId);
+        const retrieved = searchOrdinances(query, 3);
+        appendAssistantResponse(query, retrieved);
+      }, 400);
+    }
+
+    function appendUserMessage(text) {
+      const container = document.getElementById('chat-messages');
+      const div = document.createElement('div');
+      div.className = 'flex items-start gap-3 justify-end';
+      div.innerHTML = `
+        <div class="bg-sky-600 text-white rounded-2xl rounded-tr-sm p-4 text-sm leading-relaxed max-w-xl shadow-md">
+          ${escapeHtml(text)}
+        </div>
+        <div class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center font-bold text-slate-300 text-sm shrink-0">나</div>
+      `;
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function appendLoadingMessage() {
+      const container = document.getElementById('chat-messages');
+      const id = 'loading-' + Date.now();
+      const div = document.createElement('div');
+      div.id = id;
+      div.className = 'flex items-start gap-3';
+      div.innerHTML = `
+        <div class="w-8 h-8 rounded-lg bg-sky-500 flex items-center justify-center font-bold text-white text-sm shrink-0">AI</div>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl rounded-tl-sm p-4 text-sm text-slate-400 flex items-center gap-2">
+          <svg class="animate-spin h-4 w-4 text-sky-400" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+          울산광역시 중구청 조례 데이터베이스 검색 중...
+        </div>
+      `;
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+      return id;
+    }
+
+    function removeLoadingMessage(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+
+    function appendAssistantResponse(query, retrieved) {
+      const container = document.getElementById('chat-messages');
+      const div = document.createElement('div');
+      div.className = 'flex items-start gap-3';
+
+      if (!retrieved || retrieved.length === 0) {
+        div.innerHTML = `
+          <div class="w-8 h-8 rounded-lg bg-sky-500 flex items-center justify-center font-bold text-white text-sm shrink-0">AI</div>
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl rounded-tl-sm p-4 text-sm leading-relaxed max-w-2xl text-slate-200">
+            ⚠️ <strong>해당 질문과 일치하는 울산 중구 조례 조항을 찾지 못했습니다.</strong><br>
+            질문 키워드를 보다 명확하게 입력해 주시거나 좌측 필터를 '전체'로 변경해 보세요.<br>
+            <span class="text-xs text-slate-400 mt-2 block">(추천 키워드: 청년, 출산, 침수방지, 골목형상점가, 노인 등)</span>
+          </div>
+        `;
+      } else {
+        const top = retrieved[0];
+        const lines = (top.article_body || '').split('\n').filter(l => l.trim()).slice(0, 5);
+        const snippet = lines.map(l => `<p class="mb-1 text-slate-300">• ${escapeHtml(l)}</p>`).join('');
+
+        let sourcesHtml = '';
+        retrieved.forEach((art, i) => {
+          sourcesHtml += `
+            <div class="mt-2 p-3 bg-slate-950 rounded-lg border border-slate-800 text-xs">
+              <div class="font-bold text-sky-400 mb-1">근거 [${i+1}] ${escapeHtml(art.ordinance_name)} 제${escapeHtml(art.article_no)}조 (${escapeHtml(art.article_title)})</div>
+              <div class="text-slate-400 font-mono whitespace-pre-wrap leading-relaxed">${escapeHtml(art.article_body)}</div>
+            </div>
+          `;
+        });
+
+        div.innerHTML = `
+          <div class="w-8 h-8 rounded-lg bg-sky-500 flex items-center justify-center font-bold text-white text-sm shrink-0">AI</div>
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl rounded-tl-sm p-4 text-sm leading-relaxed max-w-2xl text-slate-200 space-y-3">
+            <div>
+              <span class="inline-block px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 text-xs font-semibold border border-sky-500/30 mb-2">근거 자치법규 확인</span>
+              <h4 class="font-bold text-base text-white">『${escapeHtml(top.ordinance_name)}』 제${escapeHtml(top.article_no)}조 (${escapeHtml(top.article_title)})</h4>
+              <p class="text-xs text-slate-400 mt-0.5">공포번호: 제${escapeHtml(top.prom_no)}호 | 소관기관: 울산광역시 중구</p>
+            </div>
+            
+            <div class="bg-slate-950/60 p-3.5 rounded-xl border border-slate-800/80">
+              <strong class="text-xs text-slate-300 block mb-2 font-semibold">📌 핵심 규정 요약:</strong>
+              ${snippet}
+            </div>
+
+            <details class="group mt-2 border border-slate-800 rounded-xl bg-slate-950/40 p-3">
+              <summary class="text-xs font-semibold text-slate-400 hover:text-sky-400 cursor-pointer flex items-center justify-between">
+                <span>🔍 RAG 검색 원문 조항 (${retrieved.length}건 참조)</span>
+                <span class="text-[10px] text-slate-500 group-open:rotate-180 transition">▼</span>
+              </summary>
+              <div class="mt-2 space-y-2">
+                ${sourcesHtml}
+              </div>
+            </details>
+          </div>
+        `;
+      }
+
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+  </script>
+</body>
+</html>
