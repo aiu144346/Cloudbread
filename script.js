@@ -698,43 +698,61 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // --- Interactive Impact Counter ---
-    const impactSection = document.querySelector(".cta-impact");
-    if (impactSection) {
-        let loopStarted = false;
-        const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && !loopStarted) {
-                loopStarted = true;
-                const el1 = document.getElementById("attendee-count");
-                const el2 = document.getElementById("age-range-start");
-                const el3 = document.getElementById("age-range-end");
+    const impactSection = document.querySelector(".impact-strip") || document.querySelector(".cta-impact");
+    let counterStarted = false;
 
-                const runCounters = () => {
-                    if (el1) animateCount(el1, 20000, 2000);
-                    if (el2) animateCount(el2, 8, 1500);
-                    if (el3) animateCount(el3, 80, 1500);
-                };
+    function runImpactCounters() {
+        if (counterStarted) return;
+        counterStarted = true;
+        const el1 = document.getElementById("attendee-count");
+        const el2 = document.getElementById("age-range-start");
+        const el3 = document.getElementById("age-range-end");
 
-                runCounters();
-                setInterval(runCounters, 8000);
+        if (el1) smoothCountUp(el1, 0, 8092, 2800, true);
+        if (el2) smoothCountUp(el2, 1, 6, 1600, false);
+        if (el3) smoothCountUp(el3, 10, 88, 2400, false);
+    }
+
+    function smoothCountUp(el, start, target, duration, formatComma = true) {
+        if (!el) return;
+        const startTime = performance.now();
+        function update(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease-out cubic: smooth deceleration
+            const ease = 1 - Math.pow(1 - progress, 3);
+            const current = Math.floor(start + (target - start) * ease);
+            el.innerText = formatComma ? current.toLocaleString() : current;
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            } else {
+                el.innerText = formatComma ? target.toLocaleString() : target;
             }
-        }, { threshold: 0.5 });
-        observer.observe(impactSection);
+        }
+        requestAnimationFrame(update);
     }
 
     function animateCount(el, target, duration) {
-        let start = 0;
-        const range = target - start;
-        const increment = target > start ? 1 : -1;
-        const stepTime = Math.abs(Math.floor(duration / range)) || 10;
-        const timer = setInterval(() => {
-            start += Math.ceil(range / (duration / 16));
-            if (start >= target) {
-                el.innerText = target.toLocaleString();
-                clearInterval(timer);
-            } else {
-                el.innerText = Math.floor(start).toLocaleString();
+        smoothCountUp(el, 0, target, duration, true);
+    }
+
+    if (impactSection) {
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                runImpactCounters();
             }
-        }, 16);
+        }, { threshold: 0.2 });
+        observer.observe(impactSection);
+
+        // Immediate trigger if already in viewport on load
+        setTimeout(() => {
+            const rect = impactSection.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom >= 0) {
+                runImpactCounters();
+            }
+        }, 350);
+    } else {
+        setTimeout(runImpactCounters, 400);
     }
 
     // --- Scroll Reveal Animation Logic ---
