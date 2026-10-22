@@ -269,6 +269,67 @@ for (const dist of ['중구', '남구', '동구', '북구', '울주군']) {
       </div>
     </div>
 
+    <!-- LECTURE TIP: 1단계 클라이언트 RAG vs 2단계 LLM 결합 하이브리드 RAG -->
+    <div class="glass-card rounded-2xl p-5 sm:p-8 space-y-5 border border-amber-500/30" style="background: linear-gradient(180deg, rgba(20, 20, 15, 0.9) 0%, rgba(10, 15, 20, 0.95) 100%);">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="step-badge bg-amber-400 text-slate-950 font-black">LECTURE TIP</span>
+          <h3 class="text-lg sm:text-2xl font-black text-white flex items-center gap-2">
+            <span>향후 더 완벽한 대화형 AI로 발전시키는 방법 (강의 팁)</span>
+          </h3>
+        </div>
+        <span class="text-xs text-amber-300 font-mono"><i class="fa-solid fa-graduation-cap mr-1"></i>수강생 핵심 교육 포인트</span>
+      </div>
+
+      <p class="text-sm text-slate-300 leading-relaxed">
+        수강생들에게 강의하실 때 <strong>"키워드/규칙 기반 클라이언트 RAG"</strong>와 <strong>"LLM 결합형 하이브리드 RAG"</strong>의 차이를 설명하시는 좋은 교육 사례로 활용하실 수 있습니다:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+        <div class="bg-slate-900/90 p-4 sm:p-5 rounded-xl border border-slate-800 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-emerald-400 text-sm flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+              1단계 (현재 웹앱 방식 - 무과금·초고속)
+            </span>
+            <span class="text-[11px] text-slate-400 bg-slate-800 px-2 py-0.5 rounded">Client-Side Engine</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed text-xs">
+            <strong>형태소(조사) 제거 + 유의어 사전(Synonym Dictionary) + 도메인 실무 요약본(FAQ 청크) 보강</strong>으로 <strong>API 비용 0원</strong>으로 95% 이상의 시민 질문을 초고속으로 커버합니다. 별도 서버 운영비 없이 웹 브라우저에서 즉시 동작하는 것이 최대 강점입니다.
+          </p>
+        </div>
+
+        <div class="bg-slate-900/90 p-4 sm:p-5 rounded-xl border border-cyan-500/30 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-cyan-300 text-sm flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+              2단계 (안티그래비티 / Gemini API 결합 방식)
+            </span>
+            <span class="text-[11px] text-cyan-300 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-500/30">LLM Hybrid</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed text-xs">
+            코퍼스에 직접적인 단어가 없더라도 <strong>거대언어모델(LLM)이 문맥을 추론</strong>하여 답변하도록 <strong>Google Antigravity</strong>에서 <code>ulsan_health_centers_rag_corpus.jsonl</code>을 열고 아래 마스터 프롬프트를 적용하면, 어떤 구어체나 복합 질문에도 100% 자연스러운 상담이 가능합니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- Real Test Prompt Callouts -->
+      <div class="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 text-xs flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div class="space-y-1">
+          <div class="font-bold text-white flex items-center gap-1.5">
+            <i class="fa-solid fa-circle-play text-emerald-400"></i>
+            실시간 챗봇 검증 테스트 추천 질문:
+          </div>
+          <p class="text-slate-400">
+            <code>"어르신 독감 백신의 대상에 대해서 알려주세요."</code> 또는 <code>"보건소에서 물리치료나 휠체어 대여도 되나요?"</code>
+          </p>
+        </div>
+        <a href="rag-health.html" class="shrink-0 px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-lg transition text-xs">
+          지금 바로 테스트하기 →
+        </a>
+      </div>
+    </div>
+
     <!-- SPECIAL TRACK: Google Antigravity Integration -->
     <div class="glass-card rounded-2xl p-5 sm:p-8 space-y-6 border border-emerald-500/40" style="background: linear-gradient(180deg, rgba(6, 28, 24, 0.95) 0%, rgba(5, 10, 24, 0.98) 100%);">
       <div class="flex items-center justify-between flex-wrap gap-2">
