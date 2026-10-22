@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>울산 중구청 조례 RAG 챗봇 제작 실습 마스터 가이드 | Cloud Bread</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    body { font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .step-badge {
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #ffffff;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+    }
+    .code-container {
+      position: relative;
+      background: #090d16;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #94a3b8;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover {
+      background: #0284c7;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-sky-500 selection:text-white">
+
+  <!-- Header -->
+  <header class="border-b border-slate-800 bg-slate-900/80 sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2 group">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20 font-black text-white text-lg">CB</div>
+          <span class="font-bold text-lg tracking-tight group-hover:text-sky-400 transition">Cloud Bread</span>
+        </a>
+        <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20">RAG Courseware</span>
+      </div>
+      <nav class="flex items-center gap-4 sm:gap-6 text-sm font-medium text-slate-300">
+        <a href="showcase.html?target=citizen" class="hover:text-white transition flex items-center gap-1.5 text-xs sm:text-sm">
+          <i class="fa-solid fa-arrow-left"></i> 쇼케이스로 복귀
+        </a>
+        <a href="rag-ordinance.html" class="text-sky-400 font-semibold flex items-center gap-1.5 bg-sky-500/10 px-3 py-1.5 rounded-lg border border-sky-500/20 text-xs sm:text-sm hover:bg-sky-500/20 transition">
+          <i class="fa-solid fa-landmark"></i> <span>조례 RAG 챗봇 체험하기</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="border-b border-slate-800 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto text-center space-y-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-semibold">
+        <i class="fa-solid fa-graduation-cap"></i> 수강생 전용 실습 강의안 마스터클래스
+      </div>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
+        기초자치단체 조례 RAG 챗봇<br class="hidden sm:block" />
+        <span class="bg-gradient-to-r from-sky-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent">처음부터 끝까지 100% 직접 만들기</span>
+      </h1>
+      <p class="text-sm sm:text-base text-slate-400 max-w-3xl mx-auto leading-relaxed">
+        공공데이터 API 수집부터 법률 문서 정밀 청킹(Chunking), 의도 분석 시맨틱 랭킹, 그리고 프롬프트 엔지니어링과 Vercel 배포까지 전 과정을 실습합니다.
+      </p>
+      
+      <div class="flex flex-wrap items-center justify-center gap-3 pt-3">
+        <span class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300"><i class="fa-solid fa-clock text-sky-400 mr-1.5"></i>소요 시간: 120분 완성</span>
+        <span class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300"><i class="fa-solid fa-layer-group text-emerald-400 mr-1.5"></i>총 5단계 핵심 로드맵</span>
+        <span class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300"><i class="fa-solid fa-code text-indigo-400 mr-1.5"></i>Python &amp; JavaScript 풀스택</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Roadmap -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+    <!-- Architecture Overview -->
+    <div class="glass-card rounded-2xl p-6 sm:p-8">
+      <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <i class="fa-solid fa-diagram-project text-sky-400"></i>
+        <span>전체 자치법규 RAG 시스템 아키텍처</span>
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-5 gap-3 text-center text-xs">
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+          <div class="font-bold text-sky-400 mb-2">1. 데이터 수집</div>
+          <p class="text-slate-400">국가법령정보센터 DRF Open API (432개 조례 전수)</p>
+        </div>
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+          <div class="font-bold text-emerald-400 mb-2">2. 조문 청킹</div>
+          <p class="text-slate-400">제1조, 제2조 단위 분할 + 메타데이터 바인딩</p>
+        </div>
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+          <div class="font-bold text-indigo-400 mb-2">3. 시맨틱 검색</div>
+          <p class="text-slate-400">불용어 필터링 + 질문 의도(Intent) 가중치 부스팅</p>
+        </div>
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+          <div class="font-bold text-amber-400 mb-2">4. 답변 합성</div>
+          <p class="text-slate-400">핵심 다이렉트 앤서 + 근거 조례 및 법조문 인용</p>
+        </div>
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+          <div class="font-bold text-pink-400 mb-2">5. 글로벌 배포</div>
+          <p class="text-slate-400">Streamlit Cloud &amp; GitHub + Vercel 무중단 서비스</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="glass-card rounded-2xl p-6 sm:p-8 space-y-4">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="step-badge">STEP 1</span>
+          <h3 class="text-xl font-bold text-white">공공데이터 API로 지자체 조례 전수 수집</h3>
+        </div>
+        <span class="text-xs text-slate-400 font-mono">Tool: Python, law.go.kr DRF API</span>
+      </div>
+
+      <p class="text-sm text-slate-300 leading-relaxed">
+        일반 웹 크롤링 대신 국가법령정보센터에서 제공하는 공식 <strong>DRF(대국민 법령정보 오픈API)</strong>를 활용하여, 울산광역시 중구청의 조례 432건 전체 목록과 조문 전문 XML을 누락 없이 안전하게 수집합니다.
+      </p>
+
+      <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 text-xs space-y-2 text-slate-300">
+        <strong class="text-sky-400 block"><i class="fa-solid fa-lightbulb"></i> 핵심 포인트:</strong>
+        <p>• 지자체명 검색 시 기본 20건씩 페이징되므로 루프를 통해 524건(조례 432건, 규칙 92건)을 전수 수집합니다.</p>
+        <p>• 각 조례의 고유 식별자인 <strong>MST(자치법규일련번호)</strong>를 추출하여 상세 본문 호출 키로 사용합니다.</p>
+      </div>
+
+      <div class="code-container p-4 font-mono text-xs text-slate-300">
+        <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> 복사</button>
+        <pre><code>import urllib.request, urllib.parse, xml.etree.ElementTree as ET
+
+# 1. 울산광역시 중구 자치법규 목록 검색
+query = urllib.parse.quote('울산광역시 중구')
+url = f'https://www.law.go.kr/DRF/lawSearch.do?OC=test&target=ordin&type=XML&query={query}&page=1'
+
+req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+with urllib.request.urlopen(req) as resp:
+    tree = ET.fromstring(resp.read())
+
+for item in tree.findall('.//law'):
+    name = item.findtext('자치법규명')
+    mst = item.findtext('자치법규일련번호')
+    law_type = item.findtext('자치법규종류')
+    if law_type == '조례':
+        print(f"조례명: {name} | MST: {mst}")</code></pre>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="glass-card rounded-2xl p-6 sm:p-8 space-y-4">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="step-badge" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">STEP 2</span>
+          <h3 class="text-xl font-bold text-white">법률 문서에 최적화된 조문 단위(Article) Chunking</h3>
+        </div>
+        <span class="text-xs text-slate-400 font-mono">Format: JSON Lines (.jsonl)</span>
+      </div>
+
+      <p class="text-sm text-slate-300 leading-relaxed">
+        일반 문서는 500자 단위나 단락 단위로 자르지만, <strong>법률 문서는 절대 글자 수로 자르면 안 됩니다.</strong> 반드시 <strong>`제1조(목적)`, `제2조(정의)`, `제3조(지원대상)`</strong>과 같이 의미가 완결되는 조문 단위로 분할해야 맥락 단절(Context Loss)을 막을 수 있습니다.
+      </p>
+
+      <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 text-xs space-y-2 text-slate-300">
+        <strong class="text-emerald-400 block"><i class="fa-solid fa-check-circle"></i> 조문 청크에 반드시 바인딩해야 할 5대 메타데이터:</strong>
+        <p>1. <code>ordinance_name</code>: 소관 조례명 (예: 울산광역시 중구 청년 기본 조례)</p>
+        <p>2. <code>article_no</code>: 조문 번호 정규화 (<code>000200</code> ➔ <code>제2조</code>)</p>
+        <p>3. <code>article_title</code>: 조문 제목 (예: 정의, 지원대상, 설치·운영)</p>
+        <p>4. <code>prom_no</code>: 공포번호 (법적 효력 검증용)</p>
+        <p>5. <code>rag_chunk</code>: 검색용 합성 텍스트 <code>"[조례명 - 제O조 제목]\n조문 본문"</code></p>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="glass-card rounded-2xl p-6 sm:p-8 space-y-4">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="step-badge" style="background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);">STEP 3</span>
+          <h3 class="text-xl font-bold text-white">의도(Intent) 분석 기반 시맨틱 부스팅 RAG 검색</h3>
+        </div>
+        <span class="text-xs text-slate-400 font-mono">Algorithm: Stopword Filtering + Intent Boosting</span>
+      </div>
+
+      <div class="bg-red-500/10 border border-red-500/30 p-4 rounded-xl text-xs text-red-300 leading-relaxed">
+        <strong>⚠️ 수강생이 실무에서 100% 겪는 RAG 함정:</strong><br />
+        "청년 나이 기준은?"이라고 물었을 때, 단순 단어 빈도(TF)만 계산하면 '청년'과 '기준'이라는 단어가 수십 번 들어간 <strong>제21조(청년센터 설치운영)</strong>가 1위로 잡히고, 정작 정답인 <strong>제2조(정의: 19세~39세)</strong>는 밀려납니다.
+      </div>
+
+      <p class="text-sm text-slate-300 leading-relaxed">
+        <strong>해결책:</strong> 불용어('울산', '중구', '조례상', '기준은', '몇세' 등)를 제거하고, 질문의 의도를 분석하여 연관 조항에 <strong>가중치(+100~120점)</strong>를 직접 부여합니다.
+      </p>
+
+      <div class="code-container p-4 font-mono text-xs text-slate-300">
+        <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> 복사</button>
+        <pre><code>// Intent-Aware 가중치 부여 알고리즘
+const isAge = /나이|연령|몇\s*세|청년\s*나이|정의/.test(query);
+
+for (const item of corpus) {
+  let score = calculateTokenScore(query, item);
+
+  // 청년 나이를 묻는 의도일 경우 제2조(정의)를 최우선 1위로 부스팅!
+  if (isAge && item.ordinance_name.includes('청년 기본 조례')) {
+    if (item.article_title.includes('정의') || item.article_no === '2') {
+      score += 120; // 압도적 가중치 부여
+    }
+  }
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="glass-card rounded-2xl p-6 sm:p-8 space-y-4">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="step-badge" style="background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);">STEP 4</span>
+          <h3 class="text-xl font-bold text-white">프롬프트 엔지니어링 &amp; 다이렉트 앤서(Direct Answer) 합성</h3>
+        </div>
+        <span class="text-xs text-slate-400 font-mono">Prompt Engineering &amp; Synthesis</span>
+      </div>
+
+      <p class="text-sm text-slate-300 leading-relaxed">
+        RAG의 완성은 단순히 검색된 조항을 보여주는 것이 아니라, <strong>구민의 질문에 1:1로 직접 대답하는 문장을 합성(Synthesis)</strong>하는 것입니다.
+      </p>
+
+      <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 space-y-3">
+        <strong class="text-amber-400 block"><i class="fa-solid fa-terminal"></i> RAG 시스템 프롬프트(System Prompt) 표준 템플릿:</strong>
+        <p class="font-mono bg-slate-950 p-3 rounded-lg border border-slate-800 leading-relaxed text-slate-300">
+          당신은 '울산광역시 중구 자치법규(조례) 전문 AI 법률 어드바이저'입니다.<br />
+          반드시 아래 제공된 조례 조항만을 바탕으로 답변하세요.<br />
+          [답변 포맷]<br />
+          1. 💡 핵심 정답 요약: 질문에 즉각 답하는 1~2문장의 명확한 결론 (예: 19세 이상 39세 이하)<br />
+          2. 🏛️ 근거 자치법규: 『조례명』 제O조(제목) 및 공포번호<br />
+          3. 📜 원본 법조문 발췌: 신뢰도 검증용 인용문 제공
+        </p>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="glass-card rounded-2xl p-6 sm:p-8 space-y-4">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="step-badge" style="background: linear-gradient(135deg, #db2777 0%, #f43f5e 100%);">STEP 5</span>
+          <h3 class="text-xl font-bold text-white">Streamlit &amp; GitHub + Vercel 무중단 배포</h3>
+        </div>
+        <span class="text-xs text-slate-400 font-mono">Deployment: Vercel &amp; Streamlit Cloud</span>
+      </div>
+
+      <p class="text-sm text-slate-300 leading-relaxed">
+        구축한 자치법규 RAG 시스템을 전국의 교육생과 시민들이 접속할 수 있도록 실시간 클라우드 서비스로 배포합니다.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+          <strong class="text-sky-400 font-bold block flex items-center gap-1.5"><i class="fa-solid fa-globe"></i> Vercel 글로벌 엣지 배포 (권장)</strong>
+          <p class="text-slate-400">서버리스 환경으로 구동되어 트래픽이 몰려도 비용 걱정 없이 0.01초 만에 전 세계에 서비스됩니다.</p>
+          <div class="pt-2 font-mono text-[11px] text-slate-500">git push origin main ➔ 자동 CI/CD 배포</div>
+        </div>
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+          <strong class="text-emerald-400 font-bold block flex items-center gap-1.5"><i class="fa-solid fa-cubes"></i> Streamlit Community Cloud</strong>
+          <p class="text-slate-400">Python 개발자에게 가장 친숙한 대시보드로, app.py와 requirements.txt만으로 1초 만에 배포됩니다.</p>
+          <div class="pt-2 font-mono text-[11px] text-slate-500">cloudbread-rag.streamlit.app 연동</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Action CTA -->
+    <div class="bg-gradient-to-r from-sky-900/40 via-indigo-900/40 to-blue-900/40 border border-sky-500/30 rounded-2xl p-6 sm:p-8 text-center space-y-4">
+      <h3 class="text-xl sm:text-2xl font-bold text-white">지금 바로 완성된 RAG 챗봇을 테스트해 보세요!</h3>
+      <p class="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto">
+        본 강의안의 모든 로직(372개 정밀 청크, 시맨틱 부스팅, 다이렉트 앤서)이 100% 적용된 라이브 웹 애플리케이션입니다.
+      </p>
+      <div class="pt-2">
+        <a href="rag-ordinance.html" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold text-sm rounded-xl shadow-lg shadow-sky-500/25 transition">
+          <i class="fa-solid fa-landmark"></i> 울산 중구청 조례 RAG 챗봇 열기 →
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500 bg-slate-950">
+    <p>© 2026 Cloud Bread (Neopeaks AI, Inc.) · RAG Courseware Engineering Guide</p>
+  </footer>
+
+  <script>
+    function copyCode(btn) {
+      const code = btn.parentElement.querySelector('code').innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-check text-emerald-400"></i> 복사됨!';
+        setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
