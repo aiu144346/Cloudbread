@@ -278,13 +278,13 @@ if (isYouth && isAge && item.law_name.includes('청년 기본 조례')) {
 
       <!-- Master Prompt Box with Copy Button -->
       <div class="space-y-3">
-        <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center justify-between flex-wrap gap-3">
           <div class="flex items-center gap-2">
             <i class="fa-solid fa-terminal text-cyan-400"></i>
             <span class="text-sm font-bold text-white">울산광역시 조례 RAG 마스터 프롬프트 (수강생 복사용)</span>
           </div>
-          <button onclick="copyAntigravityPrompt()" id="copy-btn" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition shadow-md">
-            <i class="fa-solid fa-clipboard"></i>
+          <button onclick="copyAntigravityPrompt()" id="copy-btn" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-sky-400 to-cyan-400 hover:from-sky-300 hover:to-cyan-300 text-slate-950 font-black text-sm transition shadow-lg min-h-[46px] active:scale-98">
+            <i class="fa-solid fa-clipboard text-base"></i>
             <span id="copy-btn-text">📋 안티그래비티 프롬프트 전체 복사</span>
           </button>
         </div>

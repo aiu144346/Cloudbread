@@ -3987,3 +3987,177 @@ body.has-notice-bar .hero {
     }
 }
 
+/* ==========================================================================
+   NAVER-GRADE MOBILE UI/UX OPTIMIZATION SYSTEM
+   Enhanced legibility, thumb-friendly touch targets, horizontal scroll tabs
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    /* 1. Global Viewport & Container Spacing */
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+    }
+
+    .container, section, .showcase-section, .library-section {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+
+    /* 2. Naver-Style Horizontal Swipe Tabs (Target Selector) */
+    .target-selector {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+        justify-content: flex-start !important;
+        gap: 8px !important;
+        padding: 4px 6px 14px 6px !important;
+        margin-bottom: 1.5rem !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+    .target-selector::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    .target-btn {
+        flex-shrink: 0 !important;
+        white-space: nowrap !important;
+        padding: 8px 16px !important;
+        font-size: 0.88rem !important;
+        font-weight: 700 !important;
+        border-radius: 9999px !important;
+        background: rgba(255, 255, 255, 0.06) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        color: #94A3B8 !important;
+        opacity: 1 !important;
+        min-height: 40px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        transition: all 0.2s ease !important;
+    }
+
+    .target-btn.active {
+        background: linear-gradient(135deg, rgba(0, 240, 255, 0.2) 0%, rgba(14, 165, 233, 0.3) 100%) !important;
+        border-color: #00F0FF !important;
+        color: #FFFFFF !important;
+        font-weight: 800 !important;
+        box-shadow: 0 0 15px rgba(0, 240, 255, 0.2) !important;
+    }
+    .target-btn.active::after {
+        display: none !important;
+    }
+
+    /* 3. Mobile Card & Spacing Optimization (Compact & Clean) */
+    .glass-card, .dash-card, .roadmap-step-item, .card {
+        padding: 1.1rem !important;
+        border-radius: 16px !important;
+    }
+
+    /* 4. Thumb-Friendly Touch Targets */
+    button, a.btn, .nav-cta, .dash-cta-btn {
+        min-height: 44px !important;
+    }
+
+    /* 5. Mobile App-Style Bottom Navigation Bar */
+    .mobile-nav {
+        height: 62px !important;
+        padding-top: 6px !important;
+        padding-bottom: calc(6px + env(safe-area-inset-bottom)) !important;
+        background: rgba(5, 8, 17, 0.95) !important;
+        backdrop-filter: blur(24px) !important;
+        -webkit-backdrop-filter: blur(24px) !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .mobile-nav-item {
+        color: #94A3B8 !important;
+    }
+
+    .mobile-nav-item.active {
+        color: #00F0FF !important;
+    }
+
+    .mobile-nav-item span:last-child {
+        font-size: 0.72rem !important;
+        font-weight: 700 !important;
+        margin-top: 2px !important;
+    }
+
+    /* 6. Form Inputs iOS Auto-Zoom Prevention */
+    input[type="text"], input[type="search"], textarea, select {
+        font-size: 16px !important;
+    }
+
+    /* 7. Curriculum Dashboard Mobile Stacking */
+    .curriculum-dashboard-container {
+        gap: 1.2rem !important;
+    }
+
+    .dash-badge-row {
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+    }
+
+    .dash-pill {
+        font-size: 0.75rem !important;
+        padding: 4px 10px !important;
+    }
+
+    .dash-course-title {
+        font-size: 1.3rem !important;
+        line-height: 1.4 !important;
+    }
+
+    .dash-metrics-grid {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+    }
+
+    .roadmap-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .dash-bottom-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+}
+
+
+/* RAG Showcase Cards Mobile Responsiveness */
+.rag-card {
+    transition: all 0.3s ease;
+}
+.rag-card:hover {
+    transform: translateY(-3px);
+}
+@media (max-width: 768px) {
+    .rag-card {
+        padding: 1.25rem 1.15rem !important;
+        border-radius: 16px !important;
+    }
+    .rag-card h3 {
+        font-size: 1.18rem !important;
+        line-height: 1.35 !important;
+    }
+    .rag-card-actions {
+        width: 100% !important;
+        display: flex !important;
+        gap: 8px !important;
+    }
+    .rag-card-actions a {
+        flex: 1 1 0 !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 12px 10px !important;
+        font-size: 0.84rem !important;
+        min-height: 46px !important;
+    }
+}

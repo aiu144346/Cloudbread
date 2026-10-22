@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <style>
-    body { font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
     .glass-card {
       background: rgba(15, 23, 42, 0.75);
       backdrop-filter: blur(12px);
@@ -16,6 +16,11 @@
     .direct-answer-box {
       background: linear-gradient(135deg, rgba(14, 165, 233, 0.15) 0%, rgba(99, 102, 241, 0.15) 100%);
       border: 1px solid rgba(56, 189, 248, 0.4);
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    @media (max-width: 640px) {
+      input[type="text"] { font-size: 16px !important; }
     }
   </style>
 </head>
@@ -119,7 +124,7 @@
       </div>
 
       <!-- Quick Prompt Chips -->
-      <div class="px-6 py-3 bg-slate-900/30 border-b border-slate-800 flex items-center gap-2 overflow-x-auto text-xs">
+      <div class="px-4 sm:px-6 py-3 bg-slate-900/30 border-b border-slate-800 flex items-center gap-2 overflow-x-auto no-scrollbar text-xs">
         <span class="text-slate-400 shrink-0 font-medium">추천 질문:</span>
         <button onclick="sendQuickPrompt('울산 중구 청년 기본 조례상 지원받을 수 있는 청년의 나이 기준은 몇 세부터 몇 세까지인가요?')" class="shrink-0 px-3 py-1 rounded-full bg-slate-800 hover:bg-sky-600/30 hover:border-sky-500/50 text-slate-300 border border-slate-700 transition">👦 청년 나이 기준은?</button>
         <button onclick="sendQuickPrompt('출산지원금이나 임신 지원금을 받기 위한 주민등록 거주 요건은 어떻게 되나요?')" class="shrink-0 px-3 py-1 rounded-full bg-slate-800 hover:bg-sky-600/30 hover:border-sky-500/50 text-slate-300 border border-slate-700 transition">👶 출산·임신 지원금 거주 요건</button>

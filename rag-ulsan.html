@@ -14,6 +14,7 @@
       font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
       background-color: #050811;
       color: #f1f5f9;
+      -webkit-font-smoothing: antialiased;
     }
     .chat-scroll::-webkit-scrollbar {
       width: 6px;
@@ -29,13 +30,25 @@
       background: rgba(56, 189, 248, 0.6);
     }
     .glass-card {
-      background: rgba(15, 23, 42, 0.75);
+      background: rgba(15, 23, 42, 0.85);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
     .glow-cyan {
       box-shadow: 0 0 25px rgba(0, 240, 255, 0.15);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    @media (max-width: 640px) {
+      input[type="text"] {
+        font-size: 16px !important;
+      }
     }
   </style>
 </head>
@@ -98,33 +111,33 @@
             청년 기본 조례(연령 19~39세) | 인구감소 및 저출생 대응 조례 | 소상공인 지원 조례(경영안정자금) | 침수방지시설 설치 지원 조례 | 교통약자 이동편의 증진 조례(부름콜)
           </p>
         </div>
-        <div class="flex items-center gap-2 flex-wrap">
-          <span class="text-xs text-slate-400">분야 필터:</span>
-          <button onclick="setThemeFilter('전체', this)" class="filter-btn px-2.5 py-1 text-xs rounded-md bg-cyan-600 text-white font-medium transition">전체</button>
-          <button onclick="setThemeFilter('청년/일자리', this)" class="filter-btn px-2.5 py-1 text-xs rounded-md bg-slate-800 text-slate-300 hover:text-white transition">청년/일자리</button>
-          <button onclick="setThemeFilter('인구/저출생/출산', this)" class="filter-btn px-2.5 py-1 text-xs rounded-md bg-slate-800 text-slate-300 hover:text-white transition">저출생/출산</button>
-          <button onclick="setThemeFilter('경제/소상공인', this)" class="filter-btn px-2.5 py-1 text-xs rounded-md bg-slate-800 text-slate-300 hover:text-white transition">소상공인</button>
-          <button onclick="setThemeFilter('안전/침수방지', this)" class="filter-btn px-2.5 py-1 text-xs rounded-md bg-slate-800 text-slate-300 hover:text-white transition">침수방지</button>
-          <button onclick="setThemeFilter('교통/이동편의', this)" class="filter-btn px-2.5 py-1 text-xs rounded-md bg-slate-800 text-slate-300 hover:text-white transition">교통약자</button>
+        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+          <span class="text-xs text-slate-400 shrink-0 mr-1">분야:</span>
+          <button onclick="setThemeFilter('전체', this)" class="filter-btn shrink-0 px-3 py-1.5 text-xs rounded-full bg-cyan-600 text-white font-semibold transition">전체</button>
+          <button onclick="setThemeFilter('청년/일자리', this)" class="filter-btn shrink-0 px-3 py-1.5 text-xs rounded-full bg-slate-800 text-slate-300 hover:text-white transition">청년/일자리</button>
+          <button onclick="setThemeFilter('인구/저출생/출산', this)" class="filter-btn shrink-0 px-3 py-1.5 text-xs rounded-full bg-slate-800 text-slate-300 hover:text-white transition">저출생/출산</button>
+          <button onclick="setThemeFilter('경제/소상공인', this)" class="filter-btn shrink-0 px-3 py-1.5 text-xs rounded-full bg-slate-800 text-slate-300 hover:text-white transition">소상공인</button>
+          <button onclick="setThemeFilter('안전/침수방지', this)" class="filter-btn shrink-0 px-3 py-1.5 text-xs rounded-full bg-slate-800 text-slate-300 hover:text-white transition">침수방지</button>
+          <button onclick="setThemeFilter('교통/이동편의', this)" class="filter-btn shrink-0 px-3 py-1.5 text-xs rounded-full bg-slate-800 text-slate-300 hover:text-white transition">교통약자</button>
         </div>
       </div>
 
-      <!-- Quick Prompt Chips -->
-      <div class="mt-3 pt-3 border-t border-slate-800/80 flex items-center gap-2 flex-wrap">
-        <span class="text-xs text-slate-400 shrink-0"><i class="fas fa-bolt text-yellow-400 mr-1"></i>추천 질문:</span>
-        <button onclick="sendQuickPrompt('울산광역시 조례상 청년 나이는 몇 세까지인가요?')" class="text-xs bg-slate-800/90 hover:bg-slate-700 text-slate-200 px-2.5 py-1 rounded-full border border-slate-700 transition">
-          🌱 울산시 청년 나이 기준
+      <!-- Quick Prompt Chips (Naver Style Horizontal Scroll) -->
+      <div class="mt-3 pt-3 border-t border-slate-800/80 flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+        <span class="text-xs text-slate-400 shrink-0"><i class="fas fa-bolt text-yellow-400 mr-1"></i>추천:</span>
+        <button onclick="sendQuickPrompt('울산광역시 조례상 청년 나이는 몇 세까지인가요?')" class="text-xs bg-slate-800/90 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-full border border-slate-700 transition shrink-0 whitespace-nowrap active:scale-95">
+          🌱 청년 나이 기준
         </button>
-        <button onclick="sendQuickPrompt('울산광역시 소상공인 경영안정자금 지원 기준과 내용은 무엇인가요?')" class="text-xs bg-slate-800/90 hover:bg-slate-700 text-slate-200 px-2.5 py-1 rounded-full border border-slate-700 transition">
+        <button onclick="sendQuickPrompt('울산광역시 소상공인 경영안정자금 지원 기준과 내용은 무엇인가요?')" class="text-xs bg-slate-800/90 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-full border border-slate-700 transition shrink-0 whitespace-nowrap active:scale-95">
           💼 소상공인 경영안정자금
         </button>
-        <button onclick="sendQuickPrompt('침수방지시설(차수판) 설치 지원 대상과 기준은 어떻게 되나요?')" class="text-xs bg-slate-800/90 hover:bg-slate-700 text-slate-200 px-2.5 py-1 rounded-full border border-slate-700 transition">
-          🌊 침수방지시설 차수판 지원
+        <button onclick="sendQuickPrompt('침수방지시설(차수판) 설치 지원 대상과 기준은 어떻게 되나요?')" class="text-xs bg-slate-800/90 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-full border border-slate-700 transition shrink-0 whitespace-nowrap active:scale-95">
+          🌊 침수방지시설 차수판
         </button>
-        <button onclick="sendQuickPrompt('울산시 저출생 대응 및 난임 지원 조례 내용은 무엇인가요?')" class="text-xs bg-slate-800/90 hover:bg-slate-700 text-slate-200 px-2.5 py-1 rounded-full border border-slate-700 transition">
+        <button onclick="sendQuickPrompt('울산시 저출생 대응 및 난임 지원 조례 내용은 무엇인가요?')" class="text-xs bg-slate-800/90 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-full border border-slate-700 transition shrink-0 whitespace-nowrap active:scale-95">
           👶 저출생 및 난임 지원
         </button>
-        <button onclick="sendQuickPrompt('울산광역시 교통약자 특별교통수단(부름콜) 지원 기준은 어떻게 되나요?')" class="text-xs bg-slate-800/90 hover:bg-slate-700 text-slate-200 px-2.5 py-1 rounded-full border border-slate-700 transition">
+        <button onclick="sendQuickPrompt('울산광역시 교통약자 특별교통수단(부름콜) 지원 기준은 어떻게 되나요?')" class="text-xs bg-slate-800/90 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-full border border-slate-700 transition shrink-0 whitespace-nowrap active:scale-95">
           🚐 교통약자 특별교통수단
         </button>
       </div>
