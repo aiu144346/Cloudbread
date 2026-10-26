@@ -500,6 +500,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             </div>
                             <div class="rag-card-actions" style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
                                 <a href="dashboard-demo.html" style="background:#818CF8; color:#030712; font-weight:800; font-size:0.9rem; padding:11px 20px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s;"><i class="fa-solid fa-chart-line"></i> 대시보드 라이브 체험 →</a>
+                                <a href="clinic-dashboard.html" style="background:rgba(16,185,129,0.2); border:1px solid rgba(52,211,153,0.5); color:#6EE7B7; font-weight:700; font-size:0.9rem; padding:11px 18px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s;"><i class="fa-solid fa-user-doctor"></i> 피부과 CRM 데모</a>
                                 <a href="lecture-dashboard.html" style="background:rgba(255,255,255,0.12); border:1px solid rgba(165,180,252,0.5); color:#C7D2FE; font-weight:700; font-size:0.9rem; padding:11px 18px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s;"><i class="fa-solid fa-chalkboard-user"></i> 강의안 보기</a>
                             </div>
                         </div>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>피부과 원장님 전용 고객 증대 & 스마트 CRM 대시보드 | Cloud Bread</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background-color: #040914;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+    .glass-card {
+      background: rgba(10, 20, 38, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card:hover {
+      border-color: rgba(56, 189, 248, 0.35);
+    }
+    .gradient-border-emerald {
+      border: 1px solid transparent;
+      background: linear-gradient(rgba(10, 20, 38, 0.9), rgba(10, 20, 38, 0.9)) padding-box,
+                  linear-gradient(135deg, #10b981, #06b6d4, #3b82f6) border-box;
+    }
+    .chart-container {
+      position: relative;
+      height: 260px;
+      width: 100%;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: rgba(56, 189, 248, 0.3);
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="selection:bg-cyan-500 selection:text-slate-950 min-h-screen flex flex-col">
+
+  <!-- Top Header -->
+  <header class="glass-card sticky top-0 z-50 border-b border-slate-800/80 px-4 sm:px-8 py-3.5 flex items-center justify-between">
+    <div class="flex items-center gap-3 min-w-0">
+      <a href="showcase.html?target=citizen" class="text-slate-400 hover:text-white transition p-1.5 shrink-0" title="쇼케이스로 돌아가기">
+        <i class="fa-solid fa-arrow-left text-lg"></i>
+      </a>
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 via-teal-500 to-cyan-400 flex items-center justify-center text-slate-950 font-black shadow-lg shrink-0">
+        <i class="fa-solid fa-user-doctor text-lg"></i>
+      </div>
+      <div class="min-w-0">
+        <div class="flex items-center gap-2 flex-wrap">
+          <h1 class="text-sm sm:text-lg font-bold text-white truncate">더클라우드 피부과의원 원장실 CRM</h1>
+          <span class="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold px-2 py-0.5 rounded-full shrink-0">실시간 환자증대 &amp; 리텐션</span>
+        </div>
+        <p class="text-[11px] sm:text-xs text-slate-400 truncate">신환 유입 퍼널 분석 · 재시술 골든타임 트리거 알림 · 비식별 EMR 브릿지</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2 shrink-0">
+      <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> EMR 실시간 연동 모드
+      </span>
+      <a href="lecture-dashboard.html" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-extrabold text-xs transition shadow-md">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span>구축 강의안 보기</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Notification Banner -->
+  <div class="bg-gradient-to-r from-emerald-950/60 via-slate-900 to-cyan-950/60 border-b border-cyan-500/20 px-4 py-2.5 text-xs text-center text-cyan-200 flex items-center justify-center gap-2 flex-wrap">
+    <span class="bg-emerald-500 text-slate-950 font-black px-2 py-0.5 rounded-full text-[10px]">CASE STUDY</span>
+    <span>💡 수강생 <strong>이초록 님</strong> 협업 프로젝트: 피부과 원장님을 위한 <strong>신환 증대 &amp; 재방문 CRM 자동화 대시보드</strong> 실전 구현 모델입니다.</span>
+  </div>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+    <!-- Control & Filter Bar -->
+    <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3 flex-wrap w-full md:w-auto">
+        <span class="text-xs font-bold text-slate-400 flex items-center gap-1.5">
+          <i class="fa-solid fa-filter text-cyan-400"></i> 진료 분석 주기:
+        </span>
+        <select id="period-select" onchange="switchPeriod()" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:border-cyan-400 font-medium">
+          <option value="this_month">이번 달 (2026년 10월 실시간)</option>
+          <option value="last_month">지난 달 (2026년 9월 마감)</option>
+        </select>
+        <span class="text-xs font-bold text-slate-400 ml-2 flex items-center gap-1.5">
+          <i class="fa-solid fa-stethoscope text-emerald-400"></i> 주력 시술:
+        </span>
+        <select id="treatment-select" onchange="filterTreatment()" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:border-cyan-400 font-medium">
+          <option value="all">전체 시술 항목</option>
+          <option value="lifting">리프팅 레이저 (울쎄라/슈링크/인모드)</option>
+          <option value="toxin">쁘띠 시술 (보톡스/필러)</option>
+          <option value="skin">스킨부스터 (리쥬란/쥬베룩)</option>
+          <option value="pigment">색소·미백·여드름 케어</option>
+        </select>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+        <button onclick="triggerExcelModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-xs rounded-lg font-semibold inline-flex items-center gap-1.5 transition">
+          <i class="fa-solid fa-file-excel text-emerald-400"></i> 원내 EMR 엑셀 업로드
+        </button>
+        <button onclick="simulateSync()" id="sync-btn" class="px-3 py-1.5 bg-emerald-600/30 hover:bg-emerald-600/50 border border-emerald-500/50 text-emerald-300 text-xs rounded-lg font-semibold inline-flex items-center gap-1.5 transition">
+          <i class="fa-solid fa-arrows-rotate text-emerald-400"></i> 실시간 진료부 동기화
+        </button>
+      </div>
+    </div>
+
+    <!-- 4 Key Executive KPI Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      
+      <!-- Card 1: 월 매출 -->
+      <div class="glass-card rounded-2xl p-5 relative overflow-hidden">
+        <div class="flex justify-between items-start">
+          <div>
+            <span class="text-xs font-semibold text-slate-400">이번 달 총 진료 매출</span>
+            <h3 class="text-2xl font-extrabold text-white mt-1" id="kpi-revenue">₩ 1억 3,450만</h3>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-won-sign text-lg"></i>
+          </div>
+        </div>
+        <div class="mt-3 flex items-center gap-2 text-xs">
+          <span class="text-emerald-400 font-bold flex items-center gap-1">
+            <i class="fa-solid fa-arrow-trend-up"></i> +16.2%
+          </span>
+          <span class="text-slate-400">전월 대비 신장</span>
+        </div>
+      </div>
+
+      <!-- Card 2: 신환 유입 수 -->
+      <div class="glass-card rounded-2xl p-5 relative overflow-hidden">
+        <div class="flex justify-between items-start">
+          <div>
+            <span class="text-xs font-semibold text-slate-400">신규 환자(신환) 유입</span>
+            <h3 class="text-2xl font-extrabold text-white mt-1" id="kpi-new-patients">214 명</h3>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-user-plus text-lg"></i>
+          </div>
+        </div>
+        <div class="mt-3 flex items-center gap-2 text-xs">
+          <span class="text-cyan-400 font-bold flex items-center gap-1">
+            <i class="fa-solid fa-circle-check"></i> 네이버예약 58%
+          </span>
+          <span class="text-slate-400">인스타 24%</span>
+        </div>
+      </div>
+
+      <!-- Card 3: 재방문 리텐션율 -->
+      <div class="glass-card rounded-2xl p-5 relative overflow-hidden">
+        <div class="flex justify-between items-start">
+          <div>
+            <span class="text-xs font-semibold text-slate-400">환자 재방문율 (Retention)</span>
+            <h3 class="text-2xl font-extrabold text-white mt-1" id="kpi-retention">68.4%</h3>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-arrows-spin text-lg"></i>
+          </div>
+        </div>
+        <div class="mt-3 flex items-center gap-2 text-xs">
+          <span class="text-emerald-400 font-bold flex items-center gap-1">
+            <i class="fa-solid fa-check"></i> 목표(65%) 초과
+          </span>
+          <span class="text-slate-400">우수 유지 중</span>
+        </div>
+      </div>
+
+      <!-- Card 4: 재시술 골든타임 도래자 -->
+      <div class="glass-card rounded-2xl p-5 relative overflow-hidden border border-amber-500/30">
+        <div class="flex justify-between items-start">
+          <div>
+            <span class="text-xs font-semibold text-amber-300">🚨 재시술 골든타임 환자</span>
+            <h3 class="text-2xl font-extrabold text-amber-400 mt-1" id="kpi-trigger">76 명</h3>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-bell text-lg"></i>
+          </div>
+        </div>
+        <div class="mt-3 flex items-center gap-2 text-xs">
+          <span class="text-amber-300 font-bold">이번 주 해피콜 대상자</span>
+          <span class="text-slate-400">(보톡스·울쎄라)</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Section 1: 고객 증대 (Acquisition) - 퍼널 & 시술별 매출 비중 -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      
+      <!-- Chart 1: 마케팅 채널 유입 & 전환 퍼널 (2 Cols) -->
+      <div class="glass-card rounded-2xl p-5 lg:col-span-2 space-y-4">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-bullseye text-cyan-400"></i> [고객 증대] 마케팅 유입 채널별 전환 퍼널 분석
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">조회수 ➔ 네이버/SNS 문의 ➔ 진료 예약 ➔ 실제 내원 결제 완료</p>
+          </div>
+          <span class="text-[11px] bg-cyan-950 text-cyan-300 border border-cyan-800 px-2 py-0.5 rounded-md font-semibold">
+            마케팅 ROI 최적화
+          </span>
+        </div>
+        <div class="chart-container">
+          <canvas id="funnelChart"></canvas>
+        </div>
+        <div class="grid grid-cols-4 gap-2 pt-2 border-t border-slate-800/80 text-center text-xs">
+          <div class="bg-slate-900/60 p-2 rounded-lg">
+            <span class="text-slate-400 block text-[10px]">네이버 플레이스</span>
+            <span class="font-bold text-cyan-300">내원율 34.2%</span>
+          </div>
+          <div class="bg-slate-900/60 p-2 rounded-lg">
+            <span class="text-slate-400 block text-[10px]">인스타그램 광고</span>
+            <span class="font-bold text-emerald-300">내원율 28.5%</span>
+          </div>
+          <div class="bg-slate-900/60 p-2 rounded-lg">
+            <span class="text-slate-400 block text-[10px]">기존 고객 지인소개</span>
+            <span class="font-bold text-indigo-300">내원율 72.0%</span>
+          </div>
+          <div class="bg-slate-900/60 p-2 rounded-lg">
+            <span class="text-slate-400 block text-[10px]">당근마켓 동네광고</span>
+            <span class="font-bold text-amber-300">내원율 19.8%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart 2: 시술 항목별 매출 구성비 (1 Col) -->
+      <div class="glass-card rounded-2xl p-5 space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-chart-pie text-emerald-400"></i> 시술별 매출 점유율
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">수익 기여도 최상위 카테고리</p>
+          </div>
+        </div>
+        <div class="chart-container">
+          <canvas id="categoryChart"></canvas>
+        </div>
+        <div class="p-2.5 bg-slate-900/80 rounded-xl border border-slate-800 text-[11px] text-slate-300 space-y-1">
+          <div class="flex justify-between"><span>울쎄라/슈링크 리프팅</span><span class="font-bold text-cyan-400">42% (5,650만원)</span></div>
+          <div class="flex justify-between"><span>보톡스/필러 쁘띠</span><span class="font-bold text-emerald-400">26% (3,500만원)</span></div>
+          <div class="flex justify-between"><span>리쥬란/쥬베룩 부스터</span><span class="font-bold text-indigo-400">21% (2,820만원)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: 고객 관리 (Retention CRM) - 재시술 골든타임 트리거 리스트 -->
+    <div class="glass-card rounded-2xl p-5 space-y-4 border border-cyan-500/30">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div>
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-address-book text-emerald-400"></i> [고객 관리] 재시술 골든타임 도래 환자 관리 및 액션 리스트
+          </h3>
+          <p class="text-xs text-slate-400 mt-0.5">
+            시술 주기(보톡스 3~4개월, 리프팅 6개월)가 경과하여 재예약 유치 확률이 80% 이상인 환자 자동 추출
+          </p>
+        </div>
+        
+        <!-- Filter Tabs -->
+        <div class="flex items-center gap-1.5 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs">
+          <button onclick="filterTable('all')" class="tab-btn active px-3 py-1.5 rounded-lg font-bold bg-cyan-600 text-slate-950 transition">전체 76명</button>
+          <button onclick="filterTable('toxin')" class="tab-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">보톡스 (3~4개월)</button>
+          <button onclick="filterTable('lifting')" class="tab-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">리프팅 (6개월)</button>
+          <button onclick="filterTable('vip')" class="tab-btn px-3 py-1.5 rounded-lg text-amber-400 hover:text-amber-300 transition">VIP 특별관리</button>
+        </div>
+      </div>
+
+      <!-- Actionable Patient Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs text-slate-300">
+          <thead class="bg-slate-900/90 text-slate-400 border-b border-slate-800">
+            <tr>
+              <th class="py-3 px-3 font-semibold">차트번호</th>
+              <th class="py-3 px-3 font-semibold">환자명 (비식별)</th>
+              <th class="py-3 px-3 font-semibold">고객 등급</th>
+              <th class="py-3 px-3 font-semibold">이전 시술 내역</th>
+              <th class="py-3 px-3 font-semibold">시술 경과일</th>
+              <th class="py-3 px-3 font-semibold">추천 재시술 제안</th>
+              <th class="py-3 px-3 font-semibold">해피콜 / 카톡 발송</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60 font-mono" id="crm-table-body">
+            <!-- Dynamic Rows -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Antigravity & Architecture Insights -->
+    <div class="gradient-border-emerald rounded-2xl p-6 sm:p-7 space-y-4">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+            SOLUTIONS FOR CLINIC
+          </span>
+          <h4 class="text-lg font-black text-white">피부과 원장님을 설득하는 3대 핵심 포인트</h4>
+        </div>
+        <a href="lecture-dashboard.html" class="text-xs text-cyan-400 hover:underline flex items-center gap-1">
+          강의안 전체 커리큘럼 보기 <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 space-y-1.5">
+          <div class="font-bold text-cyan-300 flex items-center gap-1.5">
+            <i class="fa-solid fa-shield-halved"></i> 1. 100% 의료법 및 개인정보 준수
+          </div>
+          <p class="text-slate-400 leading-relaxed">
+            환자 실명 마스킹(김*진), 주민등록번호 제외, 차트 ID 암호화로 원내 로컬 브라우저에서만 데이터가 시각화되어 보안 유출 걱정이 없습니다.
+          </p>
+        </div>
+        <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 space-y-1.5">
+          <div class="font-bold text-emerald-300 flex items-center gap-1.5">
+            <i class="fa-solid fa-money-bill-trend-up"></i> 2. 마케팅 비용 40% 절감
+          </div>
+          <p class="text-slate-400 leading-relaxed">
+            무조건 비싼 키워드 광고를 태우는 대신 전환율이 가장 높은 네이버 예약 및 지인 소개에 집중하고, 노쇼 방지 알림으로 손실을 막습니다.
+          </p>
+        </div>
+        <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 space-y-1.5">
+          <div class="font-bold text-indigo-300 flex items-center gap-1.5">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> 3. 안티그래비티 기반 노코드 확장
+          </div>
+          <p class="text-slate-400 leading-relaxed">
+            원장님이 "이번 주 울쎄라 시술자만 따로 모아봐줘"라고 요구하면, 코딩 없이 구글 안티그래비티 대화창에 한 줄만 입력해 5분 만에 기능을 추가합니다.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Modal for Excel Upload Simulator -->
+  <div id="excel-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="glass-card max-w-lg w-full rounded-2xl p-6 border border-slate-700 space-y-4">
+      <div class="flex justify-between items-center">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-file-excel text-emerald-400"></i> 원내 EMR 진료 데이터 브릿지 (CSV/XLSX)
+        </h3>
+        <button onclick="closeExcelModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <p class="text-xs text-slate-300 leading-relaxed">
+        병원 차트 소프트웨어(비트, 유비케어, 전자의무기록 등)에서 내보낸 엑셀/CSV 파일을 아래 영역에 끌어다 놓으세요. 
+        개인정보는 브라우저 내부에서 즉시 마스킹 처리된 후 안전하게 대시보드에 반영됩니다.
+      </p>
+      <div class="border-2 border-dashed border-slate-700 hover:border-cyan-500 rounded-xl p-8 text-center cursor-pointer transition bg-slate-900/60" onclick="simulateUpload()">
+        <i class="fa-solid fa-cloud-arrow-up text-3xl text-cyan-400 mb-2"></i>
+        <div class="text-xs font-semibold text-white">클릭하여 파일 선택 또는 드래그 &amp; 드롭</div>
+        <div class="text-[11px] text-slate-400 mt-1">지원 포맷: .csv, .xlsx (환자진료내역, 수납통계)</div>
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeExcelModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-lg text-xs font-semibold">닫기</button>
+        <button onclick="simulateUpload()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold rounded-lg text-xs">샘플 데이터 즉시 불러오기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 bg-slate-950/80 py-6 text-center text-xs text-slate-500 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>© 2026 Cloud Bread × 이초록 수강생 메디컬 CRM 프로젝트. Powered by Google Antigravity.</p>
+      <div class="flex items-center gap-4 text-slate-400">
+        <a href="showcase.html?target=citizen" class="hover:text-white transition">강의 쇼케이스</a>
+        <a href="lecture-dashboard.html" class="hover:text-white transition">대시보드 구축 강의안</a>
+        <a href="dashboard-demo.html" class="hover:text-white transition">일반 실무 데모</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Patients dataset for CRM
+    const patientData = [
+      { id: 'C-2024-0891', name: '김*진', grade: 'VIP', lastOp: '울쎄라 리프팅 400샷', days: 178, type: 'lifting', rec: '울쎄라 6개월 유지 + 스킨보톡스', sent: false },
+      { id: 'C-2025-0142', name: '이*현', grade: '골드', lastOp: '턱보톡스 + 주름보톡스', days: 112, type: 'toxin', rec: '턱보톡스 4개월 주기 리터치', sent: true },
+      { id: 'C-2024-1102', name: '박*서', grade: 'VIP', lastOp: '리쥬란 힐러 4cc', days: 68, type: 'skin', rec: '3회차 스킨부스터 패키지 권장', sent: false },
+      { id: 'C-2025-0321', name: '최*영', grade: '실버', lastOp: '슈링크 유니버스 300샷', days: 182, type: 'lifting', rec: '인모드 FORMA 병행 리프팅', sent: false },
+      { id: 'C-2024-0675', name: '정*우', grade: 'VIP', lastOp: '이마/미간 제오민 보톡스', days: 125, type: 'toxin', rec: '제오민 4개월 유지 시술 제안', sent: true },
+      { id: 'C-2025-0450', name: '강*아', grade: '골드', lastOp: '피코토닝 10회 코스 마감', days: 35, type: 'pigment', rec: '유지 토닝 + 이온자임 관리 제안', sent: false },
+      { id: 'C-2025-0210', name: '윤*재', grade: '실버', lastOp: '턱끝 필러 1cc + 자갈턱 보톡스', days: 118, type: 'toxin', rec: '자갈턱 보톡스 4개월 주기 알림', sent: false },
+      { id: 'C-2024-0419', name: '한*림', grade: 'VIP', lastOp: '써마지 FLX 600샷', days: 340, type: 'lifting', rec: '써마지 연례 1년 재시술 도래', sent: false }
+    ];
+
+    let currentFilter = 'all';
+
+    function renderTable(filter) {
+      const tbody = document.getElementById('crm-table-body');
+      let filtered = patientData;
+      if (filter === 'toxin') filtered = patientData.filter(p => p.type === 'toxin');
+      else if (filter === 'lifting') filtered = patientData.filter(p => p.type === 'lifting');
+      else if (filter === 'vip') filtered = patientData.filter(p => p.grade === 'VIP');
+
+      tbody.innerHTML = filtered.map(p => `
+        <tr class="hover:bg-slate-850/50 transition">
+          <td class="py-3 px-3 text-slate-400">${p.id}</td>
+          <td class="py-3 px-3 font-semibold text-white flex items-center gap-1.5">
+            <span>${p.name}</span>
+            ${p.grade === 'VIP' ? '<span class="text-[9px] bg-amber-500/20 text-amber-300 border border-amber-500/40 px-1 rounded">VIP</span>' : ''}
+          </td>
+          <td class="py-3 px-3">
+            <span class="px-2 py-0.5 rounded text-[10px] ${p.grade === 'VIP' ? 'bg-amber-950 text-amber-300 border border-amber-800' : 'bg-slate-850 text-slate-300 border border-slate-700'}">${p.grade}</span>
+          </td>
+          <td class="py-3 px-3 text-slate-300 font-medium">${p.lastOp}</td>
+          <td class="py-3 px-3 font-bold ${p.days >= 110 ? 'text-amber-400' : 'text-slate-300'}">${p.days}일 전</td>
+          <td class="py-3 px-3 text-cyan-300">${p.rec}</td>
+          <td class="py-3 px-3">
+            <button onclick="sendKakao(this, '${p.name}')" class="px-2.5 py-1 rounded-md text-[11px] font-bold ${p.sent ? 'bg-slate-800 text-slate-400 border border-slate-700' : 'bg-emerald-600 hover:bg-emerald-500 text-slate-950'} transition flex items-center gap-1">
+              <i class="fa-solid ${p.sent ? 'fa-check' : 'fa-paper-plane'}"></i>
+              <span>${p.sent ? '발송완료' : '안내톡 발송'}</span>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function filterTable(type) {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-cyan-600', 'text-slate-950', 'active');
+        btn.classList.add('text-slate-400');
+      });
+      event.currentTarget.classList.add('bg-cyan-600', 'text-slate-950', 'active');
+      event.currentTarget.classList.remove('text-slate-400');
+      renderTable(type);
+    }
+
+    function sendKakao(btn, name) {
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 전송중';
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> 발송완료';
+        btn.className = 'px-2.5 py-1 rounded-md text-[11px] font-bold bg-slate-800 text-slate-400 border border-slate-700 transition flex items-center gap-1';
+        alert(`[원내 알림톡 시뮬레이션]\n${name} 고객님께 '재시술 골든타임 혜택 안내 카카오 알림톡'이 성공적으로 전송되었습니다.`);
+      }, 500);
+    }
+
+    let funnelChart = null;
+    let categoryChart = null;
+
+    function initCharts() {
+      // 1. Funnel Chart (Horizontal Bar)
+      const ctxFunnel = document.getElementById('funnelChart').getContext('2d');
+      funnelChart = new Chart(ctxFunnel, {
+        type: 'bar',
+        data: {
+          labels: ['1. 브랜드·플레이스 노출', '2. 네이버/SNS 상담 클릭', '3. 진료 예약 확정', '4. 실제 내원 & 결제'],
+          datasets: [{
+            label: '고객 여정 단계별 수치 (명)',
+            data: [3200, 1140, 310, 214],
+            backgroundColor: [
+              'rgba(56, 189, 248, 0.4)',
+              'rgba(56, 189, 248, 0.65)',
+              'rgba(16, 185, 129, 0.8)',
+              '#10B981'
+            ],
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          indexAxis: 'y',
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(255,255,255,0.05)' },
+              ticks: { color: '#94a3b8', font: { size: 10 } }
+            },
+            y: {
+              grid: { display: false },
+              ticks: { color: '#e2e8f0', font: { size: 11, family: 'Pretendard' } }
+            }
+          }
+        }
+      });
+
+      // 2. Category Pie Chart
+      const ctxCategory = document.getElementById('categoryChart').getContext('2d');
+      categoryChart = new Chart(ctxCategory, {
+        type: 'doughnut',
+        data: {
+          labels: ['리프팅 레이저', '보톡스/필러', '스킨부스터', '색소/여드름'],
+          datasets: [{
+            data: [42, 26, 21, 11],
+            backgroundColor: ['#06B6D4', '#10B981', '#6366F1', '#F59E0B'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { color: '#94a3b8', font: { size: 10, family: 'Pretendard' } }
+            }
+          },
+          cutout: '68%'
+        }
+      });
+    }
+
+    function switchPeriod() {
+      const val = document.getElementById('period-select').value;
+      if (val === 'last_month') {
+        document.getElementById('kpi-revenue').textContent = '₩ 1억 1,570만';
+        document.getElementById('kpi-new-patients').textContent = '184 명';
+        document.getElementById('kpi-retention').textContent = '64.1%';
+        document.getElementById('kpi-trigger').textContent = '62 명';
+      } else {
+        document.getElementById('kpi-revenue').textContent = '₩ 1억 3,450만';
+        document.getElementById('kpi-new-patients').textContent = '214 명';
+        document.getElementById('kpi-retention').textContent = '68.4%';
+        document.getElementById('kpi-trigger').textContent = '76 명';
+      }
+    }
+
+    function filterTreatment() {
+      const val = document.getElementById('treatment-select').value;
+      if (val === 'lifting') filterTable('lifting');
+      else if (val === 'toxin') filterTable('toxin');
+      else filterTable('all');
+    }
+
+    function simulateSync() {
+      const btn = document.getElementById('sync-btn');
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-emerald-400"></i> EMR 동기화 중...';
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fa-solid fa-check text-emerald-300"></i> 동기화 완료 (방금)';
+        setTimeout(() => {
+          btn.innerHTML = '<i class="fa-solid fa-arrows-rotate text-emerald-400"></i> 실시간 진료부 동기화';
+        }, 1500);
+      }, 700);
+    }
+
+    function triggerExcelModal() {
+      document.getElementById('excel-modal').classList.remove('hidden');
+    }
+    function closeExcelModal() {
+      document.getElementById('excel-modal').classList.add('hidden');
+    }
+    function simulateUpload() {
+      closeExcelModal();
+      simulateSync();
+      alert('원내 EMR 엑셀 파일이 성공적으로 파싱되어 환자 76명의 실시간 대시보드 지표에 즉시 반영되었습니다.');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderTable('all');
+      initCharts();
+    });
+  </script>
+</body>
+</html>
