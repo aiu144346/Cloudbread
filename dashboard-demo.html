@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>구글 안티그래비티 기반 실시간 시각화 대시보드 라이브 데모 | Cloud Bread</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background-color: #030712;
+      color: #f1f5f9;
+      line-height: 1.6;
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card:hover {
+      border-color: rgba(129, 140, 248, 0.3);
+    }
+    .glow-indigo {
+      box-shadow: 0 0 35px -5px rgba(99, 102, 241, 0.25);
+    }
+    .chart-container {
+      position: relative;
+      height: 280px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body class="selection:bg-indigo-500 selection:text-white min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="glass-card sticky top-0 z-50 border-b border-slate-800 px-4 sm:px-8 py-3.5 flex items-center justify-between">
+    <div class="flex items-center gap-3 min-w-0">
+      <a href="showcase.html?target=citizen" class="text-slate-400 hover:text-white transition p-1.5 shrink-0" title="쇼케이스로 돌아가기">
+        <i class="fa-solid fa-arrow-left text-lg"></i>
+      </a>
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center text-slate-950 font-black shadow-lg shrink-0">
+        <i class="fa-solid fa-chart-line text-lg"></i>
+      </div>
+      <div class="min-w-0">
+        <div class="flex items-center gap-2 flex-wrap">
+          <h1 class="text-sm sm:text-lg font-bold text-white truncate">직장인·시민 실무 스마트 대시보드</h1>
+          <span class="text-[10px] bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-bold px-2 py-0.5 rounded-full shrink-0">Google Antigravity 노코드 생성</span>
+        </div>
+        <p class="text-[11px] sm:text-xs text-slate-400 truncate">엑셀 데이터 업로드 &amp; 자연어 프롬프트 1회로 자동 구축된 반응형 웹 시각화 대시보드</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2 shrink-0">
+      <a href="lecture-dashboard.html" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs transition shadow-md">
+        <i class="fa-solid fa-chalkboard-user"></i>
+        <span>대시보드 강의안 보기</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Notification Banner -->
+  <div class="bg-gradient-to-r from-indigo-950 via-slate-900 to-purple-950 border-b border-indigo-500/20 px-4 py-2.5 text-xs text-center text-indigo-200 flex items-center justify-center gap-2">
+    <span class="bg-indigo-500 text-slate-950 font-black px-2 py-0.5 rounded-full text-[10px]">LIVE DEMO</span>
+    <span>💡 이 대시보드는 <strong>Google Antigravity 에이전트</strong>에게 자연어 1문장만 입력하여 100% 자동 코딩·시각화된 실습 산출물입니다.</span>
+  </div>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+    <!-- Filter & Action Bar -->
+    <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3 flex-wrap w-full md:w-auto">
+        <span class="text-xs font-bold text-slate-400 flex items-center gap-1.5">
+          <i class="fa-solid fa-sliders text-indigo-400"></i> 데이터 필터:
+        </span>
+        <select id="period-filter" onchange="updateDashboard()" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:border-indigo-500 font-medium">
+          <option value="2026-H1">2026년 상반기 (최신)</option>
+          <option value="2025-H2">2025년 하반기</option>
+          <option value="2025-H1">2025년 상반기</option>
+        </select>
+        <select id="category-filter" onchange="updateDashboard()" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:border-indigo-500 font-medium">
+          <option value="all">전체 부서 / 분야</option>
+          <option value="sales">영업 / 비즈니스</option>
+          <option value="public">시민 편의 / 공공</option>
+          <option value="marketing">마케팅 / 홍보</option>
+        </select>
+      </div>
+
+      <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+        <button onclick="downloadCSV()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-xs rounded-lg font-semibold inline-flex items-center gap-1.5 transition">
+          <i class="fa-solid fa-file-csv text-emerald-400"></i> 엑셀/CSV 내보내기
+        </button>
+        <button onclick="refreshData()" class="px-3 py-1.5 bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/50 text-indigo-300 text-xs rounded-lg font-semibold inline-flex items-center gap-1.5 transition">
+          <i class="fa-solid fa-rotate text-indigo-400"></i> 데이터 실시간 동기화
+        </button>
+      </div>
+    </div>
+
+    <!-- 4 Key Metric (KPI) Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- Card 1 -->
+      <div class="glass-card rounded-2xl p-5 relative overflow-hidden">
+        <div class="flex justify-between items-start">
+          <div>
+            <span class="text-xs font-semibold text-slate-400">총 운영 / 누적 실적</span>
+            <h3 class="text-2xl font-extrabold text-white mt-1" id="kpi-total">₩ 1억 4,820만</h3>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-coins text-lg"></i>
+          </div>
+        </div>
+        <div class="mt-3 flex items-center gap-2 text-xs">
+          <span class="text-emerald-400 font-bold flex items-center gap-1">
+            <i class="fa-solid fa-arrow-trend-up"></i> +18.4%
+          </span>
+          <span class="text-slate-400">전기 대비 성장</span>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="glass-card rounded-2xl p-5 relative overflow-hidden">
+        <div class="flex justify-between items-start">
+          <div>
+            <span class="text-xs font-semibold text-slate-400">목표 달성률 (KPI)</span>
+            <h3 class="text-2xl font-extrabold text-white mt-1" id="kpi-rate">112.5%</h3>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-bullseye text-lg"></i>
+          </div>
+        </div>
+        <div class="mt-3 flex items-center gap-2 text-xs">
+          <span class="text-emerald-400 font-bold flex items-center gap-1">
+            <i class="fa-solid fa-check"></i> 초과 달성 (+12.5%p)
+          </span>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="glass-card rounded-2xl p-5 relative overflow-hidden">
+        <div class="flex justify-between items-start">
+          <div>
+            <span class="text-xs font-semibold text-slate-400">시민·고객 만족도</span>
+            <h3 class="text-2xl font-extrabold text-white mt-1" id="kpi-csat">96.8 점</h3>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-face-smile text-lg"></i>
+          </div>
+        </div>
+        <div class="mt-3 flex items-center gap-2 text-xs">
+          <span class="text-amber-400 font-bold flex items-center gap-1">
+            <i class="fa-solid fa-star"></i> 5.0 만점 기준 4.84점
+          </span>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="glass-card rounded-2xl p-5 relative overflow-hidden">
+        <div class="flex justify-between items-start">
+          <div>
+            <span class="text-xs font-semibold text-slate-400">업무 자동화 절감 시간</span>
+            <h3 class="text-2xl font-extrabold text-white mt-1" id="kpi-hours">128 시간 / 월</h3>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-clock text-lg"></i>
+          </div>
+        </div>
+        <div class="mt-3 flex items-center gap-2 text-xs">
+          <span class="text-cyan-400 font-bold flex items-center gap-1">
+            <i class="fa-solid fa-bolt"></i> 수작업 보고서 제로화
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Main Trend Chart (2 Cols) -->
+      <div class="glass-card rounded-2xl p-5 lg:col-span-2 space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-chart-area text-indigo-400"></i> 월별 실적 추이 및 목표 비교
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">최근 6개월간 목표 대비 실적 달성 현황 (단위: 백만원)</p>
+          </div>
+          <span class="text-[11px] bg-slate-800 text-slate-300 px-2 py-1 rounded-md border border-slate-700">인터랙티브 차트</span>
+        </div>
+        <div class="chart-container">
+          <canvas id="trendChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Donut Share Chart (1 Col) -->
+      <div class="glass-card rounded-2xl p-5 space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-chart-pie text-cyan-400"></i> 부문별 기여도 비중
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">영역별 점유율 및 성과 구성</p>
+          </div>
+        </div>
+        <div class="chart-container">
+          <canvas id="shareChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category Performance Bar Chart & Table Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Bar Chart -->
+      <div class="glass-card rounded-2xl p-5 space-y-4">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-chart-column text-emerald-400"></i> 영역별 목표 달성률 (%)
+        </h3>
+        <p class="text-xs text-slate-400">각 세부 팀 및 사업단 기준 진행 상태</p>
+        <div class="chart-container">
+          <canvas id="categoryBarChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Data Table (2 Cols) -->
+      <div class="glass-card rounded-2xl p-5 lg:col-span-2 space-y-4 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-table-list text-purple-400"></i> 실시간 상세 프로젝트 / 민원 지표 데이터
+            </h3>
+            <span class="text-xs text-slate-400">총 5개 항목 필터링됨</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-slate-300">
+              <thead class="bg-slate-900/80 text-slate-400 border-b border-slate-800">
+                <tr>
+                  <th class="py-2.5 px-3 font-semibold">프로젝트 / 업무명</th>
+                  <th class="py-2.5 px-3 font-semibold">담당 / 분야</th>
+                  <th class="py-2.5 px-3 font-semibold">실적 (지표)</th>
+                  <th class="py-2.5 px-3 font-semibold">달성률</th>
+                  <th class="py-2.5 px-3 font-semibold">진행 상태</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/60 font-mono" id="table-body">
+                <!-- JS dynamically renders rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <div class="p-3 bg-indigo-950/40 rounded-xl border border-indigo-500/20 text-xs text-indigo-300 flex items-center justify-between mt-3">
+          <span>💡 엑셀 수식 및 복잡한 피벗테이블 없이도 Antigravity 프롬프트로 표와 차트를 10초 만에 변경 가능합니다.</span>
+          <a href="lecture-dashboard.html#prompt-section" class="underline hover:text-white font-bold ml-2 shrink-0">마스터 프롬프트 보기 →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Antigravity Workflow Explainer Box -->
+    <div class="glass-card rounded-2xl p-6 border border-indigo-500/30 bg-gradient-to-r from-slate-900 via-indigo-950/30 to-slate-900">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="space-y-2 max-w-2xl">
+          <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+            HOW IT WAS BUILT
+          </span>
+          <h4 class="text-lg font-black text-white">이 대시보드는 어떻게 단 10분 만에 완성되었을까요?</h4>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            HTML/CSS를 모르고 자바스크립트를 배운 적이 없어도 상관없습니다. 
+            <strong>구글 안티그래비티(Google Antigravity)</strong>에게 내 업무 엑셀 파일이나 공공데이터를 제공하고, 
+            <strong>"핵심 KPI 카드 4개, 월별 추이 꺾은선 차트, 부서별 도넛 차트를 포함한 반응형 다크모드 웹 대시보드를 만들어줘"</strong>라고 
+            자연어로 입력하기만 하면 에이전트가 완성형 웹 소스코드를 직접 작성하고 시각화합니다.
+          </p>
+        </div>
+        <a href="lecture-dashboard.html" class="px-6 py-3.5 bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-400 hover:to-cyan-400 text-slate-950 font-extrabold text-sm rounded-xl transition shadow-lg shrink-0 flex items-center gap-2">
+          <i class="fa-solid fa-graduation-cap"></i> 직장인/시민 강의안 커리큘럼 보기 →
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 bg-slate-950/60 py-6 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>© 2026 Cloud Bread. Powered by Google Antigravity Agentic AI.</p>
+      <div class="flex items-center gap-4 text-slate-400">
+        <a href="showcase.html?target=citizen" class="hover:text-white transition">강의 쇼케이스</a>
+        <a href="lecture-dashboard.html" class="hover:text-white transition">대시보드 강의안</a>
+        <a href="index.html" class="hover:text-white transition">홈으로</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Data definition for charts
+    const datasets = {
+      '2026-H1': {
+        total: '₩ 1억 4,820만',
+        rate: '112.5%',
+        csat: '96.8 점',
+        hours: '128 시간 / 월',
+        trendLabels: ['1월', '2월', '3월', '4월', '5월', '6월'],
+        trendActual: [18.2, 22.4, 25.1, 23.8, 28.5, 30.2],
+        trendTarget: [18.0, 20.0, 22.0, 24.0, 25.0, 26.0],
+        shareLabels: ['비즈니스/영업', '공공/시민지원', 'AI 자동화', '데이터 솔루션'],
+        shareData: [38, 26, 21, 15],
+        categoryLabels: ['영업 1팀', '공공혁신팀', '디지털지원', '운영지원', '고객행복'],
+        categoryData: [118, 105, 122, 98, 110],
+        tableRows: [
+          { name: '스마트 지자체 공공 복지 포털', cat: '공공/시민', metric: '4,820 건', rate: '124%', status: '초과 달성', statusColor: 'emerald' },
+          { name: '기업 실시간 영업 실적 모니터링', cat: '비즈니스', metric: '₩ 6,400만', rate: '115%', status: '우수', statusColor: 'indigo' },
+          { name: '사내 업무 자동화 RAG 파이프라인', cat: 'AI 자동화', metric: '1,280 회', rate: '108%', status: '정상 가동', statusColor: 'cyan' },
+          { name: '소상공인 지원금 알리미 대시보드', cat: '시민 편의', metric: '2,940 회', rate: '102%', status: '정상 가동', statusColor: 'cyan' },
+          { name: '시민 만족도 설문 실시간 피드백', cat: '운영지원', metric: '96.8 점', rate: '97%', status: '보통', statusColor: 'amber' }
+        ]
+      },
+      '2025-H2': {
+        total: '₩ 1억 2,150만',
+        rate: '104.2%',
+        csat: '94.2 점',
+        hours: '92 시간 / 월',
+        trendLabels: ['7월', '8월', '9월', '10월', '11월', '12월'],
+        trendActual: [15.2, 17.8, 20.1, 21.4, 22.8, 24.2],
+        trendTarget: [15.0, 17.0, 19.0, 20.0, 22.0, 23.0],
+        shareLabels: ['비즈니스/영업', '공공/시민지원', 'AI 자동화', '데이터 솔루션'],
+        shareData: [42, 28, 18, 12],
+        categoryLabels: ['영업 1팀', '공공혁신팀', '디지털지원', '운영지원', '고객행복'],
+        categoryData: [102, 104, 112, 95, 108],
+        tableRows: [
+          { name: '울산 중구청 스마트 조례 검색 RAG', cat: '공공/시민', metric: '3,420 건', rate: '114%', status: '초과 달성', statusColor: 'emerald' },
+          { name: '분기별 재무 데이터 시각화 리포트', cat: '비즈니스', metric: '₩ 4,900만', rate: '102%', status: '정상 가동', statusColor: 'cyan' },
+          { name: '문서 자동 요약 봇 구축 1차', cat: 'AI 자동화', metric: '980 회', rate: '98%', status: '보통', statusColor: 'amber' },
+          { name: '청년 구직 활동 통계 모니터링', cat: '시민 편의', metric: '1,840 회', rate: '101%', status: '정상 가동', statusColor: 'cyan' },
+          { name: '사내 CS 접수 처리율 분석', cat: '운영지원', metric: '94.2 점', rate: '96%', status: '보통', statusColor: 'amber' }
+        ]
+      },
+      '2025-H1': {
+        total: '₩ 9,840만',
+        rate: '98.5%',
+        csat: '92.1 점',
+        hours: '64 시간 / 월',
+        trendLabels: ['1월', '2월', '3월', '4월', '5월', '6월'],
+        trendActual: [12.0, 14.5, 15.2, 17.0, 18.5, 21.2],
+        trendTarget: [13.0, 15.0, 16.0, 17.5, 19.0, 20.0],
+        shareLabels: ['비즈니스/영업', '공공/시민지원', 'AI 자동화', '데이터 솔루션'],
+        shareData: [46, 30, 14, 10],
+        categoryLabels: ['영업 1팀', '공공혁신팀', '디지털지원', '운영지원', '고객행복'],
+        categoryData: [96, 102, 98, 92, 104],
+        tableRows: [
+          { name: '지자체 자치법규 디지털화 실증', cat: '공공/시민', metric: '2,110 건', rate: '99%', status: '보통', statusColor: 'amber' },
+          { name: '팀별 예산 집행 현황 실시간 보드', cat: '비즈니스', metric: '₩ 3,800만', rate: '98%', status: '보통', statusColor: 'amber' },
+          { name: '고객 피드백 수집 설문 시각화', cat: '운영지원', metric: '92.1 점', rate: '95%', status: '보통', statusColor: 'amber' }
+        ]
+      }
+    };
+
+    let trendChartInstance = null;
+    let shareChartInstance = null;
+    let categoryBarChartInstance = null;
+
+    function renderTable(rows) {
+      const tbody = document.getElementById('table-body');
+      tbody.innerHTML = rows.map(r => `
+        <tr class="hover:bg-slate-800/40 transition">
+          <td class="py-3 px-3 font-medium text-white">${r.name}</td>
+          <td class="py-3 px-3"><span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 border border-slate-700">${r.cat}</span></td>
+          <td class="py-3 px-3 font-semibold text-slate-200">${r.metric}</td>
+          <td class="py-3 px-3 text-indigo-400 font-bold">${r.rate}</td>
+          <td class="py-3 px-3">
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-${r.statusColor}-500/20 text-${r.statusColor}-400 border border-${r.statusColor}-500/30">
+              <span class="w-1.5 h-1.5 rounded-full bg-${r.statusColor}-400"></span> ${r.status}
+            </span>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function initCharts(data) {
+      // 1. Trend Line & Bar Chart
+      const ctxTrend = document.getElementById('trendChart').getContext('2d');
+      if (trendChartInstance) trendChartInstance.destroy();
+
+      trendChartInstance = new Chart(ctxTrend, {
+        type: 'line',
+        data: {
+          labels: data.trendLabels,
+          datasets: [
+            {
+              label: '실제 실적 (백만원)',
+              data: data.trendActual,
+              borderColor: '#818CF8',
+              backgroundColor: 'rgba(129, 140, 248, 0.15)',
+              borderWidth: 3,
+              fill: true,
+              tension: 0.35,
+              pointBackgroundColor: '#C7D2FE',
+              pointRadius: 4
+            },
+            {
+              label: '목표치 (백만원)',
+              data: data.trendTarget,
+              borderColor: 'rgba(255, 255, 255, 0.35)',
+              borderWidth: 2,
+              borderDash: [5, 5],
+              fill: false,
+              pointRadius: 2
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              labels: { color: '#94A3B8', font: { size: 11, family: 'Pretendard' } }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(255,255,255,0.05)' },
+              ticks: { color: '#94A3B8', font: { size: 11 } }
+            },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.05)' },
+              ticks: { color: '#94A3B8', font: { size: 11 } }
+            }
+          }
+        }
+      });
+
+      // 2. Share Donut Chart
+      const ctxShare = document.getElementById('shareChart').getContext('2d');
+      if (shareChartInstance) shareChartInstance.destroy();
+
+      shareChartInstance = new Chart(ctxShare, {
+        type: 'doughnut',
+        data: {
+          labels: data.shareLabels,
+          datasets: [{
+            data: data.shareData,
+            backgroundColor: ['#6366F1', '#06B6D4', '#10B981', '#F59E0B'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { color: '#94A3B8', font: { size: 10, family: 'Pretendard' } }
+            }
+          },
+          cutout: '70%'
+        }
+      });
+
+      // 3. Category Bar Chart
+      const ctxBar = document.getElementById('categoryBarChart').getContext('2d');
+      if (categoryBarChartInstance) categoryBarChartInstance.destroy();
+
+      categoryBarChartInstance = new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+          labels: data.categoryLabels,
+          datasets: [{
+            label: '달성률 (%)',
+            data: data.categoryData,
+            backgroundColor: 'rgba(99, 102, 241, 0.75)',
+            hoverBackgroundColor: '#818CF8',
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          indexAxis: 'y',
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(255,255,255,0.05)' },
+              ticks: { color: '#94A3B8', font: { size: 10 } }
+            },
+            y: {
+              grid: { display: false },
+              ticks: { color: '#CBD5E1', font: { size: 11 } }
+            }
+          }
+        }
+      });
+    }
+
+    function updateDashboard() {
+      const period = document.getElementById('period-filter').value;
+      const data = datasets[period] || datasets['2026-H1'];
+
+      document.getElementById('kpi-total').textContent = data.total;
+      document.getElementById('kpi-rate').textContent = data.rate;
+      document.getElementById('kpi-csat').textContent = data.csat;
+      document.getElementById('kpi-hours').textContent = data.hours;
+
+      initCharts(data);
+      renderTable(data.tableRows);
+    }
+
+    function refreshData() {
+      const btn = event.currentTarget;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-indigo-400"></i> 동기화 중...';
+      setTimeout(() => {
+        updateDashboard();
+        btn.innerHTML = '<i class="fa-solid fa-check text-emerald-400"></i> 최신 상태 반영됨';
+        setTimeout(() => {
+          btn.innerHTML = '<i class="fa-solid fa-rotate text-indigo-400"></i> 데이터 실시간 동기화';
+        }, 1500);
+      }, 500);
+    }
+
+    function downloadCSV() {
+      const period = document.getElementById('period-filter').value;
+      const data = datasets[period] || datasets['2026-H1'];
+      let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
+      csvContent += "프로젝트명,분야,실적,달성률,상태\n";
+      data.tableRows.forEach(r => {
+        csvContent += `"${r.name}","${r.cat}","${r.metric}","${r.rate}","${r.status}"\n`;
+      });
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `dashboard_data_${period}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      updateDashboard();
+    });
+  </script>
+</body>
+</html>

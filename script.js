@@ -490,6 +490,19 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <a href="lecture-rag-health.html" style="background:rgba(255,255,255,0.12); border:1px solid rgba(52,211,153,0.5); color:#6EE7B7; font-weight:700; font-size:0.9rem; padding:11px 18px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s;"><i class="fa-solid fa-chalkboard-user"></i> 강의안 보기</a>
                             </div>
                         </div>
+
+                        <!-- 배너 5: 구글 안티그래비티 활용 대시보드 구축 강의 -->
+                        <div class="rag-card" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4f46e5 100%); color:#FFFFFF; border-radius:18px; padding:1.8rem 2.2rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 12px 30px rgba(79, 70, 229, 0.3); border:1px solid rgba(165, 180, 252, 0.45);">
+                            <div style="max-width:650px;">
+                                <span style="background:rgba(129,140,248,0.25); color:#A5B4FC; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; display:inline-block; margin-bottom:8px;">📊 구글 안티그래비티 노코드 AI 시각화</span>
+                                <h3 style="font-size:1.35rem; font-weight:800; margin:0; color:#FFFFFF;">구글 안티그래비티 활용 대시보드 구축 강의</h3>
+                                <p style="font-size:0.9rem; color:#E0E7FF; margin:6px 0 0 0;">코딩 없는 자연어 지시로 엑셀·CSV·공공데이터를 반응형 웹 대시보드로 시각화하고 웹에 원클릭 배포하는 직장인·시민 실전 마스터 클래스</p>
+                            </div>
+                            <div class="rag-card-actions" style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                                <a href="dashboard-demo.html" style="background:#818CF8; color:#030712; font-weight:800; font-size:0.9rem; padding:11px 20px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s;"><i class="fa-solid fa-chart-line"></i> 대시보드 라이브 체험 →</a>
+                                <a href="lecture-dashboard.html" style="background:rgba(255,255,255,0.12); border:1px solid rgba(165,180,252,0.5); color:#C7D2FE; font-weight:700; font-size:0.9rem; padding:11px 18px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s;"><i class="fa-solid fa-chalkboard-user"></i> 강의안 보기</a>
+                            </div>
+                        </div>
                     </div>
                 ` : ''}
 

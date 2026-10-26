@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>구글 안티그래비티 활용 실전 대시보드 구축 강의안 | Cloud Bread</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background-color: #030712;
+      color: #f1f5f9;
+      line-height: 1.7;
+      word-break: keep-all;
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .gradient-border {
+      border: 1px solid transparent;
+      background: linear-gradient(rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.88)) padding-box,
+                  linear-gradient(135deg, #6366f1, #818cf8, #06b6d4) border-box;
+    }
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+    pre code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: rgba(99, 102, 241, 0.35);
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="selection:bg-indigo-500 selection:text-white">
+
+  <!-- Header -->
+  <header class="glass-card sticky top-0 z-50 border-b border-slate-800 px-4 sm:px-8 py-3.5 flex items-center justify-between">
+    <div class="flex items-center gap-3 min-w-0">
+      <a href="showcase.html?target=citizen" class="text-slate-400 hover:text-white transition p-1.5 shrink-0" title="쇼케이스로 돌아가기">
+        <i class="fa-solid fa-arrow-left text-lg"></i>
+      </a>
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center text-slate-950 font-black shadow-lg shrink-0">
+        <i class="fa-solid fa-chart-line text-lg"></i>
+      </div>
+      <div class="min-w-0">
+        <div class="flex items-center gap-2 flex-wrap">
+          <h1 class="text-sm sm:text-lg font-bold text-white truncate">구글 안티그래비티 대시보드 구축 강의안</h1>
+          <span class="text-[10px] bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-bold px-2 py-0.5 rounded-full shrink-0">직장인·시민 실전 마스터</span>
+        </div>
+        <p class="text-[11px] sm:text-xs text-slate-400 truncate">자연어 지시로 엑셀·공공데이터를 반응형 실시간 웹 대시보드로 시각화 &amp; 배포</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2 shrink-0">
+      <a href="dashboard-demo.html" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs transition shadow-md">
+        <i class="fa-solid fa-desktop"></i>
+        <span>완성 데모 대시보드 열기</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10 pb-6">
+    <div class="gradient-border rounded-3xl p-5 sm:p-10 relative overflow-hidden shadow-2xl">
+      <div class="absolute -right-16 -top-16 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="relative z-10 space-y-4">
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="step-badge bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Google Antigravity No-Code BI</span>
+          <span class="step-badge bg-slate-800 text-slate-300 border border-slate-700">직장인·소상공인·시민 맞춤</span>
+          <span class="step-badge bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">100% 실전 인터랙티브 웹</span>
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-snug">
+          코딩 없이 자연어 프롬프트 하나로 완성하는 <br/>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-300 to-cyan-300">
+            구글 안티그래비티 기반 반응형 시각화 대시보드 구축 실무
+          </span>
+        </h2>
+        <p class="text-sm sm:text-base text-slate-300 max-w-3xl leading-relaxed">
+          매주 엑셀 데이터를 복사해 PPT 차트를 만드느라 야근하는 <strong>직장인</strong>, 
+          우리 동네 공공데이터나 매장 실적을 직관적인 웹페이지로 시각화하고 싶은 <strong>일반 시민과 소상공인</strong>을 위한 특화 커리큘럼입니다. 
+          HTML, CSS, 자바스크립트를 몰라도 <strong>구글 안티그래비티(Google Antigravity) 에이전트</strong>에게 요구사항을 말하면, 
+          KPI 카드, 동적 차트, 다크모드, 필터링이 결합된 <strong>반응형 웹 대시보드를 30분 만에 구현하고 인터넷에 무료로 배포</strong>할 수 있습니다.
+        </p>
+
+        <!-- Quick Summary Cards -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-slate-800">
+          <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800">
+            <div class="text-[11px] text-slate-400">교육 권장 대상</div>
+            <div class="text-sm font-bold text-indigo-300 mt-0.5">직장인·기획자·시민</div>
+          </div>
+          <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800">
+            <div class="text-[11px] text-slate-400">학습 소요 시간</div>
+            <div class="text-sm font-bold text-white mt-0.5">3시간 (반일) / 6시간 (전일)</div>
+          </div>
+          <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800">
+            <div class="text-[11px] text-slate-400">핵심 사용 기술</div>
+            <div class="text-sm font-bold text-cyan-300 mt-0.5">Antigravity + Chart.js</div>
+          </div>
+          <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800">
+            <div class="text-[11px] text-slate-400">최종 결과물</div>
+            <div class="text-sm font-bold text-emerald-400 mt-0.5">배포된 라이브 대시보드 URL</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem & Solution Comparison -->
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 py-6">
+    <div class="glass-card rounded-2xl p-6 sm:p-8 space-y-6">
+      <div class="space-y-1">
+        <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Before vs After</span>
+        <h3 class="text-xl sm:text-2xl font-black text-white">왜 기존 방식 대신 구글 안티그래비티 대시보드인가?</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+        <!-- Before -->
+        <div class="bg-rose-950/20 border border-rose-500/30 rounded-2xl p-5 space-y-3">
+          <div class="flex items-center gap-2 text-rose-400 font-bold">
+            <i class="fa-solid fa-circle-xmark text-lg"></i>
+            <span class="text-base">기존의 데이터 보고 및 시각화 고충</span>
+          </div>
+          <ul class="space-y-2 text-slate-300 leading-relaxed">
+            <li class="flex items-start gap-2">
+              <span class="text-rose-400 font-bold">•</span>
+              <span><strong>수작업 야근:</strong> 매번 엑셀 데이터를 피벗 테이블 돌리고 파워포인트에 캡처해서 붙여넣는 반복 작업.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-rose-400 font-bold">•</span>
+              <span><strong>비싼 BI 툴 비용:</strong> 태블로(Tableau), 파워BI 등은 월 수십만 원의 라이선스 비용과 높은 학습 장벽 존재.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-rose-400 font-bold">•</span>
+              <span><strong>개발자 의존성:</strong> 웹 대시보드 하나 만들려면 프론트엔드/백엔드 개발자에게 일정 요청하고 수주 대기.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-rose-400 font-bold">•</span>
+              <span><strong>정적인 보고서:</strong> PDF나 출력물은 필터를 누르거나 드릴다운할 수 없어 실시간 소통 불가.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- After -->
+        <div class="bg-indigo-950/30 border border-indigo-500/40 rounded-2xl p-5 space-y-3">
+          <div class="flex items-center gap-2 text-indigo-300 font-bold">
+            <i class="fa-solid fa-circle-check text-lg text-emerald-400"></i>
+            <span class="text-base">구글 안티그래비티 활용 시의 혁신</span>
+          </div>
+          <ul class="space-y-2 text-slate-300 leading-relaxed">
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">•</span>
+              <span><strong>자연어 원클릭:</strong> "이 엑셀로 월별 추이와 목표 달성률 대시보드 만들어줘" 한 문장으로 코드 완성.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">•</span>
+              <span><strong>구독료 0원:</strong> 오픈소스 차트 라이브러리(Chart.js)와 무료 웹 호스팅(GitHub/Vercel)으로 영구 무료.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">•</span>
+              <span><strong>비전공자 자립:</strong> 개발자 도움 없이도 직장인·시민이 혼자서 기획부터 디자인, 배포까지 100% 완수.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">•</span>
+              <span><strong>인터랙티브 웹:</strong> 클릭 한 번에 기간별 필터링, 모바일 스마트폰 최적화, 실시간 URL 팀 공유 가능.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4-Stage Curriculum Roadmap -->
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+    <div class="space-y-1">
+      <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Step-by-Step Curriculum</span>
+      <h3 class="text-xl sm:text-2xl font-black text-white">4단계 실전 커리큘럼 로드맵</h3>
+      <p class="text-xs sm:text-sm text-slate-400">이론 10% + 실습 90%로 구성되어 강의 종료 시점에 모든 수강생이 본인만의 라이브 대시보드를 손에 쥡니다.</p>
+    </div>
+
+    <!-- Module 1 -->
+    <div class="glass-card rounded-2xl p-6 sm:p-7 space-y-4 border-l-4 border-indigo-500">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="step-badge bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">MODULE 01</span>
+          <h4 class="text-lg font-bold text-white">오리엔테이션 &amp; 구글 안티그래비티 온보딩 (30분)</h4>
+        </div>
+        <span class="text-xs text-slate-400 font-mono"><i class="fa-regular fa-clock mr-1"></i>30 min</span>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+        에이전틱 AI 코딩 비서 <strong>Google Antigravity</strong>의 개념과 작동 원리를 이해하고, 개발 환경 설치 없이 즉시 브라우저와 워크스페이스를 연동하는 방법을 배웁니다.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-2">
+        <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800">
+          <div class="font-bold text-indigo-300 mb-1">1. AI 에이전트 개념</div>
+          <p class="text-slate-400">단순 질의응답 챗봇 vs 스스로 파일을 생성하고 실행하는 에이전트의 차이점 파악</p>
+        </div>
+        <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800">
+          <div class="font-bold text-cyan-300 mb-1">2. 워크스페이스 세팅</div>
+          <p class="text-slate-400">안티그래비티 대화창, 파일 탐색기, 실시간 브라우저 프리뷰 창의 3단 구조 익히기</p>
+        </div>
+        <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800">
+          <div class="font-bold text-emerald-300 mb-1">3. 첫 인사이트 테스트</div>
+          <p class="text-slate-400">"간단한 환영 카드 웹페이지 만들어줘" 테스트 명령을 통해 5초 만에 결과 확인</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Module 2 -->
+    <div class="glass-card rounded-2xl p-6 sm:p-7 space-y-4 border-l-4 border-cyan-500">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="step-badge bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">MODULE 02</span>
+          <h4 class="text-lg font-bold text-white">데이터 준비 &amp; AI 프롬프트 엔지니어링 (40분)</h4>
+        </div>
+        <span class="text-xs text-slate-400 font-mono"><i class="fa-regular fa-clock mr-1"></i>40 min</span>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+        실무에서 쓰이는 지저분한 엑셀(XLSX)이나 CSV 파일, 공공데이터 포털(data.go.kr)의 데이터를 안티그래비티에 입력하고, AI가 분석하기 가장 좋은 형태로 정제 및 구조화하는 기법을 배웁니다.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-2">
+        <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800">
+          <div class="font-bold text-cyan-300 mb-1">1. 데이터 전처리 요령</div>
+          <p class="text-slate-400">병합된 셀 해제, 날짜/금액 포맷 통일, 빈칸 처리 등 AI 친화적 테이블 구성법</p>
+        </div>
+        <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800">
+          <div class="font-bold text-indigo-300 mb-1">2. 핵심 KPI 지표 정의</div>
+          <p class="text-slate-400">우리 조직/가게/동네에서 가장 중요한 4대 지표(총매출, 달성률, 고객수 등) 선별</p>
+        </div>
+        <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800">
+          <div class="font-bold text-emerald-300 mb-1">3. 차트 유형 매핑</div>
+          <p class="text-slate-400">추이는 Line 차트, 비중은 Donut 차트, 비교는 Bar 차트로 알맞게 지시하는 원칙</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Module 3 -->
+    <div class="glass-card rounded-2xl p-6 sm:p-7 space-y-4 border-l-4 border-purple-500">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="step-badge bg-purple-500/20 text-purple-300 border border-purple-500/30">MODULE 03</span>
+          <h4 class="text-lg font-bold text-white">인터랙티브 웹 대시보드 실전 제작 (80분)</h4>
+        </div>
+        <span class="text-xs text-slate-400 font-mono"><i class="fa-regular fa-clock mr-1"></i>80 min</span>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+        구글 안티그래비티에게 마스터 프롬프트를 전송하여 실제 반응형 대시보드 소스코드를 생성하고, 에이전트와 대화하며 실시간으로 디자인과 기능을 커스터마이징합니다.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs pt-2">
+        <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 space-y-1.5">
+          <div class="font-bold text-purple-300 flex items-center gap-1.5">
+            <i class="fa-solid fa-briefcase"></i> 실습 트랙 A (직장인 맞춤)
+          </div>
+          <p class="text-slate-400">
+            <strong>실시간 매출 및 업무 KPI 모니터링 보드:</strong> 부서별 실적 달성 현황, 월별 매출 곡선, 팀별 성과 기여도 도넛 차트 및 필터링 기능 구현.
+          </p>
+        </div>
+        <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 space-y-1.5">
+          <div class="font-bold text-emerald-300 flex items-center gap-1.5">
+            <i class="fa-solid fa-city"></i> 실습 트랙 B (시민·소상공인 맞춤)
+          </div>
+          <p class="text-slate-400">
+            <strong>우리 동네 생활공공데이터 &amp; 매장 대시보드:</strong> 보건/복지 혜택 신청 통계, 상권 유동인구 지표, 일별/요일별 고객 주문 현황 시각화.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Module 4 -->
+    <div class="glass-card rounded-2xl p-6 sm:p-7 space-y-4 border-l-4 border-emerald-500">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="step-badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">MODULE 04</span>
+          <h4 class="text-lg font-bold text-white">무료 웹 호스팅 배포 &amp; 팀 공유 (30분)</h4>
+        </div>
+        <span class="text-xs text-slate-400 font-mono"><i class="fa-regular fa-clock mr-1"></i>30 min</span>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+        내 컴퓨터에서만 보이는 로컬 파일이 아닌, <strong>인터넷 주소(URL)</strong>를 가진 실제 웹사이트로 1분 만에 무료 배포하고 스마트폰으로 확인하는 노하우를 습득합니다.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-2">
+        <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800">
+          <div class="font-bold text-emerald-300 mb-1">1. GitHub Pages / Vercel 배포</div>
+          <p class="text-slate-400">별도 서버 계약 없이 클릭 몇 번으로 평생 무료 HTTPS 웹 주소 생성</p>
+        </div>
+        <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800">
+          <div class="font-bold text-cyan-300 mb-1">2. 모바일 반응형 검증</div>
+          <p class="text-slate-400">스마트폰 카카오톡/슬랙으로 팀원들에게 링크를 공유하고 모바일 뷰 확인</p>
+        </div>
+        <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800">
+          <div class="font-bold text-indigo-300 mb-1">3. 데이터 업데이트 자동화</div>
+          <p class="text-slate-400">새로운 엑셀 데이터가 추가되었을 때 대시보드를 10초 만에 갱신하는 꿀팁</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Master Prompt Section -->
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 py-6" id="prompt-section">
+    <div class="glass-card rounded-2xl p-6 sm:p-8 space-y-6 border border-indigo-500/30" style="background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(10, 15, 29, 0.95) 100%);">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="step-badge" style="background: linear-gradient(135deg, #4f46e5 0%, #818cf8 100%); color:#030712;">COPY &amp; PASTE</span>
+          <h3 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
+            <span>[원클릭 복사용] 구글 안티그래비티 대시보드 마스터 프롬프트</span>
+          </h3>
+        </div>
+        <span class="text-xs text-indigo-400 font-mono"><i class="fa-solid fa-bolt mr-1"></i>안티그래비티 입력창에 붙여넣기</span>
+      </div>
+
+      <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+        아래 프롬프트 텍스트를 복사한 후, <strong>구글 안티그래비티 대화창</strong>에 여러분의 엑셀 데이터 또는 주제와 함께 붙여넣으세요. 
+        안티그래비티가 자동으로 완성도 높은 인터랙티브 대시보드 단일 HTML 파일을 생성해 드립니다.
+      </p>
+
+      <div class="relative">
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-xs font-bold text-indigo-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-terminal"></i> Antigravity Prompt Template
+          </span>
+          <button onclick="copyMasterPrompt(this)" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition shadow">
+            <i class="fa-regular fa-copy"></i> 전체 프롬프트 복사
+          </button>
+        </div>
+        <div class="bg-slate-950 p-4 sm:p-5 rounded-xl border border-slate-800 text-xs text-slate-300 font-mono custom-scroll overflow-x-auto leading-relaxed" id="master-prompt-content">당신은 최고 수준의 '풀스택 웹 프론트엔드 & 데이터 시각화 전문 시니어 엔지니어'입니다.
+현재 워크스페이스에 첨부된 데이터(엑셀/CSV/JSON)를 바탕으로, 비전공자 및 경영진, 시민들이 한눈에 보고 인사이트를 얻을 수 있는 프리미엄 반응형 웹 대시보드 'index.html'을 단일 파일로 작성해 주세요.
+
+[요구 디자인 & UI 스펙]
+1. 디자인 스타일: 현대적인 다크 테마(Dark Mode), 슬레이트/인디고 글래스모피즘(Glassmorphism) 카드 스타일 적용.
+2. 폰트 & 아이콘: CDN 기반 'Pretendard' 폰트 및 'Font Awesome 6' 아이콘 라이브러리 탑재.
+3. CSS 프레임워크: 별도 빌드 없이 바로 구동되는 'Tailwind CSS CDN' 사용.
+4. 차트 라이브러리: 인터랙티브한 애니메이션을 지원하는 'Chart.js CDN' 활용.
+
+[대시보드 필수 구성 요소]
+1. 상단 글로벌 헤더: 대시보드 타이틀, 실시간 상태 배지(LIVE), 마지막 업데이트 일시, 기간 선택 필터 드롭다운.
+2. 4대 핵심 KPI 카드:
+   - 총 실적 / 누적 규모 (전기 대비 증가율 % 표시)
+   - 목표 달성률 (초과 달성 배지 표시)
+   - 만족도 또는 핵심 품질 지표
+   - 절감 시간 또는 처리 효율성 지표
+3. 인터랙티브 차트 그리드:
+   - 메인 시계열 추이선(Line Chart): 최근 6개월 추이 및 목표치 점선 비교.
+   - 구성비 도넛 차트(Doughnut Chart): 카테고리/부서/분야별 점유율.
+   - 비교 막대 차트(Bar Chart): 부문별 목표 달성률 비교.
+4. 상세 데이터 테이블:
+   - 주요 프로젝트/민원 리스트 표 (상태별 배지, 수치, 정렬 지원).
+   - '엑셀/CSV 다운로드' 버튼 클릭 시 브라우저에서 즉시 다운로드되는 자바스크립트 함수 내장.
+5. 모바일 반응형: 스마트폰, 태블릿, PC 와이드 모니터에서 완벽하게 그리드가 재배치되도록 구현.
+
+지금 즉시 실행 가능한 완성형 단일 HTML 파일로 작성해 주세요!</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Action CTA Box -->
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 py-6 pb-16">
+    <div class="glass-card rounded-2xl p-6 sm:p-8 border border-indigo-500/40 bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="space-y-2">
+        <h3 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
+          <span>💡 우리 기관·기업에 맞춘 출강 및 실습 워크숍 문의</span>
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+          임직원 디지털 리터러시 강화, 공공기관 데이터 시각화 교육, 소상공인 AI 마케팅 대시보드 구축 등 
+          귀 조직의 실제 데이터를 교재로 삼아 진행하는 <strong>100% 실전 맞춤형 출강</strong>을 제안해 드립니다.
+        </p>
+      </div>
+      <div class="flex items-center gap-3 shrink-0 flex-wrap">
+        <a href="dashboard-demo.html" class="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs sm:text-sm transition border border-slate-700">
+          <i class="fa-solid fa-chart-pie mr-1.5"></i> 데모 체험하기
+        </a>
+        <a href="index.html#cta" class="px-5 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-400 hover:to-cyan-400 text-slate-950 font-black text-xs sm:text-sm transition shadow-lg">
+          <i class="fa-solid fa-paper-plane mr-1.5"></i> 강의 및 견적 문의
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 bg-slate-950/60 py-8 text-center text-xs text-slate-500">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>© 2026 Woo Jin Jeong / Cloud Bread. All Rights Reserved.</p>
+      <div class="flex items-center gap-4 text-slate-400">
+        <a href="showcase.html?target=citizen" class="hover:text-white transition">강의 쇼케이스</a>
+        <a href="dashboard-demo.html" class="hover:text-white transition">라이브 데모</a>
+        <a href="lecture-rag-health.html" class="hover:text-white transition">보건소 RAG 강의안</a>
+        <a href="index.html" class="hover:text-white transition">홈으로</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function copyMasterPrompt(btn) {
+      const content = document.getElementById('master-prompt-content').innerText;
+      navigator.clipboard.writeText(content).then(() => {
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-check text-emerald-300"></i> 복사 완료!';
+        btn.classList.add('bg-emerald-600');
+        setTimeout(() => {
+          btn.innerHTML = originalHtml;
+          btn.classList.remove('bg-emerald-600');
+        }, 2000);
+      }).catch(err => {
+        alert('복사에 실패했습니다. 직접 드래그하여 복사해 주세요.');
+      });
+    }
+  </script>
+</body>
+</html>
