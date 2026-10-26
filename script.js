@@ -504,6 +504,20 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <a href="lecture-dashboard.html" style="background:rgba(255,255,255,0.12); border:1px solid rgba(165,180,252,0.5); color:#C7D2FE; font-weight:700; font-size:0.9rem; padding:11px 18px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s;"><i class="fa-solid fa-chalkboard-user"></i> 강의안 보기</a>
                             </div>
                         </div>
+
+                        <!-- 배너 6: 실시간 하이브리드 통합 관제 대시보드 마스터랩 -->
+                        <div class="rag-card" style="background: linear-gradient(135deg, #0b132b 0%, #1c2541 40%, #0f4c5c 75%, #00b4d8 100%); color:#FFFFFF; border-radius:18px; padding:1.8rem 2.2rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 12px 35px rgba(0, 180, 216, 0.32); border:1px solid rgba(0, 240, 255, 0.5);">
+                            <div style="max-width:650px;">
+                                <span style="background:rgba(0,240,255,0.2); color:#00F0FF; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; display:inline-block; margin-bottom:8px;">⚡ [실속형] 멀티 포맷 파싱 &amp; 실시간 DB 연동</span>
+                                <h3 style="font-size:1.35rem; font-weight:800; margin:0; color:#FFFFFF;">실시간 하이브리드 통합 관제 대시보드 마스터랩</h3>
+                                <p style="font-size:0.9rem; color:#E0F2FE; margin:6px 0 0 0;">code_artifact (1) 기반 6대 관제탑! 엑셀·PDF·워드·MD 직접 업로드와 Supabase/Webhook 실시간 동기화, 4가지 디자인 모드를 지원하는 엔터프라이즈 통합 대시보드</p>
+                            </div>
+                            <div class="rag-card-actions" style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                                <a href="hybrid-dashboard.html" style="background:#00F0FF; color:#030712; font-weight:800; font-size:0.92rem; padding:12px 22px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s; box-shadow:0 4px 15px rgba(0,240,255,0.4);"><i class="fa-solid fa-gauge-high"></i> 통합 대시보드 입장하기 →</a>
+                                <a href="hybrid-dashboard.html?tab=raw" style="background:rgba(255,255,255,0.12); border:1px solid rgba(0,240,255,0.5); color:#00F0FF; font-weight:700; font-size:0.9rem; padding:11px 18px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s;"><i class="fa-solid fa-cloud-arrow-up"></i> 데이터 업로드 허브</a>
+                                <a href="lecture-dashboard.html" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.25); color:#E2E8F0; font-weight:700; font-size:0.9rem; padding:11px 18px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s;"><i class="fa-solid fa-chalkboard-user"></i> 강의안 보기</a>
+                            </div>
+                        </div>
                     </div>
                 ` : ''}
 
