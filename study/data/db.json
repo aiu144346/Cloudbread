@@ -1,0 +1,409 @@
+{
+  "users": [
+    {
+      "id": "teacher",
+      "password": "1234",
+      "name": "김선생님 (관리자)",
+      "role": "admin",
+      "grade": "교사",
+      "assignedLevel": null,
+      "levelTestCompleted": true,
+      "createdAt": "2026-10-25"
+    },
+    {
+      "id": "mid01",
+      "password": "1234",
+      "name": "김민준 (중1·신규)",
+      "role": "student",
+      "grade": "중학교 1학년",
+      "assignedLevel": null,
+      "levelTestCompleted": false,
+      "levelTestScore": null,
+      "levelTestHistory": [],
+      "studyPlan": null,
+      "createdAt": "2026-10-25",
+      "mathProgress": {
+        "solvedCount": 2,
+        "correctCount": 2,
+        "completedUnits": [
+          "1_1"
+        ],
+        "history": [
+          {
+            "problemId": "m1_u1_02",
+            "grade": 1,
+            "unitId": 1,
+            "isCorrect": true,
+            "usedHintCount": 1,
+            "usedStorytelling": true,
+            "timestamp": "2026-10-27T01:13:50.098Z",
+            "date": "2026-10-27"
+          },
+          {
+            "problemId": "m1_u1_02",
+            "grade": 1,
+            "unitId": 1,
+            "isCorrect": true,
+            "usedHintCount": 1,
+            "usedStorytelling": true,
+            "timestamp": "2026-10-27T01:14:27.730Z",
+            "date": "2026-10-27"
+          }
+        ],
+        "planner": {
+          "studyMinutes": 30,
+          "monthlyGoal": "기초 연산 마스터",
+          "studyDays": [
+            1,
+            3,
+            5
+          ],
+          "activeDayLabels": "월, 수, 금",
+          "updatedAt": "2026-10-27",
+          "dailyRoutine": "선행 개념 징검다리 퀴즈 (5분) ➔ 본 문제 도전 (15분) ➔ 소크라테스 힌트 오답 복습 (10분)",
+          "weeklyMilestone": "매주 [월, 수, 금] 집중 학습일마다 1개 핵심 단원 완벽 정복 (주당 총 3단어 마스터)",
+          "monthlyTable": [
+            {
+              "week": "1주차",
+              "focus": "핵심 기본 개념 정립 및 선행 징검다리 퀴즈 무기 장착",
+              "target": "단원 1~2 마스터"
+            },
+            {
+              "week": "2주차",
+              "focus": "교과서 대표 유형 풀이 및 소크라테스 3단계 힌트 훈련",
+              "target": "단원 3~4 마스터"
+            },
+            {
+              "week": "3주차",
+              "focus": "오답 실생활 스토리텔링 비유 분석 및 약점 단원 보강",
+              "target": "단원 5~6 마스터"
+            },
+            {
+              "week": "4주차",
+              "focus": "월간 마일스톤 총정리 및 고난도 응용문제 도전",
+              "target": "단원 7 마스터 및 복습"
+            }
+          ]
+        }
+      },
+      "scienceProgress": {
+        "masteredUnits": [],
+        "experimentLogs": [
+          {
+            "id": "log_1793064486660",
+            "unitId": "phys_ohm",
+            "params": {
+              "voltage": 12,
+              "resistance": 4
+            },
+            "resultText": "전압 12V, 저항 4Ω ➔ 전류 3A 관찰",
+            "timestamp": "2026-10-27T01:28:06.660Z",
+            "date": "2026-10-27"
+          }
+        ],
+        "quizScores": {
+          "q_ohm_1": {
+            "isCorrect": true,
+            "selectedOption": 1,
+            "attempts": 1,
+            "solvedAt": "2026-10-27"
+          }
+        },
+        "totalExperiments": 1
+      }
+    },
+    {
+      "id": "mid02",
+      "password": "1234",
+      "name": "이서연 (중2·Lv.4 학습중)",
+      "role": "student",
+      "grade": "중학교 2학년",
+      "assignedLevel": 4,
+      "levelTestCompleted": true,
+      "levelTestScore": 48,
+      "levelTestHistory": [
+        {
+          "date": "2026-10-25",
+          "score": 48,
+          "correctCount": 9,
+          "totalQuestions": 18,
+          "assignedLevel": 4
+        }
+      ],
+      "studyPlan": {
+        "currentLevel": 4,
+        "dailyTarget": 10,
+        "studyDays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "startDate": "2026-10-25",
+        "memoryMethodMode": "standard_4step"
+      },
+      "createdAt": "2026-10-25"
+    },
+    {
+      "id": "mid03",
+      "password": "1234",
+      "name": "박지훈 (중3·Lv.7 심화)",
+      "role": "student",
+      "grade": "중학교 3학년",
+      "assignedLevel": 7,
+      "levelTestCompleted": true,
+      "levelTestScore": 78,
+      "levelTestHistory": [
+        {
+          "date": "2026-10-25",
+          "score": 78,
+          "correctCount": 14,
+          "totalQuestions": 18,
+          "assignedLevel": 7
+        }
+      ],
+      "studyPlan": {
+        "currentLevel": 7,
+        "dailyTarget": 15,
+        "studyDays": [
+          1,
+          3,
+          5,
+          6
+        ],
+        "startDate": "2026-10-25",
+        "memoryMethodMode": "standard_4step"
+      },
+      "createdAt": "2026-10-25"
+    }
+  ],
+  "userProgress": {
+    "mid02": {
+      "wordStatus": {
+        "1": {
+          "status": "mastered",
+          "correctCount": 1,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "2": {
+          "status": "mastered",
+          "correctCount": 1,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "3": {
+          "status": "mastered",
+          "correctCount": 1,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "4": {
+          "status": "learning",
+          "correctCount": 1,
+          "wrongCount": 1,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "5": {
+          "status": "mastered",
+          "correctCount": 1,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "6": {
+          "status": "mastered",
+          "correctCount": 1,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "7": {
+          "status": "mastered",
+          "correctCount": 1,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "8": {
+          "status": "learning",
+          "correctCount": 1,
+          "wrongCount": 1,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "9": {
+          "status": "mastered",
+          "correctCount": 1,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "151": {
+          "status": "mastered",
+          "correctCount": 3,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "152": {
+          "status": "mastered",
+          "correctCount": 2,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "153": {
+          "status": "mastered",
+          "correctCount": 2,
+          "wrongCount": 1,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "154": {
+          "status": "learning",
+          "correctCount": 1,
+          "wrongCount": 2,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "155": {
+          "status": "mastered",
+          "correctCount": 2,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "156": {
+          "status": "learning",
+          "correctCount": 1,
+          "wrongCount": 1,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "157": {
+          "status": "mastered",
+          "correctCount": 2,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "158": {
+          "status": "mastered",
+          "correctCount": 2,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        }
+      },
+      "dailyLogs": {
+        "2026-10-25": {
+          "studiedCount": 17,
+          "masteredCount": 13,
+          "sessionsCompleted": 2
+        }
+      }
+    },
+    "mid03": {
+      "wordStatus": {
+        "301": {
+          "status": "mastered",
+          "correctCount": 3,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "302": {
+          "status": "mastered",
+          "correctCount": 2,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "303": {
+          "status": "mastered",
+          "correctCount": 2,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "304": {
+          "status": "mastered",
+          "correctCount": 2,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "305": {
+          "status": "learning",
+          "correctCount": 1,
+          "wrongCount": 2,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "306": {
+          "status": "mastered",
+          "correctCount": 2,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "307": {
+          "status": "mastered",
+          "correctCount": 2,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "308": {
+          "status": "mastered",
+          "correctCount": 2,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "309": {
+          "status": "mastered",
+          "correctCount": 2,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "310": {
+          "status": "mastered",
+          "correctCount": 2,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "311": {
+          "status": "learning",
+          "correctCount": 1,
+          "wrongCount": 1,
+          "lastStudiedAt": "2026-10-25"
+        },
+        "312": {
+          "status": "mastered",
+          "correctCount": 2,
+          "wrongCount": 0,
+          "lastStudiedAt": "2026-10-25"
+        }
+      },
+      "dailyLogs": {
+        "2026-10-25": {
+          "studiedCount": 12,
+          "masteredCount": 10,
+          "sessionsCompleted": 1
+        }
+      }
+    }
+  },
+  "memoryEngineConfig": {
+    "activeMethodName": "기본 4단계 멀티센서리 암기 플랜 (추후 맞춤형 암기법 연동 대기)",
+    "description": "현재 기본 4단계(시각 탐색 → 예문 맥락 연결 → 객관식 인출 → 스펠링 확인)로 작동 중이며, 사용자의 별도 암기법 플랜이 입력되면 즉시 교체/확장됩니다.",
+    "steps": [
+      {
+        "step": 1,
+        "code": "preview",
+        "title": "1단계: 단어 & 발음 각인",
+        "desc": "원어민 발음(TTS)을 듣고 품사와 핵심 뜻을 시각적으로 연결합니다."
+      },
+      {
+        "step": 2,
+        "code": "context",
+        "title": "2단계: 교과서 예문 맥락 파악",
+        "desc": "중학교 필수 예문 속에서 단어가 쓰이는 빈칸(Cloze) 맥락을 익힙니다."
+      },
+      {
+        "step": 3,
+        "code": "quiz",
+        "title": "3단계: 빠른 뜻 인출 테스트",
+        "desc": "4지선다 퀴즈로 단기 기억에서 즉각 뜻을 인출하는 훈련을 합니다."
+      },
+      {
+        "step": 4,
+        "code": "spelling",
+        "title": "4단계: 철자(Spelling) 완성",
+        "desc": "첫 글자 힌트와 음절 단위를 보고 직접 스펠링을 타이핑해 완전 습득합니다."
+      }
+    ]
+  }
+}

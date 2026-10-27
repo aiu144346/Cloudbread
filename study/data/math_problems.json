@@ -1,0 +1,1709 @@
+[
+  {
+    "grade": 1,
+    "gradeLabel": "중학교 1학년",
+    "unitId": 1,
+    "unitName": "1. 소인수분해",
+    "summary": "소수와 합성수, 거듭제곱, 소인수분해를 이용한 최대공약수와 최소공배수",
+    "problems": [
+      {
+        "id": "m1_u1_01",
+        "level": "easy",
+        "levelLabel": "🌱 초급",
+        "title": "소수와 거듭제곱의 기초",
+        "steppingStoneQuiz": {
+          "question": "다음 중 $1$보다 큰 자연수 중에서 $1$과 자기 자신만을 약수로 가지는 수를 무엇이라고 할까요?",
+          "options": [
+            "① 합성수",
+            "② 소수(Prime number)",
+            "③ 짝수",
+            "④ 완전수"
+          ],
+          "answerIndex": 1,
+          "conceptPill": "⚔️ 무기 획득: 소수는 약수가 오직 2개뿐인 자연수의 기본 블록!"
+        },
+        "problem": {
+          "question": "자연수 $72$를 소인수분해한 결과로 알맞은 것을 고르시오.",
+          "options": [
+            "① $2^2 \\times 3^3$",
+            "② $2^3 \\times 3^2$",
+            "③ $2^4 \\times 3$",
+            "④ $8 \\times 9$"
+          ],
+          "correctAnswerIndex": 1,
+          "answerValue": "2^3 * 3^2"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: 가장 작은 소수부터 나누어 보기",
+            "text": "$72$는 짝수이므로 가장 작은 소수인 $2$로 계속 나눌 수 있어! $72 \\div 2$는 얼마일까?"
+          },
+          {
+            "step": 2,
+            "title": "2단계: $2$로 나눈 몫을 계속 쪼개기",
+            "text": "$72 = 2 \\times 36 = 2 \\times 2 \\times 18 = 2 \\times 2 \\times 2 \\times 9$까지 왔어. 이제 $9$를 쪼개 볼까?"
+          },
+          {
+            "step": 3,
+            "title": "3단계: 거듭제곱으로 묶기",
+            "text": "$9 = 3 \\times 3$이니까, $2$는 총 $3$번 곱해졌고, $3$은 총 $2$번 곱해졌어! 이를 거듭제곱 기호로 쓰면 어떻게 될까?"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "🧱 레고 블록 분해 놀이 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 거대한 레고 성",
+              "description": "숫자 72는 아주 복잡해 보이는 커다란 레고 성이야. 이 성을 분해해서 '더 이상 쪼갤 수 없는 기본 블록(소수)'으로 만들 거야."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 2번 파란 블록 3개",
+              "description": "성을 반으로 가르고, 또 반으로 가르고, 또 반으로 가르니 '크기 2짜리 파란 기본 블록'이 딱 3개($2^3$) 나왔어!"
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 3번 노란 블록 2개",
+              "description": "남은 9 조각을 가르니 '크기 3짜리 노란 기본 블록'이 2개($3^2$) 완성되었지. 즉 72는 $2^3 \\times 3^2$으로 완벽히 분해돼!"
+            }
+          ]
+        },
+        "deepSolution": "$$72 = 2 \\times 36 = 2^2 \\times 18 = 2^3 \\times 9 = 2^3 \\times 3^2$$\n따라서 $72$의 소인수는 $2$와 $3$이며, 거듭제곱으로 나타내면 **② $2^3 \\times 3^2$**입니다."
+      },
+      {
+        "id": "m1_u1_02",
+        "level": "medium",
+        "levelLabel": "🌿 중급",
+        "title": "소인수분해와 최대공약수 구하기",
+        "steppingStoneQuiz": {
+          "question": "두 자연수의 '최대공약수'를 소인수분해를 이용해 구할 때, 공통인 소인수의 지수는 어떻게 선택해야 할까요?",
+          "options": [
+            "① 지수가 더 큰 것을 고른다",
+            "② 지수가 같거나 작은 것을 고른다",
+            "③ 두 지수를 더한다",
+            "④ 지수를 곱한다"
+          ],
+          "answerIndex": 1,
+          "conceptPill": "⚔️ 무기 획득: 최대공약수는 공통된 소인수 중 '지수가 작거나 같은 것'을 챙긴다!"
+        },
+        "problem": {
+          "question": "두 수 $A = 2^3 \\times 3^2 \\times 5$, $B = 2^2 \\times 3^3 \\times 7$의 최대공약수를 구하시오.",
+          "options": [
+            "① $2^2 \\times 3^2$",
+            "② $2^3 \\times 3^3$",
+            "③ $2^2 \\times 3^2 \\times 5 \\times 7$",
+            "④ $2 \\times 3$"
+          ],
+          "correctAnswerIndex": 0,
+          "answerValue": "2^2 * 3^2"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: 공통으로 들어 있는 소인수 찾기",
+            "text": "$A$와 $B$의 소인수($2, 3, 5, 7$) 중에서 둘 다 공통으로 가지고 있는 소인수는 누구누구일까?"
+          },
+          {
+            "step": 2,
+            "title": "2단계: 공통 소인수의 지수 비교하기",
+            "text": "소인수 $2$에 대해 $A$는 $2^3$, $B$는 $2^2$을 가지고 있어. 둘 다 공통으로 나누어떨어지려면 $2$를 몇 개까지 나눌 수 있을까?"
+          },
+          {
+            "step": 3,
+            "title": "3단계: 공통 소인수 $3$ 비교 후 곱하기",
+            "text": "소인수 $3$은 $A$가 $3^2$, $B$가 $3^3$이야. 지수가 더 작은 $3^2$을 골라야 해. 그럼 최대공약수는 어떻게 될까?"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "🎒 배낭 함께 싸기 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 철수와 영희의 가방",
+              "description": "철수(A)는 사탕 2를 3개, 초콜릿 3을 2개, 젤리 5를 1개 가졌어. 영희(B)는 사탕 2를 2개, 초콜릿 3을 3개, 쿠키 7을 1개 가졌지."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 둘이 똑같이 나눌 수 있는 양",
+              "description": "둘이 싸우지 않고 '완벽히 똑같이 공유'할 수 있는 건 사탕 2는 2개($2^2$), 초콜릿 3은 2개($3^2$)뿐이야!"
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 혼자만 가진 건 탈락!",
+              "description": "철수만 가진 젤리 5와 영희만 가진 쿠키 7은 공통이 아니니까 최대공약수 가방에 들어갈 수 없어."
+            }
+          ]
+        },
+        "deepSolution": "공통인 소인수는 $2$와 $3$입니다.\n- 소인수 $2$의 지수 중 작은 것: $2^2$\n- 소인수 $3$의 지수 중 작은 것: $3^2$\n공통이 아닌 소인수 $5, 7$은 제외되므로, 최대공약수는 **① $2^2 \\times 3^2$** ($= 36$)입니다."
+      }
+    ]
+  },
+  {
+    "grade": 1,
+    "gradeLabel": "중학교 1학년",
+    "unitId": 2,
+    "unitName": "2. 정수와 유리수",
+    "summary": "양수와 음수, 절댓값의 성질, 수직선 표현, 유리수의 사칙연산",
+    "problems": [
+      {
+        "id": "m1_u2_01",
+        "level": "easy",
+        "levelLabel": "🌱 초급",
+        "title": "음수의 덧셈과 절댓값",
+        "steppingStoneQuiz": {
+          "question": "수직선 위에서 어떤 수를 나타내는 점과 원점($0$) 사이의 거리를 무엇이라고 부를까요?",
+          "options": [
+            "① 절댓값",
+            "② 역수",
+            "③ 계수",
+            "④ 자연수"
+          ],
+          "answerIndex": 0,
+          "conceptPill": "⚔️ 무기 획득: 절댓값 $|x|$는 원점과의 '거리'이므로 항상 0 또는 양수!"
+        },
+        "problem": {
+          "question": "다음 수식을 계산한 값으로 올바른 것을 고르시오.\n$$(-7) + (+3)$$",
+          "options": [
+            "① $+10$",
+            "② $-10$",
+            "③ $-4$",
+            "④ $+4$"
+          ],
+          "correctAnswerIndex": 2,
+          "answerValue": "-4"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: 부호가 다른 두 수의 덧셈 규칙",
+            "text": "부호가 다른 두 수를 더할 때는 두 수의 '절댓값의 차'에 절댓값이 더 큰 쪽의 부호를 붙여줘."
+          },
+          {
+            "step": 2,
+            "title": "2단계: 절댓값 비교하기",
+            "text": "$|-7| = 7$이고 $|+3| = 3$이야. $7$이 $3$보다 더 크니까, 최종 부호는 음수($-$)가 될까 양수($+$)가 될까?"
+          },
+          {
+            "step": 3,
+            "title": "3단계: 차이 계산하기",
+            "text": "절댓값의 차이는 $7 - 3 = 4$야. 여기에 큰 쪽의 부호인 $-$를 붙이면?"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "🌡️ 엘리베이터 지하/지상 층수 이동 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 지하 7층으로 내려가다",
+              "description": "현재 엘리베이터가 지하 7층($-7$)에 멈춰 있어. 밖은 컴컴하고 땅속 깊은 곳이지."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 3개 층을 위로 올라가기",
+              "description": "올라가는 버튼($+3$)을 눌러서 3개 층만큼 슝~ 위로 올라갔어."
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 현재 도착한 층수는?",
+              "description": "아직 지상 1층에 닿지 못했지? 여전히 지하 4층($-4$)에 위치하게 돼!"
+            }
+          ]
+        },
+        "deepSolution": "부호가 다른 두 정수의 덧셈이므로, 절댓값이 큰 수의 부호($-$)를 취하고 두 절댓값의 차($7 - 3 = 4$)를 구합니다.\n$$(-7) + (+3) = -(7 - 3) = -4$$\n따라서 정답은 **③ $-4$**입니다."
+      },
+      {
+        "id": "m1_u2_02",
+        "level": "medium",
+        "levelLabel": "🌿 중급",
+        "title": "음수의 곱셈과 부호 결정",
+        "steppingStoneQuiz": {
+          "question": "음수와 음수를 서로 곱할 때 ($-\\times -$), 곱의 최종 부호는 무엇이 될까요?",
+          "options": [
+            "① 음수 ($-$)",
+            "② 양수 ($+$)",
+            "③ 항상 $0$",
+            "④ 알 수 없음"
+          ],
+          "answerIndex": 1,
+          "conceptPill": "⚔️ 무기 획득: 마이너스가 짝수 개 곱해지면 플러스($+$)로 변신!"
+        },
+        "problem": {
+          "question": "다음 수식을 바르게 계산한 결과는 무엇일까요?\n$$(-2) \\times (-3) \\times (-4)$$",
+          "options": [
+            "① $+24$",
+            "② $-24$",
+            "③ $+12$",
+            "④ $-9$"
+          ],
+          "correctAnswerIndex": 1,
+          "answerValue": "-24"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: 곱해진 음수의 개수 세기",
+            "text": "곱셈식에 음수가 몇 개 곱해져 있는지 세어 볼까? $(-2)$, $(-3)$, $(-4)$ 총 3개야."
+          },
+          {
+            "step": 2,
+            "title": "2단계: 음수의 개수 홀짝 판별",
+            "text": "음수가 홀수(3)개 곱해지면 최종 부호는 음수($-$)일까, 양수($+$)일까?"
+          },
+          {
+            "step": 3,
+            "title": "3단계: 절댓값끼리 곱하기",
+            "text": "부호는 마이너스로 결정되었으니, 이제 숫자 크기인 $2 \\times 3 \\times 4$를 계산해 보자!"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "⏪ 시간을 되돌리는 타임머신 카메라 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 첫 번째 뒤집기 (음수 1개)",
+              "description": "타임머신 카메라 필름을 한 번 뒤집으면 뒤로 걷는 모습(음수)이 돼."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 두 번째 뒤집기 (음수 2개)",
+              "description": "뒤로 걷는 영상을 다시 거꾸로 돌리니 앞으로 걷는 원래 모습(양수 $+6$)으로 돌아왔어!"
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 세 번째 뒤집기 (음수 3개)",
+              "description": "여기에 또 한 번 필름을 뒤집으니 결국 최종적으로 뒤로 걷는 영상(음수 $-24$)이 되지!"
+            }
+          ]
+        },
+        "deepSolution": "곱해지는 음수의 개수가 $3$개(홀수 개)이므로 전체 부호는 음수($-$)입니다.\n$$(-2) \\times (-3) \\times (-4) = -(2 \\times 3 \\times 4) = -24$$\n따라서 정답은 **② $-24$**입니다."
+      }
+    ]
+  },
+  {
+    "grade": 1,
+    "gradeLabel": "중학교 1학년",
+    "unitId": 3,
+    "unitName": "3. 문자와 식",
+    "summary": "문자를 사용한 식의 표현, 일차식의 연산, 등식의 성질, 일차방정식 풀이",
+    "problems": [
+      {
+        "id": "m1_u3_01",
+        "level": "easy",
+        "levelLabel": "🌱 초급",
+        "title": "일차방정식의 이항과 기본 풀이",
+        "steppingStoneQuiz": {
+          "question": "일차방정식에서 등호($=$)를 넘어 항이 반대편으로 이동할 때 부호가 반대로 바뀌는 규칙을 무엇이라 할까요?",
+          "options": [
+            "① 약분",
+            "② 이항",
+            "③ 통분",
+            "④ 인수분해"
+          ],
+          "answerIndex": 1,
+          "conceptPill": "⚔️ 무기 획득: 다리를 건널 땐 입장료로 부호가 바뀐다 (이항: $+ \\leftrightarrow -$)"
+        },
+        "problem": {
+          "question": "다음 일차방정식을 풀어 $x$의 값을 구하시오.\n$$3x - 5 = x + 7$$",
+          "options": [
+            "① $x = 4$",
+            "② $x = 5$",
+            "③ $x = 6$",
+            "④ $x = 7$"
+          ],
+          "correctAnswerIndex": 2,
+          "answerValue": "x=6"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: $x$는 좌변으로, 숫자는 우변으로",
+            "text": "방정식을 풀기 위해 우변의 $+x$는 좌변으로, 좌변의 $-5$는 우변으로 이항해보자."
+          },
+          {
+            "step": 2,
+            "title": "2단계: 이항 후 식 정리",
+            "text": "$3x - x = 7 + 5$가 되었어. 좌변과 우변을 각각 계산하면?"
+          },
+          {
+            "step": 3,
+            "title": "3단계: $x$의 계수로 나누기",
+            "text": "$2x = 12$가 되었어. 양변을 $2$로 나누면 $x$는?"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "⚖️ 시장 상점 양팔 저울 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 왼쪽 접시 vs 오른쪽 접시",
+              "description": "왼쪽 접시엔 상자 3개와 5g짜리 빚 구슬($3x-5$), 오른쪽엔 상자 1개와 7g짜리 금구슬($x+7$)이 수평을 이루고 있어."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 상자 한 개 덜어내기",
+              "description": "양쪽 접시에서 똑같이 상자 1개씩을 빼면, 왼쪽엔 상자 2개($2x$)만 남게 돼!"
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 구슬 무게 맞추기",
+              "description": "빛 구슬을 치우니 상자 2개의 무게가 금구슬 12개($12$)와 같아졌어. 상자 1개($x$)는 당연히 6g이겠지!"
+            }
+          ]
+        },
+        "deepSolution": "1) $x$항은 좌변으로, 상수항은 우변으로 이항:\n$$3x - x = 7 + 5$$\n2) 동류항 정리:\n$$2x = 12$$\n3) 양변을 $2$로 나눔:\n$$x = 6$$\n따라서 정답은 **③ $x = 6$**입니다."
+      }
+    ]
+  },
+  {
+    "grade": 1,
+    "gradeLabel": "중학교 1학년",
+    "unitId": 4,
+    "unitName": "4. 좌표평면과 그래프",
+    "summary": "순서쌍과 좌표, 사분면의 부호 판별, 정비례와 반비례 그래프",
+    "problems": [
+      {
+        "id": "m1_u4_01",
+        "level": "easy",
+        "levelLabel": "🌱 초급",
+        "title": "사분면 위의 점의 위치",
+        "steppingStoneQuiz": {
+          "question": "좌표평면에서 $x$좌표가 음수($x < 0$)이고 $y$좌표가 양수($y > 0$)인 점은 몇 사분면에 있을까요?",
+          "options": [
+            "① 제1사분면",
+            "② 제2사분면",
+            "③ 제3사분면",
+            "④ 제4사분면"
+          ],
+          "answerIndex": 1,
+          "conceptPill": "⚔️ 무기 획득: 사분면은 $(+,+)$ 제1사분면부터 반시계 방향으로 1, 2, 3, 4!"
+        },
+        "problem": {
+          "question": "점 $P(-3, 5)$는 좌표평면에서 어느 사분면 위의 점일까요?",
+          "options": [
+            "① 제1사분면",
+            "② 제2사분면",
+            "③ 제3사분면",
+            "④ 제4사분면"
+          ],
+          "correctAnswerIndex": 1,
+          "answerValue": "제2사분면"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: $x$좌표와 $y$좌표의 부호 확인",
+            "text": "$P(-3, 5)$에서 $x$는 $-3$이니까 음수, $y$는 $5$니까 양수야."
+          },
+          {
+            "step": 2,
+            "title": "2단계: 원점에서 출발하는 경로 상상하기",
+            "text": "원점 $(0,0)$에서 $x$가 음수니까 왼쪽으로 3칸, $y$가 양수니까 위쪽으로 5칸 이동해야 해."
+          },
+          {
+            "step": 3,
+            "title": "3단계: 위치한 구역 확인",
+            "text": "왼쪽 위 구역은 몇 사분면일까? 오른쪽 위가 제1사분면, 왼쪽 위가 제2사분면이야!"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "🧭 게임 미니맵 4분할 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 마을 중앙 광장 (원점)",
+              "description": "모험가가 중앙 분수대(0,0)에 서 있어. 동쪽은 +, 서쪽은 -, 북쪽은 +, 남쪽은 -야."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 서쪽으로 3걸음, 북쪽으로 5걸음",
+              "description": "서쪽(-)으로 3걸음 걷고, 북쪽(+) 언덕으로 5걸음 올라갔어."
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 도착한 마법사의 탑",
+              "description": "미니맵의 북서쪽 구역에 도착했지? 거기가 바로 제2사분면 구역이야!"
+            }
+          ]
+        },
+        "deepSolution": "점 $P(-3, 5)$는 $x < 0$이고 $y > 0$이므로, 좌표평면의 왼쪽 위인 **② 제2사분면** 위의 점입니다."
+      }
+    ]
+  },
+  {
+    "grade": 1,
+    "gradeLabel": "중학교 1학년",
+    "unitId": 5,
+    "unitName": "5. 기본 도형과 작도",
+    "summary": "점·선·면, 각의 성질, 맞꼭지각, 평행선과 엇각/동위각, 삼각형 합동조건",
+    "problems": [
+      {
+        "id": "m1_u5_01",
+        "level": "medium",
+        "levelLabel": "🌿 중급",
+        "title": "평행선에서 동위각과 엇각의 크기",
+        "steppingStoneQuiz": {
+          "question": "두 직선이 평행할 때, 두 직선이 한 직선과 만날 때 생기는 '엇각'의 크기는 어떠할까요?",
+          "options": [
+            "① 합이 $90^\\circ$이다",
+            "② 서로 크기가 같다",
+            "③ 합이 $180^\\circ$이다",
+            "④ 항상 직각이다"
+          ],
+          "answerIndex": 1,
+          "conceptPill": "⚔️ 무기 획득: 두 직선이 평행하면 동위각과 엇각의 크기는 무조건 같다!"
+        },
+        "problem": {
+          "question": "두 직선 $l$과 $m$이 평행할 때 ($l \\parallel m$), $\\angle x$의 크기를 구하시오.\n(단, 직선 $l$ 위의 엇각 위치에 있는 각의 크기는 $65^\\circ$이다)",
+          "options": [
+            "① $55^\\circ$",
+            "② $65^\\circ$",
+            "③ $115^\\circ$",
+            "④ $125^\\circ$"
+          ],
+          "correctAnswerIndex": 1,
+          "answerValue": "65도"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: 평행선의 조건 확인",
+            "text": "$l \\parallel m$이라는 기호는 두 직선이 나란히 뻗어 평행하다는 뜻이야."
+          },
+          {
+            "step": 2,
+            "title": "2단계: $Z$자 모양의 엇각 찾기",
+            "text": "두 평행선 사이를 가로지르는 선을 따라 $Z$자 모양을 그려보면 안쪽에 서로 엇갈린 두 각이 보여."
+          },
+          {
+            "step": 3,
+            "title": "3단계: 각의 크기 매칭",
+            "text": "평행선에서 엇각의 크기는 서로 같으므로, 주어진 각이 $65^\\circ$라면 $\\angle x$는?"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "🛤️ 기차 철길과 건널목 레일 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 똑바로 뻗은 두 가닥 철길",
+              "description": "평행한 기차 철길 두 레일은 영원히 만나지 않고 같은 간격으로 뻗어 있어."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 대각선으로 지나가는 도로",
+              "description": "이 철길을 비스듬하게 건너는 건널목 도로가 있어. 레일과 도로가 이루는 각도를 재보았지."
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 지그재그 엇각의 비밀",
+              "description": "철길이 나란하기 때문에, 지그재그로 엇갈린 반대편 각도 기울어진 각도($65^\\circ$)와 완벽히 쌍둥이처럼 같아!"
+            }
+          ]
+        },
+        "deepSolution": "두 직선 $l, m$이 평행하므로 ($l \\parallel m$), 평행선의 엇각의 크기는 서로 같습니다.\n따라서 $\\angle x = 65^\\circ$이므로 정답은 **② $65^\\circ$**입니다."
+      }
+    ]
+  },
+  {
+    "grade": 1,
+    "gradeLabel": "중학교 1학년",
+    "unitId": 6,
+    "unitName": "6. 평면/입체도형",
+    "summary": "다각형의 내각과 외각의 성질, 부채꼴 호의 길이와 넓이, 입체도형 겉넓이와 부피",
+    "problems": [
+      {
+        "id": "m1_u6_01",
+        "level": "medium",
+        "levelLabel": "🌿 중급",
+        "title": "부채꼴의 호의 길이와 넓이",
+        "steppingStoneQuiz": {
+          "question": "반지름이 $r$인 원 전체의 둘레(원주)의 길이를 구하는 공식은 무엇일까요?",
+          "options": [
+            "① $\\pi r$",
+            "② $2\\pi r$",
+            "③ $\\pi r^2$",
+            "④ $2\\pi r^2$"
+          ],
+          "answerIndex": 1,
+          "conceptPill": "⚔️ 무기 획득: 원둘레는 $2\\pi r$, 원넓이는 $\\pi r^2$!"
+        },
+        "problem": {
+          "question": "반지름의 길이가 $6\\text{ cm}$이고 중심각의 크기가 $60^\\circ$인 부채꼴의 호의 길이를 구하시오.",
+          "options": [
+            "① $\\pi\\text{ cm}$",
+            "② $2\\pi\\text{ cm}$",
+            "③ $3\\pi\\text{ cm}$",
+            "④ $6\\pi\\text{ cm}$"
+          ],
+          "correctAnswerIndex": 1,
+          "answerValue": "2pi"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: 원 전체의 둘레 먼저 구하기",
+            "text": "반지름 $r=6$인 원 전체의 둘레는 $2\\pi r = 2 \\times \\pi \\times 6 = 12\\pi\\text{ cm}$야."
+          },
+          {
+            "step": 2,
+            "title": "2단계: 부채꼴이 전체 원에서 차지하는 비율",
+            "text": "원 전체의 중심각은 $360^\\circ$이고, 이 부채꼴의 중심각은 $60^\\circ$야. 비율 $\\frac{60}{360}$은 약분하면 몇 분의 몇일까?"
+          },
+          {
+            "step": 3,
+            "title": "3단계: 원둘레에 비율 곱하기",
+            "text": "비율은 $\\frac{1}{6}$이야! 원둘레 $12\\pi$에 $\\frac{1}{6}$을 곱해주면 부채꼴 호의 길이는?"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "🍕 피자 6조각 나누기 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 커다란 원형 피자 한 판",
+              "description": "반지름 6cm짜리 피자 전체 빵 테두리 둘레 길이를 줄자로 쟀더니 $12\\pi$였어."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 60도로 자른 피자 한 조각",
+              "description": "전체 360도를 60도씩 자르면 피자가 정확히 똑같이 6조각($\\frac{60}{360} = \\frac{1}{6}$)이 나오지!"
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 내가 먹을 피자 한 조각의 테두리",
+              "description": "전체 테두리 $12\\pi$의 6분의 1이니까, 한 조각의 호의 길이는 딱 $2\\pi$cm야!"
+            }
+          ]
+        },
+        "deepSolution": "부채꼴의 호의 길이 $l = 2\\pi r \\times \\frac{x}{360}$ 공식에 대입합니다:\n$$l = 2 \\times \\pi \\times 6 \\times \\frac{60}{360} = 12\\pi \\times \\frac{1}{6} = 2\\pi\\text{ cm}$$\n따라서 정답은 **② $2\\pi\\text{ cm}$**입니다."
+      }
+    ]
+  },
+  {
+    "grade": 1,
+    "gradeLabel": "중학교 1학년",
+    "unitId": 7,
+    "unitName": "7. 통계와 자료",
+    "summary": "줄기와 잎 그림, 도수분포표, 히스토그램, 도수분포다각형, 상대도수",
+    "problems": [
+      {
+        "id": "m1_u7_01",
+        "level": "easy",
+        "levelLabel": "🌱 초급",
+        "title": "상대도수의 뜻과 성질",
+        "steppingStoneQuiz": {
+          "question": "어떤 도수분포표에서 모든 계급의 '상대도수의 총합'은 항상 얼마일까요?",
+          "options": [
+            "① $0$",
+            "② $0.5$",
+            "③ $1$",
+            "④ $100$"
+          ],
+          "answerIndex": 2,
+          "conceptPill": "⚔️ 무기 획득: 상대도수는 비율이므로 다 더하면 무조건 전체인 1!"
+        },
+        "problem": {
+          "question": "전체 학생 수가 $50$명인 학급에서 턱걸이를 $10$회 이상 한 학생이 $15$명일 때, 이 계급의 상대도수는 얼마일까요?",
+          "options": [
+            "① $0.15$",
+            "② $0.3$",
+            "③ $0.35$",
+            "④ $0.5$"
+          ],
+          "correctAnswerIndex": 1,
+          "answerValue": "0.3"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: 상대도수 구하는 공식",
+            "text": "상대도수 = $\\frac{\\text{그 계급의 도수}}{\\text{도수의 총합}}$ 공식 기억나니?"
+          },
+          {
+            "step": 2,
+            "title": "2단계: 분수로 나타내기",
+            "text": "도수의 총합은 전체 학생 수 $50$명이고, 그 계급의 도수는 $15$명이야. 분수로 쓰면 $\\frac{15}{50}$가 돼."
+          },
+          {
+            "step": 3,
+            "title": "3단계: 소수로 변환하기",
+            "text": "분모와 분자에 각각 $2$를 곱해주면 분모가 $100$이 되지? $\\frac{30}{100}$을 소수로 나타내면?"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "🎂 케이크 지분율 계산 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 50명이 모인 생일 파티",
+              "description": "전체 파티에 50명의 친구들이 모여 있어 (도수의 총합 = 50)."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 특별한 15명의 손",
+              "description": "턱걸이 10개 이상 성공한 영웅 15명이 손을 번쩍 들었지 (도수 = 15)."
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 비율로 나타낸 몫",
+              "description": "전체 50명 중 15명이니까, 100명 기준으로 치면 딱 30명에 해당해. 즉 비율은 0.3(30%)이야!"
+            }
+          ]
+        },
+        "deepSolution": "$$\\text{상대도수} = \\frac{\\text{그 계급의 도수}}{\\text{도수의 총합}} = \\frac{15}{50} = \\frac{30}{100} = 0.3$$\n따라서 정답은 **② $0.3$**입니다."
+      }
+    ]
+  },
+  {
+    "grade": 2,
+    "gradeLabel": "중학교 2학년",
+    "unitId": 1,
+    "unitName": "1. 유리수와 순환소수",
+    "summary": "유한소수와 순환소수, 순환소수를 분수로 나타내기",
+    "problems": [
+      {
+        "id": "m2_u1_01",
+        "level": "medium",
+        "levelLabel": "🌿 중급",
+        "title": "유한소수로 나타낼 수 있는 분수 판별",
+        "steppingStoneQuiz": {
+          "question": "기약분수를 소수로 고칠 때 '유한소수'가 되려면, 분모의 소인수가 오직 어떤 수들로만 이루어져야 할까요?",
+          "options": [
+            "① 2 또는 3",
+            "② 2 또는 5",
+            "③ 3 또는 5",
+            "④ 오직 10"
+          ],
+          "answerIndex": 1,
+          "conceptPill": "⚔️ 무기 획득: 10의 약수인 2와 5만이 분모에 남아야 유한소수!"
+        },
+        "problem": {
+          "question": "다음 분수 중 소수로 나타내었을 때 '유한소수'가 되는 것을 고르시오.",
+          "options": [
+            "① $\\frac{7}{12}$",
+            "② $\\frac{5}{14}$",
+            "③ $\\frac{9}{40}$",
+            "④ $\\frac{11}{45}$"
+          ],
+          "correctAnswerIndex": 2,
+          "answerValue": "9/40"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: 먼저 기약분수인지 확인하기",
+            "text": "보기에 주어진 분수들은 모두 이미 더 이상 약분되지 않는 기약분수들이야."
+          },
+          {
+            "step": 2,
+            "title": "2단계: 각 분수의 분모를 소인수분해하기",
+            "text": "- 12: $2^2 \\times 3$\n- 14: $2 \\times 7$\n- 40: $2^3 \\times 5$\n- 45: $3^2 \\times 5$"
+          },
+          {
+            "step": 3,
+            "title": "3단계: $2$나 $5$ 이외의 불순물이 없는 분모 찾기",
+            "text": "12에는 $3$이 끼어 있고, 14에는 $7$, 45에는 $3^2$이 끼어 있어. 오직 $2$와 $5$만 있는 분모는?"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "🚪 10의 궁전 입장 자격 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 10, 100, 1000 나라의 엄격한 문지기",
+              "description": "유한소수가 되려면 분모가 10, 100, 1000이 되어야 해. 10의 소인수는 2와 5뿐이지."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 불순물 3과 7의 퇴짜",
+              "description": "분모에 3이나 7 같은 다른 숫자가 있으면 아무리 10을 곱해도 절대 소수점 아래가 끝나지 않고 무한히 맴돌아."
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 40번 선수의 합격",
+              "description": "40은 $2^3 \\times 5$로 오직 2와 5로만 구성되어 있어! 분자·분모에 $5^2$을 곱하면 쉽게 $\\frac{225}{1000}=0.225$로 끝나!"
+            }
+          ]
+        },
+        "deepSolution": "기약분수의 분모를 각각 소인수분해하면:\n- $12 = 2^2 \\times 3$ (불순물 $3$ 포함 $\\rightarrow$ 무한소수)\n- $14 = 2 \\times 7$ (불순물 $7$ 포함 $\\rightarrow$ 무한소수)\n- $40 = 2^3 \\times 5$ (오직 $2, 5$로만 구성 $\\rightarrow$ **유한소수**)\n- $45 = 3^2 \\times 5$ (불순물 $3^2$ 포함 $\\rightarrow$ 무한소수)\n따라서 정답은 **③ $\\frac{9}{40}$**입니다."
+      }
+    ]
+  },
+  {
+    "grade": 2,
+    "gradeLabel": "중학교 2학년",
+    "unitId": 2,
+    "unitName": "2. 식의 계산",
+    "summary": "지수법칙, 단항식의 곱셈과 나눗셈, 다항식의 덧셈과 뺄셈, 곱셈공식",
+    "problems": [
+      {
+        "id": "m2_u2_01",
+        "level": "medium",
+        "levelLabel": "🌿 중급",
+        "title": "지수법칙과 단항식의 연산",
+        "steppingStoneQuiz": {
+          "question": "밑이 같은 거듭제곱의 곱셈 $(a^m \\times a^n)$에서 지수는 어떻게 계산해야 할까요?",
+          "options": [
+            "① $a^{m \\times n}$",
+            "② $a^{m + n}$",
+            "③ $a^{m - n}$",
+            "④ $a^{m / n}$"
+          ],
+          "answerIndex": 1,
+          "conceptPill": "⚔️ 무기 획득: 곱할 땐 지수끼리 더한다 ($a^m \\times a^n = a^{m+n}$)!"
+        },
+        "problem": {
+          "question": "다음 식을 바르게 계산하여 간단히 한 것은 무엇일까요?\n$$(2x^2y)^3 \\div (4xy^2)$$",
+          "options": [
+            "① $2x^4y$",
+            "② $2x^5y$",
+            "③ $4x^5y$",
+            "④ $2x^5y^2$"
+          ],
+          "correctAnswerIndex": 1,
+          "answerValue": "2x^5y"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: 거듭제곱 전개하기",
+            "text": "$(2x^2y)^3$을 먼저 풀어보자. $2^3 \\times (x^2)^3 \\times y^3$이 되므로 $8x^6y^3$이 돼."
+          },
+          {
+            "step": 2,
+            "title": "2단계: 나눗셈을 분수 꼴로 나타내기",
+            "text": "$$\\frac{8x^6y^3}{4xy^2}$$\n숫자는 숫자끼리, 문자는 같은 문자끼리 약분해 보자."
+          },
+          {
+            "step": 3,
+            "title": "3단계: 지수법칙으로 뺄셈하기",
+            "text": "숫자: $8 \\div 4 = 2$\n$x$: $x^6 \\div x^1 = x^{6-1} = x^5$\n$y$: $y^3 \\div y^2 = y^{3-2} = y^1$\n합치면 어떻게 될까?"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "⚔️ 롤(LoL) 챔피언 공격력 큐브 조합 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 3단 강화 주문",
+              "description": "$(2x^2y)^3$ 주문을 쓰면 2도 3제곱되어 8이 되고, $x$는 $2 \\times 3=6$개, $y$는 3개가 쏟아져 나와 ($8x^6y^3$)."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 방어막으로 나누기",
+              "description": "적군 방어막 $4xy^2$이 다가왔어. 8에서 4를 나누니 계수는 2가 남고!"
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 무기 상쇄",
+              "description": "$x$ 6자루 중 1자루 상쇄되어 $x^5$, $y$ 3병 중 2병 상쇄되어 $y$ 1병만 남으니 최종 무기는 $2x^5y$야!"
+            }
+          ]
+        },
+        "deepSolution": "1) 거듭제곱을 먼저 계산합니다:\n$$(2x^2y)^3 = 2^3 \\times (x^2)^3 \\times y^3 = 8x^6y^3$$\n2) 나눗셈을 분수로 바꾸어 약분합니다:\n$$\\frac{8x^6y^3}{4xy^2} = \\left(\\frac{8}{4}\\right) \\times x^{6-1} \\times y^{3-2} = 2x^5y$$\n따라서 정답은 **② $2x^5y$**입니다."
+      }
+    ]
+  },
+  {
+    "grade": 2,
+    "gradeLabel": "중학교 2학년",
+    "unitId": 3,
+    "unitName": "3. 일차부등식/연립방정식",
+    "summary": "부등식의 성질, 일차부등식 풀이, 연립일차방정식 가감법과 대입법",
+    "problems": [
+      {
+        "id": "m2_u3_01",
+        "level": "medium",
+        "levelLabel": "🌿 중급",
+        "title": "부등식에서 음수를 나눌 때의 방향 전환",
+        "steppingStoneQuiz": {
+          "question": "부등식의 양변에 '음수'를 곱하거나 양변을 '음수'로 나눌 때, 부등호의 방향은 어떻게 될까요?",
+          "options": [
+            "① 그대로 유지된다",
+            "② 반대로 바뀐다",
+            "③ 등호($=$)로 바뀐다",
+            "④ 사라진다"
+          ],
+          "answerIndex": 1,
+          "conceptPill": "⚔️ 무기 획득: 음수를 곱하거나 나눌 땐 부등호 방향이 홱! 뒤집힌다!"
+        },
+        "problem": {
+          "question": "일차부등식 $-3x + 4 \\ge 13$의 해로 올바른 것을 고르시오.",
+          "options": [
+            "① $x \\ge -3$",
+            "② $x \\le -3$",
+            "③ $x \\ge 3$",
+            "④ $x \\le 3$"
+          ],
+          "correctAnswerIndex": 1,
+          "answerValue": "x <= -3"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: 상수항 $+4$를 우변으로 이항하기",
+            "text": "$+4$를 우변으로 넘기면 $-4$가 돼. 그럼 $-3x \\ge 13 - 4$가 되니 우변은 $9$가 되지."
+          },
+          {
+            "step": 2,
+            "title": "2단계: 양변을 음수 $-3$으로 나누기 준비",
+            "text": "$-3x \\ge 9$에서 $x$만 남기려면 양변을 $-3$으로 나누어야 해."
+          },
+          {
+            "step": 3,
+            "title": "3단계: 부등호 방향 뒤집기!",
+            "text": "음수 $-3$으로 나누었으니 부등호 $\\ge$가 $\\le$로 뒤집혀야 해! $9 \\div (-3)$은 얼마일까?"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "🪞 거울 나라의 뒤집힌 부등호 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 원래 세계의 부등호 (3 > 1)",
+              "description": "현실 세계에서는 3원이 1원보다 더 큰 돈($3 > 1$)이야."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 빚쟁이 거울 나라 (마이너스의 세계)",
+              "description": "양쪽에 마이너스(-)를 곱하면 빚 3원과 빚 1원이 돼. 빚은 적을수록 부자니까 $-1$이 더 크지! ($-3 < -1$)"
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 뒤집힌 부등호의 법칙",
+              "description": "그래서 마이너스로 나누거나 곱하면 부등호의 입 크기가 반대로 180도 돌아가게 되는 거야!"
+            }
+          ]
+        },
+        "deepSolution": "1) 상수항 $4$를 우변으로 이항:\n$$-3x \\ge 13 - 4 \\implies -3x \\ge 9$$\n2) 양변을 음수 $-3$으로 나누면서 **부등호 방향 반전**:\n$$x \\le \\frac{9}{-3} \\implies x \\le -3$$\n따라서 정답은 **② $x \\le -3$**입니다."
+      }
+    ]
+  },
+  {
+    "grade": 2,
+    "gradeLabel": "중학교 2학년",
+    "unitId": 4,
+    "unitName": "4. 일차함수와 그래프",
+    "summary": "일차함수 $y=ax+b$의 뜻, 기울기와 절편, 일차함수 그래프의 성질",
+    "problems": [
+      {
+        "id": "m2_u4_01",
+        "level": "medium",
+        "levelLabel": "🌿 중급",
+        "title": "일차함수의 기울기와 $y$절편",
+        "steppingStoneQuiz": {
+          "question": "일차함수 $y = ax + b$에서 그래프의 '기울기'를 나타내는 문자는 무엇일까요?",
+          "options": [
+            "① $x$",
+            "② $y$",
+            "③ $a$",
+            "④ $b$"
+          ],
+          "answerIndex": 2,
+          "conceptPill": "⚔️ 무기 획득: $y = ax + b$에서 $a$는 기울기, $b$는 $y$절편!"
+        },
+        "problem": {
+          "question": "일차함수 $y = -2x + 6$의 그래프에 대한 설명으로 옳지 않은 것은?",
+          "options": [
+            "① 기울기는 $-2$이다.",
+            "② $y$절편은 $6$이다.",
+            "③ $x$절편은 $3$이다.",
+            "④ 제3사분면을 지난다."
+          ],
+          "correctAnswerIndex": 3,
+          "answerValue": "제3사분면을 지난다 (거짓)"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: 기울기와 $y$절편 읽기",
+            "text": "$y = ax + b$ 꼴에서 $a = -2$, $b = 6$이므로 기울기 $-2$, $y$절편 $6$은 모두 참이야."
+          },
+          {
+            "step": 2,
+            "title": "2단계: $x$절편 계산하기",
+            "text": "$x$절편은 $y=0$일 때의 $x$값이므로, $0 = -2x + 6 \\implies 2x = 6 \\implies x = 3$ 맞아!"
+          },
+          {
+            "step": 3,
+            "title": "3단계: 지나는 사분면 그리기",
+            "text": "$y$절편 $(0,6)$과 $x$절편 $(3,0)$을 직선으로 연결해봐. 제1, 제2, 제4사분면을 지나지? 제3사분면을 지날까?"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "⛷️ 스키장 슬로프 활강 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 출발 높이 (y절편 = 6)",
+              "description": "스키 선수가 $y$축 높이 6m 지점($(0,6)$)에서 출발 준비를 하고 있어."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 우하향 내리막길 (기울기 = -2)",
+              "description": "기울기가 음수($-2$)이므로 오른쪽 아래를 향해 쏜살같이 미끄러져 내려오지."
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 슬로프가 통과하지 않는 구역",
+              "description": "선수는 제2사분면에서 출발해 제1사분면을 거쳐 제4사분면으로 내려가. 왼쪽 아래 제3사분면은 아예 밟지도 않아!"
+            }
+          ]
+        },
+        "deepSolution": "1) 기울기 $a = -2$, $y$절편 $b = 6$입니다.\n2) $x$절편은 $y=0$일 때 $0 = -2x + 6 \\implies x = 3$입니다.\n3) 그래프는 점 $(0,6)$과 $(3,0)$을 지나므로 **제1, 2, 4사분면**만을 지납니다. 따라서 **④ 제3사분면을 지난다**는 설명이 옳지 않습니다."
+      }
+    ]
+  },
+  {
+    "grade": 2,
+    "gradeLabel": "중학교 2학년",
+    "unitId": 5,
+    "unitName": "5. 삼각형/사각형의 성질",
+    "summary": "이등변삼각형, 직각삼각형 합동조건, 삼각형의 외심과 내심, 사각형의 성질",
+    "problems": [
+      {
+        "id": "m2_u5_01",
+        "level": "medium",
+        "levelLabel": "🌿 중급",
+        "title": "삼각형의 내심과 외심의 성질",
+        "steppingStoneQuiz": {
+          "question": "삼각형의 세 내각의 이등분선이 한 점에서 만나는 점을 무엇이라고 부를까요?",
+          "options": [
+            "① 외심",
+            "② 내심",
+            "③ 무게중심",
+            "④ 수심"
+          ],
+          "answerIndex": 1,
+          "conceptPill": "⚔️ 무기 획득: 내각의 이등분선의 교점 = 내심(Incenter), 세 변까지의 거리가 같다!"
+        },
+        "problem": {
+          "question": "점 $I$가 $\\triangle ABC$의 내심이고 $\\angle A = 70^\\circ$일 때, $\\angle BIC$의 크기를 구하시오.",
+          "options": [
+            "① $110^\\circ$",
+            "② $120^\\circ$",
+            "③ $125^\\circ$",
+            "④ $140^\\circ$"
+          ],
+          "correctAnswerIndex": 2,
+          "answerValue": "125도"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: 내심 공식 떠올리기",
+            "text": "삼각형의 내심 $I$에서 $\\angle BIC = 90^\\circ + \\frac{1}{2}\\angle A$라는 핵심 공식 기억나니?"
+          },
+          {
+            "step": 2,
+            "title": "2단계: $\\angle A$의 절반 계산",
+            "text": "$\\angle A = 70^\\circ$이므로, 절반인 $\\frac{1}{2} \\times 70^\\circ$는 $35^\\circ$야."
+          },
+          {
+            "step": 3,
+            "title": "3단계: $90^\\circ$에 더하기",
+            "text": "$90^\\circ + 35^\\circ$를 계산하면 $\\angle BIC$는?"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "⛺ 텐트 중심 지지대 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 삼각 텐트 꼭대기 각도 70도",
+              "description": "텐트 꼭대기 지붕 각도가 70도로 뾰족하게 세워져 있어."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 텐트 안 내접하는 둥근 난로",
+              "description": "텐트 정중앙 바닥에 세 벽면과 똑같은 거리를 유지하는 내심 난로 $I$를 놓았지."
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 바닥에서 바라보는 넓은 시야",
+              "description": "난로 $I$에서 바닥 양 끝 기둥을 바라보면 꼭대기 각도의 절반($35^\\circ$)에 기본 직각($90^\\circ$)이 더해져 $125^\\circ$로 포근하게 넓어져!"
+            }
+          ]
+        },
+        "deepSolution": "삼각형의 내심 $I$의 성질에 의하여:\n$$\\angle BIC = 90^\\circ + \\frac{1}{2}\\angle A = 90^\\circ + \\frac{1}{2}(70^\\circ) = 90^\\circ + 35^\\circ = 125^\\circ$$\n따라서 정답은 **③ $125^\\circ$**입니다."
+      }
+    ]
+  },
+  {
+    "grade": 2,
+    "gradeLabel": "중학교 2학년",
+    "unitId": 6,
+    "unitName": "6. 도형의 닮음/피타고라스",
+    "summary": "닮은 도형의 성질, 삼각형의 무게중심, 피타고라스 정리",
+    "problems": [
+      {
+        "id": "m2_u6_01",
+        "level": "easy",
+        "levelLabel": "🌱 초급",
+        "title": "직각삼각형과 피타고라스 정리",
+        "steppingStoneQuiz": {
+          "question": "직각삼각형에서 빗변의 길이를 $c$, 나머지 두 변의 길이를 $a, b$라고 할 때 피타고라스 정리 공식은?",
+          "options": [
+            "① $a + b = c$",
+            "② $a^2 + b^2 = c^2$",
+            "③ $a^2 + b^2 = 2c$",
+            "④ $ab = c^2$"
+          ],
+          "answerIndex": 1,
+          "conceptPill": "⚔️ 무기 획득: 직각삼각형 밑변 제곱 + 높이 제곱 = 빗변 제곱 ($a^2+b^2=c^2$)!"
+        },
+        "problem": {
+          "question": "직각삼각형에서 직각을 낀 두 변의 길이가 각각 $3\\text{ cm}, 4\\text{ cm}$일 때, 빗변의 길이는 얼마일까요?",
+          "options": [
+            "① $5\\text{ cm}$",
+            "② $6\\text{ cm}$",
+            "③ $7\\text{ cm}$",
+            "④ $\\sqrt{7}\\text{ cm}$"
+          ],
+          "correctAnswerIndex": 0,
+          "answerValue": "5cm"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: 피타고라스 공식 세우기",
+            "text": "$a=3, b=4$이고 구하려는 빗변을 $c$라고 하면, $3^2 + 4^2 = c^2$이야."
+          },
+          {
+            "step": 2,
+            "title": "2단계: 각 변의 제곱 계산하기",
+            "text": "$3^2 = 9$이고 $4^2 = 16$이야. 둘을 더하면 $c^2 = 9 + 16 = 25$가 되지."
+          },
+          {
+            "step": 3,
+            "title": "3단계: 제곱해서 25가 되는 양수 찾기",
+            "text": "어떤 양수를 제곱해야 $25$가 될까? $5 \\times 5 = 25$니까 $c$는?"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "📐 고대 이집트 건축가의 매듭 밧줄 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 3-4-5 마법의 매듭",
+              "description": "고대 피라미드를 짓던 건축가들은 피타고라스 정리로 완벽한 직각을 만들었어."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 9개의 타일과 16개의 타일",
+              "description": "한 변이 3인 정사각형 타일 9장($3^2$)과 한 변이 4인 정사각형 타일 16장($4^2$)을 합치면 딱 25장!"
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 빗변 5의 완성",
+              "description": "25장의 타일로 정사각형을 만들면 한 변의 길이가 딱 5가 되지. 3-4-5는 가장 유명한 직각삼각형 콤비야!"
+            }
+          ]
+        },
+        "deepSolution": "피타고라스 정리에 의하여:\n$$c^2 = a^2 + b^2 = 3^2 + 4^2 = 9 + 16 = 25$$\n길이 $c > 0$이므로 $c = \\sqrt{25} = 5\\text{ cm}$입니다.\n따라서 정답은 **① $5\\text{ cm}$**입니다."
+      }
+    ]
+  },
+  {
+    "grade": 2,
+    "gradeLabel": "중학교 2학년",
+    "unitId": 7,
+    "unitName": "7. 확률",
+    "summary": "경우의 수, 합의 법칙과 곱의 법칙, 확률의 뜻과 성질",
+    "problems": [
+      {
+        "id": "m2_u7_01",
+        "level": "easy",
+        "levelLabel": "🌱 초급",
+        "title": "주사위 던지기와 확률의 계산",
+        "steppingStoneQuiz": {
+          "question": "확률을 구할 때 '어떤 사건이 일어날 확률' 공식은?",
+          "options": [
+            "① $\\frac{\\text{그 사건이 일어나는 경우의 수}}{\\text{모든 경우의 수}}$",
+            "② $\\frac{\\text{모든 경우의 수}}{\\text{그 사건이 일어나는 경우의 수}}$",
+            "③ 사건의 경우의 수 $\\times 100$",
+            "④ 모든 경우의 수 $\\times 2$"
+          ],
+          "answerIndex": 0,
+          "conceptPill": "⚔️ 무기 획득: 확률 = (해당 경우의 수) / (전체 모든 경우의 수)!"
+        },
+        "problem": {
+          "question": "한 개의 정육면체 주사위를 던질 때, $3$ 이상의 눈이 나올 확률을 구하시오.",
+          "options": [
+            "① $\\frac{1}{3}$",
+            "② $\\frac{1}{2}$",
+            "③ $\\frac{2}{3}$",
+            "④ $\\frac{5}{6}$"
+          ],
+          "correctAnswerIndex": 2,
+          "answerValue": "2/3"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: 주사위의 전체 경우의 수",
+            "text": "주사위 눈은 $1, 2, 3, 4, 5, 6$ 총 $6$가지가 나올 수 있어 (전체 경우의 수 = $6$)."
+          },
+          {
+            "step": 2,
+            "title": "2단계: $3$ 이상인 눈 세기",
+            "text": "$3$ 이상이라는 것은 $3$을 포함해 큰 수들이야: $3, 4, 5, 6$ 총 몇 가지일까?"
+          },
+          {
+            "step": 3,
+            "title": "3단계: 분수로 나타내고 약분하기",
+            "text": "총 $4$가지니까 확률은 $\\frac{4}{6}$야. $2$로 약분하면?"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "🎲 보드게임 황금 주사위 던지기 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 주사위 6개의 면",
+              "description": "부루마블 판에서 주사위를 굴리면 1부터 6까지 6개 중 하나가 공평하게 나와."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 함정을 피하는 3 이상의 눈",
+              "description": "함정을 피하려면 3, 4, 5, 6 중 하나가 나와야 해. 안전한 숫자가 무려 4개나 되지!"
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 승리의 확률 3분의 2",
+              "description": "6번 던지면 평균 4번은 성공하는 셈이니까, 약분하면 딱 $\\frac{2}{3}$의 높은 확률이야!"
+            }
+          ]
+        },
+        "deepSolution": "1) 주사위를 던져 나올 수 있는 모든 경우의 수 = $6$\n2) $3$ 이상의 눈이 나오는 사건: $\\{3, 4, 5, 6\\} \\rightarrow 4$가지\n$$\\text{확률} = \\frac{4}{6} = \\frac{2}{3}$$\n따라서 정답은 **③ $\\frac{2}{3}$**입니다."
+      }
+    ]
+  },
+  {
+    "grade": 3,
+    "gradeLabel": "중학교 3학년",
+    "unitId": 1,
+    "unitName": "1. 제곱근과 실수",
+    "summary": "제곱근의 뜻과 성질, 무리수와 실수, 근호를 포함한 사칙계산, 분모의 유리화",
+    "problems": [
+      {
+        "id": "m3_u1_01",
+        "level": "medium",
+        "levelLabel": "🌿 중급",
+        "title": "분모의 유리화와 제곱근 연산",
+        "steppingStoneQuiz": {
+          "question": "분수의 분모에 무리수 근호($\\sqrt{a}$)가 있을 때, 분모와 분자에 똑같이 $\\sqrt{a}$를 곱해 분모를 유리수로 바꾸는 과정을 무엇이라 할까요?",
+          "options": [
+            "① 통분",
+            "② 분모의 유리화",
+            "③ 약분",
+            "④ 인수분해"
+          ],
+          "answerIndex": 1,
+          "conceptPill": "⚔️ 무기 획득: 분모의 루트를 없애려면 같은 루트를 위아래에 곱한다!"
+        },
+        "problem": {
+          "question": "다음 식을 바르게 계산하여 간단히 나타낸 것은?\n$$\\frac{6}{\\sqrt{3}} - \\sqrt{12}$$",
+          "options": [
+            "① $0$",
+            "② $\\sqrt{3}$",
+            "③ $2\\sqrt{3}$",
+            "④ $4\\sqrt{3}$"
+          ],
+          "correctAnswerIndex": 0,
+          "answerValue": "0"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: $\\frac{6}{\\sqrt{3}}$ 분모 유리화하기",
+            "text": "분모와 분자에 $\\sqrt{3}$을 곱하면 $\\frac{6\\sqrt{3}}{3} = 2\\sqrt{3}$이 돼."
+          },
+          {
+            "step": 2,
+            "title": "2단계: $\\sqrt{12}$ 근호 밖으로 꺼내기",
+            "text": "$12 = 4 \\times 3 = 2^2 \\times 3$이므로, $\\sqrt{12} = 2\\sqrt{3}$으로 변형할 수 있어."
+          },
+          {
+            "step": 3,
+            "title": "3단계: 동류항 뺄셈하기",
+            "text": "$2\\sqrt{3} - 2\\sqrt{3}$을 계산하면 최종 값은 얼마일까?"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "🦸‍♂️ 거인과 난쟁이의 키 맞추기 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 분모 유리화 변신",
+              "description": "불편한 옷을 입고 있던 $\\frac{6}{\\sqrt{3}}$에게 위아래로 $\\sqrt{3}$을 입혀주니 깔끔하고 늠름한 $2\\sqrt{3}$ 전사로 변신했어."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 감춰진 정체 드러내기",
+              "description": "뒤에 서 있던 $\\sqrt{12}$도 껍질($2^2$)을 벗기니 똑같은 $2\\sqrt{3}$ 전사였던 거야."
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 쌍둥이 결투의 소멸",
+              "description": "완벽히 똑같은 힘을 가진 두 전사 $2\\sqrt{3}$과 $2\\sqrt{3}$이 서로 빼기를 하니 깨끗하게 0이 되었지!"
+            }
+          ]
+        },
+        "deepSolution": "1) $\\frac{6}{\\sqrt{3}}$의 분모를 유리화:\n$$\\frac{6}{\\sqrt{3}} = \\frac{6\\sqrt{3}}{\\sqrt{3} \\times \\sqrt{3}} = \\frac{6\\sqrt{3}}{3} = 2\\sqrt{3}$$\n2) $\\sqrt{12}$를 $a\\sqrt{b}$ 꼴로 변형:\n$$\\sqrt{12} = \\sqrt{4 \\times 3} = 2\\sqrt{3}$$\n3) 뺄셈 계산:\n$$2\\sqrt{3} - 2\\sqrt{3} = 0$$\n따라서 정답은 **① $0$**입니다."
+      }
+    ]
+  },
+  {
+    "grade": 3,
+    "gradeLabel": "중학교 3학년",
+    "unitId": 2,
+    "unitName": "2. 인수분해와 다항식",
+    "summary": "다항식의 곱셈공식, 인수분해 공식, 복잡한 식의 인수분해",
+    "problems": [
+      {
+        "id": "m3_u2_01",
+        "level": "medium",
+        "levelLabel": "🌿 중급",
+        "title": "이차식의 인수분해 공식 적용",
+        "steppingStoneQuiz": {
+          "question": "전개된 다항식 $x^2 + (a+b)x + ab$를 두 일차식의 곱으로 인수분해하면 어떤 꼴이 될까요?",
+          "options": [
+            "① $(x+a)(x+b)$",
+            "② $(x-a)(x-b)$",
+            "③ $(x+a)^2$",
+            "④ $(x-b)^2$"
+          ],
+          "answerIndex": 0,
+          "conceptPill": "⚔️ 무기 획득: 곱해서 상수항, 더해서 일차항 계수가 되는 두 수를 찾는다!"
+        },
+        "problem": {
+          "question": "다항식 $x^2 - 5x + 6$을 바르게 인수분해한 것은?",
+          "options": [
+            "① $(x - 1)(x - 6)$",
+            "② $(x - 2)(x - 3)$",
+            "③ $(x + 2)(x + 3)$",
+            "④ $(x + 1)(x - 6)$"
+          ],
+          "correctAnswerIndex": 1,
+          "answerValue": "(x-2)(x-3)"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: 곱해서 $+6$, 더해서 $-5$인 두 수 찾기",
+            "text": "상수항이 $+6$이고 $x$의 계수가 $-5$야. 곱이 양수이고 합이 음수이므로 두 수는 모두 음수여야 해."
+          },
+          {
+            "step": 2,
+            "title": "2단계: 곱해서 6이 되는 순서쌍 점검",
+            "text": "$(-1) \\times (-6) = 6$이지만 더하면 $-7$이야.\n$(-2) \\times (-3) = 6$이고 둘을 더하면?"
+          },
+          {
+            "step": 3,
+            "title": "3단계: 인수분해 식으로 묶기",
+            "text": "$-2 + (-3) = -5$가 딱 맞아떨어지지! 그럼 괄호 두 개로 묶으면?"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "🧩 퍼즐 맞추기 비밀 금고 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 금고의 암호 조건",
+              "description": "마법 금고를 열려면 두 개의 비밀 숫자 $a, b$가 필요해. 두 숫자를 곱하면 6이 되고, 더하면 -5가 되어야 하지."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 용의자 탐색",
+              "description": "-1과 -6을 넣었더니 합이 -7이라 경보가 울렸어. 다음으로 -2와 -3을 넣었지."
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 철컥 열리는 문",
+              "description": "-2와 -3은 곱하면 +6, 더하면 -5! 완벽하게 맞아떨어져 $(x-2)(x-3)$ 열쇠가 완성되었어!"
+            }
+          ]
+        },
+        "deepSolution": "합이 $-5$이고 곱이 $+6$인 두 정수는 $-2$와 $-3$입니다.\n$$x^2 - 5x + 6 = (x - 2)(x - 3)$$\n따라서 정답은 **② $(x - 2)(x - 3)$**입니다."
+      }
+    ]
+  },
+  {
+    "grade": 3,
+    "gradeLabel": "중학교 3학년",
+    "unitId": 3,
+    "unitName": "3. 이차방정식",
+    "summary": "이차방정식의 풀이, 인수분해와 완전제곱식, 근의 공식과 활용",
+    "problems": [
+      {
+        "id": "m3_u3_01",
+        "level": "medium",
+        "levelLabel": "🌿 중급",
+        "title": "이차방정식의 근의 공식",
+        "steppingStoneQuiz": {
+          "question": "이차방정식 $ax^2 + bx + c = 0$ ($a \\ne 0$)의 해를 구하는 '근의 공식'으로 올바른 것은?",
+          "options": [
+            "① $x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$",
+            "② $x = \\frac{b \\pm \\sqrt{b^2 - 4ac}}{2a}$",
+            "③ $x = \\frac{-b \\pm \\sqrt{b^2 - ac}}{a}$",
+            "④ $x = \\frac{-b \\pm \\sqrt{b - 4ac}}{2a}$"
+          ],
+          "answerIndex": 0,
+          "conceptPill": "⚔️ 무기 획득: 인수분해가 안 될 땐 만능 열쇠 근의 공식!"
+        },
+        "problem": {
+          "question": "이차방정식 $x^2 - 3x + 1 = 0$의 해를 구하시오.",
+          "options": [
+            "① $x = \\frac{3 \\pm \\sqrt{5}}{2}$",
+            "② $x = \\frac{-3 \\pm \\sqrt{5}}{2}$",
+            "③ $x = \\frac{3 \\pm \\sqrt{13}}{2}$",
+            "④ $x = 3 \\pm \\sqrt{5}$"
+          ],
+          "correctAnswerIndex": 0,
+          "answerValue": "(3 +- sqrt(5))/2"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: 계수 $a, b, c$ 값 확인하기",
+            "text": "$x^2 - 3x + 1 = 0$에서 $a = 1, b = -3, c = 1$이야."
+          },
+          {
+            "step": 2,
+            "title": "2단계: 근호 안의 값 $b^2 - 4ac$ 계산",
+            "text": "$b^2 - 4ac = (-3)^2 - 4(1)(1) = 9 - 4 = 5$야."
+          },
+          {
+            "step": 3,
+            "title": "3단계: 근의 공식에 대입하기",
+            "text": "$$x = \\frac{-(-3) \\pm \\sqrt{5}}{2(1)}$$\n식을 정리하면 어떻게 될까?"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "🗝️ 마법 만능 마스터키 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 열리지 않는 자물쇠",
+              "description": "$x^2 - 3x + 1 = 0$은 곱해서 1, 더해서 -3이 되는 정수가 없어 인수분해가 안 돼."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 수학자들의 만능 마스터키 소환",
+              "description": "이럴 때 어떤 이차방정식이든 다 열어버리는 전설의 만능키, '근의 공식'을 꺼내는 거야!"
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 열쇠 홈에 부품 끼우기",
+              "description": "$a=1, b=-3, c=1$을 열쇠 홈에 딱 끼우니, 자물쇠가 딸깍 열리며 $\\frac{3 \\pm \\sqrt{5}}{2}$가 튀어나왔어!"
+            }
+          ]
+        },
+        "deepSolution": "근의 공식 $x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$에 $a=1, b=-3, c=1$을 대입합니다:\n$$x = \\frac{-(-3) \\pm \\sqrt{(-3)^2 - 4 \\times 1 \\times 1}}{2 \\times 1} = \\frac{3 \\pm \\sqrt{9 - 4}}{2} = \\frac{3 \\pm \\sqrt{5}}{2}$$\n따라서 정답은 **① $x = \\frac{3 \\pm \\sqrt{5}}{2}$**입니다."
+      }
+    ]
+  },
+  {
+    "grade": 3,
+    "gradeLabel": "중학교 3학년",
+    "unitId": 4,
+    "unitName": "4. 이차함수와 그래프",
+    "summary": "이차함수 $y=ax^2$의 그래프, 표준형 $y=a(x-p)^2+q$, 꼭짓점과 대칭축",
+    "problems": [
+      {
+        "id": "m3_u4_01",
+        "level": "medium",
+        "levelLabel": "🌿 중급",
+        "title": "이차함수의 꼭짓점과 평행이동",
+        "steppingStoneQuiz": {
+          "question": "이차함수 $y = a(x - p)^2 + q$의 포물선 그래프의 '꼭짓점의 좌표'는 무엇일까요?",
+          "options": [
+            "① $(0, 0)$",
+            "② $(p, q)$",
+            "③ $(-p, q)$",
+            "④ $(p, -q)$"
+          ],
+          "answerIndex": 1,
+          "conceptPill": "⚔️ 무기 획득: $y = a(x-p)^2 + q$의 꼭짓점은 부호 조심해서 $(p, q)$!"
+        },
+        "problem": {
+          "question": "이차함수 $y = 2(x - 3)^2 + 5$의 그래프의 꼭짓점의 좌표와 축의 방정식으로 올바른 것은?",
+          "options": [
+            "① 꼭짓점 $(3, 5)$, 축 $x = 3$",
+            "② 꼭짓점 $(-3, 5)$, 축 $x = -3$",
+            "③ 꼭짓점 $(3, -5)$, 축 $x = 3$",
+            "④ 꼭짓점 $(-3, -5)$, 축 $x = 5$"
+          ],
+          "correctAnswerIndex": 0,
+          "answerValue": "꼭짓점 (3,5), 축 x=3"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: 표준형과 비교하기",
+            "text": "$y = a(x - p)^2 + q$ 형태에서 $p$와 $q$ 자리에 어떤 숫자가 있는지 보자."
+          },
+          {
+            "step": 2,
+            "title": "2단계: 꼭짓점의 $x, y$ 좌표 파악",
+            "text": "$(x - 3)$이므로 $p = 3$, 뒤에 더해진 상수가 $+5$이므로 $q = 5$야. 꼭짓점은 $(3, 5)$가 돼."
+          },
+          {
+            "step": 3,
+            "title": "3단계: 축의 방정식",
+            "text": "대칭축은 포물선의 꼭짓점의 $x$좌표를 수직으로 관통하므로 $x = p$, 즉 $x = 3$이야."
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "🚀 우주선 발사대의 궤적 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 원점 발사대 (0,0)",
+              "description": "기본 포물선 우주선 $y=2x^2$은 원점 $(0,0)$에서 가장 낮은 바닥을 찍고 위로 솟구쳐."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 동쪽으로 3km, 고도 5km 이동",
+              "description": "새 발사대는 동쪽으로 3km($x$축 방향 $+3$), 산 위로 5km($y$축 방향 $+5$) 평행이동했지."
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 새로운 최저점 꼭짓점",
+              "description": "이제 우주선 궤적의 가장 낮은 꼭짓점은 $(3, 5)$가 되고, 대칭을 이루는 기둥 축은 $x=3$이야!"
+            }
+          ]
+        },
+        "deepSolution": "이차함수 $y = a(x - p)^2 + q$의 꼭짓점의 좌표는 $(p, q)$, 축의 방정식은 $x = p$입니다.\n주어진 함수 $y = 2(x - 3)^2 + 5$에서 $p = 3, q = 5$이므로:\n- 꼭짓점의 좌표: **$(3, 5)$**\n- 축의 방정식: **$x = 3$**\n따라서 정답은 **① 꼭짓점 $(3, 5)$, 축 $x = 3$**입니다."
+      }
+    ]
+  },
+  {
+    "grade": 3,
+    "gradeLabel": "중학교 3학년",
+    "unitId": 5,
+    "unitName": "5. 삼각비",
+    "summary": "직각삼각형과 삼각비(사인, 코사인, 탄젠트), 특수각의 삼각비, 거리와 높이 활용",
+    "problems": [
+      {
+        "id": "m3_u5_01",
+        "level": "easy",
+        "levelLabel": "🌱 초급",
+        "title": "특수각의 삼각비 ($30^\\circ, 45^\\circ, 60^\\circ$)",
+        "steppingStoneQuiz": {
+          "question": "직각삼각형에서 직각과 마주 보는 빗변의 길이에 대한 높이의 비율을 뜻하는 삼각비 기호는?",
+          "options": [
+            "① $\\sin$ (사인)",
+            "② $\\cos$ (코사인)",
+            "③ $\\tan$ (탄젠트)",
+            "④ $\\log$ (로그)"
+          ],
+          "answerIndex": 0,
+          "conceptPill": "⚔️ 무기 획득: $\\sin = \\frac{\\text{높이}}{\\text{빗변}}$, $\\cos = \\frac{\\text{밑변}}{\\text{빗변}}$, $\\tan = \\frac{\\text{높이}}{\\text{밑변}}$!"
+        },
+        "problem": {
+          "question": "다음 삼각비 식의 계산 값으로 올바른 것을 고르시오.\n$$\\sin 30^\\circ + \\cos 60^\\circ$$",
+          "options": [
+            "① $\\frac{1}{2}$",
+            "② $1$",
+            "③ $\\frac{\\sqrt{3}}{2}$",
+            "④ $\\sqrt{3}$"
+          ],
+          "correctAnswerIndex": 1,
+          "answerValue": "1"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: $\\sin 30^\\circ$의 값 기억하기",
+            "text": "$30^\\circ, 60^\\circ, 90^\\circ$ 직각삼각형에서 세 변의 길이의 비는 $1 : \\sqrt{3} : 2$야. $\\sin 30^\\circ = \\frac{1}{2}$이지."
+          },
+          {
+            "step": 2,
+            "title": "2단계: $\\cos 60^\\circ$의 값 기억하기",
+            "text": "같은 삼각형에서 $\\cos 60^\\circ$는 빗변분의 밑변이므로 역시 $\\frac{1}{2}$이야."
+          },
+          {
+            "step": 3,
+            "title": "3단계: 둘을 더하기",
+            "text": "$$\\frac{1}{2} + \\frac{1}{2}$$\n절반과 절반을 더하면 얼마일까?"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "📐 삼각자 두 개의 짝맞추기 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 필통 속 30-60도 삼각자",
+              "description": "학생들의 필통에 있는 긴 직각삼각자는 세 변의 비가 $1 : \\sqrt{3} : 2$로 정해져 있어."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 사인 30도 = 0.5 (반쪽)",
+              "description": "빗변 길이가 2일 때 30도 맞은편 높이는 딱 절반인 1이 되어 비율은 $\\frac{1}{2}$이야."
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 코사인 60도와 합체",
+              "description": "코사인 60도 역시 꼭대기에서 보면 $\\frac{1}{2}$이지! $\\frac{1}{2} + \\frac{1}{2} = 1$로 완벽한 1개의 합체를 이뤄!"
+            }
+          ]
+        },
+        "deepSolution": "특수각의 삼각비 값에 의하여:\n- $\\sin 30^\\circ = \\frac{1}{2}$\n- $\\cos 60^\\circ = \\frac{1}{2}$\n$$\\sin 30^\\circ + \\cos 60^\\circ = \\frac{1}{2} + \\frac{1}{2} = 1$$\n따라서 정답은 **② $1$**입니다."
+      }
+    ]
+  },
+  {
+    "grade": 3,
+    "gradeLabel": "중학교 3학년",
+    "unitId": 6,
+    "unitName": "6. 원의 성질",
+    "summary": "원주각과 중심각의 관계, 원에 내접하는 사각형의 성질, 접선과 현이 이루는 각",
+    "problems": [
+      {
+        "id": "m3_u6_01",
+        "level": "medium",
+        "levelLabel": "🌿 중급",
+        "title": "원주각과 중심각의 크기 관계",
+        "steppingStoneQuiz": {
+          "question": "한 호에 대한 '원주각의 크기'는 그 호에 대한 '중심각의 크기'의 몇 배일까요?",
+          "options": [
+            "① $2$배",
+            "② $\\frac{1}{2}$배 (절반)",
+            "③ 같다",
+            "④ $\\frac{1}{3}$배"
+          ],
+          "answerIndex": 1,
+          "conceptPill": "⚔️ 무기 획득: 원주각 = 중심각의 $\\frac{1}{2}$! (반대로 중심각 = 원주각의 2배)"
+        },
+        "problem": {
+          "question": "원 $O$에서 호 $AB$에 대한 중심각 $\\angle AOB = 110^\\circ$일 때, 같은 호에 대한 원주각 $\\angle APB$의 크기는?",
+          "options": [
+            "① $45^\\circ$",
+            "② $55^\\circ$",
+            "③ $110^\\circ$",
+            "④ $220^\\circ$"
+          ],
+          "correctAnswerIndex": 1,
+          "answerValue": "55도"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: 중심각과 원주각의 위치 구분하기",
+            "text": "중심각 $\\angle AOB$는 원의 중심 $O$에 닿아 있고, 원주각 $\\angle APB$는 원 둘레 위의 점 $P$에 닿아 있어."
+          },
+          {
+            "step": 2,
+            "title": "2단계: 원주각 정리 적용하기",
+            "text": "원주각의 크기는 항상 같은 호에 대한 중심각의 크기의 정확히 $\\frac{1}{2}$이야."
+          },
+          {
+            "step": 3,
+            "title": "3단계: $110^\\circ$를 $2$로 나누기",
+            "text": "$$\\angle APB = \\frac{1}{2} \\times 110^\\circ$$\n계산하면 몇 도가 나올까?"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "🎪 서커스 무대 조명각 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 무대 중앙 조명 (중심각)",
+              "description": "원형 서커스 무대 정중앙(원점)에서 배우 두 명(A, B)을 비출 때 조명 각도가 $110^\\circ$로 넓게 쫙 켜졌어."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 관람석 맨 뒤로 물러나기 (원주각)",
+              "description": "이번엔 원의 맨 가장자리 관람석(P)에 앉아서 두 배우를 바라보았지. 거리가 멀어질수록 시야각은 더 좁아져."
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 딱 절반의 마법",
+              "description": "원둘레 어디에서 보든 같은 배우를 보면 중심각의 정확히 절반인 $55^\\circ$로 보여!"
+            }
+          ]
+        },
+        "deepSolution": "원주각의 크기는 같은 호에 대한 중심각의 크기의 $\\frac{1}{2}$이므로:\n$$\\angle APB = \\frac{1}{2} \\angle AOB = \\frac{1}{2} \\times 110^\\circ = 55^\\circ$$\n따라서 정답은 **② $55^\\circ$**입니다."
+      }
+    ]
+  },
+  {
+    "grade": 3,
+    "gradeLabel": "중학교 3학년",
+    "unitId": 7,
+    "unitName": "7. 통계",
+    "summary": "대푯값(평균, 중앙값, 최빈값), 산포도(편차, 분산, 표준편차), 산점도와 상관관계",
+    "problems": [
+      {
+        "id": "m3_u7_01",
+        "level": "medium",
+        "levelLabel": "🌿 중급",
+        "title": "편차의 성질과 분산 구하기",
+        "steppingStoneQuiz": {
+          "question": "변량에서 평균을 뺀 값인 '편차'들의 총합은 항상 얼마가 될까요?",
+          "options": [
+            "① $0$",
+            "② $1$",
+            "③ 평균값",
+            "④ 표준편차"
+          ],
+          "answerIndex": 0,
+          "conceptPill": "⚔️ 무기 획득: 편차의 총합은 언제나 무조건 0이다!"
+        },
+        "problem": {
+          "question": "어떤 학생의 다섯 번의 수학 퀴즈 점수의 편차가 각각 $-2, +1, x, +3, -1$일 때, $x$의 값은 얼마일까요?",
+          "options": [
+            "① $-2$",
+            "② $-1$",
+            "③ $0$",
+            "④ $+1$"
+          ],
+          "correctAnswerIndex": 1,
+          "answerValue": "-1"
+        },
+        "socraticHints": [
+          {
+            "step": 1,
+            "title": "1단계: 편차의 가장 중요한 기본 성질",
+            "text": "모든 편차를 다 더한 합은 항상 $0$이 되어야 해."
+          },
+          {
+            "step": 2,
+            "title": "2단계: 식 세우기",
+            "text": "$$(-2) + (+1) + x + (+3) + (-1) = 0$$\n숫자들끼리 먼저 더해볼까?"
+          },
+          {
+            "step": 3,
+            "title": "3단계: 일차방정식 풀기",
+            "text": "$(-2 + 1 + 3 - 1) + x = 0 \\implies 1 + x = 0$이야. 따라서 $x$는?"
+          }
+        ],
+        "storytellingExplanation": {
+          "metaphorTitle": "⚖️ 평균 기준점 줄다리기 비유",
+          "scenes": [
+            {
+              "sceneNumber": 1,
+              "title": "씬 1: 평균이라는 중심선",
+              "description": "평균은 모든 점수들의 무게중심이야. 평균보다 높으면 플러스(+), 낮으면 마이너스(-) 편차가 생기지."
+            },
+            {
+              "sceneNumber": 2,
+              "title": "씬 2: 좌우 힘의 균형",
+              "description": "플러스 팀($+1, +3$)의 힘은 $+4$이고, 마이너스 팀($-2, -1$)의 힘은 $-3$이야. 지금은 플러스가 1만큼 우세해."
+            },
+            {
+              "sceneNumber": 3,
+              "title": "씬 3: 완벽한 평형을 위한 x",
+              "description": "줄다리기가 정중앙 0에서 딱 멈추려면, $x$가 마이너스 팀에 $-1$로 합류해야 합이 0이 돼!"
+            }
+          ]
+        },
+        "deepSolution": "편차의 총합은 항상 $0$이므로:\n$$(-2) + (+1) + x + (+3) + (-1) = 0$$\n$$(-2 + 1 + 3 - 1) + x = 0$$\n$$1 + x = 0 \\implies x = -1$$\n따라서 정답은 **② $-1$**입니다."
+      }
+    ]
+  }
+]
