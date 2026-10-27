@@ -68,6 +68,42 @@
       </p>
     </div>
 
+    <!-- 스마트폰 QR코드 빠른 스캔 섹션 (학생 단체 접속용) -->
+    <div class="glass-card rounded-3xl p-6 sm:p-8 border border-white/15 flex flex-col md:flex-row items-center justify-between gap-6 max-w-4xl mx-auto shadow-2xl bg-gradient-to-r from-slate-900/90 to-indigo-950/70">
+      <div class="flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
+        <!-- QR 코드 이미지 -->
+        <div class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl bg-white p-2.5 shadow-2xl flex items-center justify-center shrink-0 border-2 border-indigo-400/50">
+          <img src="qr_slides.png" alt="슬라이드 센터 QR 코드" class="w-full h-full object-contain">
+        </div>
+        <div class="space-y-1.5">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            <span>📱 학생 스마트폰 빠른 접속</span>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-black text-white">
+            카메라로 QR 코드를 스캔하세요!
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-md">
+            별도의 앱 설치 없이 스마트폰 기본 카메라로 비추면 바로 <strong>강의 슬라이드 센터</strong>로 접속되어 교실 수업에 참여할 수 있습니다.
+          </p>
+          <div class="text-[11px] font-mono text-indigo-300 pt-1">
+            https://www.cloudbread.me/study/slides/
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row md:flex-col gap-2 shrink-0 w-full sm:w-auto">
+        <a href="qr_slides.png" download="cloudbread_study_slides_qr.png" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs flex items-center justify-center gap-2 transition border border-white/10">
+          <i class="fa-solid fa-download"></i>
+          <span>QR 다운로드 (PNG)</span>
+        </a>
+        <a href="qr_slides.svg" download="cloudbread_study_slides_qr.svg" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition shadow-md shadow-indigo-500/20">
+          <i class="fa-solid fa-file-arrow-down"></i>
+          <span>인쇄용 벡터 (SVG)</span>
+        </a>
+      </div>
+    </div>
+
     <!-- 3대 과목 슬라이드 덱 카드 그리드 -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
