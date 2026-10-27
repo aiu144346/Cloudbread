@@ -522,92 +522,119 @@ document.addEventListener("DOMContentLoaded", () => {
                 ` : ''}
 
                 ${target === 'senior' ? `
-                    <div style="margin-top:2.2rem; display:flex; flex-direction:column; gap:1.2rem;">
-                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+                    <div style="margin-top:2.2rem; display:flex; flex-direction:column; gap:1.4rem;">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:0.8rem; border-bottom: 2px solid #F1F5F9; padding-bottom: 1rem;">
                             <div>
-                                <span style="background:rgba(79, 70, 229, 0.15); color:#818cf8; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; display:inline-block; margin-bottom:4px; border:1px solid rgba(129,140,248,0.3);">
+                                <span style="background:#EEF2FF; color:#4F46E5; font-size:0.82rem; font-weight:800; padding:5px 14px; border-radius:9999px; display:inline-block; margin-bottom:6px; border:1px solid #C7D2FE;">
                                     🎓 중학생 AI 3대 핵심 과목 실전 학습 플랫폼
                                 </span>
-                                <h3 style="font-size:1.35rem; font-weight:800; color:#FFFFFF; margin:0;">
+                                <h3 style="font-size:1.45rem; font-weight:800; color:#0F172A; margin:0; letter-spacing:-0.02em;">
                                     중학 AI 자기주도 학습관 (영단어 · 수학 · 과학)
                                 </h3>
-                                <p style="font-size:0.88rem; color:#94A3B8; margin:4px 0 0 0;">
-                                    소크라테스 AI 유도 문답, 게임형 인출 훈련, 실시간 인터랙티브 가상실험으로 완성하는 3대 과목 대시보드
+                                <p style="font-size:0.92rem; color:#64748B; margin:6px 0 0 0; line-height:1.5;">
+                                    소크라테스 AI 유도 문답 · 게이미피케이션 인출 훈련 · 실시간 60FPS 가상실험으로 완성하는 3대 과목 대시보드
                                 </p>
                             </div>
-                            <a href="study/" target="_blank" style="background:linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%); color:#FFFFFF; font-weight:800; font-size:0.88rem; padding:10px 18px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:6px; box-shadow:0 4px 15px rgba(6,182,212,0.3); transition:all 0.2s;">
-                                <i class="fa-solid fa-graduation-cap"></i> 종합 학습관 전체보기 →
+                            <a href="study/" target="_blank" style="background:#0F172A; color:#FFFFFF; font-weight:800; font-size:0.9rem; padding:12px 22px; border-radius:12px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; box-shadow:0 6px 18px rgba(15,23,42,0.15); transition:all 0.2s;">
+                                <i class="fa-solid fa-graduation-cap" style="color:#38BDF8;"></i> 종합 학습관 전체보기 →
                             </a>
                         </div>
 
-                        <!-- 3-Column Subject Cards Grid -->
-                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:1.2rem;">
+                        <!-- 3-Column Subject Cards Grid (Clean Modern White Glass Cards) -->
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:1.4rem;">
 
                             <!-- 카드 1: 영어 (Voca9) -->
-                            <div style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); border-radius:18px; padding:1.6rem; border:1px solid rgba(99, 102, 241, 0.4); display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 8px 24px rgba(15,23,42,0.4); position:relative; overflow:hidden;">
-                                <div style="position:absolute; right:-10px; top:-10px; font-size:4.5rem; opacity:0.07; font-weight:900; color:#818cf8; pointer-events:none;">A-Z</div>
+                            <div style="background:#FFFFFF; border-radius:20px; padding:2rem 1.8rem; border:1px solid #E2E8F0; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 8px 24px rgba(15,23,42,0.04); transition:transform 0.2s, box-shadow 0.2s;">
                                 <div>
-                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                                        <span style="background:rgba(99,102,241,0.2); color:#a5b4fc; font-size:0.75rem; font-weight:800; padding:3px 10px; border-radius:6px; border:1px solid rgba(99,102,241,0.3);">교육부 필수 1,800단어</span>
-                                        <span style="font-size:1.5rem;">🔤</span>
+                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                                        <span style="background:#EEF2FF; color:#4F46E5; font-size:0.78rem; font-weight:800; padding:4px 12px; border-radius:8px; border:1px solid #C7D2FE;">
+                                            교육부 필수 1,800단어
+                                        </span>
+                                        <span style="font-size:1.6rem;">🔤</span>
                                     </div>
-                                    <h4 style="font-size:1.18rem; font-weight:800; color:#FFFFFF; margin:0 0 6px 0;">중학 영단어 9레벨 마스터 (Voca9)</h4>
-                                    <p style="font-size:0.83rem; color:#CBD5E1; line-height:1.5; margin:0 0 14px 0;">
-                                        4지선다 좀비 디펜스 게임 · 마이크로 스토리텔링 &amp; 소크라테스 수무고개 추리 퀴즈로 1,800단어를 완전 정복합니다.
+                                    <h4 style="font-size:1.25rem; font-weight:800; color:#0F172A; margin:0 0 8px 0; letter-spacing:-0.02em;">
+                                        중학 영단어 9레벨 마스터 (Voca9)
+                                    </h4>
+                                    <p style="font-size:0.9rem; color:#475569; line-height:1.6; margin:0 0 16px 0;">
+                                        4지선다 좀비 디펜스 게임과 마이크로 스토리텔링 &amp; 소크라테스 수무고개 추리 퀴즈로 1,800단어를 완전 정복합니다.
                                     </p>
-                                    <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px;">
-                                        <span style="background:rgba(255,255,255,0.06); color:#E2E8F0; font-size:0.72rem; padding:3px 8px; border-radius:4px;">🧟 좀비 디펜스</span>
-                                        <span style="background:rgba(255,255,255,0.06); color:#E2E8F0; font-size:0.72rem; padding:3px 8px; border-radius:4px;">🔊 원어민 TTS</span>
-                                        <span style="background:rgba(255,255,255,0.06); color:#E2E8F0; font-size:0.72rem; padding:3px 8px; border-radius:4px;">🎯 9레벨 진단</span>
+                                    <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:20px; padding:12px; background:#F8FAFC; border-radius:12px; border:1px solid #F1F5F9;">
+                                        <div style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:#334155; font-weight:600;">
+                                            <i class="fa-solid fa-circle-check" style="color:#4F46E5;"></i> <span>4지선다 좀비 디펜스 게임</span>
+                                        </div>
+                                        <div style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:#334155; font-weight:600;">
+                                            <i class="fa-solid fa-circle-check" style="color:#4F46E5;"></i> <span>원어민 음성 TTS &amp; 9레벨 진단</span>
+                                        </div>
+                                        <div style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:#334155; font-weight:600;">
+                                            <i class="fa-solid fa-circle-check" style="color:#4F46E5;"></i> <span>AI 4대 암기비법 숏폼 스토리</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <a href="study/?subject=voca" target="_blank" style="background:#6366f1; color:#FFFFFF; font-weight:800; font-size:0.88rem; padding:11px 16px; border-radius:10px; text-decoration:none; text-align:center; display:flex; align-items:center; justify-content:center; gap:6px; transition:all 0.2s; box-shadow:0 4px 12px rgba(99,102,241,0.4);">
+                                <a href="study/?subject=voca" target="_blank" style="background:#4F46E5; color:#FFFFFF; font-weight:800; font-size:0.92rem; padding:13px 18px; border-radius:12px; text-decoration:none; text-align:center; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s; box-shadow:0 4px 14px rgba(79,70,229,0.25);">
                                     <i class="fa-solid fa-gamepad"></i> 영단어 대시보드 바로가기 →
                                 </a>
                             </div>
 
                             <!-- 카드 2: 수학 (AI 수학) -->
-                            <div style="background: linear-gradient(135deg, #0c1a30 0%, #172554 100%); border-radius:18px; padding:1.6rem; border:1px solid rgba(59, 130, 246, 0.4); display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 8px 24px rgba(15,23,42,0.4); position:relative; overflow:hidden;">
-                                <div style="position:absolute; right:-10px; top:-10px; font-size:4.5rem; opacity:0.07; font-weight:900; color:#60a5fa; pointer-events:none;">∑√π</div>
+                            <div style="background:#FFFFFF; border-radius:20px; padding:2rem 1.8rem; border:1px solid #E2E8F0; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 8px 24px rgba(15,23,42,0.04); transition:transform 0.2s, box-shadow 0.2s;">
                                 <div>
-                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                                        <span style="background:rgba(59,130,246,0.2); color:#93c5fd; font-size:0.75rem; font-weight:800; padding:3px 10px; border-radius:6px; border:1px solid rgba(59,130,246,0.3);">2022 개정 21개 전 단원</span>
-                                        <span style="font-size:1.5rem;">📐</span>
+                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                                        <span style="background:#EFF6FF; color:#2563EB; font-size:0.78rem; font-weight:800; padding:4px 12px; border-radius:8px; border:1px solid #BFDBFE;">
+                                            2022 개정 21개 전 단원
+                                        </span>
+                                        <span style="font-size:1.6rem;">📐</span>
                                     </div>
-                                    <h4 style="font-size:1.18rem; font-weight:800; color:#FFFFFF; margin:0 0 6px 0;">소크라테스 AI 수학 (수포자 탈출)</h4>
-                                    <p style="font-size:0.83rem; color:#CBD5E1; line-height:1.5; margin:0 0 14px 0;">
-                                        선행 개념 징검다리 무기 장착 · 스스로 답을 유도하는 3단계 힌트 · 3-Scene 편의점·게임 실생활 웹툰 비유 제공.
+                                    <h4 style="font-size:1.25rem; font-weight:800; color:#0F172A; margin:0 0 8px 0; letter-spacing:-0.02em;">
+                                        소크라테스 AI 수학 (수포자 탈출)
+                                    </h4>
+                                    <p style="font-size:0.9rem; color:#475569; line-height:1.6; margin:0 0 16px 0;">
+                                        선행 개념 징검다리 무기 장착과 스스로 답을 유도하는 3단계 힌트, 편의점·게임 실생활 3-Scene 웹툰 비유를 제공합니다.
                                     </p>
-                                    <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px;">
-                                        <span style="background:rgba(255,255,255,0.06); color:#E2E8F0; font-size:0.72rem; padding:3px 8px; border-radius:4px;">🛡️ 징검다리 무기</span>
-                                        <span style="background:rgba(255,255,255,0.06); color:#E2E8F0; font-size:0.72rem; padding:3px 8px; border-radius:4px;">💡 3단계 힌트</span>
-                                        <span style="background:rgba(255,255,255,0.06); color:#E2E8F0; font-size:0.72rem; padding:3px 8px; border-radius:4px;">📅 맞춤 플래너</span>
+                                    <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:20px; padding:12px; background:#F8FAFC; border-radius:12px; border:1px solid #F1F5F9;">
+                                        <div style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:#334155; font-weight:600;">
+                                            <i class="fa-solid fa-circle-check" style="color:#2563EB;"></i> <span>선행 필수 개념 징검다리 무기</span>
+                                        </div>
+                                        <div style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:#2563EB; font-weight:600;">
+                                            <i class="fa-solid fa-circle-check" style="color:#2563EB;"></i> <span>소크라테스 3단계 힌트 유도</span>
+                                        </div>
+                                        <div style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:#334155; font-weight:600;">
+                                            <i class="fa-solid fa-circle-check" style="color:#2563EB;"></i> <span>일일 30분 맞춤 플래너 &amp; KaTeX</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <a href="study/?subject=math" target="_blank" style="background:#2563eb; color:#FFFFFF; font-weight:800; font-size:0.88rem; padding:11px 16px; border-radius:10px; text-decoration:none; text-align:center; display:flex; align-items:center; justify-content:center; gap:6px; transition:all 0.2s; box-shadow:0 4px 12px rgba(37,99,235,0.4);">
+                                <a href="study/?subject=math" target="_blank" style="background:#2563EB; color:#FFFFFF; font-weight:800; font-size:0.92rem; padding:13px 18px; border-radius:12px; text-decoration:none; text-align:center; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s; box-shadow:0 4px 14px rgba(37,99,235,0.25);">
                                     <i class="fa-solid fa-square-root-variable"></i> 수학 대시보드 바로가기 →
                                 </a>
                             </div>
 
                             <!-- 카드 3: 과학 (AI 사이언스 랩) -->
-                            <div style="background: linear-gradient(135deg, #042f2e 0%, #0f172a 100%); border-radius:18px; padding:1.6rem; border:1px solid rgba(6, 182, 212, 0.4); display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 8px 24px rgba(15,23,42,0.4); position:relative; overflow:hidden;">
-                                <div style="position:absolute; right:-10px; top:-10px; font-size:4.5rem; opacity:0.07; font-weight:900; color:#22d3ee; pointer-events:none;">⚛︎⚗︎</div>
+                            <div style="background:#FFFFFF; border-radius:20px; padding:2rem 1.8rem; border:1px solid #E2E8F0; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 8px 24px rgba(15,23,42,0.04); transition:transform 0.2s, box-shadow 0.2s;">
                                 <div>
-                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                                        <span style="background:rgba(6,182,212,0.2); color:#67e8f9; font-size:0.75rem; font-weight:800; padding:3px 10px; border-radius:6px; border:1px solid rgba(6,182,212,0.3);">물리·화학·생명·지구 4대 영역</span>
-                                        <span style="font-size:1.5rem;">🔬</span>
+                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                                        <span style="background:#ECFEFF; color:#0891B2; font-size:0.78rem; font-weight:800; padding:4px 12px; border-radius:8px; border:1px solid #A5F3FC;">
+                                            물리·화학·생명·지구 4대 영역
+                                        </span>
+                                        <span style="font-size:1.6rem;">🔬</span>
                                     </div>
-                                    <h4 style="font-size:1.18rem; font-weight:800; color:#FFFFFF; margin:0 0 6px 0;">AI 사이언스 랩 (과학 상상 공작소)</h4>
-                                    <p style="font-size:0.83rem; color:#CBD5E1; line-height:1.5; margin:0 0 14px 0;">
-                                        워터파크 슬라이드 옴의 법칙 · 댄스파티 분자 운동 · 광합성 팩토리 · 된장찌개 판구조론 60FPS 실시간 가상실험.
+                                    <h4 style="font-size:1.25rem; font-weight:800; color:#0F172A; margin:0 0 8px 0; letter-spacing:-0.02em;">
+                                        AI 사이언스 랩 (과학 상상 공작소)
+                                    </h4>
+                                    <p style="font-size:0.9rem; color:#475569; line-height:1.6; margin:0 0 16px 0;">
+                                        워터파크 슬라이드 옴의 법칙, 댄스파티 분자 운동, 광합성 팩토리, 된장찌개 판구조론 60FPS 실시간 가상실험을 제공합니다.
                                     </p>
-                                    <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px;">
-                                        <span style="background:rgba(255,255,255,0.06); color:#E2E8F0; font-size:0.72rem; padding:3px 8px; border-radius:4px;">🧪 60FPS 캔버스</span>
-                                        <span style="background:rgba(255,255,255,0.06); color:#E2E8F0; font-size:0.72rem; padding:3px 8px; border-radius:4px;">🔒 변인 통제 실험</span>
-                                        <span style="background:rgba(255,255,255,0.06); color:#E2E8F0; font-size:0.72rem; padding:3px 8px; border-radius:4px;">💥 3D 오개념 플립</span>
+                                    <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:20px; padding:12px; background:#F8FAFC; border-radius:12px; border:1px solid #F1F5F9;">
+                                        <div style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:#334155; font-weight:600;">
+                                            <i class="fa-solid fa-circle-check" style="color:#0891B2;"></i> <span>60FPS 캔버스 실시간 가상실험</span>
+                                        </div>
+                                        <div style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:#0891B2; font-weight:600;">
+                                            <i class="fa-solid fa-circle-check" style="color:#0891B2;"></i> <span>변인 통제 실험대 (Lock 🔒 기능)</span>
+                                        </div>
+                                        <div style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:#334155; font-weight:600;">
+                                            <i class="fa-solid fa-circle-check" style="color:#0891B2;"></i> <span>흔한 오개념 타파 3D 플립 카드</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <a href="study/?subject=science" target="_blank" style="background:#0891b2; color:#FFFFFF; font-weight:800; font-size:0.88rem; padding:11px 16px; border-radius:10px; text-decoration:none; text-align:center; display:flex; align-items:center; justify-content:center; gap:6px; transition:all 0.2s; box-shadow:0 4px 12px rgba(8,145,178,0.4);">
+                                <a href="study/?subject=science" target="_blank" style="background:#0891B2; color:#FFFFFF; font-weight:800; font-size:0.92rem; padding:13px 18px; border-radius:12px; text-decoration:none; text-align:center; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s; box-shadow:0 4px 14px rgba(8,145,178,0.25);">
                                     <i class="fa-solid fa-flask-vial"></i> 과학 대시보드 바로가기 →
                                 </a>
                             </div>

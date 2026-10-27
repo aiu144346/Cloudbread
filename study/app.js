@@ -211,6 +211,8 @@ const app = {
     localStorage.removeItem('voca9_user');
     document.getElementById('mainNav').classList.add('hidden');
     document.getElementById('mobileNav').classList.add('hidden');
+    const vocaSub = document.getElementById('vocaSubNav');
+    if (vocaSub) vocaSub.classList.add('hidden');
     document.getElementById('userHeaderArea').classList.add('hidden');
     this.loadAccountsPreview().then(() => this.renderLogin());
   },
@@ -259,13 +261,54 @@ const app = {
       this.state.science.simAnimId = null;
     }
     this.state.activeTab = tabName;
-    document.querySelectorAll('.nav-btn').forEach(btn => {
-      if (btn.getAttribute('data-tab') === tabName) {
-        btn.classList.add('tab-active');
-      } else {
-        btn.classList.remove('tab-active');
+
+    // 분류 결정: 영단어(voca) vs 수학(math) vs 과학(science) vs 대시보드(dashboard) vs 관리자(admin)
+    const vocaTabs = ['zombie', 'ailab', 'study', 'planner', 'leveltest', 'wordbook'];
+    let mainCategory = 'dashboard';
+    if (vocaTabs.includes(tabName)) {
+      mainCategory = 'voca';
+    } else if (tabName === 'math') {
+      mainCategory = 'math';
+    } else if (tabName === 'science') {
+      mainCategory = 'science';
+    } else if (tabName === 'admin') {
+      mainCategory = 'admin';
+    }
+
+    // 4대 메인 탭바 활성화 상태 업데이트
+    document.querySelectorAll('.main-tab-btn').forEach(btn => {
+      const tab = btn.getAttribute('data-main-tab');
+      btn.classList.remove('tab-active', 'tab-active-math', 'tab-active-science', 'tab-active-dashboard');
+      if (tab === mainCategory) {
+        if (mainCategory === 'math') {
+          btn.classList.add('tab-active-math');
+        } else if (mainCategory === 'science') {
+          btn.classList.add('tab-active-science');
+        } else if (mainCategory === 'dashboard') {
+          btn.classList.add('tab-active-dashboard');
+        } else {
+          btn.classList.add('tab-active');
+        }
       }
     });
+
+    // 영단어 2차 보조 서브 툴바 제어
+    const vocaSub = document.getElementById('vocaSubNav');
+    if (vocaSub) {
+      if (mainCategory === 'voca') {
+        vocaSub.classList.remove('hidden');
+        document.querySelectorAll('.voca-sub-btn').forEach(subBtn => {
+          const subKey = subBtn.getAttribute('data-voca-sub');
+          if (subKey === tabName) {
+            subBtn.className = 'voca-sub-btn whitespace-nowrap px-3 py-1 rounded-lg text-xs voca-sub-active transition';
+          } else {
+            subBtn.className = 'voca-sub-btn whitespace-nowrap px-3 py-1 rounded-lg text-xs voca-sub-inactive transition';
+          }
+        });
+      } else {
+        vocaSub.classList.add('hidden');
+      }
+    }
 
     if (tabName === 'dashboard') {
       await this.loadDashboard();

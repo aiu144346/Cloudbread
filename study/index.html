@@ -15,17 +15,57 @@
       font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
       background-color: #f8fafc;
       color: #0f172a;
+      letter-spacing: -0.018em;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      letter-spacing: -0.025em;
     }
     .gradient-header {
       background: linear-gradient(135deg, #4f46e5 0%, #2563eb 50%, #0ea5e9 100%);
     }
     .card-shadow {
-      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+      box-shadow: 0 8px 24px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
     }
     .tab-active {
       background-color: #4f46e5;
-      color: #ffffff;
+      color: #ffffff !important;
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+    }
+    .tab-active-math {
+      background-color: #2563eb;
+      color: #ffffff !important;
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    }
+    .tab-active-science {
+      background-color: #0891b2;
+      color: #ffffff !important;
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(8, 145, 178, 0.25);
+    }
+    .tab-active-dashboard {
+      background-color: #0f172a;
+      color: #ffffff !important;
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+    }
+    .voca-sub-active {
+      background-color: #4f46e5;
+      color: #ffffff !important;
       font-weight: 700;
+      box-shadow: 0 2px 6px rgba(79, 70, 229, 0.25);
+    }
+    .voca-sub-inactive {
+      background-color: #ffffff;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+    }
+    .voca-sub-inactive:hover {
+      background-color: #f1f5f9;
+      color: #0f172a;
     }
     .zombie-arena-bg {
       background: radial-gradient(circle at 50% 20%, #1e1b4b 0%, #0f172a 60%, #020617 100%);
@@ -54,48 +94,33 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3 cursor-pointer" onclick="app.goHome()">
         <div class="w-10 h-10 rounded-xl gradient-header flex items-center justify-center text-white font-extrabold text-xl shadow-sm">
-          V9
+          AI
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <span class="font-extrabold text-lg tracking-tight text-slate-900">중학 영단어 9레벨 마스터</span>
-            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">교육부 필수 1,800단어</span>
+            <span class="font-extrabold text-lg tracking-tight text-slate-900">중학 AI 마스터 3대 과목</span>
+            <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">영·수·과 통합</span>
           </div>
-          <p class="text-xs text-slate-500 hidden sm:block">중1~중3 1,800단어 완벽 구축 · 9레벨 자동 큐레이션 · 4지선다 좀비 디펜스 · AI 4대 암기 비법</p>
+          <p class="text-xs text-slate-500 hidden sm:block">교육부 1,800단어 Voca9 · 소크라테스 수포자 탈출 수학 · 인터랙티브 AI 사이언스 랩</p>
         </div>
       </div>
 
-      <!-- 로그인 후 메뉴 탭 -->
-      <nav id="mainNav" class="hidden md:flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
-        <button data-tab="dashboard" onclick="app.switchTab('dashboard')" class="nav-btn px-3 py-1.5 rounded-lg text-xs lg:text-sm font-medium text-slate-600 hover:text-slate-900 transition">
-          📊 대시보드
+      <!-- 로그인 후 4대 직관적 메인 탭바 -->
+      <nav id="mainNav" class="hidden md:flex items-center gap-1.5 bg-slate-100 p-1.5 rounded-2xl border border-slate-200/80">
+        <button data-main-tab="voca" onclick="app.switchTab('zombie')" class="main-tab-btn px-3.5 py-1.5 rounded-xl text-xs lg:text-sm font-bold text-slate-700 hover:text-indigo-600 transition flex items-center gap-1.5">
+          <span>🔤</span><span>중학 영단어(Voca9)</span>
         </button>
-        <button data-tab="zombie" onclick="app.switchTab('zombie')" class="nav-btn px-3 py-1.5 rounded-lg text-xs lg:text-sm font-extrabold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 transition">
-          🧟 좀비 단어 디펜스
+        <button data-main-tab="math" onclick="app.switchTab('math')" class="main-tab-btn px-3.5 py-1.5 rounded-xl text-xs lg:text-sm font-bold text-slate-700 hover:text-blue-600 transition flex items-center gap-1.5">
+          <span>📐</span><span>소크라테스 수학</span>
         </button>
-        <button data-tab="math" onclick="app.switchTab('math')" class="nav-btn px-3 py-1.5 rounded-lg text-xs lg:text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 transition">
-          📐 AI 수학(수포자 탈출)
+        <button data-main-tab="science" onclick="app.switchTab('science')" class="main-tab-btn px-3.5 py-1.5 rounded-xl text-xs lg:text-sm font-bold text-slate-700 hover:text-cyan-600 transition flex items-center gap-1.5">
+          <span>🔬</span><span>AI 사이언스 랩</span>
         </button>
-        <button data-tab="science" onclick="app.switchTab('science')" class="nav-btn px-3 py-1.5 rounded-lg text-xs lg:text-sm font-extrabold text-cyan-700 bg-cyan-50 hover:bg-cyan-100 transition">
-          🔬 AI 사이언스 랩
+        <button data-main-tab="dashboard" onclick="app.switchTab('dashboard')" class="main-tab-btn px-3.5 py-1.5 rounded-xl text-xs lg:text-sm font-bold text-slate-700 hover:text-slate-900 transition flex items-center gap-1.5">
+          <span>📊</span><span>종합 성적표</span>
         </button>
-        <button data-tab="ailab" onclick="app.switchTab('ailab')" class="nav-btn px-3 py-1.5 rounded-lg text-xs lg:text-sm font-bold text-purple-700 bg-purple-50 hover:bg-purple-100 transition">
-          🤖 AI 4대 암기비법
-        </button>
-        <button data-tab="study" onclick="app.switchTab('study')" class="nav-btn px-3 py-1.5 rounded-lg text-xs lg:text-sm font-medium text-slate-600 hover:text-slate-900 transition">
-          🧠 4단계 학습
-        </button>
-        <button data-tab="planner" onclick="app.switchTab('planner')" class="nav-btn px-3 py-1.5 rounded-lg text-xs lg:text-sm font-medium text-slate-600 hover:text-slate-900 transition">
-          📅 공부 플랜
-        </button>
-        <button data-tab="leveltest" onclick="app.switchTab('leveltest')" class="nav-btn px-3 py-1.5 rounded-lg text-xs lg:text-sm font-medium text-slate-600 hover:text-slate-900 transition">
-          🎯 레벨테스트
-        </button>
-        <button data-tab="wordbook" onclick="app.switchTab('wordbook')" class="nav-btn px-3 py-1.5 rounded-lg text-xs lg:text-sm font-medium text-slate-600 hover:text-slate-900 transition">
-          📚 9레벨 단어장
-        </button>
-        <button id="adminTabBtn" data-tab="admin" onclick="app.switchTab('admin')" class="nav-btn hidden px-3 py-1.5 rounded-lg text-xs lg:text-sm font-medium text-amber-700 bg-amber-50 hover:bg-amber-100 transition">
-          👩‍🏫 학생관리
+        <button id="adminTabBtn" data-main-tab="admin" onclick="app.switchTab('admin')" class="main-tab-btn hidden px-3.5 py-1.5 rounded-xl text-xs lg:text-sm font-bold text-amber-700 hover:bg-amber-100 transition flex items-center gap-1.5">
+          <span>👩‍🏫</span><span>학생관리</span>
         </button>
       </nav>
 
@@ -117,18 +142,31 @@
       </div>
     </div>
 
-    <!-- 모바일 하단/보조 탭바 -->
-    <div id="mobileNav" class="hidden md:hidden border-t border-slate-100 px-2 py-1.5 bg-slate-50 flex overflow-x-auto gap-1">
-      <button data-tab="dashboard" onclick="app.switchTab('dashboard')" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600">📊 대시보드</button>
-      <button data-tab="zombie" onclick="app.switchTab('zombie')" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-extrabold text-emerald-700 bg-emerald-50">🧟 좀비디펜스</button>
-      <button data-tab="math" onclick="app.switchTab('math')" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-extrabold text-blue-700 bg-blue-50">📐 AI수학</button>
-      <button data-tab="science" onclick="app.switchTab('science')" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-extrabold text-cyan-700 bg-cyan-50">🔬 AI사이언스</button>
-      <button data-tab="ailab" onclick="app.switchTab('ailab')" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-bold text-purple-700 bg-purple-50">🤖 AI암기비법</button>
-      <button data-tab="study" onclick="app.switchTab('study')" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600">🧠 4단계학습</button>
-      <button data-tab="planner" onclick="app.switchTab('planner')" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600">📅 공부플랜</button>
-      <button data-tab="leveltest" onclick="app.switchTab('leveltest')" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600">🎯 레벨테스트</button>
-      <button data-tab="wordbook" onclick="app.switchTab('wordbook')" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600">📚 9레벨단어장</button>
-      <button id="mobileAdminTabBtn" data-tab="admin" onclick="app.switchTab('admin')" class="nav-btn hidden whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium text-amber-700">👩‍🏫 학생관리</button>
+    <!-- 모바일 하단 탭바 -->
+    <div id="mobileNav" class="hidden md:hidden border-t border-slate-100 px-3 py-2 bg-slate-50 flex items-center justify-around gap-1 overflow-x-auto">
+      <button data-main-tab="voca" onclick="app.switchTab('zombie')" class="main-tab-btn whitespace-nowrap px-2.5 py-1.5 rounded-lg text-xs font-bold text-slate-700">🔤 영단어</button>
+      <button data-main-tab="math" onclick="app.switchTab('math')" class="main-tab-btn whitespace-nowrap px-2.5 py-1.5 rounded-lg text-xs font-bold text-slate-700">📐 AI수학</button>
+      <button data-main-tab="science" onclick="app.switchTab('science')" class="main-tab-btn whitespace-nowrap px-2.5 py-1.5 rounded-lg text-xs font-bold text-slate-700">🔬 사이언스</button>
+      <button data-main-tab="dashboard" onclick="app.switchTab('dashboard')" class="main-tab-btn whitespace-nowrap px-2.5 py-1.5 rounded-lg text-xs font-bold text-slate-700">📊 성적표</button>
+      <button id="mobileAdminTabBtn" data-main-tab="admin" onclick="app.switchTab('admin')" class="main-tab-btn hidden whitespace-nowrap px-2.5 py-1.5 rounded-lg text-xs font-bold text-amber-700">👩‍🏫 관리자</button>
+    </div>
+
+    <!-- 영단어 보조 서브 툴바 (Voca 선택 시에만 표시되는 직관적 2차 메뉴) -->
+    <div id="vocaSubNav" class="hidden bg-indigo-50/70 border-t border-b border-indigo-100/90 px-4 py-2 transition-all">
+      <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
+        <div class="flex items-center gap-2 text-xs font-bold text-indigo-900 shrink-0">
+          <span class="inline-block w-2 h-2 rounded-full bg-indigo-600 animate-pulse"></span>
+          <span>영단어 학습 모드:</span>
+        </div>
+        <div class="flex items-center gap-1.5 overflow-x-auto py-0.5">
+          <button data-voca-sub="zombie" onclick="app.switchTab('zombie')" class="voca-sub-btn whitespace-nowrap px-3 py-1 rounded-lg text-xs font-semibold transition">🧟 좀비 디펜스</button>
+          <button data-voca-sub="ailab" onclick="app.switchTab('ailab')" class="voca-sub-btn whitespace-nowrap px-3 py-1 rounded-lg text-xs font-semibold transition">🤖 AI 4대 암기비법</button>
+          <button data-voca-sub="study" onclick="app.switchTab('study')" class="voca-sub-btn whitespace-nowrap px-3 py-1 rounded-lg text-xs font-semibold transition">🧠 4단계 맞춤학습</button>
+          <button data-voca-sub="wordbook" onclick="app.switchTab('wordbook')" class="voca-sub-btn whitespace-nowrap px-3 py-1 rounded-lg text-xs font-semibold transition">📚 9레벨 단어장</button>
+          <button data-voca-sub="planner" onclick="app.switchTab('planner')" class="voca-sub-btn whitespace-nowrap px-3 py-1 rounded-lg text-xs font-semibold transition">📅 공부 플랜</button>
+          <button data-voca-sub="leveltest" onclick="app.switchTab('leveltest')" class="voca-sub-btn whitespace-nowrap px-3 py-1 rounded-lg text-xs font-semibold transition">🎯 레벨테스트</button>
+        </div>
+      </div>
     </div>
   </header>
 
