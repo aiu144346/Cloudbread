@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>중학 영단어 Voca9 200% 활용 가이드 | 학생용 인터랙티브 슬라이드</title>
+  
+  <!-- Pretendard & Inter 폰트 -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS & FontAwesome -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              900: '#312e81',
+            },
+            zombie: {
+              green: '#10B981',
+              dark: '#064E3B',
+              glow: '#34D399',
+            }
+          },
+          fontFamily: {
+            sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'Pretendard', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      font-family: 'Pretendard', -apple-system, sans-serif;
+      background: #090D16;
+      color: #F8FAFC;
+      overflow: hidden;
+      touch-action: pan-y;
+      letter-spacing: -0.02em;
+    }
+
+    /* 슬라이드 뷰포트 & 전환 효과 */
+    .slide-viewport {
+      perspective: 1200px;
+    }
+    .slide-card {
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                  transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0;
+      transform: translateY(24px) scale(0.97);
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      visibility: hidden;
+    }
+    .slide-card.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+      visibility: visible;
+      z-index: 10;
+    }
+    .slide-card.prev {
+      opacity: 0;
+      transform: translateY(-24px) scale(0.97);
+      visibility: hidden;
+    }
+
+    /* 하이엔드 글래스모피즘 효과 */
+    .glass-card {
+      background: rgba(17, 24, 39, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    }
+    .glass-pill {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .glass-dock {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    /* 동적 네온 텍스트 & 그라디언트 */
+    .neon-text-indigo {
+      background: linear-gradient(135deg, #A5B4FC 0%, #818CF8 50%, #C084FC 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .neon-text-emerald {
+      background: linear-gradient(135deg, #6EE7B7 0%, #34D399 50%, #10B981 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .neon-text-amber {
+      background: linear-gradient(135deg, #FDE68A 0%, #FBBF24 50%, #F59E0B 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* 펄스 및 키프레임 애니메이션 */
+    @keyframes subtleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .animate-float {
+      animation: subtleFloat 4s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); }
+      50% { box-shadow: 0 0 35px rgba(99, 102, 241, 0.65); }
+    }
+    .glow-indigo {
+      animation: pulseGlow 3s infinite;
+    }
+    @keyframes zombieWalk {
+      0%, 100% { transform: rotate(-3deg); }
+      50% { transform: rotate(3deg); }
+    }
+    .zombie-wobble {
+      animation: zombieWalk 1s ease-in-out infinite;
+    }
+
+    /* 단어 카드 호버 */
+    .hover-tilt {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .hover-tilt:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(99, 102, 241, 0.25);
+    }
+  </style>
+</head>
+<body class="w-screen h-screen select-none">
+
+  <!-- 배경 캔버스: 우주 성운 & 파티클 효과 -->
+  <canvas id="bgCanvas" class="absolute inset-0 z-0 pointer-events-none opacity-45"></canvas>
+  <div class="absolute inset-0 bg-gradient-to-t from-[#090D16] via-transparent to-[#090D16]/80 z-0 pointer-events-none"></div>
+
+  <!-- 상단 상태 표시줄 (진행도 프로그레스 바 & 헤더 정보) -->
+  <header class="absolute top-0 left-0 right-0 h-16 z-30 px-6 sm:px-10 flex items-center justify-between border-b border-white/10 backdrop-blur-md bg-slate-950/40">
+    <div class="flex items-center gap-3">
+      <a href="/study/" class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center text-white font-extrabold text-sm shadow-lg hover:scale-105 transition" title="학습 플랫폼으로 이동">
+        V9
+      </a>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">중학 영어 가이드</span>
+          <span class="text-sm font-bold text-slate-200">Voca9 200% 정복 마스터 슬라이드</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 우측 도구: 음소거, 전체화면, 쇼케이스 복귀 -->
+    <div class="flex items-center gap-2 sm:gap-3">
+      <button id="soundToggleBtn" onclick="toggleSound()" class="px-3 py-1.5 rounded-lg glass-pill text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/15 transition flex items-center gap-1.5" title="효과음 켜기/끄기">
+        <i class="fa-solid fa-volume-high text-indigo-400" id="soundIcon"></i>
+        <span class="hidden sm:inline" id="soundLabel">사운드 ON</span>
+      </button>
+      <button onclick="toggleFullScreen()" class="px-3 py-1.5 rounded-lg glass-pill text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/15 transition flex items-center gap-1.5" title="전체화면 (F)">
+        <i class="fa-solid fa-expand text-slate-400"></i>
+        <span class="hidden sm:inline">전체화면</span>
+      </button>
+      <a href="/showcase.html?target=senior" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-bold text-slate-100 transition flex items-center gap-1">
+        <span>← 쇼케이스</span>
+      </a>
+    </div>
+
+    <!-- 최상단 프로그레스 바 -->
+    <div class="absolute bottom-0 left-0 right-0 h-1 bg-white/10">
+      <div id="progressBar" class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 transition-all duration-300 shadow-[0_0_12px_rgba(99,102,241,0.8)]" style="width: 10%;"></div>
+    </div>
+  </header>
+
+  <!-- 메인 슬라이드 뷰포트 -->
+  <main class="relative z-10 w-full h-full pt-16 pb-24 px-4 sm:px-8 md:px-16 flex items-center justify-center slide-viewport">
+
+    <!-- SLIDE 01: 오프닝 인트로 -->
+    <section class="slide-card active" data-index="1">
+      <div class="max-w-4xl w-full text-center space-y-8 animate-float">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-pill text-xs sm:text-sm font-bold text-indigo-300 border border-indigo-500/30 glow-indigo">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>🎮 게임처럼 즐기는 중학생 자기주도 영어 혁명</span>
+        </div>
+
+        <div class="space-y-4">
+          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-tight">
+            단어 깜지는 이제 그만!<br>
+            <span class="neon-text-indigo">중학 영단어 1,800 Voca9</span>
+          </h1>
+          <p class="text-base sm:text-xl text-slate-300 max-w-2xl mx-auto font-medium leading-relaxed">
+            교육부 필수 1,800단어를 9개 레벨로 완전 큐레이션!<br class="hidden sm:block">
+            <strong>4지선다 좀비 디펜스</strong>와 <strong>AI 4대 암기 비법</strong>으로 뇌에 평생 새겨보세요.
+          </p>
+        </div>
+
+        <!-- 4대 핵심 무기 프리뷰 뱃지 -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto pt-2">
+          <div class="glass-card rounded-2xl p-4 border border-white/10 text-center hover-tilt">
+            <div class="text-3xl mb-2">🧟</div>
+            <div class="text-sm font-bold text-emerald-400">좀비 디펜스</div>
+            <div class="text-xs text-slate-400 mt-1">4지선다 스피드 콤보</div>
+          </div>
+          <div class="glass-card rounded-2xl p-4 border border-white/10 text-center hover-tilt">
+            <div class="text-3xl mb-2">🤖</div>
+            <div class="text-sm font-bold text-indigo-400">AI 4대 암기비법</div>
+            <div class="text-xs text-slate-400 mt-1">어원·스토리·수무고개</div>
+          </div>
+          <div class="glass-card rounded-2xl p-4 border border-white/10 text-center hover-tilt">
+            <div class="text-3xl mb-2">🧠</div>
+            <div class="text-sm font-bold text-purple-400">뇌과학 4단계</div>
+            <div class="text-xs text-slate-400 mt-1">에빙하우스 망각곡선 격파</div>
+          </div>
+          <div class="glass-card rounded-2xl p-4 border border-white/10 text-center hover-tilt">
+            <div class="text-3xl mb-2">🎯</div>
+            <div class="text-sm font-bold text-amber-400">9레벨 사다리</div>
+            <div class="text-xs text-slate-400 mt-1">중1 기초부터 고교 연계</div>
+          </div>
+        </div>
+
+        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <button onclick="nextSlide()" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-500 to-indigo-700 hover:from-indigo-600 hover:to-indigo-800 text-white font-extrabold text-base shadow-xl shadow-indigo-500/30 flex items-center gap-3 transition transform hover:scale-105">
+            <span>강의 슬라이드 시작하기</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+          <span class="text-xs text-slate-400 flex items-center gap-1.5">
+            <kbd class="px-2 py-1 rounded bg-white/10 font-mono text-[10px] text-slate-300">Space</kbd> 또는
+            <kbd class="px-2 py-1 rounded bg-white/10 font-mono text-[10px] text-slate-300">→</kbd> 키로 넘김
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 02: 왜 1,800 단어인가? (교육과정 로드맵) -->
+    <section class="slide-card" data-index="2">
+      <div class="max-w-5xl w-full space-y-6">
+        <div class="text-center space-y-2">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">ROADMAP</span>
+          <h2 class="text-3xl sm:text-5xl font-black text-white">
+            왜 <span class="neon-text-indigo">1,800 단어</span>인가요?
+          </h2>
+          <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto">
+            대한민국 교육부가 공시한 중학교 1~3학년 필수 어휘 1,800단어를 9단계 맞춤형 사다리로 설계했습니다.
+          </p>
+        </div>
+
+        <!-- 3단계 학년 ➔ 9단계 레벨 구조 그리드 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pt-4">
+          <!-- 중1: 기초 다지기 -->
+          <div class="glass-card rounded-3xl p-6 border-t-4 border-t-emerald-400 hover-tilt">
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 font-extrabold text-xs">중학교 1학년</span>
+              <span class="text-2xl font-mono font-black text-emerald-400">Lv. 1 ~ 3</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">필수 기초 어휘 &amp; 일상</h3>
+            <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+              가장 빈번하게 등장하는 600단어. 학교 생활, 감정, 사물, 기초 동사를 마스터하여 영단어 자신감을 형성합니다.
+            </p>
+            <div class="bg-black/30 rounded-xl p-3 border border-white/5 space-y-1.5 text-xs text-slate-300">
+              <div class="flex justify-between"><span>주요 단어수</span><strong class="text-emerald-400">600 단어</strong></div>
+              <div class="flex justify-between"><span>예시 어휘</span><span class="font-mono text-slate-400">achieve, decide, arrive</span></div>
+            </div>
+          </div>
+
+          <!-- 중2: 실전 중간/기말 -->
+          <div class="glass-card rounded-3xl p-6 border-t-4 border-t-indigo-500 hover-tilt">
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-3 py-1 rounded-lg bg-indigo-500/20 text-indigo-300 font-extrabold text-xs">중학교 2학년</span>
+              <span class="text-2xl font-mono font-black text-indigo-400">Lv. 4 ~ 6</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">내신 필수 &amp; 교과 독해</h3>
+            <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+              교과서 지문 및 중간·기말고사 실전 어휘 600단어. 추상적 개념, 관계 표현, 복합 전치사를 집중 공략합니다.
+            </p>
+            <div class="bg-black/30 rounded-xl p-3 border border-white/5 space-y-1.5 text-xs text-slate-300">
+              <div class="flex justify-between"><span>주요 단어수</span><strong class="text-indigo-400">600 단어</strong></div>
+              <div class="flex justify-between"><span>예시 어휘</span><span class="font-mono text-slate-400">influence, atmosphere, explore</span></div>
+            </div>
+          </div>
+
+          <!-- 중3: 고등/수능 연계 -->
+          <div class="glass-card rounded-3xl p-6 border-t-4 border-t-amber-400 hover-tilt">
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-3 py-1 rounded-lg bg-amber-500/20 text-amber-300 font-extrabold text-xs">중학교 3학년</span>
+              <span class="text-2xl font-mono font-black text-amber-400">Lv. 7 ~ 9</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">고교 예비 &amp; 심화 어휘</h3>
+            <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+              고등 교과 및 모의고사 연계 600단어. 고급 어원 파생어와 학술적 논리 어휘를 체득하여 고교 영어를 선점합니다.
+            </p>
+            <div class="bg-black/30 rounded-xl p-3 border border-white/5 space-y-1.5 text-xs text-slate-300">
+              <div class="flex justify-between"><span>주요 단어수</span><strong class="text-amber-400">600 단어</strong></div>
+              <div class="flex justify-between"><span>예시 어휘</span><span class="font-mono text-slate-400">sustainable, compromise, cultivate</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-indigo-950/40 rounded-2xl p-4 border border-indigo-500/20 flex items-center justify-between gap-4 text-xs sm:text-sm">
+          <div class="flex items-center gap-2 text-indigo-300">
+            <i class="fa-solid fa-lightbulb text-amber-400"></i>
+            <span><strong>핵심:</strong> 나에게 너무 쉽거나 너무 어려운 단어는 시간 낭비! 내 레벨에 딱 맞는 어휘부터 차근차근 올라갑니다.</span>
+          </div>
+          <span class="font-mono font-bold text-white shrink-0">총 1,800 DB 전수 수록</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 03: STEP 1. 진단 테스트로 내 레벨 찾기 -->
+    <section class="slide-card" data-index="3">
+      <div class="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-6 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold">
+            <span>STEP 01</span>
+            <span>·</span>
+            <span>3분 어휘력 진단</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-black text-white leading-tight">
+            내 실력은 몇 레벨?<br>
+            <span class="neon-text-emerald">9문항으로 자동 판별</span>
+          </h2>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            처음 접속하면 1레벨부터 9레벨까지 각 레벨을 대표하는 핵심 9문항 진단 테스트가 진행됩니다.
+          </p>
+
+          <div class="space-y-3 text-xs sm:text-sm">
+            <div class="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
+              <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center shrink-0">1</span>
+              <div>
+                <strong class="text-white block mb-0.5">부담 없는 9개 문항</strong>
+                <span class="text-slate-400">길고 지루한 시험이 아닌, 단 3분 만에 내 어휘 위치를 찾아냅니다.</span>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
+              <span class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 font-bold flex items-center justify-center shrink-0">2</span>
+              <div>
+                <strong class="text-white block mb-0.5">맞춤형 홈 레벨 자동 세팅</strong>
+                <span class="text-slate-400">결과에 따라 레벨 1~9 중 본인에게 꼭 맞는 단어장과 디펜스 게임 난이도가 자동 지정됩니다.</span>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
+              <span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 font-bold flex items-center justify-center shrink-0">3</span>
+              <div>
+                <strong class="text-white block mb-0.5">언제든 재진단 가능</strong>
+                <span class="text-slate-400">실력이 늘어나면 상단 [레벨테스트] 탭에서 언제든 레벨을 재측정할 수 있습니다.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 우측: 레벨 진단 시뮬레이션 인터랙티브 카드 -->
+        <div class="lg:col-span-6">
+          <div class="glass-card rounded-3xl p-6 sm:p-8 border border-white/15 shadow-2xl relative">
+            <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-5">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-red-400"></span>
+                <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+                <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+                <span class="text-xs font-mono text-slate-400 ml-2">Voca9 Diagnostic Test</span>
+              </div>
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400">Q 04 / 09</span>
+            </div>
+
+            <div class="space-y-4">
+              <div class="bg-black/40 rounded-2xl p-5 border border-white/5 text-center">
+                <div class="text-xs text-indigo-400 font-bold mb-1">Level 4 Target Word</div>
+                <div class="text-3xl font-black font-display text-white tracking-wide">influence</div>
+                <div class="text-xs text-slate-400 mt-1">[ˈɪnfluəns]</div>
+              </div>
+
+              <div class="text-xs text-slate-400 font-semibold mb-1">올바른 뜻을 골라보세요:</div>
+              <div class="grid grid-cols-2 gap-2 text-xs font-semibold">
+                <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-slate-300">① 포기하다</div>
+                <div class="p-3 rounded-xl bg-emerald-500/20 border border-emerald-400 text-emerald-300 font-bold flex items-center justify-between">
+                  <span>② 영향을 미치다</span>
+                  <i class="fa-solid fa-check"></i>
+                </div>
+                <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-slate-300">③ 탐험하다</div>
+                <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-slate-300">④ 축하하다</div>
+              </div>
+
+              <div class="bg-emerald-950/40 border border-emerald-500/30 rounded-xl p-3 text-xs text-emerald-300 text-center font-bold">
+                🎯 진단 완료 시 'Level 4 마스터 도전자' 뱃지 즉시 부여!
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 04: STEP 2. 🧟 좀비 단어 디펜스 게임 룰 -->
+    <section class="slide-card" data-index="4">
+      <div class="max-w-5xl w-full space-y-6">
+        <div class="text-center space-y-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold">
+            <span>STEP 02</span>
+            <span>·</span>
+            <span>게이미피케이션 인출 훈련</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-black text-white">
+            🧟 <span class="neon-text-emerald">좀비 단어 디펜스</span> 게임 룰
+          </h2>
+          <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto">
+            다가오는 좀비의 한국어 뜻을 보고, <strong>4지선다 버튼 클릭</strong>이나 <strong>키보드(1, 2, 3, 4)</strong>로 단어를 맞혀 격퇴하세요!
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pt-3">
+          <!-- 룰 1 -->
+          <div class="glass-card rounded-3xl p-6 border border-white/10 hover-tilt space-y-3">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 text-2xl flex items-center justify-center font-bold">
+              🎯
+            </div>
+            <h3 class="text-lg font-bold text-white">1. 뜻을 보고 단어 조준</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              좀비 머리 위에 적힌 뜻(예: <strong>'결정하다'</strong>)을 재빨리 인출합니다. 화면 하단 4개의 영어 단어 중 일치하는 것을 고릅니다.
+            </p>
+            <div class="text-[11px] text-emerald-400 font-mono bg-emerald-950/30 p-2.5 rounded-xl border border-emerald-500/20">
+              💡 번개 반사신경 = 영구 기억 전환!
+            </div>
+          </div>
+
+          <!-- 룰 2 -->
+          <div class="glass-card rounded-3xl p-6 border border-white/10 hover-tilt space-y-3">
+            <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 text-indigo-400 text-2xl flex items-center justify-center font-bold">
+              🖱️
+            </div>
+            <h3 class="text-lg font-bold text-white">2. 마우스 클릭 &amp; 키보드 발사</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              마우스로 직접 4개 보기를 클릭해도 되고, 키보드 번호 <kbd class="px-1.5 py-0.5 rounded bg-white/10 text-white font-mono">1</kbd> <kbd class="px-1.5 py-0.5 rounded bg-white/10 text-white font-mono">2</kbd> <kbd class="px-1.5 py-0.5 rounded bg-white/10 text-white font-mono">3</kbd> <kbd class="px-1.5 py-0.5 rounded bg-white/10 text-white font-mono">4</kbd>를 누르면 즉시 화살이 발사됩니다.
+            </p>
+            <div class="text-[11px] text-indigo-400 font-mono bg-indigo-950/30 p-2.5 rounded-xl border border-indigo-500/20">
+              ⚡ 키보드를 쓰면 2배 빠르게 격퇴 가능!
+            </div>
+          </div>
+
+          <!-- 룰 3 -->
+          <div class="glass-card rounded-3xl p-6 border border-white/10 hover-tilt space-y-3">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 text-2xl flex items-center justify-center font-bold">
+              🔥
+            </div>
+            <h3 class="text-lg font-bold text-white">3. 연속 콤보 &amp; 피버 스코어</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              틀리지 않고 연속으로 맞히면 <strong>3 Combo, 5 Combo</strong>가 터지며 보너스 점수를 획득합니다. 웨이브를 클리어하면 대량의 EXP를 받습니다.
+            </p>
+            <div class="text-[11px] text-amber-400 font-mono bg-amber-950/30 p-2.5 rounded-xl border border-amber-500/20">
+              🏆 반 친구들과 랭킹 1위 도전!
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center pt-2">
+          <button onclick="nextSlide()" class="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black text-sm transition transform hover:scale-105 shadow-lg shadow-emerald-500/30 inline-flex items-center gap-2">
+            <span>다음 슬라이드에서 직접 10초 미니 게임 체험해보기</span>
+            <i class="fa-solid fa-gamepad"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 05: [인터랙티브 실습] 슬라이드에서 직접 해보는 좀비 디펜스 미니 맛보기 -->
+    <section class="slide-card" data-index="5">
+      <div class="max-w-4xl w-full space-y-4">
+        <div class="text-center space-y-1">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">INTERACTIVE MINI-DEMO</span>
+          <h2 class="text-2xl sm:text-4xl font-black text-white">
+            🎮 슬라이드에서 직접 해보는 <span class="neon-text-emerald">좀비 디펜스 맛보기</span>
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300">
+            실제 앱과 동일한 4지선다 디펜스 엔진입니다. <strong>한국어 뜻</strong>을 보고 아래 4개 버튼 중 정답을 클릭해보세요!
+          </p>
+        </div>
+
+        <!-- 미니 디펜스 아레나 박스 -->
+        <div class="glass-card rounded-3xl p-6 border border-emerald-500/30 shadow-2xl relative overflow-hidden bg-slate-950/80">
+          
+          <!-- 아레나 상단 상태표시바 -->
+          <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-4 text-xs font-bold">
+            <div class="flex items-center gap-3">
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-mono">WAVE 1</span>
+              <span class="text-slate-300">스코어: <strong id="miniScore" class="text-amber-400 font-mono text-sm">0</strong>점</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-slate-400">성벽 체력:</span>
+              <div class="w-24 h-2.5 rounded-full bg-slate-800 overflow-hidden border border-white/10">
+                <div id="miniHpBar" class="h-full bg-emerald-500 transition-all duration-300" style="width: 100%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 좀비 접근 필드 -->
+          <div id="miniArenaField" class="relative h-44 rounded-2xl bg-gradient-to-b from-slate-900 to-indigo-950/60 border border-white/10 flex items-center justify-center overflow-hidden">
+            
+            <!-- 좀비 오브젝트 -->
+            <div id="miniZombie" class="zombie-wobble flex flex-col items-center transition-all duration-500">
+              <div class="text-5xl drop-shadow-[0_0_15px_rgba(52,211,153,0.8)]">🧟</div>
+              <div class="mt-2 px-4 py-1.5 rounded-xl bg-red-600/90 text-white font-black text-sm shadow-lg border border-red-400 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-yellow-300 animate-ping"></span>
+                <span id="miniTargetMeaning">도착하다</span>
+              </div>
+            </div>
+
+            <!-- 타격/폭발 이펙트 레이어 -->
+            <div id="miniHitEffect" class="absolute inset-0 pointer-events-none hidden items-center justify-center bg-emerald-500/20 backdrop-blur-xs transition">
+              <div class="text-3xl font-black text-emerald-300 animate-bounce">💥 정답! HIT! (+100점)</div>
+            </div>
+
+            <!-- 성벽 라인 (하단) -->
+            <div class="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-500 shadow-md"></div>
+          </div>
+
+          <!-- 4지선다 선택지 버튼 그리드 -->
+          <div class="pt-4 space-y-2">
+            <div class="text-xs text-slate-400 font-semibold flex items-center justify-between">
+              <span>클릭하거나 키보드 [1, 2, 3, 4]를 누르세요:</span>
+              <span id="miniFeedbackMsg" class="font-bold text-indigo-300">정답을 골라 좀비를 물리쳐보세요!</span>
+            </div>
+
+            <div id="miniChoicesGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              <button onclick="checkMiniChoice(0)" class="mini-choice-btn p-3.5 rounded-xl bg-slate-800/90 hover:bg-indigo-600 border border-white/10 hover:border-indigo-400 text-white font-mono font-bold text-sm transition transform active:scale-95 flex items-center justify-center gap-2">
+                <span class="w-5 h-5 rounded-md bg-white/10 text-[11px] flex items-center justify-center">1</span>
+                <span class="choice-text">prepare</span>
+              </button>
+              <button onclick="checkMiniChoice(1)" class="mini-choice-btn p-3.5 rounded-xl bg-slate-800/90 hover:bg-indigo-600 border border-white/10 hover:border-indigo-400 text-white font-mono font-bold text-sm transition transform active:scale-95 flex items-center justify-center gap-2">
+                <span class="w-5 h-5 rounded-md bg-white/10 text-[11px] flex items-center justify-center">2</span>
+                <span class="choice-text">arrive</span>
+              </button>
+              <button onclick="checkMiniChoice(2)" class="mini-choice-btn p-3.5 rounded-xl bg-slate-800/90 hover:bg-indigo-600 border border-white/10 hover:border-indigo-400 text-white font-mono font-bold text-sm transition transform active:scale-95 flex items-center justify-center gap-2">
+                <span class="w-5 h-5 rounded-md bg-white/10 text-[11px] flex items-center justify-center">3</span>
+                <span class="choice-text">decide</span>
+              </button>
+              <button onclick="checkMiniChoice(3)" class="mini-choice-btn p-3.5 rounded-xl bg-slate-800/90 hover:bg-indigo-600 border border-white/10 hover:border-indigo-400 text-white font-mono font-bold text-sm transition transform active:scale-95 flex items-center justify-center gap-2">
+                <span class="w-5 h-5 rounded-md bg-white/10 text-[11px] flex items-center justify-center">4</span>
+                <span class="choice-text">achieve</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-xs text-center text-slate-400">
+          💡 실제 Voca9 본 앱에서는 연속 콤보 배수, 긴급 피버 타임, 랭킹 리더보드가 지원됩니다!
+        </p>
+      </div>
+    </section>
+
+    <!-- SLIDE 06: STEP 3. 🤖 AI 4대 암기 비법 -->
+    <section class="slide-card" data-index="6">
+      <div class="max-w-5xl w-full space-y-6">
+        <div class="text-center space-y-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-bold">
+            <span>STEP 03</span>
+            <span>·</span>
+            <span>장기 기억 전환 테크놀로지</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-black text-white">
+            🤖 <span class="neon-text-indigo">AI 4대 암기 비법</span> 탭
+          </h2>
+          <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto">
+            단어 뜻만 달달 외우면 3일 만에 까먹습니다. AI가 단어마다 4가지 다각도 기억 회로를 설계해 드립니다.
+          </p>
+        </div>
+
+        <!-- 4대 비법 탭 선택기 -->
+        <div class="flex items-center justify-center gap-2 overflow-x-auto p-1.5 bg-black/40 rounded-2xl max-w-2xl mx-auto border border-white/10">
+          <button onclick="switchAiTab('etymology')" class="ai-method-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 text-white transition" data-method="etymology">
+            🧩 어원 분석
+          </button>
+          <button onclick="switchAiTab('mnemonics')" class="ai-method-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-400 hover:text-white transition" data-method="mnemonics">
+            😂 연상 기억법
+          </button>
+          <button onclick="switchAiTab('context')" class="ai-method-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-400 hover:text-white transition" data-method="context">
+            📖 문맥 스토리
+          </button>
+          <button onclick="switchAiTab('riddle')" class="ai-method-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-400 hover:text-white transition" data-method="riddle">
+            ❓ 소크라테스 수무고개
+          </button>
+        </div>
+
+        <!-- 선택된 비법 쇼케이스 카드 -->
+        <div class="glass-card rounded-3xl p-6 sm:p-8 border border-white/10 max-w-3xl mx-auto shadow-xl">
+          <div id="aiShowcaseContent">
+            <!-- 어원 분석 기본 표시 -->
+            <div class="space-y-4">
+              <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                <span class="text-xs font-bold px-3 py-1 rounded-md bg-indigo-500/20 text-indigo-300">단어: renew [rɪˈnuː]</span>
+                <span class="text-xs text-slate-400">어원 분해 공식</span>
+              </div>
+              <div class="text-2xl font-black text-white font-mono">
+                <span class="text-indigo-400">re-</span> (다시, 반복) + <span class="text-emerald-400">new</span> (새로운)
+              </div>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                "낡은 것을 버리고 <strong>다시(re-) 새롭게(new)</strong> 만들다 ➔ <strong>갱신하다, 재개하다</strong>"
+              </p>
+              <div class="bg-indigo-950/40 rounded-xl p-3 border border-indigo-500/20 text-xs text-indigo-300">
+                💡 <strong>효과:</strong> 어근 하나만 익히면 recover, rebuild, rewrite 등 10개 이상의 파생어를 1초 만에 유추할 수 있습니다.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center text-xs text-slate-400">
+          앱의 [🤖 AI 4대 암기비법] 메뉴에서 1,800개 전 단어의 비법 카드를 열람할 수 있습니다.
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 07: STEP 4. 🧠 뇌과학 4단계 맞춤 학습 루틴 -->
+    <section class="slide-card" data-index="7">
+      <div class="max-w-5xl w-full space-y-6">
+        <div class="text-center space-y-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/30 text-xs font-bold">
+            <span>STEP 04</span>
+            <span>·</span>
+            <span>인지 뇌과학 인출 훈련</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-black text-white">
+            🧠 <span class="neon-text-indigo">4단계 학습</span> 루틴
+          </h2>
+          <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto">
+            눈으로만 읽는 가짜 공부는 멈추세요! 4감각(눈, 인지, 손, 귀)을 모두 자극하는 완전 인출 프로세스입니다.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+          <!-- 1단계: 플래시카드 -->
+          <div class="glass-card rounded-2xl p-5 border-t-4 border-t-blue-400 space-y-2 hover-tilt">
+            <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-xs">1단계</div>
+            <h3 class="text-base font-bold text-white">플래시카드 (눈)</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              앞면의 영어 철자와 발음 기호를 본 뒤 뒤집어 뜻을 확인하는 시각적 각인 단계.
+            </p>
+            <div class="pt-2">
+              <button onclick="testTTS('courage')" class="px-2.5 py-1 rounded bg-white/10 hover:bg-white/20 text-xs text-blue-300 flex items-center gap-1">
+                <i class="fa-solid fa-volume-high"></i> 발음 듣기
+              </button>
+            </div>
+          </div>
+
+          <!-- 2단계: 객관식 -->
+          <div class="glass-card rounded-2xl p-5 border-t-4 border-t-emerald-400 space-y-2 hover-tilt">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-xs">2단계</div>
+            <h3 class="text-base font-bold text-white">4지선다 (인지)</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              4개의 보기 중 올바른 뜻을 즉각적으로 골라내는 빠른 회상 인출 훈련.
+            </p>
+            <div class="pt-2">
+              <span class="text-[11px] text-emerald-400 font-bold">오답 시 즉시 재도전</span>
+            </div>
+          </div>
+
+          <!-- 3단계: 타이핑 -->
+          <div class="glass-card rounded-2xl p-5 border-t-4 border-t-purple-400 space-y-2 hover-tilt">
+            <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 font-bold flex items-center justify-center text-xs">3단계</div>
+            <h3 class="text-base font-bold text-white">스펠링 타이핑 (손)</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              키보드로 철자를 직접 타이핑하며 손가락 근육 기억(Muscle Memory)에 입력.
+            </p>
+            <div class="pt-2">
+              <span class="text-[11px] text-purple-400 font-bold">서술형 내신 완벽 대비</span>
+            </div>
+          </div>
+
+          <!-- 4단계: 리스닝 -->
+          <div class="glass-card rounded-2xl p-5 border-t-4 border-t-amber-400 space-y-2 hover-tilt">
+            <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center text-xs">4단계</div>
+            <h3 class="text-base font-bold text-white">리스닝 퀴즈 (귀)</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              글자 없이 원어민 음성만 듣고 단어를 맞히는 듣기평가 훈련.
+            </p>
+            <div class="pt-2">
+              <button onclick="testTTS('atmosphere')" class="px-2.5 py-1 rounded bg-white/10 hover:bg-white/20 text-xs text-amber-300 flex items-center gap-1">
+                <i class="fa-solid fa-volume-high"></i> 발음 듣기
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs sm:text-sm text-center text-slate-300">
+          💡 <strong>에빙하우스 망각곡선 방어:</strong> 이 4단계를 거치면 하루 뒤 망각률이 80%에서 15% 이하로 급감합니다!
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 08: STEP 5. 📚 9레벨 단어장 & 나만의 오답노트 -->
+    <section class="slide-card" data-index="8">
+      <div class="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-6 space-y-5">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold">
+            <span>STEP 05</span>
+            <span>·</span>
+            <span>나만의 맞춤 어휘 사전</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-black text-white leading-tight">
+            📚 1,800단어 검색 &amp;<br>
+            <span class="neon-text-amber">나만의 오답노트 보관함</span>
+          </h2>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            언제든 레벨별, 알파벳순으로 단어를 열람하고, 헷갈리는 단어는 원클릭으로 내 보관함에 담을 수 있습니다.
+          </p>
+
+          <div class="space-y-3 text-xs sm:text-sm">
+            <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
+              <span class="text-xl">⭐</span>
+              <div>
+                <strong class="text-white block">즐겨찾기 별표 클릭</strong>
+                <span class="text-slate-400">별표를 누르면 '나만의 단어장'에 모여 시험 직전에 빠르게 훑어볼 수 있습니다.</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
+              <span class="text-xl">🔊</span>
+              <div>
+                <strong class="text-white block">전 단어 원어민 미국식 발음</strong>
+                <span class="text-slate-400">스피커 아이콘을 누르면 1,800개 전 단어를 원어민 발음으로 무제한 청취합니다.</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
+              <span class="text-xl">⚠️</span>
+              <div>
+                <strong class="text-white block">오답 단어 자동 누적</strong>
+                <span class="text-slate-400">게임이나 퀴즈에서 틀린 단어는 오답 카운트가 기록되어 재학습을 유도합니다.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6">
+          <div class="glass-card rounded-3xl p-6 border border-white/15 shadow-xl space-y-4">
+            <div class="flex items-center justify-between text-xs font-bold border-b border-white/10 pb-3">
+              <span class="text-indigo-400">Level 5 단어장 뷰어 미리보기</span>
+              <span class="text-slate-400">총 200 단어 수록</span>
+            </div>
+
+            <!-- 단어 카드 목업 리스트 -->
+            <div class="space-y-2">
+              <div class="p-3.5 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between hover:bg-white/10 transition">
+                <div class="flex items-center gap-3">
+                  <span class="text-amber-400 text-base">★</span>
+                  <div>
+                    <div class="font-bold font-mono text-sm text-white">atmosphere</div>
+                    <div class="text-xs text-slate-400">대기, 분위기 · [ˈætməsfɪr]</div>
+                  </div>
+                </div>
+                <button onclick="testTTS('atmosphere')" class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center hover:bg-indigo-500 hover:text-white transition">
+                  <i class="fa-solid fa-volume-high text-xs"></i>
+                </button>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between hover:bg-white/10 transition">
+                <div class="flex items-center gap-3">
+                  <span class="text-slate-500 text-base">☆</span>
+                  <div>
+                    <div class="font-bold font-mono text-sm text-white">convenient</div>
+                    <div class="text-xs text-slate-400">편리한, 알맞은 · [kənˈviːniənt]</div>
+                  </div>
+                </div>
+                <button onclick="testTTS('convenient')" class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center hover:bg-indigo-500 hover:text-white transition">
+                  <i class="fa-solid fa-volume-high text-xs"></i>
+                </button>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between hover:bg-white/10 transition">
+                <div class="flex items-center gap-3">
+                  <span class="text-amber-400 text-base">★</span>
+                  <div>
+                    <div class="font-bold font-mono text-sm text-white">investigate</div>
+                    <div class="text-xs text-slate-400">조사하다, 연구하다 · [ɪnˈvestɪɡeɪt]</div>
+                  </div>
+                </div>
+                <button onclick="testTTS('investigate')" class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center hover:bg-indigo-500 hover:text-white transition">
+                  <i class="fa-solid fa-volume-high text-xs"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="text-center pt-1">
+              <span class="text-xs text-indigo-300 font-semibold">🔍 검색창에 한글이나 영단어를 치면 실시간 필터링!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 09: STEP 6. 📅 매일 15분 학습 플래너 & 게이미피케이션 -->
+    <section class="slide-card" data-index="9">
+      <div class="max-w-5xl w-full space-y-6">
+        <div class="text-center space-y-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30 text-xs font-bold">
+            <span>STEP 06</span>
+            <span>·</span>
+            <span>작심삼일 탈출 습관 형성</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-black text-white">
+            📅 매일 15분 <span class="neon-text-indigo">학습 플래너 &amp; 뱃지</span>
+          </h2>
+          <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto">
+            벼락치기 공부는 이제 그만! 매일 15분, 20단어씩 꾸준히 정복하면 90일 만에 1,800단어를 완전 정복합니다.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pt-3">
+          <div class="glass-card rounded-3xl p-6 border border-white/10 hover-tilt text-center space-y-3">
+            <div class="text-4xl">⏱️</div>
+            <h3 class="text-lg font-bold text-white">하루 15분 목표치</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              매일 추천 20단어가 배달됩니다. 등하굣길 버스 안, 잠들기 전 15분이면 충분합니다.
+            </p>
+            <div class="bg-blue-950/40 rounded-xl p-3 text-xs text-blue-300 font-mono font-bold">
+              20단어 × 90일 = 1,800 완성!
+            </div>
+          </div>
+
+          <div class="glass-card rounded-3xl p-6 border border-white/10 hover-tilt text-center space-y-3">
+            <div class="text-4xl">🔥</div>
+            <h3 class="text-lg font-bold text-white">연속 출석 스트릭</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              연속으로 접속하여 목표를 달성할 때마다 불꽃(Streak)이 타오르며 추가 보너스 EXP를 획득합니다.
+            </p>
+            <div class="bg-amber-950/40 rounded-xl p-3 text-xs text-amber-300 font-mono font-bold">
+              7일 연속 출석 ➔ 레어 뱃지 획득!
+            </div>
+          </div>
+
+          <div class="glass-card rounded-3xl p-6 border border-white/10 hover-tilt text-center space-y-3">
+            <div class="text-4xl">🎖️</div>
+            <h3 class="text-lg font-bold text-white">레벨업 승급 심사</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              해당 레벨의 단어 암기율이 85%를 넘어서면 다음 상위 레벨로 자동 승급되어 성취감을 만끽합니다.
+            </p>
+            <div class="bg-emerald-950/40 rounded-xl p-3 text-xs text-emerald-300 font-mono font-bold">
+              Lv.1 비기너 ➔ Lv.9 마스터!
+            </div>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-indigo-950/50 border border-indigo-500/30 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm">
+          <div class="flex items-center gap-3 text-slate-200">
+            <span class="text-2xl">👩‍🏫</span>
+            <span><strong>선생님 전용 관리자 모드:</strong> 우리 반 학생들의 일일 진도율과 취약 단어를 한눈에 모니터링할 수 있습니다.</span>
+          </div>
+          <span class="px-3 py-1.5 rounded-lg bg-indigo-600 text-white font-bold shrink-0">학교·학원 단체 실습 최적화</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: 결론 & 지금 바로 시작하기! -->
+    <section class="slide-card" data-index="10">
+      <div class="max-w-4xl w-full text-center space-y-8 animate-float">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-pill text-xs sm:text-sm font-bold text-emerald-300 border border-emerald-500/30">
+          <span>🚀 READY TO START</span>
+          <span>·</span>
+          <span>이제 여러분의 차례입니다!</span>
+        </div>
+
+        <div class="space-y-4">
+          <h2 class="text-4xl sm:text-6xl font-black text-white leading-tight">
+            지금 바로 <span class="neon-text-indigo">Voca9 영단어 앱</span>으로<br>
+            좀비들을 무찌르러 가볼까요?
+          </h2>
+          <p class="text-sm sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            게임을 즐기다 보면 어느새 중학교 1,800 영단어가 내 뇌에 장기 기억으로 각인됩니다.
+          </p>
+        </div>
+
+        <!-- 3대 실습 퀵가이드 요약 -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto text-left">
+          <div class="glass-card rounded-2xl p-4 border border-white/10">
+            <div class="text-xs font-bold text-indigo-400 mb-1">1단계</div>
+            <div class="text-sm font-bold text-white mb-1">진단 테스트 응시</div>
+            <div class="text-xs text-slate-400">9문항으로 내 실력에 딱 맞는 레벨 확인</div>
+          </div>
+          <div class="glass-card rounded-2xl p-4 border border-white/10">
+            <div class="text-xs font-bold text-emerald-400 mb-1">2단계</div>
+            <div class="text-sm font-bold text-white mb-1">좀비 디펜스 1웨이브</div>
+            <div class="text-xs text-slate-400">4지선다 키보드로 번개 격퇴 연습</div>
+          </div>
+          <div class="glass-card rounded-2xl p-4 border border-white/10">
+            <div class="text-xs font-bold text-amber-400 mb-1">3단계</div>
+            <div class="text-sm font-bold text-white mb-1">AI 4대 암기비법 열람</div>
+            <div class="text-xs text-slate-400">헷갈리는 단어는 어원·수무고개 확인</div>
+          </div>
+        </div>
+
+        <!-- 액션 버튼들 -->
+        <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
+          <a href="/study/?subject=zombie" target="_blank" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-slate-950 font-black text-base shadow-xl shadow-emerald-500/30 flex items-center gap-2.5 transition transform hover:scale-105">
+            <span>🎮 Voca9 영단어 앱 바로 실행하기</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+          <button onclick="goToSlide(1)" class="px-6 py-4 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm transition flex items-center gap-2">
+            <i class="fa-solid fa-rotate-left"></i>
+            <span>슬라이드 처음으로 복귀</span>
+          </button>
+        </div>
+
+        <div class="pt-4 text-xs text-slate-400 flex items-center justify-center gap-6">
+          <span>📐 2탄: 소크라테스 수학 슬라이드 (준비중)</span>
+          <span>·</span>
+          <span>🔬 3탄: AI 사이언스 랩 슬라이드 (준비중)</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 하단 플로팅 네비게이션 독 -->
+  <footer class="absolute bottom-5 left-1/2 -translate-x-1/2 z-30 flex items-center gap-3 px-5 py-2.5 rounded-2xl glass-dock">
+    <button onclick="prevSlide()" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition active:scale-90" title="이전 슬라이드 (←)">
+      <i class="fa-solid fa-chevron-left text-xs"></i>
+    </button>
+
+    <!-- 슬라이드 카운터 인디케이터 -->
+    <div class="flex items-center gap-2 px-3 py-1 rounded-lg bg-black/40 border border-white/10 font-mono text-xs">
+      <span id="currentSlideNum" class="font-black text-indigo-400 text-sm">01</span>
+      <span class="text-slate-500">/</span>
+      <span id="totalSlideNum" class="text-slate-400">10</span>
+    </div>
+
+    <button onclick="nextSlide()" class="w-9 h-9 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white flex items-center justify-center transition active:scale-90 shadow-lg shadow-indigo-500/30" title="다음 슬라이드 (→, Space)">
+      <i class="fa-solid fa-chevron-right text-xs"></i>
+    </button>
+
+    <div class="w-px h-5 bg-white/15 mx-1"></div>
+
+    <!-- 슬라이드 전체 목록 모달 토글 버튼 -->
+    <button onclick="toggleGridModal()" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center transition" title="전체 슬라이드 보기 (G)">
+      <i class="fa-solid fa-grid-2 text-xs"></i>
+    </button>
+  </footer>
+
+  <!-- 슬라이드 전체보기 그리드 모달 -->
+  <div id="gridModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl hidden flex-col justify-center items-center p-6 transition-all">
+    <div class="max-w-4xl w-full flex items-center justify-between pb-6 border-b border-white/10 mb-6">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl">📋</span>
+        <div>
+          <h3 class="text-lg font-bold text-white">전체 슬라이드 바로가기</h3>
+          <p class="text-xs text-slate-400">이동하고 싶은 슬라이드를 클릭하세요 (단축키: G로 닫기)</p>
+        </div>
+      </div>
+      <button onclick="toggleGridModal()" class="w-8 h-8 rounded-full bg-white/10 text-slate-300 hover:text-white flex items-center justify-center">
+        ✕
+      </button>
+    </div>
+
+    <!-- 10개 슬라이드 그리드 카드들 -->
+    <div class="max-w-4xl w-full grid grid-cols-2 sm:grid-cols-5 gap-3 overflow-y-auto max-h-[70vh] p-2">
+      <button onclick="goToSlide(1); toggleGridModal();" class="p-4 rounded-xl bg-white/5 hover:bg-indigo-600/30 border border-white/10 hover:border-indigo-400 text-left transition space-y-1">
+        <span class="text-[10px] font-mono text-indigo-400 block font-bold">01 SLIDE</span>
+        <span class="text-xs font-bold text-white block truncate">인트로 &amp; 환영</span>
+      </button>
+      <button onclick="goToSlide(2); toggleGridModal();" class="p-4 rounded-xl bg-white/5 hover:bg-indigo-600/30 border border-white/10 hover:border-indigo-400 text-left transition space-y-1">
+        <span class="text-[10px] font-mono text-indigo-400 block font-bold">02 SLIDE</span>
+        <span class="text-xs font-bold text-white block truncate">왜 1,800단어인가?</span>
+      </button>
+      <button onclick="goToSlide(3); toggleGridModal();" class="p-4 rounded-xl bg-white/5 hover:bg-indigo-600/30 border border-white/10 hover:border-indigo-400 text-left transition space-y-1">
+        <span class="text-[10px] font-mono text-indigo-400 block font-bold">03 SLIDE</span>
+        <span class="text-xs font-bold text-white block truncate">STEP 1. 진단테스트</span>
+      </button>
+      <button onclick="goToSlide(4); toggleGridModal();" class="p-4 rounded-xl bg-white/5 hover:bg-indigo-600/30 border border-white/10 hover:border-indigo-400 text-left transition space-y-1">
+        <span class="text-[10px] font-mono text-indigo-400 block font-bold">04 SLIDE</span>
+        <span class="text-xs font-bold text-white block truncate">STEP 2. 좀비디펜스</span>
+      </button>
+      <button onclick="goToSlide(5); toggleGridModal();" class="p-4 rounded-xl bg-emerald-950/40 hover:bg-emerald-600/30 border border-emerald-500/30 text-left transition space-y-1">
+        <span class="text-[10px] font-mono text-emerald-400 block font-bold">05 SLIDE (실습)</span>
+        <span class="text-xs font-bold text-emerald-300 block truncate">🎮 미니 디펜스 체험</span>
+      </button>
+      <button onclick="goToSlide(6); toggleGridModal();" class="p-4 rounded-xl bg-white/5 hover:bg-indigo-600/30 border border-white/10 hover:border-indigo-400 text-left transition space-y-1">
+        <span class="text-[10px] font-mono text-indigo-400 block font-bold">06 SLIDE</span>
+        <span class="text-xs font-bold text-white block truncate">STEP 3. AI 4대 암기비법</span>
+      </button>
+      <button onclick="goToSlide(7); toggleGridModal();" class="p-4 rounded-xl bg-white/5 hover:bg-indigo-600/30 border border-white/10 hover:border-indigo-400 text-left transition space-y-1">
+        <span class="text-[10px] font-mono text-indigo-400 block font-bold">07 SLIDE</span>
+        <span class="text-xs font-bold text-white block truncate">STEP 4. 4단계 학습루틴</span>
+      </button>
+      <button onclick="goToSlide(8); toggleGridModal();" class="p-4 rounded-xl bg-white/5 hover:bg-indigo-600/30 border border-white/10 hover:border-indigo-400 text-left transition space-y-1">
+        <span class="text-[10px] font-mono text-indigo-400 block font-bold">08 SLIDE</span>
+        <span class="text-xs font-bold text-white block truncate">STEP 5. 9레벨 단어장</span>
+      </button>
+      <button onclick="goToSlide(9); toggleGridModal();" class="p-4 rounded-xl bg-white/5 hover:bg-indigo-600/30 border border-white/10 hover:border-indigo-400 text-left transition space-y-1">
+        <span class="text-[10px] font-mono text-indigo-400 block font-bold">09 SLIDE</span>
+        <span class="text-xs font-bold text-white block truncate">STEP 6. 일일 플래너</span>
+      </button>
+      <button onclick="goToSlide(10); toggleGridModal();" class="p-4 rounded-xl bg-white/5 hover:bg-indigo-600/30 border border-white/10 hover:border-indigo-400 text-left transition space-y-1">
+        <span class="text-[10px] font-mono text-indigo-400 block font-bold">10 SLIDE</span>
+        <span class="text-xs font-bold text-white block truncate">결론 &amp; 실습 시작</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 슬라이드 핵심 인터랙션 엔진 스크립트 -->
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 10;
+    let soundEnabled = true;
+
+    // 사운드 합성기 (Web Audio API)
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function initAudio() {
+      if (!audioCtx) audioCtx = new AudioContext();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
+
+    function playSound(type) {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+        if (type === 'slide') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(420, now);
+          osc.frequency.exponentialRampToValueAtTime(780, now + 0.12);
+          gain.gain.setValueAtTime(0.06, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+          osc.start(now);
+          osc.stop(now + 0.12);
+        } else if (type === 'correct') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(523.25, now); // C5
+          osc.frequency.setValueAtTime(659.25, now + 0.08); // E5
+          osc.frequency.setValueAtTime(783.99, now + 0.16); // G5
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          osc.start(now);
+          osc.stop(now + 0.35);
+        } else if (type === 'wrong') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.linearRampToValueAtTime(140, now + 0.2);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+          osc.start(now);
+          osc.stop(now + 0.2);
+        }
+      } catch (e) {
+        // audio context blocked or unsupported
+      }
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const icon = document.getElementById('soundIcon');
+      const label = document.getElementById('soundLabel');
+      if (soundEnabled) {
+        icon.className = 'fa-solid fa-volume-high text-indigo-400';
+        label.textContent = '사운드 ON';
+        playSound('slide');
+      } else {
+        icon.className = 'fa-solid fa-volume-xmark text-slate-500';
+        label.textContent = '사운드 OFF';
+      }
+    }
+
+    // Web Speech API 원어민 발음 테스트
+    function testTTS(word) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(word);
+      utter.lang = 'en-US';
+      utter.rate = 0.9;
+      window.speechSynthesis.speak(utter);
+    }
+
+    // 슬라이드 전환 로직
+    function updateSlideUI() {
+      const slides = document.querySelectorAll('.slide-card');
+      slides.forEach(slide => {
+        const idx = parseInt(slide.getAttribute('data-index'));
+        slide.classList.remove('active', 'prev');
+        if (idx === currentSlide) {
+          slide.classList.add('active');
+        } else if (idx < currentSlide) {
+          slide.classList.add('prev');
+        }
+      });
+
+      // 프로그레스 바 & 카운터
+      const percent = (currentSlide / totalSlides) * 100;
+      document.getElementById('progressBar').style.width = percent + '%';
+      document.getElementById('currentSlideNum').textContent = String(currentSlide).padStart(2, '0');
+    }
+
+    function goToSlide(n) {
+      if (n < 1) n = 1;
+      if (n > totalSlides) n = totalSlides;
+      if (currentSlide !== n) {
+        currentSlide = n;
+        playSound('slide');
+        updateSlideUI();
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        goToSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        goToSlide(currentSlide - 1);
+      }
+    }
+
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    function toggleGridModal() {
+      const modal = document.getElementById('gridModal');
+      modal.classList.toggle('hidden');
+      modal.classList.toggle('flex');
+    }
+
+    // 키보드 네비게이션 지원
+    window.addEventListener('keydown', (e) => {
+      if (document.getElementById('gridModal').classList.contains('flex')) {
+        if (e.key === 'Escape' || e.key.toLowerCase() === 'g') toggleGridModal();
+        return;
+      }
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        goToSlide(1);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        goToSlide(totalSlides);
+      } else if (e.key.toLowerCase() === 'f') {
+        toggleFullScreen();
+      } else if (e.key.toLowerCase() === 'g') {
+        toggleGridModal();
+      } else if (currentSlide === 5 && ['1', '2', '3', '4'].includes(e.key)) {
+        // 슬라이드 5번 미니 디펜스 단축키
+        checkMiniChoice(parseInt(e.key) - 1);
+      }
+    });
+
+    // 모바일 터치 스와이프 제스처 지원
+    let touchStartX = 0;
+    let touchStartY = 0;
+    window.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    window.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].screenX;
+      const touchEndY = e.changedTouches[0].screenY;
+      const diffX = touchEndX - touchStartX;
+      const diffY = touchEndY - touchStartY;
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+        if (diffX < 0) nextSlide();
+        else prevSlide();
+      }
+    }, { passive: true });
+
+    // SLIDE 05: 미니 좀비 디펜스 대화형 위젯 스크립트
+    const miniQuizList = [
+      {
+        meaning: '도착하다',
+        choices: ['prepare', 'arrive', 'decide', 'achieve'],
+        correctIndex: 1
+      },
+      {
+        meaning: '영향을 미치다',
+        choices: ['influence', 'explore', 'survive', 'promise'],
+        correctIndex: 0
+      },
+      {
+        meaning: '지속 가능한',
+        choices: ['convenient', 'temporary', 'sustainable', 'essential'],
+        correctIndex: 2
+      }
+    ];
+
+    let miniCurrentIndex = 0;
+    let miniScore = 0;
+
+    function checkMiniChoice(selectedIndex) {
+      const q = miniQuizList[miniCurrentIndex];
+      const feedback = document.getElementById('miniFeedbackMsg');
+      const hitEffect = document.getElementById('miniHitEffect');
+      const zombie = document.getElementById('miniZombie');
+
+      if (selectedIndex === q.correctIndex) {
+        playSound('correct');
+        miniScore += 100;
+        document.getElementById('miniScore').textContent = miniScore;
+        feedback.innerHTML = `<span class="text-emerald-400 font-bold">🎯 정답! +100점 획득!</span>`;
+
+        // 타격 연출
+        hitEffect.classList.remove('hidden');
+        hitEffect.classList.add('flex');
+        zombie.style.transform = 'scale(0.8) translateY(-20px) rotate(15deg)';
+        zombie.style.opacity = '0.3';
+
+        setTimeout(() => {
+          hitEffect.classList.add('hidden');
+          hitEffect.classList.remove('flex');
+          zombie.style.transform = 'none';
+          zombie.style.opacity = '1';
+
+          // 다음 문제로 전환
+          miniCurrentIndex = (miniCurrentIndex + 1) % miniQuizList.length;
+          const nextQ = miniQuizList[miniCurrentIndex];
+          document.getElementById('miniTargetMeaning').textContent = nextQ.meaning;
+          
+          const choiceBtns = document.querySelectorAll('#miniChoicesGrid .choice-text');
+          nextQ.choices.forEach((c, idx) => {
+            if (choiceBtns[idx]) choiceBtns[idx].textContent = c;
+          });
+          feedback.textContent = `다음 좀비 출현! [${nextQ.meaning}]의 단어를 고르세요.`;
+        }, 800);
+      } else {
+        playSound('wrong');
+        feedback.innerHTML = `<span class="text-red-400 font-bold">❌ 빗맞았습니다! 다시 골라보세요!</span>`;
+        zombie.style.transform = 'translateX(10px)';
+        setTimeout(() => { zombie.style.transform = 'none'; }, 200);
+      }
+    }
+
+    // SLIDE 06: AI 4대 암기 비법 탭 쇼케이스 스크립트
+    const aiShowcaseData = {
+      etymology: `
+        <div class="space-y-4">
+          <div class="flex items-center justify-between border-b border-white/10 pb-3">
+            <span class="text-xs font-bold px-3 py-1 rounded-md bg-indigo-500/20 text-indigo-300">단어: renew [rɪˈnuː]</span>
+            <span class="text-xs text-slate-400">어원 분해 공식</span>
+          </div>
+          <div class="text-2xl font-black text-white font-mono">
+            <span class="text-indigo-400">re-</span> (다시, 반복) + <span class="text-emerald-400">new</span> (새로운)
+          </div>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            "낡은 것을 버리고 <strong>다시(re-) 새롭게(new)</strong> 만들다 ➔ <strong>갱신하다, 재개하다</strong>"
+          </p>
+          <div class="bg-indigo-950/40 rounded-xl p-3 border border-indigo-500/20 text-xs text-indigo-300">
+            💡 <strong>효과:</strong> 어근 하나만 익히면 recover, rebuild, rewrite 등 10개 이상의 파생어를 1초 만에 유추할 수 있습니다.
+          </div>
+        </div>
+      `,
+      mnemonics: `
+        <div class="space-y-4">
+          <div class="flex items-center justify-between border-b border-white/10 pb-3">
+            <span class="text-xs font-bold px-3 py-1 rounded-md bg-emerald-500/20 text-emerald-300">단어: dessert [dɪˈzɜːrt]</span>
+            <span class="text-xs text-slate-400">연상 기억 스토리</span>
+          </div>
+          <div class="text-2xl font-black text-white">
+            "모래사막(desert)은 <strong>s가 1개</strong>, 맛있는 디저트는 <strong>s가 2개(Sweet Strawberry)!</strong>"
+          </div>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            학생들이 가장 헷갈리는 사막(desert)과 후식(dessert)을 유쾌한 말장난과 이미지로 영구 각인합니다.
+          </p>
+          <div class="bg-emerald-950/40 rounded-xl p-3 border border-emerald-500/20 text-xs text-emerald-300">
+            💡 <strong>효과:</strong> 웃긴 스토리와 발음 연상으로 뇌의 편도체를 자극하여 단기 기억을 즉각 장기 기억으로 전환합니다.
+          </div>
+        </div>
+      `,
+      context: `
+        <div class="space-y-4">
+          <div class="flex items-center justify-between border-b border-white/10 pb-3">
+            <span class="text-xs font-bold px-3 py-1 rounded-md bg-purple-500/20 text-purple-300">단어: atmosphere [ˈætməsfɪr]</span>
+            <span class="text-xs text-slate-400">3-Scene 실생활 문맥</span>
+          </div>
+          <div class="space-y-2 text-sm text-slate-200">
+            <p>1. "The earth's <strong class="text-indigo-400">atmosphere</strong> protects us from the sun." (지구 대기)</p>
+            <p>2. "The cozy café had a warm <strong class="text-indigo-400">atmosphere</strong>." (카페 분위기)</p>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            단어는 문맥 안에서 숨을 쉽니다. 교과서에 자주 출제되는 다의어 표현을 2개 문장으로 한 번에 마스터합니다.
+          </p>
+          <div class="bg-purple-950/40 rounded-xl p-3 border border-purple-500/20 text-xs text-purple-300">
+            💡 <strong>효과:</strong> 단어 뜻만 외운 학생이 독해 문제에서 막히는 현상을 100% 방지합니다.
+          </div>
+        </div>
+      `,
+      riddle: `
+        <div class="space-y-4">
+          <div class="flex items-center justify-between border-b border-white/10 pb-3">
+            <span class="text-xs font-bold px-3 py-1 rounded-md bg-amber-500/20 text-amber-300">단서 추리 퀴즈</span>
+            <span class="text-xs text-slate-400">소크라테스 수무고개</span>
+          </div>
+          <div class="space-y-1.5 text-xs text-slate-300">
+            <div>🔎 <strong>단서 1:</strong> 'c'로 시작하며 7글자로 이루어진 명사입니다.</div>
+            <div>🔎 <strong>단서 2:</strong> 두려움이나 위험에 당당히 맞서는 마음의 힘을 뜻합니다.</div>
+            <div>🔎 <strong>단서 3:</strong> "It takes great ________ to stand up to your fears."</div>
+          </div>
+          <div class="text-xl font-bold text-amber-400 font-mono">
+            정답: courage (용기)
+          </div>
+          <div class="bg-amber-950/40 rounded-xl p-3 border border-amber-500/20 text-xs text-amber-300">
+            💡 <strong>효과:</strong> 수동적 주입이 아닌 탐정처럼 단서를 조합하는 두뇌 인출 훈련!
+          </div>
+        </div>
+      `
+    };
+
+    function switchAiTab(method) {
+      playSound('slide');
+      document.querySelectorAll('.ai-method-btn').forEach(btn => {
+        if (btn.getAttribute('data-method') === method) {
+          btn.className = 'ai-method-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 text-white transition';
+        } else {
+          btn.className = 'ai-method-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-400 hover:text-white transition';
+        }
+      });
+      document.getElementById('aiShowcaseContent').innerHTML = aiShowcaseData[method] || '';
+    }
+
+    // 배경 파티클 애니메이션 캔버스 엔진
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2.2 + 0.8;
+        this.speedX = (Math.random() - 0.5) * 0.45;
+        this.speedY = (Math.random() - 0.5) * 0.45;
+        this.alpha = Math.random() * 0.6 + 0.2;
+        this.color = Math.random() > 0.5 ? '129, 140, 248' : '52, 211, 153';
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+          this.reset();
+        }
+      }
+      draw() {
+        ctx.fillStyle = `rgba(${this.color}, ${this.alpha})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 50; i++) {
+      particles.push(new Particle());
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // 초기 실행
+    updateSlideUI();
+  </script>
+</body>
+</html>

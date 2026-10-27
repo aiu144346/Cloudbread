@@ -535,9 +535,14 @@ document.addEventListener("DOMContentLoaded", () => {
                                     소크라테스 AI 유도 문답 · 게이미피케이션 인출 훈련 · 실시간 60FPS 가상실험으로 완성하는 3대 과목 대시보드
                                 </p>
                             </div>
-                            <a href="study/" target="_blank" style="background:#0F172A; color:#FFFFFF; font-weight:800; font-size:0.9rem; padding:12px 22px; border-radius:12px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; box-shadow:0 6px 18px rgba(15,23,42,0.15); transition:all 0.2s;">
-                                <i class="fa-solid fa-graduation-cap" style="color:#38BDF8;"></i> 종합 학습관 전체보기 →
-                            </a>
+                            <div style="display:flex; gap:0.6rem; align-items:center;">
+                                <a href="study/slides/" target="_blank" style="background:#4F46E5; color:#FFFFFF; font-weight:800; font-size:0.88rem; padding:11px 18px; border-radius:12px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; box-shadow:0 6px 18px rgba(79,70,229,0.25); transition:all 0.2s;">
+                                    <i class="fa-solid fa-chalkboard-user"></i> 강의 슬라이드 센터 📖
+                                </a>
+                                <a href="study/" target="_blank" style="background:#0F172A; color:#FFFFFF; font-weight:800; font-size:0.88rem; padding:11px 18px; border-radius:12px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; box-shadow:0 6px 18px rgba(15,23,42,0.15); transition:all 0.2s;">
+                                    <i class="fa-solid fa-graduation-cap" style="color:#38BDF8;"></i> 종합 학습관 전체보기 →
+                                </a>
+                            </div>
                         </div>
 
                         <!-- 3-Column Subject Cards Grid (Clean Modern White Glass Cards) -->
@@ -570,9 +575,14 @@ document.addEventListener("DOMContentLoaded", () => {
                                         </div>
                                     </div>
                                 </div>
-                                <a href="study/?subject=voca" target="_blank" style="background:#4F46E5; color:#FFFFFF; font-weight:800; font-size:0.92rem; padding:13px 18px; border-radius:12px; text-decoration:none; text-align:center; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s; box-shadow:0 4px 14px rgba(79,70,229,0.25);">
-                                    <i class="fa-solid fa-gamepad"></i> 영단어 대시보드 바로가기 →
-                                </a>
+                                <div style="display:flex; flex-direction:column; gap:8px;">
+                                    <a href="study/slides/english.html" target="_blank" style="background:#0F172A; color:#FFFFFF; font-weight:800; font-size:0.86rem; padding:10px 16px; border-radius:10px; text-decoration:none; text-align:center; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s; border:1px solid #334155;">
+                                        <i class="fa-solid fa-chalkboard-user" style="color:#A5B4FC;"></i> 학생용 활용법 슬라이드 강의 📖
+                                    </a>
+                                    <a href="study/?subject=voca" target="_blank" style="background:#4F46E5; color:#FFFFFF; font-weight:800; font-size:0.9rem; padding:11px 16px; border-radius:10px; text-decoration:none; text-align:center; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s; box-shadow:0 4px 14px rgba(79,70,229,0.25);">
+                                        <i class="fa-solid fa-gamepad"></i> 영단어 대시보드 바로가기 →
+                                    </a>
+                                </div>
                             </div>
 
                             <!-- 카드 2: 수학 (AI 수학) -->
