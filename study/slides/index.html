@@ -159,42 +159,47 @@
         </div>
       </div>
 
-      <!-- 3탄: 과학 슬라이드 (준비중) -->
-      <div class="glass-card rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-col justify-between opacity-80 hover:opacity-100 transition duration-300">
+      <!-- 3탄: 과학 슬라이드 (배포 완료) -->
+      <div class="glass-card rounded-3xl p-6 sm:p-8 border-2 border-cyan-500/50 flex flex-col justify-between hover:scale-[1.02] transition duration-300 relative group shadow-cyan-500/10 shadow-2xl">
         <div class="space-y-4">
           <div class="flex items-center justify-between">
-            <span class="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 font-extrabold text-xs border border-cyan-500/30">
-              3탄 제작 준비중
+            <span class="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 font-extrabold text-xs border border-cyan-500/30 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+              <span>3탄 배포 완료</span>
             </span>
             <span class="text-3xl">🔬</span>
           </div>
 
           <div>
-            <h3 class="text-2xl font-black text-white">
+            <h3 class="text-2xl font-black text-white group-hover:text-cyan-300 transition">
               60FPS 인터랙티브 AI 사이언스 랩
             </h3>
-            <p class="text-xs sm:text-sm text-slate-400 mt-2 leading-relaxed">
+            <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
               교과서 속 추상적인 과학 원리를 마우스 슬라이더로 직접 조작하고 60프레임 가상 실험실에서 확인하는 탐구 가이드.
             </p>
           </div>
 
-          <div class="bg-black/30 rounded-2xl p-4 border border-white/5 space-y-2 text-xs text-slate-400">
+          <div class="bg-black/30 rounded-2xl p-4 border border-white/5 space-y-2 text-xs text-slate-300">
             <div class="flex items-center justify-between">
-              <span>가상 실험실</span>
-              <span class="text-slate-300 font-bold">빛의 굴절 · 옴의 법칙 · 소화 효소</span>
+              <span>슬라이드 구성</span>
+              <strong class="text-white">총 10 슬라이드</strong>
             </div>
             <div class="flex items-center justify-between">
-              <span>실험 탐구 보고서</span>
-              <span class="text-slate-300 font-bold">AI 실험 도우미 문답</span>
+              <span>특별 기능</span>
+              <span class="text-cyan-400 font-bold">60FPS 옴의 법칙 시뮬레이터</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span>오개념 정복</span>
+              <span class="text-emerald-300 font-bold">3D 플립 카드 탑재</span>
             </div>
           </div>
         </div>
 
         <div class="pt-6">
-          <button disabled class="w-full py-3.5 rounded-xl bg-white/5 border border-white/10 text-slate-500 font-bold text-sm cursor-not-allowed flex items-center justify-center gap-2">
-            <span>3탄 과학 슬라이드 곧 공개</span>
-            <i class="fa-solid fa-lock text-xs"></i>
-          </button>
+          <a href="science.html" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-600 hover:to-teal-700 text-slate-950 font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/30 transition">
+            <span>과학 슬라이드 실행 ▶</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
         </div>
       </div>
 

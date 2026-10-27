@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AI 사이언스 랩 200% 활용 가이드 | 학생용 인터랙티브 슬라이드</title>
+  
+  <!-- Pretendard & Plus Jakarta Sans 폰트 -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS & FontAwesome -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            science: {
+              50: '#ecfeff',
+              100: '#cffafe',
+              400: '#22d3ee',
+              500: '#06b6d4',
+              600: '#0891b2',
+              700: '#0e7490',
+              800: '#155e75',
+              900: '#164e63',
+            }
+          },
+          fontFamily: {
+            sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'Pretendard', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      font-family: 'Pretendard', -apple-system, sans-serif;
+      background: #061118;
+      color: #F8FAFC;
+      overflow: hidden;
+      touch-action: pan-y;
+      letter-spacing: -0.02em;
+    }
+
+    /* 슬라이드 뷰포트 & 전환 효과 */
+    .slide-viewport {
+      perspective: 1200px;
+    }
+    .slide-card {
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                  transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0;
+      transform: translateY(24px) scale(0.97);
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      visibility: hidden;
+    }
+    .slide-card.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+      visibility: visible;
+      z-index: 10;
+    }
+    .slide-card.prev {
+      opacity: 0;
+      transform: translateY(-24px) scale(0.97);
+      visibility: hidden;
+    }
+
+    /* 글래스모피즘 효과 */
+    .glass-card {
+      background: rgba(8, 23, 34, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    }
+    .glass-pill {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .glass-dock {
+      background: rgba(6, 17, 24, 0.88);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    /* 네온 텍스트 & 그라디언트 */
+    .neon-text-cyan {
+      background: linear-gradient(135deg, #A5F3FC 0%, #38BDF8 50%, #06B6D4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .neon-text-emerald {
+      background: linear-gradient(135deg, #6EE7B7 0%, #34D399 50%, #10B981 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .neon-text-amber {
+      background: linear-gradient(135deg, #FDE68A 0%, #FBBF24 50%, #F59E0B 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* 애니메이션 */
+    @keyframes subtleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .animate-float {
+      animation: subtleFloat 4s ease-in-out infinite;
+    }
+    @keyframes pulseGlowCyan {
+      0%, 100% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.3); }
+      50% { box-shadow: 0 0 35px rgba(6, 182, 212, 0.65); }
+    }
+    .glow-cyan {
+      animation: pulseGlowCyan 3s infinite;
+    }
+
+    .hover-tilt {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .hover-tilt:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(6, 182, 212, 0.25);
+    }
+
+    /* 3D 플립 카드 */
+    .flip-card-inner {
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-style: preserve-3d;
+    }
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .flip-card-back {
+      transform: rotateY(180deg);
+    }
+  </style>
+</head>
+<body class="w-screen h-screen select-none">
+
+  <!-- 배경 캔버스: 아톰 & 분자 파티클 엔진 -->
+  <canvas id="scienceBgCanvas" class="absolute inset-0 z-0 pointer-events-none opacity-40"></canvas>
+  <div class="absolute inset-0 bg-gradient-to-t from-[#061118] via-transparent to-[#061118]/80 z-0 pointer-events-none"></div>
+
+  <!-- 상단 네비게이션 헤더 -->
+  <header class="absolute top-0 left-0 right-0 h-16 z-30 px-6 sm:px-10 flex items-center justify-between border-b border-white/10 backdrop-blur-md bg-slate-950/40">
+    <div class="flex items-center gap-3">
+      <a href="/study/?subject=science" class="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500 to-teal-700 flex items-center justify-center text-white font-extrabold text-sm shadow-lg hover:scale-105 transition" title="과학 학습관으로 이동">
+        🔬
+      </a>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">중학 과학 가이드</span>
+          <span class="text-sm font-bold text-slate-200">60FPS 인터랙티브 AI 사이언스 랩 슬라이드</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 우측 도구: 음소거, 전체화면, 슬라이드 허브 -->
+    <div class="flex items-center gap-2 sm:gap-3">
+      <button id="soundToggleBtn" onclick="toggleSound()" class="px-3 py-1.5 rounded-lg glass-pill text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/15 transition flex items-center gap-1.5" title="효과음 켜기/끄기">
+        <i class="fa-solid fa-volume-high text-cyan-400" id="soundIcon"></i>
+        <span class="hidden sm:inline" id="soundLabel">사운드 ON</span>
+      </button>
+      <button onclick="toggleFullScreen()" class="px-3 py-1.5 rounded-lg glass-pill text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/15 transition flex items-center gap-1.5" title="전체화면 (F)">
+        <i class="fa-solid fa-expand text-slate-400"></i>
+        <span class="hidden sm:inline">전체화면</span>
+      </button>
+      <a href="/study/slides/" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-bold text-slate-100 transition flex items-center gap-1">
+        <span>← 슬라이드 허브</span>
+      </a>
+    </div>
+
+    <!-- 최상단 프로그레스 바 -->
+    <div class="absolute bottom-0 left-0 right-0 h-1 bg-white/10">
+      <div id="progressBar" class="h-full bg-gradient-to-r from-cyan-400 via-teal-400 to-emerald-400 transition-all duration-300 shadow-[0_0_12px_rgba(6,182,212,0.8)]" style="width: 10%;"></div>
+    </div>
+  </header>
+
+  <!-- 메인 슬라이드 뷰포트 -->
+  <main class="relative z-10 w-full h-full pt-16 pb-24 px-4 sm:px-8 md:px-16 flex items-center justify-center slide-viewport">
+
+    <!-- SLIDE 01: 오프닝 인트로 -->
+    <section class="slide-card active" data-index="1">
+      <div class="max-w-4xl w-full text-center space-y-8 animate-float">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-pill text-xs sm:text-sm font-bold text-cyan-300 border border-cyan-500/30 glow-cyan">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>🔬 60FPS 실시간 가상 실험으로 깨우치는 중학 과학 혁신</span>
+        </div>
+
+        <div class="space-y-4">
+          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-tight">
+            교과서 속 멈춘 과학은 가라!<br>
+            <span class="neon-text-cyan">AI 사이언스 랩 탐구 가이드</span>
+          </h1>
+          <p class="text-base sm:text-xl text-slate-300 max-w-2xl mx-auto font-medium leading-relaxed">
+            위험한 시약도, 복잡한 실험기구도 필요 없습니다.<br class="hidden sm:block">
+            브라우저에서 <strong>마우스 슬라이더를 당겨 변인을 통제하고</strong> 60FPS로 살아 숨 쉬는 과학 법칙을 목격하세요.
+          </p>
+        </div>
+
+        <!-- 4대 영역 뱃지 -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto pt-2">
+          <div class="glass-card rounded-2xl p-4 border border-white/10 text-center hover-tilt">
+            <div class="text-3xl mb-2">⚡</div>
+            <div class="text-sm font-bold text-cyan-400">물리 (Physics)</div>
+            <div class="text-xs text-slate-400 mt-1">빛의 굴절 &amp; 옴의 법칙</div>
+          </div>
+          <div class="glass-card rounded-2xl p-4 border border-white/10 text-center hover-tilt">
+            <div class="text-3xl mb-2">🧪</div>
+            <div class="text-sm font-bold text-emerald-400">화학 (Chemistry)</div>
+            <div class="text-xs text-slate-400 mt-1">분자 운동 &amp; 보일·샤를</div>
+          </div>
+          <div class="glass-card rounded-2xl p-4 border border-white/10 text-center hover-tilt">
+            <div class="text-3xl mb-2">🧬</div>
+            <div class="text-sm font-bold text-purple-400">생명 (Biology)</div>
+            <div class="text-xs text-slate-400 mt-1">소화 효소 &amp; 광합성 공장</div>
+          </div>
+          <div class="glass-card rounded-2xl p-4 border border-white/10 text-center hover-tilt">
+            <div class="text-3xl mb-2">🌍</div>
+            <div class="text-sm font-bold text-amber-400">지구 (Earth Science)</div>
+            <div class="text-xs text-slate-400 mt-1">판구조론 &amp; 대기 대순환</div>
+          </div>
+        </div>
+
+        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <button onclick="nextSlide()" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-600 hover:to-teal-700 text-slate-950 font-black text-base shadow-xl shadow-cyan-500/30 flex items-center gap-3 transition transform hover:scale-105">
+            <span>과학 슬라이드 시작하기</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+          <span class="text-xs text-slate-400 flex items-center gap-1.5">
+            <kbd class="px-2 py-1 rounded bg-white/10 font-mono text-[10px] text-slate-300">Space</kbd> 또는
+            <kbd class="px-2 py-1 rounded bg-white/10 font-mono text-[10px] text-slate-300">→</kbd> 키로 넘김
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 02: 중학 과학 4대 영역 24개 탐구 로드맵 -->
+    <section class="slide-card" data-index="2">
+      <div class="max-w-5xl w-full space-y-6">
+        <div class="text-center space-y-2">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">SCIENCE DOMAINS</span>
+          <h2 class="text-3xl sm:text-5xl font-black text-white">
+            중학 과학 <span class="neon-text-cyan">4대 영역 24개 탐구</span>
+          </h2>
+          <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto">
+            눈에 보이지 않는 미시적 전자(0.0000000001m)부터 거대한 판구조와 지구 대순환(10,000,000m)까지!
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-3">
+          <!-- 물리 -->
+          <div class="glass-card rounded-3xl p-5 border-t-4 border-t-cyan-400 hover-tilt space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold px-2.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300">물리</span>
+              <span class="text-2xl">⚡</span>
+            </div>
+            <h3 class="text-base font-bold text-white">빛과 파동 · 전기와 자기</h3>
+            <ul class="text-xs text-slate-300 space-y-1.5">
+              <li>• 빛의 반사와 굴절의 법칙</li>
+              <li>• 볼록·오목 렌즈 초점 거리</li>
+              <li>• 전압·전류·저항 옴의 법칙</li>
+              <li>• 전자기 유도와 발전기 원리</li>
+            </ul>
+          </div>
+
+          <!-- 화학 -->
+          <div class="glass-card rounded-3xl p-5 border-t-4 border-t-emerald-400 hover-tilt space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300">화학</span>
+              <span class="text-2xl">🧪</span>
+            </div>
+            <h3 class="text-base font-bold text-white">물질의 구성 · 기체와 열</h3>
+            <ul class="text-xs text-slate-300 space-y-1.5">
+              <li>• 원소와 분자식 3D 모델링</li>
+              <li>• 보일의 법칙 (압력-부피)</li>
+              <li>• 샤를의 법칙 (온도-부피)</li>
+              <li>• 물질의 상태변화와 열에너지</li>
+            </ul>
+          </div>
+
+          <!-- 생명 -->
+          <div class="glass-card rounded-3xl p-5 border-t-4 border-t-purple-400 hover-tilt space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold px-2.5 py-0.5 rounded bg-purple-500/20 text-purple-300">생명</span>
+              <span class="text-2xl">🧬</span>
+            </div>
+            <h3 class="text-base font-bold text-white">소화·순환 · 유전과 생식</h3>
+            <ul class="text-xs text-slate-300 space-y-1.5">
+              <li>• 아밀레이스 등 소화 효소 작용</li>
+              <li>• 심장의 구조와 혈액 순환</li>
+              <li>• 광합성과 호흡 팩토리</li>
+              <li>• 멘델 유전 법칙과 세포분열</li>
+            </ul>
+          </div>
+
+          <!-- 지구 -->
+          <div class="glass-card rounded-3xl p-5 border-t-4 border-t-amber-400 hover-tilt space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300">지구</span>
+              <span class="text-2xl">🌍</span>
+            </div>
+            <h3 class="text-base font-bold text-white">지권의 변화 · 대기와 해양</h3>
+            <ul class="text-xs text-slate-300 space-y-1.5">
+              <li>• 대륙 이동설과 판구조론</li>
+              <li>• 지진파(P파, S파) 속도 차이</li>
+              <li>• 온실 효과와 지구 온난화</li>
+              <li>• 달의 위상 변화와 일식·월식</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-cyan-950/40 rounded-2xl p-4 border border-cyan-500/20 flex items-center justify-between gap-4 text-xs sm:text-sm">
+          <div class="flex items-center gap-2 text-cyan-200">
+            <i class="fa-solid fa-atom text-cyan-400"></i>
+            <span><strong>원리:</strong> 단순 암기가 아닌, 각 영역의 핵심 실험을 직접 조작하며 인과관계를 체득합니다.</span>
+          </div>
+          <span class="font-mono font-bold text-white shrink-0">총 24개 가상 실험실 탑재</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 03: 가상 실험실의 원리 1 - 60FPS 실시간 조작 캔버스 -->
+    <section class="slide-card" data-index="3">
+      <div class="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-6 space-y-5">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-bold">
+            <span>FEATURE 01</span>
+            <span>·</span>
+            <span>60FPS 캔버스 렌더링</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-black text-white leading-tight">
+            사진 대신 움직이는<br>
+            <span class="neon-text-cyan">초당 60프레임 가상 실험실</span>
+          </h2>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            교과서의 멈춰 있는 사진 한 장으로는 과학의 인과관계를 이해할 수 없습니다. 마우스로 값을 바꾸는 즉시 화면이 반응합니다.
+          </p>
+
+          <div class="space-y-3 text-xs sm:text-sm">
+            <div class="p-3.5 rounded-xl bg-white/5 border border-white/10 flex items-start gap-3">
+              <span class="w-7 h-7 rounded-lg bg-cyan-500/20 text-cyan-400 font-bold flex items-center justify-center shrink-0">🎛️</span>
+              <div>
+                <strong class="text-white block mb-0.5">실시간 슬라이더 컨트롤</strong>
+                <span class="text-slate-400">전압, 각도, 온도, 효소 농도 슬라이더를 드래그하는 즉시 입자 운동이 빨라지거나 느려집니다.</span>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-white/5 border border-white/10 flex items-start gap-3">
+              <span class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center shrink-0">🧪</span>
+              <div>
+                <strong class="text-white block mb-0.5">실패 없는 안전한 1,000번의 실험</strong>
+                <span class="text-slate-400">유리 비커가 깨지거나 화상을 입을 위험 없이, 원하는 만큼 반복해서 값을 검증할 수 있습니다.</span>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-white/5 border border-white/10 flex items-start gap-3">
+              <span class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center shrink-0">📈</span>
+              <div>
+                <strong class="text-white block mb-0.5">실시간 데이터 그래프 동기화</strong>
+                <span class="text-slate-400">실험 관찰과 동시에 하단에 V-I 곡선이나 부피-온도 비례 그래프가 즉각 그려집니다.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 우측: 60FPS 분자 운동 시뮬레이션 프리뷰 -->
+        <div class="lg:col-span-6">
+          <div class="glass-card rounded-3xl p-6 sm:p-8 border border-cyan-500/30 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between border-b border-white/10 pb-3">
+              <div class="flex items-center gap-2">
+                <span class="text-xl">🌡️</span>
+                <span class="text-xs font-bold text-cyan-300">샤를의 법칙 시뮬레이션 프리뷰</span>
+              </div>
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300">60 FPS RUNNING</span>
+            </div>
+
+            <!-- 미니 피스톤 챔버 -->
+            <div class="bg-black/50 rounded-2xl p-5 border border-white/5 text-center space-y-3">
+              <div class="flex justify-between text-xs text-slate-400">
+                <span>온도: <strong class="text-red-400">80 ℃ (고온)</strong></span>
+                <span>피스톤 부피: <strong class="text-cyan-400">350 mL</strong></span>
+              </div>
+              
+              <div class="h-28 rounded-xl bg-gradient-to-b from-slate-900 to-cyan-950/40 border border-white/10 relative overflow-hidden flex items-center justify-center">
+                <div class="absolute inset-x-0 top-3 h-2 bg-slate-600 rounded"></div>
+                <div class="flex items-center justify-center gap-4 text-xs">
+                  <span class="w-4 h-4 rounded-full bg-cyan-400 animate-ping"></span>
+                  <span class="w-3 h-3 rounded-full bg-teal-300 animate-bounce"></span>
+                  <span class="w-4 h-4 rounded-full bg-blue-400 animate-ping"></span>
+                  <span class="w-3 h-3 rounded-full bg-emerald-400 animate-bounce"></span>
+                </div>
+                <span class="absolute bottom-2 text-[10px] text-cyan-300 font-mono">기체 분자 충돌 횟수 급증 ➔ 피스톤 상승!</span>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-xl bg-cyan-950/40 border border-cyan-500/30 text-center text-xs text-cyan-200">
+              💡 "눈에 안 보이는 기체 분자의 움직임이 눈앞에서 춤을 춥니다!"
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 04: 가상 실험실의 원리 2 - 변인 통제 실험대 (Lock 🔒) -->
+    <section class="slide-card" data-index="4">
+      <div class="max-w-5xl w-full space-y-6">
+        <div class="text-center space-y-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold">
+            <span>FEATURE 02</span>
+            <span>·</span>
+            <span>진짜 과학자가 되는 방법</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-black text-white">
+            변인 통제 실험대 <span class="neon-text-emerald">[Lock 🔒 기능]</span>
+          </h2>
+          <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto">
+            과학 시험 문제의 70%는 <strong>"변인 통제를 바르게 했는가?"</strong>를 묻습니다. 자물쇠 버튼으로 변인을 완벽히 통제해보세요.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pt-3">
+          <!-- 조작변인 -->
+          <div class="glass-card rounded-3xl p-6 border-t-4 border-t-cyan-400 hover-tilt space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300">내 손으로 변경</span>
+              <span class="text-xl">🎛️</span>
+            </div>
+            <h3 class="text-lg font-bold text-white">1. 독립(조작) 변인</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              실험자가 의도적으로 바꾸는 요인입니다. (예: 회로의 <strong>전압 V</strong>을 3V에서 6V로 올림)
+            </p>
+            <div class="bg-cyan-950/40 p-2.5 rounded-xl border border-cyan-500/20 text-[11px] text-cyan-300">
+              💡 슬라이더로 자유롭게 수치 변경
+            </div>
+          </div>
+
+          <!-- 통제변인 -->
+          <div class="glass-card rounded-3xl p-6 border-t-4 border-t-amber-400 hover-tilt space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">자물쇠 고정</span>
+              <span class="text-xl">🔒</span>
+            </div>
+            <h3 class="text-lg font-bold text-white">2. 통제 변인 (Lock!)</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              실험 결과에 영향을 주지 않도록 일정하게 유지해야 하는 요인입니다. (예: 회로의 <strong>저항 R 고정</strong>)
+            </p>
+            <div class="bg-amber-950/40 p-2.5 rounded-xl border border-amber-500/20 text-[11px] text-amber-300">
+              💡 자물쇠 버튼으로 흔들림 없이 고정
+            </div>
+          </div>
+
+          <!-- 종속변인 -->
+          <div class="glass-card rounded-3xl p-6 border-t-4 border-t-emerald-400 hover-tilt space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">결과 관찰</span>
+              <span class="text-xl">📊</span>
+            </div>
+            <h3 class="text-lg font-bold text-white">3. 종속 변인 (결과)</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              조작변인에 의해 따라 변하는 최종 관찰 결과입니다. (예: 회로에 흐르는 <strong>전류 I의 증가</strong>)
+            </p>
+            <div class="bg-emerald-950/40 p-2.5 rounded-xl border border-emerald-500/20 text-[11px] text-emerald-300">
+              💡 정밀 측정값과 그래프로 확인
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center pt-2">
+          <button onclick="nextSlide()" class="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-sm transition transform hover:scale-105 shadow-lg shadow-cyan-500/30 inline-flex items-center gap-2">
+            <span>다음 슬라이드에서 직접 옴의 법칙 시뮬레이터 조작해보기</span>
+            <i class="fa-solid fa-sliders"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 05: [인터랙티브 실습] 슬라이드에서 직접 해보는 옴의 법칙 60FPS 실험실 -->
+    <section class="slide-card" data-index="5">
+      <div class="max-w-4xl w-full space-y-4">
+        <div class="text-center space-y-1">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">INTERACTIVE LAB ENGINE</span>
+          <h2 class="text-2xl sm:text-4xl font-black text-white">
+            ⚡ 슬라이드에서 직접 해보는 <span class="neon-text-cyan">옴의 법칙 60FPS 실험</span>
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300">
+            실제 사이언스 랩 엔진입니다. <strong>전압(V) 슬라이더를 움직여 전류와 전구 밝기가 어떻게 변하는지 확인하세요!</strong>
+          </p>
+        </div>
+
+        <!-- 미니 실험실 카드 -->
+        <div class="glass-card rounded-3xl p-6 border border-cyan-500/40 shadow-2xl relative bg-slate-950/85">
+          
+          <!-- 실험실 상단 헤더 -->
+          <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-4 text-xs font-bold">
+            <span class="px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 font-mono">물리: 옴의 법칙 (I = V / R)</span>
+            <span class="text-amber-400 font-mono">고정 저항 R = 10 Ω (Lock 🔒)</span>
+          </div>
+
+          <!-- 실시간 60FPS 회로 캔버스 뷰 -->
+          <div class="relative h-44 rounded-2xl bg-gradient-to-b from-slate-900 to-cyan-950/50 border border-white/10 flex items-center justify-around p-4 overflow-hidden">
+            
+            <!-- 전원 장치 (배터리) -->
+            <div class="flex flex-col items-center">
+              <div class="w-14 h-20 rounded-xl bg-slate-800 border-2 border-cyan-400 flex flex-col items-center justify-center p-2 shadow-lg">
+                <span class="text-lg">🔋</span>
+                <span id="voltDisplay" class="text-xs font-black font-mono text-cyan-300 mt-1">6 V</span>
+              </div>
+              <span class="text-[10px] text-slate-400 mt-1">전원 장치 (V)</span>
+            </div>
+
+            <!-- 회로 연결 전선 및 전자 흐름 -->
+            <div class="flex-1 flex items-center justify-center relative px-2">
+              <div class="w-full h-1 bg-cyan-400/60 rounded relative">
+                <!-- 흐르는 전자 파티클 -->
+                <div id="electronFlow" class="absolute -top-1 w-3 h-3 rounded-full bg-cyan-300 shadow-[0_0_8px_#38bdf8] animate-ping"></div>
+              </div>
+            </div>
+
+            <!-- 전구 (빛 밝기 동적 변화) -->
+            <div class="flex flex-col items-center">
+              <div id="bulbIcon" class="text-4xl transition-all duration-300 drop-shadow-[0_0_15px_rgba(253,224,71,0.6)]" style="transform: scale(1.2);">
+                💡
+              </div>
+              <span class="text-[10px] text-slate-400 mt-1">전구 (소비 전력)</span>
+            </div>
+
+            <!-- 전류계 측정기 -->
+            <div class="flex flex-col items-center ml-2">
+              <div class="w-20 h-16 rounded-xl bg-black/60 border border-emerald-400/50 flex flex-col items-center justify-center p-2 shadow-inner">
+                <span class="text-[10px] text-emerald-400 font-bold">전류계 (A)</span>
+                <span id="ampDisplay" class="text-base font-black font-mono text-emerald-300">0.60 A</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 슬라이더 컨트롤러 -->
+          <div class="pt-5 space-y-3">
+            <div class="flex items-center justify-between text-xs font-bold">
+              <span class="text-slate-300">전압(V) 조절 슬라이더:</span>
+              <span class="text-cyan-400 font-mono text-sm" id="sliderValText">6.0 V</span>
+            </div>
+            <input type="range" id="voltageSlider" min="1" max="12" step="0.5" value="6" oninput="updateOhmSim(this.value)" class="w-full h-2.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400">
+            
+            <div class="flex items-center justify-between text-[11px] text-slate-400">
+              <span>1V (최저)</span>
+              <span class="text-indigo-300 font-bold" id="ohmFormulaFeedback">공식 적용: I = 6V / 10Ω = 0.6A</span>
+              <span>12V (최고)</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-xs text-center text-slate-400">
+          💡 "전압을 2배로 올리면, 전류도 정확히 2배로 증가하고 전구는 4배 밝아집니다!"
+        </p>
+      </div>
+    </section>
+
+    <!-- SLIDE 06: 흔한 오개념 타파 3D 플립 카드 (Misconception Buster) -->
+    <section class="slide-card" data-index="6">
+      <div class="max-w-5xl w-full space-y-6">
+        <div class="text-center space-y-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/30 text-xs font-bold">
+            <span>MISCONCEPTION BUSTER</span>
+            <span>·</span>
+            <span>시험에 100% 낚이는 함정</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-black text-white">
+            흔한 <span class="neon-text-cyan">과학 오개념 타파</span> 카드
+          </h2>
+          <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto">
+            중학생의 80%가 시험에서 틀리는 대표 오개념! 카드를 클릭하여 <strong>진짜 과학적 진실</strong>을 확인하세요.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-3">
+          <!-- 카드 1 -->
+          <div class="flip-card h-52 cursor-pointer" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner w-full h-full relative">
+              <div class="flip-card-front absolute inset-0 glass-card rounded-2xl p-5 border-t-4 border-t-red-400 flex flex-col justify-between">
+                <div class="text-xs font-bold text-red-400">오개념 01 ❓</div>
+                <div class="text-sm font-bold text-white leading-snug">
+                  "달의 모양(위상)이 변하는 건 지구 그림자 때문이다?"
+                </div>
+                <div class="text-[11px] text-slate-400 flex items-center justify-between">
+                  <span>클릭해서 진실 확인</span>
+                  <i class="fa-solid fa-rotate"></i>
+                </div>
+              </div>
+              <div class="flip-card-back absolute inset-0 glass-card rounded-2xl p-5 border-t-4 border-t-emerald-400 flex flex-col justify-between bg-emerald-950/80">
+                <div class="text-xs font-bold text-emerald-300">과학적 진실! 💡</div>
+                <div class="text-xs text-slate-200 leading-relaxed">
+                  <strong>NO!</strong> 지구 그림자에 가려지는 것은 <strong>월식</strong>입니다. 평소 달의 모양 변화는 <strong>달이 공전하며 햇빛을 받는 각도가 달라져서</strong>입니다!
+                </div>
+                <div class="text-[10px] text-emerald-400 font-mono">정답률 34% 함정 문항</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 카드 2 -->
+          <div class="flip-card h-52 cursor-pointer" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner w-full h-full relative">
+              <div class="flip-card-front absolute inset-0 glass-card rounded-2xl p-5 border-t-4 border-t-red-400 flex flex-col justify-between">
+                <div class="text-xs font-bold text-red-400">오개념 02 ❓</div>
+                <div class="text-sm font-bold text-white leading-snug">
+                  "무거운 쇠구슬이 가벼운 깃털보다 항상 먼저 떨어진다?"
+                </div>
+                <div class="text-[11px] text-slate-400 flex items-center justify-between">
+                  <span>클릭해서 진실 확인</span>
+                  <i class="fa-solid fa-rotate"></i>
+                </div>
+              </div>
+              <div class="flip-card-back absolute inset-0 glass-card rounded-2xl p-5 border-t-4 border-t-emerald-400 flex flex-col justify-between bg-emerald-950/80">
+                <div class="text-xs font-bold text-emerald-300">과학적 진실! 💡</div>
+                <div class="text-xs text-slate-200 leading-relaxed">
+                  <strong>NO!</strong> 일상에선 공기 저항 때문입니다. <strong>진공 상태</strong>에서는 질량과 무관하게 중력가속도(9.8m/s²)가 같아 <strong>동시에 착지</strong>합니다!
+                </div>
+                <div class="text-[10px] text-emerald-400 font-mono">갈릴레오 낙하 실험</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 카드 3 -->
+          <div class="flip-card h-52 cursor-pointer" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner w-full h-full relative">
+              <div class="flip-card-front absolute inset-0 glass-card rounded-2xl p-5 border-t-4 border-t-red-400 flex flex-col justify-between">
+                <div class="text-xs font-bold text-red-400">오개념 03 ❓</div>
+                <div class="text-sm font-bold text-white leading-snug">
+                  "겨울이 추운 이유는 지구가 태양에서 멀어져서다?"
+                </div>
+                <div class="text-[11px] text-slate-400 flex items-center justify-between">
+                  <span>클릭해서 진실 확인</span>
+                  <i class="fa-solid fa-rotate"></i>
+                </div>
+              </div>
+              <div class="flip-card-back absolute inset-0 glass-card rounded-2xl p-5 border-t-4 border-t-emerald-400 flex flex-col justify-between bg-emerald-950/80">
+                <div class="text-xs font-bold text-emerald-300">과학적 진실! 💡</div>
+                <div class="text-xs text-slate-200 leading-relaxed">
+                  <strong>NO!</strong> 북반구 기준 겨울(1월)에 지구가 태양에 더 가깝습니다! 추운 진짜 이유는 <strong>자전축이 기울어져 태양의 남중 고도가 낮아졌기 때문</strong>입니다.
+                </div>
+                <div class="text-[10px] text-emerald-400 font-mono">자전축 23.5도 기울기</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 카드 4 -->
+          <div class="flip-card h-52 cursor-pointer" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner w-full h-full relative">
+              <div class="flip-card-front absolute inset-0 glass-card rounded-2xl p-5 border-t-4 border-t-red-400 flex flex-col justify-between">
+                <div class="text-xs font-bold text-red-400">오개념 04 ❓</div>
+                <div class="text-sm font-bold text-white leading-snug">
+                  "물이 100도에서 보글보글 끓을 때 나오는 기포는 공기다?"
+                </div>
+                <div class="text-[11px] text-slate-400 flex items-center justify-between">
+                  <span>클릭해서 진실 확인</span>
+                  <i class="fa-solid fa-rotate"></i>
+                </div>
+              </div>
+              <div class="flip-card-back absolute inset-0 glass-card rounded-2xl p-5 border-t-4 border-t-emerald-400 flex flex-col justify-between bg-emerald-950/80">
+                <div class="text-xs font-bold text-emerald-300">과학적 진실! 💡</div>
+                <div class="text-xs text-slate-200 leading-relaxed">
+                  <strong>NO!</strong> 공기가 아니라 액체 물이 기체로 상태 변화한 <strong>순수 수증기($H_2O$)</strong>입니다. 차가운 유리잔을 대면 다시 물방울로 맺힙니다.
+                </div>
+                <div class="text-[10px] text-emerald-400 font-mono">상태변화 기화 현상</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center text-xs text-slate-400">
+          💡 앱의 [💡 흔한 오개념 타파] 탭에서 24개 단원 전수의 오개념 플립 카드를 열람할 수 있습니다.
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 07: 4컷 숏폼 탐구 웹툰 -->
+    <section class="slide-card" data-index="7">
+      <div class="max-w-5xl w-full space-y-6">
+        <div class="text-center space-y-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold">
+            <span>SCIENCE TOON</span>
+            <span>·</span>
+            <span>머릿속에 자동 재생되는 비유</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-black text-white">
+            🎬 <span class="neon-text-amber">실생활 과학 비유</span> 숏폼 스토리
+          </h2>
+          <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto">
+            어려운 과학 공식, 재미있는 일상 상황으로 비유하면 평생 잊지 않는 강력한 멘탈 모델이 생깁니다.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pt-3">
+          <!-- 툰 1: 워터파크 옴의 법칙 -->
+          <div class="glass-card rounded-3xl p-6 border border-white/10 hover-tilt space-y-3">
+            <div class="text-3xl">🏊</div>
+            <h3 class="text-lg font-bold text-white">워터파크 옴의 법칙</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              • <strong>전압(V)</strong> = 워터 슬라이드 미끄럼틀 높이!<br>
+              • <strong>저항(R)</strong> = 슬라이드 표면의 거친 마찰력!<br>
+              • <strong>전류(I)</strong> = 빠르게 쏟아져 내리는 물살의 속도!
+            </p>
+            <div class="bg-cyan-950/40 p-2.5 rounded-xl border border-cyan-500/20 text-[11px] text-cyan-300 font-mono">
+              미끄럼틀 높을수록(V↑) 콸콸(I↑)!
+            </div>
+          </div>
+
+          <!-- 툰 2: 클럽 댄스파티 샤를의 법칙 -->
+          <div class="glass-card rounded-3xl p-6 border border-white/10 hover-tilt space-y-3">
+            <div class="text-3xl">💃</div>
+            <h3 class="text-lg font-bold text-white">클럽 댄스 샤를의 법칙</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              • <strong>온도(T)</strong> = 클럽 음악 비트와 열기!<br>
+              • <strong>분자</strong> = 춤추는 사람들!<br>
+              • 음악이 신나지면(온도↑) 사람들이 팔다리를 마구 흔들어 <strong>공간(부피↑)</strong>을 더 넓게 차지함!
+            </p>
+            <div class="bg-emerald-950/40 p-2.5 rounded-xl border border-emerald-500/20 text-[11px] text-emerald-300 font-mono">
+              온도 상승 ➔ 부피 팽창 직관 이해!
+            </div>
+          </div>
+
+          <!-- 툰 3: 된장찌개 판구조론 -->
+          <div class="glass-card rounded-3xl p-6 border border-white/10 hover-tilt space-y-3">
+            <div class="text-3xl">🍲</div>
+            <h3 class="text-lg font-bold text-white">된장찌개 판구조론</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              • <strong>맨틀</strong> = 펄펄 끓는 된장 국물(열대류)!<br>
+              • <strong>판(지각)</strong> = 국물 위에 둥둥 뜬 두부와 호박!<br>
+              • 국물이 대류하며 솟구치면 두부가 서로 밀려나거나 충돌하여 산맥이 솟아오름!
+            </p>
+            <div class="bg-amber-950/40 p-2.5 rounded-xl border border-amber-500/20 text-[11px] text-amber-300 font-mono">
+              맨틀 대류와 대륙 이동 완벽 이해!
+            </div>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-cyan-950/50 border border-cyan-500/30 text-center text-xs sm:text-sm text-cyan-200">
+          💡 "단순 암기한 공식은 3일 만에 잊히지만, <strong>재미있는 비유 이미지는 평생 기억</strong>에 남습니다."
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 08: 나만의 과학 탐구 보고서 자동 완성 -->
+    <section class="slide-card" data-index="8">
+      <div class="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-6 space-y-5">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-bold">
+            <span>FEATURE 03</span>
+            <span>·</span>
+            <span>수행평가 100점 대비</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-black text-white leading-tight">
+            과학 탐구 보고서<br>
+            <span class="neon-text-cyan">3단계 자동 정리 템플릿</span>
+          </h2>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            학교 과학 수행평가의 1순위는 바로 '실험 탐구 보고서'입니다. 가상 실험 결과를 클릭 한 번으로 체계적인 보고서 형태로 변환합니다.
+          </p>
+
+          <div class="space-y-3 text-xs sm:text-sm">
+            <div class="p-3 rounded-xl bg-white/5 border border-white/10 flex items-start gap-3">
+              <span class="font-bold text-cyan-400">1</span>
+              <div>
+                <strong class="text-white block">가설 설정 (Hypothesis)</strong>
+                <span class="text-slate-400">"전압을 2배로 높이면 전류도 2배로 증가할 것이다."</span>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-xl bg-white/5 border border-white/10 flex items-start gap-3">
+              <span class="font-bold text-cyan-400">2</span>
+              <div>
+                <strong class="text-white block">데이터 표 &amp; 그래프 (Data &amp; Graph)</strong>
+                <span class="text-slate-400">실험하며 기록된 수치가 자동으로 표와 V-I 그래프로 깔끔하게 정렬됩니다.</span>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-xl bg-white/5 border border-white/10 flex items-start gap-3">
+              <span class="font-bold text-cyan-400">3</span>
+              <div>
+                <strong class="text-white block">결론 도출 및 오차 분석 (Conclusion)</strong>
+                <span class="text-slate-400">AI 실험 도우미가 결과 해석 문장을 가이드해 주어 수행평가 만점을 보장합니다.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 우측: 보고서 목업 -->
+        <div class="lg:col-span-6">
+          <div class="glass-card rounded-3xl p-6 border border-white/15 shadow-xl space-y-4">
+            <div class="flex items-center justify-between text-xs font-bold border-b border-white/10 pb-3">
+              <span class="text-cyan-300 font-mono">SCIENCE LAB REPORT</span>
+              <span class="text-emerald-400">작성 완료됨 (PDF 출력 가능)</span>
+            </div>
+
+            <div class="bg-black/40 rounded-2xl p-4 border border-white/5 space-y-2.5 text-xs text-slate-300">
+              <div class="flex justify-between border-b border-white/5 pb-1.5 font-bold">
+                <span>실험 제목</span>
+                <span class="text-white">전압과 전류의 비례 관계 (옴의 법칙)</span>
+              </div>
+              <div class="flex justify-between border-b border-white/5 pb-1.5">
+                <span>조작변인</span>
+                <span class="text-cyan-300 font-mono">전압 (3V, 6V, 9V, 12V)</span>
+              </div>
+              <div class="flex justify-between border-b border-white/5 pb-1.5">
+                <span>통제변인</span>
+                <span class="text-amber-300 font-mono">저항 (10 Ω 일정)</span>
+              </div>
+              <div class="flex justify-between border-b border-white/5 pb-1.5">
+                <span>종속변인(결과)</span>
+                <span class="text-emerald-300 font-mono">전류 (0.3A, 0.6A, 0.9A, 1.2A)</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-white/10 text-[11px] text-slate-200 mt-2">
+                <strong>최종 결론:</strong> 저항이 일정할 때, 회로에 흐르는 전류의 세기는 가해준 전압의 크기에 정비례한다 ($I \propto V$).
+              </div>
+            </div>
+
+            <div class="text-center pt-1">
+              <span class="text-xs text-slate-400">💡 수행평가 숙제할 때 그대로 참고할 수 있는 고품격 양식!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 09: 일일 탐구 루틴 & 주니어 과학자 배지 -->
+    <section class="slide-card" data-index="9">
+      <div class="max-w-5xl w-full space-y-6">
+        <div class="text-center space-y-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-bold">
+            <span>GAMIFICATION</span>
+            <span>·</span>
+            <span>호기심을 깨우는 성취 시스템</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-black text-white">
+            하루 1실험 <span class="neon-text-cyan">주니어 과학자 칭호 배지</span>
+          </h2>
+          <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto">
+            과학은 천재들의 전유물이 아닙니다. 하루 15분, 하나의 실험을 탐구할 때마다 역사 속 위대한 과학자 칭호가 주어집니다.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pt-3">
+          <div class="glass-card rounded-3xl p-6 border border-white/10 hover-tilt text-center space-y-3">
+            <div class="text-4xl">🔭</div>
+            <h3 class="text-lg font-bold text-white">갈릴레오 칭호 (Lv. 1)</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              관찰의 즐거움을 깨달은 초보 탐구자. 물리 3개 기본 가상실험 완료 시 부여.
+            </p>
+            <div class="bg-cyan-950/40 rounded-xl p-2.5 text-xs text-cyan-300 font-mono font-bold">
+              낙하 법칙 &amp; 망원경 탐구자
+            </div>
+          </div>
+
+          <div class="glass-card rounded-3xl p-6 border border-white/10 hover-tilt text-center space-y-3">
+            <div class="text-4xl">🍎</div>
+            <h3 class="text-lg font-bold text-white">뉴턴 칭호 (Lv. 2)</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              수식과 원리의 인과관계를 마스터한 우수 탐구자. 옴의 법칙 및 힘과 운동 완료 시 부여.
+            </p>
+            <div class="bg-amber-950/40 rounded-xl p-2.5 text-xs text-amber-300 font-mono font-bold">
+              운동 법칙 &amp; 만유인력 마스터
+            </div>
+          </div>
+
+          <div class="glass-card rounded-3xl p-6 border border-white/10 hover-tilt text-center space-y-3">
+            <div class="text-4xl">⚛️</div>
+            <h3 class="text-lg font-bold text-white">아인슈타인 칭호 (Lv. 3)</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              24개 전 단원의 가상 실험과 오개념 타파를 100% 정복한 최고 영예의 마스터 과학자.
+            </p>
+            <div class="bg-emerald-950/40 rounded-xl p-2.5 text-xs text-emerald-300 font-mono font-bold">
+              중학 과학 1등급 완벽 보장!
+            </div>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-cyan-950/50 border border-cyan-500/30 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm">
+          <div class="flex items-center gap-3 text-slate-200">
+            <span class="text-2xl">👩‍🏫</span>
+            <span><strong>선생님 실험실 관리 툴:</strong> 반 학생들의 가상 실험 조작 기록과 보고서 제출 현황을 한 번에 확인하세요.</span>
+          </div>
+          <span class="px-3 py-1.5 rounded-lg bg-cyan-600 text-slate-950 font-bold shrink-0">학교 과학실 스마트 수업 최적화</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: 결론 & 지금 바로 시작하기! -->
+    <section class="slide-card" data-index="10">
+      <div class="max-w-4xl w-full text-center space-y-8 animate-float">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-pill text-xs sm:text-sm font-bold text-cyan-300 border border-cyan-500/30">
+          <span>🚀 EXPERIMENT READY</span>
+          <span>·</span>
+          <span>실험실의 주인공이 되어보세요!</span>
+        </div>
+
+        <div class="space-y-4">
+          <h2 class="text-4xl sm:text-6xl font-black text-white leading-tight">
+            지금 바로 <span class="neon-text-cyan">AI 사이언스 랩</span>에서<br>
+            과학의 신비를 탐험해볼까요?
+          </h2>
+          <p class="text-sm sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            슬라이더를 움직이고, 오개념을 깨뜨리다 보면 과학은 더 이상 지루한 암기 과목이 아니라 세상에서 가장 흥미진진한 놀이터가 됩니다.
+          </p>
+        </div>
+
+        <!-- 3대 실습 퀵가이드 요약 -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto text-left">
+          <div class="glass-card rounded-2xl p-4 border border-white/10">
+            <div class="text-xs font-bold text-cyan-400 mb-1">1단계</div>
+            <div class="text-sm font-bold text-white mb-1">탐구 단원 선택</div>
+            <div class="text-xs text-slate-400">물리·화학·생명·지구 중 원하는 실험실 클릭</div>
+          </div>
+          <div class="glass-card rounded-2xl p-4 border border-white/10">
+            <div class="text-xs font-bold text-amber-400 mb-1">2단계</div>
+            <div class="text-sm font-bold text-white mb-1">변인 통제 &amp; 슬라이더 조작</div>
+            <div class="text-xs text-slate-400">자물쇠로 통제하고 60FPS 변화 관찰</div>
+          </div>
+          <div class="glass-card rounded-2xl p-4 border border-white/10">
+            <div class="text-xs font-bold text-emerald-400 mb-1">3단계</div>
+            <div class="text-sm font-bold text-white mb-1">오개념 카드 확인 &amp; 보고서</div>
+            <div class="text-xs text-slate-400">진짜 과학적 원리를 3줄 요약 완성!</div>
+          </div>
+        </div>
+
+        <!-- 액션 버튼들 -->
+        <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
+          <a href="/study/?subject=science" target="_blank" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-600 hover:to-teal-700 text-slate-950 font-black text-base shadow-xl shadow-cyan-500/30 flex items-center gap-2.5 transition transform hover:scale-105">
+            <span>🔬 AI 사이언스 랩 바로 실행하기</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+          <button onclick="goToSlide(1)" class="px-6 py-4 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm transition flex items-center gap-2">
+            <i class="fa-solid fa-rotate-left"></i>
+            <span>슬라이드 처음으로 복귀</span>
+          </button>
+        </div>
+
+        <div class="pt-4 text-xs text-slate-400 flex items-center justify-center gap-6">
+          <a href="english.html" class="hover:text-cyan-300 transition">🔤 1탄: 영단어 Voca9 슬라이드</a>
+          <span>·</span>
+          <a href="math.html" class="hover:text-cyan-300 transition">📐 2탄: 소크라테스 수학 슬라이드</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 하단 플로팅 네비게이션 독 -->
+  <footer class="absolute bottom-5 left-1/2 -translate-x-1/2 z-30 flex items-center gap-3 px-5 py-2.5 rounded-2xl glass-dock">
+    <button onclick="prevSlide()" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition active:scale-90" title="이전 슬라이드 (←)">
+      <i class="fa-solid fa-chevron-left text-xs"></i>
+    </button>
+
+    <!-- 슬라이드 카운터 인디케이터 -->
+    <div class="flex items-center gap-2 px-3 py-1 rounded-lg bg-black/40 border border-white/10 font-mono text-xs">
+      <span id="currentSlideNum" class="font-black text-cyan-400 text-sm">01</span>
+      <span class="text-slate-500">/</span>
+      <span id="totalSlideNum" class="text-slate-400">10</span>
+    </div>
+
+    <button onclick="nextSlide()" class="w-9 h-9 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 flex items-center justify-center transition active:scale-90 shadow-lg shadow-cyan-500/30" title="다음 슬라이드 (→, Space)">
+      <i class="fa-solid fa-chevron-right text-xs"></i>
+    </button>
+
+    <div class="w-px h-5 bg-white/15 mx-1"></div>
+
+    <!-- 전체보기 모달 토글 -->
+    <button onclick="toggleGridModal()" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center transition" title="전체 슬라이드 보기 (G)">
+      <i class="fa-solid fa-grid-2 text-xs"></i>
+    </button>
+  </footer>
+
+  <!-- 슬라이드 전체보기 그리드 모달 -->
+  <div id="gridModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl hidden flex-col justify-center items-center p-6 transition-all">
+    <div class="max-w-4xl w-full flex items-center justify-between pb-6 border-b border-white/10 mb-6">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl">📋</span>
+        <div>
+          <h3 class="text-lg font-bold text-white">과학 슬라이드 전체 바로가기</h3>
+          <p class="text-xs text-slate-400">이동하고 싶은 슬라이드를 클릭하세요 (단축키: G로 닫기)</p>
+        </div>
+      </div>
+      <button onclick="toggleGridModal()" class="w-8 h-8 rounded-full bg-white/10 text-slate-300 hover:text-white flex items-center justify-center">
+        ✕
+      </button>
+    </div>
+
+    <div class="max-w-4xl w-full grid grid-cols-2 sm:grid-cols-5 gap-3 overflow-y-auto max-h-[70vh] p-2">
+      <button onclick="goToSlide(1); toggleGridModal();" class="p-4 rounded-xl bg-white/5 hover:bg-cyan-600/30 border border-white/10 hover:border-cyan-400 text-left transition space-y-1">
+        <span class="text-[10px] font-mono text-cyan-400 block font-bold">01 SLIDE</span>
+        <span class="text-xs font-bold text-white block truncate">인트로 &amp; 환영</span>
+      </button>
+      <button onclick="goToSlide(2); toggleGridModal();" class="p-4 rounded-xl bg-white/5 hover:bg-cyan-600/30 border border-white/10 hover:border-cyan-400 text-left transition space-y-1">
+        <span class="text-[10px] font-mono text-cyan-400 block font-bold">02 SLIDE</span>
+        <span class="text-xs font-bold text-white block truncate">4대 영역 24개 탐구</span>
+      </button>
+      <button onclick="goToSlide(3); toggleGridModal();" class="p-4 rounded-xl bg-white/5 hover:bg-cyan-600/30 border border-white/10 hover:border-cyan-400 text-left transition space-y-1">
+        <span class="text-[10px] font-mono text-cyan-400 block font-bold">03 SLIDE</span>
+        <span class="text-xs font-bold text-white block truncate">60FPS 가상 실험실</span>
+      </button>
+      <button onclick="goToSlide(4); toggleGridModal();" class="p-4 rounded-xl bg-white/5 hover:bg-cyan-600/30 border border-white/10 hover:border-cyan-400 text-left transition space-y-1">
+        <span class="text-[10px] font-mono text-cyan-400 block font-bold">04 SLIDE</span>
+        <span class="text-xs font-bold text-white block truncate">변인 통제 실험대</span>
+      </button>
+      <button onclick="goToSlide(5); toggleGridModal();" class="p-4 rounded-xl bg-cyan-950/40 hover:bg-cyan-600/30 border border-cyan-500/30 text-left transition space-y-1">
+        <span class="text-[10px] font-mono text-cyan-400 block font-bold">05 SLIDE (실습)</span>
+        <span class="text-xs font-bold text-cyan-300 block truncate">⚡ 옴의 법칙 실습</span>
+      </button>
+      <button onclick="goToSlide(6); toggleGridModal();" class="p-4 rounded-xl bg-white/5 hover:bg-cyan-600/30 border border-white/10 hover:border-cyan-400 text-left transition space-y-1">
+        <span class="text-[10px] font-mono text-cyan-400 block font-bold">06 SLIDE</span>
+        <span class="text-xs font-bold text-white block truncate">오개념 타파 3D 카드</span>
+      </button>
+      <button onclick="goToSlide(7); toggleGridModal();" class="p-4 rounded-xl bg-white/5 hover:bg-cyan-600/30 border border-white/10 hover:border-cyan-400 text-left transition space-y-1">
+        <span class="text-[10px] font-mono text-cyan-400 block font-bold">07 SLIDE</span>
+        <span class="text-xs font-bold text-white block truncate">과학 비유 숏폼 웹툰</span>
+      </button>
+      <button onclick="goToSlide(8); toggleGridModal();" class="p-4 rounded-xl bg-white/5 hover:bg-cyan-600/30 border border-white/10 hover:border-cyan-400 text-left transition space-y-1">
+        <span class="text-[10px] font-mono text-cyan-400 block font-bold">08 SLIDE</span>
+        <span class="text-xs font-bold text-white block truncate">탐구 보고서 템플릿</span>
+      </button>
+      <button onclick="goToSlide(9); toggleGridModal();" class="p-4 rounded-xl bg-white/5 hover:bg-cyan-600/30 border border-white/10 hover:border-cyan-400 text-left transition space-y-1">
+        <span class="text-[10px] font-mono text-cyan-400 block font-bold">09 SLIDE</span>
+        <span class="text-xs font-bold text-white block truncate">일일 탐구 &amp; 칭호 배지</span>
+      </button>
+      <button onclick="goToSlide(10); toggleGridModal();" class="p-4 rounded-xl bg-white/5 hover:bg-cyan-600/30 border border-white/10 hover:border-cyan-400 text-left transition space-y-1">
+        <span class="text-[10px] font-mono text-cyan-400 block font-bold">10 SLIDE</span>
+        <span class="text-xs font-bold text-white block truncate">도전 선언 &amp; 실습 시작</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 슬라이드 핵심 인터랙션 엔진 스크립트 -->
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 10;
+    let soundEnabled = true;
+
+    // Web Audio API 사운드 합성기
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function initAudio() {
+      if (!audioCtx) audioCtx = new AudioContext();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
+
+    function playSound(type) {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+        if (type === 'slide') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(520, now);
+          osc.frequency.exponentialRampToValueAtTime(1040, now + 0.12);
+          gain.gain.setValueAtTime(0.06, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+          osc.start(now);
+          osc.stop(now + 0.12);
+        } else if (type === 'spark') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(800, now);
+          osc.frequency.exponentialRampToValueAtTime(200, now + 0.08);
+          gain.gain.setValueAtTime(0.05, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        } else if (type === 'flip') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(400, now);
+          osc.frequency.exponentialRampToValueAtTime(600, now + 0.15);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+          osc.start(now);
+          osc.stop(now + 0.15);
+        }
+      } catch (e) {}
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const icon = document.getElementById('soundIcon');
+      const label = document.getElementById('soundLabel');
+      if (soundEnabled) {
+        icon.className = 'fa-solid fa-volume-high text-cyan-400';
+        label.textContent = '사운드 ON';
+        playSound('slide');
+      } else {
+        icon.className = 'fa-solid fa-volume-xmark text-slate-500';
+        label.textContent = '사운드 OFF';
+      }
+    }
+
+    function updateSlideUI() {
+      const slides = document.querySelectorAll('.slide-card');
+      slides.forEach(slide => {
+        const idx = parseInt(slide.getAttribute('data-index'));
+        slide.classList.remove('active', 'prev');
+        if (idx === currentSlide) {
+          slide.classList.add('active');
+        } else if (idx < currentSlide) {
+          slide.classList.add('prev');
+        }
+      });
+
+      const percent = (currentSlide / totalSlides) * 100;
+      document.getElementById('progressBar').style.width = percent + '%';
+      document.getElementById('currentSlideNum').textContent = String(currentSlide).padStart(2, '0');
+    }
+
+    function goToSlide(n) {
+      if (n < 1) n = 1;
+      if (n > totalSlides) n = totalSlides;
+      if (currentSlide !== n) {
+        currentSlide = n;
+        playSound('slide');
+        updateSlideUI();
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) goToSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) goToSlide(currentSlide - 1);
+    }
+
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    function toggleGridModal() {
+      const modal = document.getElementById('gridModal');
+      modal.classList.toggle('hidden');
+      modal.classList.toggle('flex');
+    }
+
+    // 키보드 제어
+    window.addEventListener('keydown', (e) => {
+      if (document.getElementById('gridModal').classList.contains('flex')) {
+        if (e.key === 'Escape' || e.key.toLowerCase() === 'g') toggleGridModal();
+        return;
+      }
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        goToSlide(1);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        goToSlide(totalSlides);
+      } else if (e.key.toLowerCase() === 'f') {
+        toggleFullScreen();
+      } else if (e.key.toLowerCase() === 'g') {
+        toggleGridModal();
+      }
+    });
+
+    // 터치 스와이프
+    let touchStartX = 0;
+    let touchStartY = 0;
+    window.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    window.addEventListener('touchend', (e) => {
+      const diffX = e.changedTouches[0].screenX - touchStartX;
+      const diffY = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+        if (diffX < 0) nextSlide();
+        else prevSlide();
+      }
+    }, { passive: true });
+
+    // SLIDE 05: 옴의 법칙 실시간 60FPS 인터랙티브 시뮬레이터 로직
+    const fixedResistance = 10; // 10 옴
+    function updateOhmSim(voltVal) {
+      playSound('spark');
+      const v = parseFloat(voltVal);
+      const current = v / fixedResistance;
+
+      document.getElementById('voltDisplay').textContent = `${v.toFixed(1)} V`;
+      document.getElementById('sliderValText').textContent = `${v.toFixed(1)} V`;
+      document.getElementById('ampDisplay').textContent = `${current.toFixed(2)} A`;
+      document.getElementById('ohmFormulaFeedback').textContent = `공식 적용: I = ${v.toFixed(1)}V / 10Ω = ${current.toFixed(2)}A`;
+
+      // 전구 밝기 및 스케일 동적 변경
+      const bulb = document.getElementById('bulbIcon');
+      const scale = 0.8 + (v / 12) * 0.8;
+      const brightness = 0.4 + (v / 12) * 0.6;
+      bulb.style.transform = `scale(${scale})`;
+      bulb.style.filter = `drop-shadow(0 0 ${v * 4}px rgba(253, 224, 71, ${brightness}))`;
+
+      // 전자 흐름 애니메이션 속도 조절
+      const electron = document.getElementById('electronFlow');
+      const animDuration = Math.max(0.2, 1.5 - (v / 12) * 1.2);
+      electron.style.animationDuration = `${animDuration}s`;
+    }
+
+    // 배경 아톰 & 분자 파티클 캔버스
+    const canvas = document.getElementById('scienceBgCanvas');
+    const ctx = canvas.getContext('2d');
+    let scienceSymbols = ['⚡', '⚛', '🔬', '🧪', '🧬', '🪐', '💡', '🌍', '🌡️'];
+    let particles = [];
+
+    function resizeScienceCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeScienceCanvas);
+    resizeScienceCanvas();
+
+    class ScienceParticle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.symbol = scienceSymbols[Math.floor(Math.random() * scienceSymbols.length)];
+        this.size = Math.floor(Math.random() * 16 + 12);
+        this.speedX = (Math.random() - 0.5) * 0.4;
+        this.speedY = (Math.random() - 0.5) * 0.4;
+        this.alpha = Math.random() * 0.35 + 0.12;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+          this.reset();
+        }
+      }
+      draw() {
+        ctx.font = `${this.size}px sans-serif`;
+        ctx.globalAlpha = this.alpha;
+        ctx.fillText(this.symbol, this.x, this.y);
+        ctx.globalAlpha = 1.0;
+      }
+    }
+
+    for (let i = 0; i < 40; i++) {
+      particles.push(new ScienceParticle());
+    }
+
+    function animateScienceParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateScienceParticles);
+    }
+    animateScienceParticles();
+
+    updateSlideUI();
+  </script>
+</body>
+</html>
