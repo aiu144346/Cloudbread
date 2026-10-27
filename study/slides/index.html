@@ -115,42 +115,47 @@
         </div>
       </div>
 
-      <!-- 2탄: 수학 슬라이드 (준비중) -->
-      <div class="glass-card rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-col justify-between opacity-80 hover:opacity-100 transition duration-300">
+      <!-- 2탄: 수학 슬라이드 (배포 완료) -->
+      <div class="glass-card rounded-3xl p-6 sm:p-8 border-2 border-blue-500/50 flex flex-col justify-between hover:scale-[1.02] transition duration-300 relative group shadow-blue-500/10 shadow-2xl">
         <div class="space-y-4">
           <div class="flex items-center justify-between">
-            <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 font-extrabold text-xs border border-blue-500/30">
-              2탄 제작 준비중
+            <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 font-extrabold text-xs border border-blue-500/30 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-blue-400 animate-ping"></span>
+              <span>2탄 배포 완료</span>
             </span>
             <span class="text-3xl">📐</span>
           </div>
 
           <div>
-            <h3 class="text-2xl font-black text-white">
+            <h3 class="text-2xl font-black text-white group-hover:text-blue-300 transition">
               소크라테스 AI 수학 수포자 탈출법
             </h3>
-            <p class="text-xs sm:text-sm text-slate-400 mt-2 leading-relaxed">
+            <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
               정답을 바로 안 알려주고 스스로 유도하는 3단계 소크라테스 힌트와 3-Scene 실생활 웹툰 비유로 21개 전 단원을 체득하는 가이드.
             </p>
           </div>
 
-          <div class="bg-black/30 rounded-2xl p-4 border border-white/5 space-y-2 text-xs text-slate-400">
+          <div class="bg-black/30 rounded-2xl p-4 border border-white/5 space-y-2 text-xs text-slate-300">
             <div class="flex items-center justify-between">
-              <span>선행 징검다리</span>
-              <span class="text-slate-300 font-bold">취약 개념 무기 장착법</span>
+              <span>슬라이드 구성</span>
+              <strong class="text-white">총 10 슬라이드</strong>
             </div>
             <div class="flex items-center justify-between">
-              <span>Photo Math</span>
-              <span class="text-slate-300 font-bold">손글씨 수식 AI 질문법</span>
+              <span>특별 기능</span>
+              <span class="text-amber-400 font-bold">소크라테스 코칭 실습 위젯</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span>수식 렌더링</span>
+              <span class="text-blue-300 font-bold">KaTeX 정밀 수식 탑재</span>
             </div>
           </div>
         </div>
 
         <div class="pt-6">
-          <button disabled class="w-full py-3.5 rounded-xl bg-white/5 border border-white/10 text-slate-500 font-bold text-sm cursor-not-allowed flex items-center justify-center gap-2">
-            <span>2탄 수학 슬라이드 곧 공개</span>
-            <i class="fa-solid fa-lock text-xs"></i>
-          </button>
+          <a href="math.html" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-500/30 transition">
+            <span>수학 슬라이드 실행 ▶</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
         </div>
       </div>
 

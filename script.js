@@ -612,9 +612,14 @@ document.addEventListener("DOMContentLoaded", () => {
                                         </div>
                                     </div>
                                 </div>
-                                <a href="study/?subject=math" target="_blank" style="background:#2563EB; color:#FFFFFF; font-weight:800; font-size:0.92rem; padding:13px 18px; border-radius:12px; text-decoration:none; text-align:center; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s; box-shadow:0 4px 14px rgba(37,99,235,0.25);">
-                                    <i class="fa-solid fa-square-root-variable"></i> 수학 대시보드 바로가기 →
-                                </a>
+                                <div style="display:flex; flex-direction:column; gap:8px;">
+                                    <a href="study/slides/math.html" target="_blank" style="background:#0F172A; color:#FFFFFF; font-weight:800; font-size:0.86rem; padding:10px 16px; border-radius:10px; text-decoration:none; text-align:center; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s; border:1px solid #334155;">
+                                        <i class="fa-solid fa-chalkboard-user" style="color:#93C5FD;"></i> 학생용 활용법 슬라이드 강의 📖
+                                    </a>
+                                    <a href="study/?subject=math" target="_blank" style="background:#2563EB; color:#FFFFFF; font-weight:800; font-size:0.9rem; padding:11px 16px; border-radius:10px; text-decoration:none; text-align:center; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s; box-shadow:0 4px 14px rgba(37,99,235,0.25);">
+                                        <i class="fa-solid fa-square-root-variable"></i> 수학 대시보드 바로가기 →
+                                    </a>
+                                </div>
                             </div>
 
                             <!-- 카드 3: 과학 (AI 사이언스 랩) -->
