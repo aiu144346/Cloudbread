@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[화성시인재육성재단] 교육만족도 통합 마스터 대시보드 (1·2·3부 일체형) | 클라우드브레드</title>
+    <meta name="description" content="화성시인재육성재단 2026 AX 특강 1·2·3부 통합 마스터 대시보드: 5+2 표준 지표, 100건 가상 DB, 4대 KPI 요약, 다차원 비교 차트, 3개월 시계열 추이선, 주관식 NLP 감성 분석 및 부서 엑셀(CSV) 즉시 교체 시뮬레이터">
+    <link rel="canonical" href="https://www.cloudbread.me/lecture-hshe-master.html">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            /* Pure White & Pearl Slate Light Theme */
+            --bg-canvas: #FFFFFF;
+            --bg-canvas-sub: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --bg-card-hover: #F1F5F9;
+            --border-light: #E2E8F0;
+            --border-focus: #CBD5E1;
+            --text-heading: #0F172A;
+            --text-body: #334155;
+            --text-muted: #64748B;
+            --text-subtle: #94A3B8;
+
+            /* Public Accent Colors (Optimized for Light Mode) */
+            --color-emerald: #059669;
+            --color-emerald-light: #ECFDF5;
+            --color-emerald-border: #A7F3D0;
+            --color-blue: #2563EB;
+            --color-blue-light: #EFF6FF;
+            --color-blue-border: #BFDBFE;
+            --color-indigo: #4F46E5;
+            --color-indigo-light: #EEF2FF;
+            --color-amber: #D97706;
+            --color-amber-light: #FFFBEB;
+            --color-amber-border: #FDE68A;
+            --color-rose: #E11D48;
+            --color-rose-light: #FFF1F2;
+
+            /* Shadows & Elevation */
+            --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+            --shadow-card-hover: 0 12px 30px -4px rgba(15, 23, 42, 0.1), 0 4px 10px -2px rgba(15, 23, 42, 0.04);
+            --shadow-float: 0 20px 40px -8px rgba(15, 23, 42, 0.15);
+            
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 22px;
+            --transition-smooth: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-canvas-sub);
+            color: var(--text-body);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Top Executive Header */
+        .master-header {
+            background: #FFFFFF;
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .header-top-row {
+            height: 70px;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        .brand-group {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+        }
+
+        .brand-badge-logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #059669 0%, #2563EB 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: #FFFFFF;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+            transition: var(--transition-smooth);
+        }
+
+        .brand-group:hover .brand-badge-logo {
+            transform: scale(1.05) rotate(4deg);
+        }
+
+        .brand-text h1 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge-master-tag {
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            background: #ECFDF5;
+            color: #059669;
+            border: 1px solid #A7F3D0;
+        }
+
+        .brand-text p {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            margin-top: 1px;
+        }
+
+        /* 4 Main View Navigation Tabs */
+        .nav-view-tabs {
+            display: flex;
+            background: #F1F5F9;
+            padding: 4px;
+            border-radius: 14px;
+            border: 1px solid var(--border-light);
+        }
+
+        .view-tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-size: 0.86rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .view-tab-btn:hover {
+            color: var(--text-heading);
+        }
+
+        .view-tab-btn.active {
+            background: #FFFFFF;
+            color: #0F172A;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Header Action Controls */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-chip {
+            background: #FFFFFF;
+            border: 1px solid var(--border-light);
+            color: var(--text-body);
+            padding: 7px 14px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .action-chip:hover {
+            border-color: var(--color-blue);
+            color: var(--color-blue);
+            background: var(--color-blue-light);
+            transform: translateY(-1px);
+        }
+
+        .action-chip-primary {
+            background: var(--color-emerald);
+            color: #FFFFFF;
+            border-color: var(--color-emerald);
+        }
+
+        .action-chip-primary:hover {
+            background: #047857;
+            color: #FFFFFF;
+        }
+
+        /* Main View Container */
+        .main-container {
+            max-width: 1440px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+        }
+
+        .view-content-pane {
+            display: none;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .view-content-pane.active {
+            display: flex;
+        }
+
+        /* Filter & Synchronize Control Strip */
+        .filter-control-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 1.2rem 1.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-subtle);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filter-left-info h2 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-left-info p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .filter-controls-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .master-select {
+            background: #F8FAFC;
+            border: 1px solid var(--border-light);
+            color: var(--text-heading);
+            padding: 9px 14px;
+            border-radius: 10px;
+            font-size: 0.86rem;
+            font-weight: 600;
+            outline: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .master-select:focus {
+            border-color: var(--color-blue);
+            background: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        .live-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            background: #ECFDF5;
+            border: 1px solid #A7F3D0;
+            color: #059669;
+            font-size: 0.74rem;
+            font-weight: 700;
+        }
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #059669;
+            animation: livePulse 1.8s infinite ease-in-out;
+        }
+
+        @keyframes livePulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.4; }
+        }
+
+        /* 4 Key KPI Cards (White Elegance) */
+        .kpi-master-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.2rem;
+        }
+
+        .kpi-master-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-card);
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .kpi-master-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-card-hover);
+            border-color: var(--border-focus);
+        }
+
+        .kpi-master-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .kpi-master-title {
+            font-size: 0.84rem;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .kpi-icon-box {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+        }
+
+        .kpi-master-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .kpi-master-sub {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge-trend-up {
+            color: #059669;
+            background: #ECFDF5;
+            padding: 2px 7px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.74rem;
+        }
+
+        /* Grid Layouts for Charts & Content */
+        .analytics-two-col {
+            display: grid;
+            grid-template-columns: 1.25fr 1fr;
+            gap: 1.4rem;
+        }
+
+        .analytics-card-white {
+            background: #FFFFFF;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 1.6rem;
+            box-shadow: var(--shadow-card);
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+        }
+
+        .card-white-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-white-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chart-box-white {
+            position: relative;
+            height: 290px;
+            width: 100%;
+        }
+
+        /* 4x3 Interactive Heatmap Table */
+        .heatmap-white-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 6px;
+        }
+
+        .heatmap-white-table th {
+            background: #F1F5F9;
+            padding: 10px 12px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            border-radius: 8px;
+        }
+
+        .heatmap-white-table td {
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .heatmap-white-table td:hover {
+            transform: scale(1.04);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .cell-green {
+            background: #ECFDF5;
+            color: #065F46;
+            border: 1px solid #A7F3D0;
+        }
+
+        .cell-blue {
+            background: #EFF6FF;
+            color: #1E40AF;
+            border: 1px solid #BFDBFE;
+        }
+
+        .cell-amber {
+            background: #FFFBEB;
+            color: #92400E;
+            border: 1px solid #FDE68A;
+        }
+
+        /* NPS Bar Light */
+        .nps-box-white {
+            background: #F8FAFC;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+
+        .nps-bar-track-light {
+            height: 16px;
+            width: 100%;
+            background: #E2E8F0;
+            border-radius: 9999px;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .nps-seg-promoter { background: #10B981; }
+        .nps-seg-passive { background: #F59E0B; }
+        .nps-seg-detractor { background: #EF4444; }
+
+        .nps-legend-light {
+            display: flex;
+            justify-content: space-around;
+            font-size: 0.82rem;
+            color: var(--text-body);
+        }
+
+        /* Citizen Voice Feed */
+        .feed-container-white {
+            max-height: 240px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-right: 4px;
+        }
+
+        .feedback-card-white {
+            background: #F8FAFC;
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.82rem;
+            line-height: 1.45;
+        }
+
+        .feedback-meta-white {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.74rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        /* Word Cloud Chips */
+        .tag-cloud-white {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .keyword-chip-white {
+            padding: 6px 12px;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid;
+            transition: var(--transition-smooth);
+        }
+
+        .keyword-chip-white:hover {
+            transform: translateY(-2px);
+        }
+
+        .chip-pos-white {
+            background: #ECFDF5;
+            border-color: #A7F3D0;
+            color: #065F46;
+        }
+
+        .chip-imp-white {
+            background: #FFFBEB;
+            border-color: #FDE68A;
+            color: #92400E;
+        }
+
+        .chip-count-white {
+            background: rgba(0, 0, 0, 0.06);
+            padding: 1px 6px;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Excel Studio Section */
+        .excel-studio-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 1.8rem;
+            box-shadow: var(--shadow-card);
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .excel-textarea-white {
+            width: 100%;
+            height: 130px;
+            background: #F8FAFC;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--text-heading);
+            outline: none;
+            resize: vertical;
+        }
+
+        .excel-textarea-white:focus {
+            border-color: var(--color-emerald);
+            background: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12);
+        }
+
+        /* Prompt Workshop Hub (White Clean) */
+        .prompt-hub-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 1.8rem;
+            box-shadow: var(--shadow-card);
+            display: flex;
+            flex-direction: column;
+            gap: 1.3rem;
+        }
+
+        .platform-row-white {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .platform-chip-white {
+            background: #F8FAFC;
+            border: 1px solid var(--border-light);
+            padding: 7px 14px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            color: var(--text-body);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition-smooth);
+        }
+
+        .platform-chip-white:hover {
+            border-color: var(--color-blue);
+            color: var(--color-blue);
+            background: var(--color-blue-light);
+            transform: translateY(-1px);
+        }
+
+        .platform-chip-white.recommended {
+            background: #ECFDF5;
+            border-color: #A7F3D0;
+            color: #065F46;
+            font-weight: 700;
+        }
+
+        .prompt-sub-tabs {
+            display: flex;
+            gap: 6px;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 6px;
+            overflow-x: auto;
+        }
+
+        .sub-tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            white-space: nowrap;
+        }
+
+        .sub-tab-btn.active {
+            background: #EFF6FF;
+            color: #1D4ED8;
+            border: 1px solid #BFDBFE;
+        }
+
+        .prompt-snippet-box {
+            background: #F8FAFC;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .snippet-pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            line-height: 1.55;
+            color: #1E293B;
+            background: #FFFFFF;
+            border: 1px solid var(--border-light);
+            padding: 1rem;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .btn-copy-white {
+            background: var(--color-emerald);
+            border: 1px solid var(--color-emerald);
+            color: #FFFFFF;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            align-self: flex-end;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-copy-white:hover {
+            background: #047857;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25);
+        }
+
+        /* Toast Feedback */
+        .toast-white {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #0F172A;
+            border: 1px solid #334155;
+            box-shadow: var(--shadow-float);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 9999;
+            opacity: 0;
+            transition: var(--transition-smooth);
+            pointer-events: none;
+        }
+
+        .toast-white.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Print Optimization */
+        @media print {
+            .master-header, .filter-controls-group, .nav-view-tabs, .header-actions, .platform-row-white, .btn-copy-white {
+                display: none !important;
+            }
+            body { background: #FFFFFF !important; }
+            .kpi-master-card, .analytics-card-white { box-shadow: none !important; border: 1px solid #CBD5E1 !important; }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .kpi-master-grid { grid-template-columns: repeat(2, 1fr); }
+            .analytics-two-col { grid-template-columns: 1fr; }
+            .header-top-row { flex-direction: column; height: auto; padding: 1rem; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Executive White Master Header -->
+    <header class="master-header">
+        <div class="header-top-row">
+            <!-- Brand -->
+            <a href="lecture-hshe-master.html" class="brand-group">
+                <div class="brand-badge-logo">
+                    <i class="fa-solid fa-shapes"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>
+                        화성시인재육성재단 
+                        <span class="badge-master-tag">1·2·3부 통합 마스터</span>
+                    </h1>
+                    <p>교육만족도 데이터 분석 및 시각화 실시간 총괄 대시보드</p>
+                </div>
+            </a>
+
+            <!-- 4 Main View Switcher Tabs -->
+            <nav class="nav-view-tabs">
+                <button class="view-tab-btn active" id="btn-view-executive" onclick="switchMasterView('executive', this)">
+                    <i class="fa-solid fa-gauge-high"></i> 경영진 대시보드
+                </button>
+                <button class="view-tab-btn" id="btn-view-modeling" onclick="switchMasterView('modeling', this)">
+                    <i class="fa-solid fa-database"></i> 데이터 & 모델링 랩
+                </button>
+                <button class="view-tab-btn" id="btn-view-excel" onclick="switchMasterView('excel', this)">
+                    <i class="fa-solid fa-file-excel"></i> 부서 엑셀 스튜디오
+                </button>
+                <button class="view-tab-btn" id="btn-view-prompt" onclick="switchMasterView('prompt', this)">
+                    <i class="fa-solid fa-terminal"></i> 통합 프롬프트 허브
+                </button>
+            </nav>
+
+            <!-- Quick Links & Actions -->
+            <div class="header-actions">
+                <a href="lecture-hshe.html" class="action-chip" title="1부 기획 슬라이드로 이동">
+                    1부
+                </a>
+                <a href="lecture-hshe-part2.html" class="action-chip" title="2부 데이터 모델링 랩으로 이동">
+                    2부
+                </a>
+                <a href="lecture-hshe-part3.html" class="action-chip" title="3부 대시보드 시각화로 이동">
+                    3부
+                </a>
+                <button class="action-chip action-chip-primary" onclick="window.print()" title="A4 요약 보고서 인쇄 / PDF 저장">
+                    <i class="fa-solid fa-print"></i> 보고서 인쇄
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+
+        <!-- ==========================================================================
+             VIEW 1: 통합 경영진 대시보드 (Executive Overview)
+             ========================================================================== -->
+        <section class="view-content-pane active" id="view-pane-executive">
+            
+            <!-- Global Filter & Status Strip -->
+            <div class="filter-control-card">
+                <div class="filter-left-info">
+                    <h2>
+                        <i class="fa-solid fa-chart-simple" style="color: #059669;"></i> 
+                        2026 AX 교육만족도 실시간 성과 지표
+                        <span class="live-status-pill">
+                            <span class="live-dot"></span> LIVE SYNC
+                        </span>
+                    </h2>
+                    <p>동탄중앙·다원·송린·봉담 이음터 4개 거점 및 청소년·성인·학부모 3대 수혜 계층 다차원 실시간 집계</p>
+                </div>
+                <div class="filter-controls-group">
+                    <select class="master-select" id="exec-filter-center" onchange="updateMasterAnalytics()">
+                        <option value="all">전체 이음터 (4개 거점)</option>
+                        <option value="동탄중앙이음터">동탄중앙이음터</option>
+                        <option value="다원이음터">다원이음터</option>
+                        <option value="송린이음터">송린이음터</option>
+                        <option value="봉담이음터">봉담이음터</option>
+                    </select>
+                    <select class="master-select" id="exec-filter-target" onchange="updateMasterAnalytics()">
+                        <option value="all">전체 수강 대상 (3개 계층)</option>
+                        <option value="청소년">청소년 (실습·흥미)</option>
+                        <option value="성인">성인 (실무 활용)</option>
+                        <option value="학부모">학부모 (환경·안내)</option>
+                    </select>
+                    <button class="action-chip" onclick="resetMasterFilters()" style="cursor: pointer;">
+                        <i class="fa-solid fa-rotate-right"></i> 초기화
+                    </button>
+                </div>
+            </div>
+
+            <!-- 4대 핵심 요약 KPI 카드 (White Elegance) -->
+            <div class="kpi-master-grid">
+                <!-- KPI 1 -->
+                <div class="kpi-master-card">
+                    <div class="kpi-master-header">
+                        <span class="kpi-master-title">종합 만족도 평점</span>
+                        <div class="kpi-icon-box" style="background:#ECFDF5; color:#059669;">
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="kpi-master-val" id="exec-kpi-avg">4.65</div>
+                    <div class="kpi-master-sub">
+                        <span class="badge-trend-up">+0.2점 ▲</span>
+                        <span>공공 100점 환산: <strong id="exec-kpi-100" style="color:#0F172A;">93.0점</strong></span>
+                    </div>
+                </div>
+
+                <!-- KPI 2 -->
+                <div class="kpi-master-card">
+                    <div class="kpi-master-header">
+                        <span class="kpi-master-title">총 설문 응답자 수</span>
+                        <div class="kpi-icon-box" style="background:#EFF6FF; color:#2563EB;">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="kpi-master-val" id="exec-kpi-count">100명</div>
+                    <div class="kpi-master-sub">
+                        <span style="color:#2563EB; font-weight:700;">응답률 92.0%</span>
+                        <span>(표본 신뢰도 95% 기준)</span>
+                    </div>
+                </div>
+
+                <!-- KPI 3 -->
+                <div class="kpi-master-card">
+                    <div class="kpi-master-header">
+                        <span class="kpi-master-title">재수강 및 추천 의향률</span>
+                        <div class="kpi-icon-box" style="background:#EEF2FF; color:#4F46E5;">
+                            <i class="fa-solid fa-rotate-right"></i>
+                        </div>
+                    </div>
+                    <div class="kpi-master-val" id="exec-kpi-retention">95.2%</div>
+                    <div class="kpi-master-sub">
+                        <span style="color:#4F46E5; font-weight:700;">지속가능성 우수</span>
+                        <span>Q5 4~5점 긍정 비율</span>
+                    </div>
+                </div>
+
+                <!-- KPI 4 -->
+                <div class="kpi-master-card">
+                    <div class="kpi-master-header">
+                        <span class="kpi-master-title">공공 순추천지수 (NPS)</span>
+                        <div class="kpi-icon-box" style="background:#FFFBEB; color:#D97706;">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                        </div>
+                    </div>
+                    <div class="kpi-master-val" id="exec-kpi-nps">+64%</div>
+                    <div class="kpi-master-sub">
+                        <span style="color:#D97706; font-weight:700;">적극 옹호 단계</span>
+                        <span>추천 72% - 비추천 8%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 1: 4x3 다차원 성과 매트릭스 & NPS 3색 게이지 -->
+            <div class="analytics-two-col">
+                <!-- 4x3 히트맵 -->
+                <div class="analytics-card-white">
+                    <div class="card-white-header">
+                        <h3 class="card-white-title">
+                            <i class="fa-solid fa-border-all" style="color: #2563EB;"></i> 
+                            4×3 이음터 거점 × 수강 대상 교차 매트릭스
+                        </h3>
+                        <span style="font-size: 0.76rem; color: var(--text-muted);">셀 클릭 시 세부 필터링</span>
+                    </div>
+                    <table class="heatmap-white-table">
+                        <thead>
+                            <tr>
+                                <th>센터명</th>
+                                <th>청소년</th>
+                                <th>성인</th>
+                                <th>학부모</th>
+                                <th>거점 종합</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="font-weight:700; color:#0F172A;">동탄중앙이음터</td>
+                                <td class="cell-green" onclick="filterByHeatmap('동탄중앙이음터', '청소년')">4.82</td>
+                                <td class="cell-green" onclick="filterByHeatmap('동탄중앙이음터', '성인')">4.74</td>
+                                <td class="cell-blue" onclick="filterByHeatmap('동탄중앙이음터', '학부모')">4.60</td>
+                                <td style="font-weight:700; color:#2563EB;">4.72</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:700; color:#0F172A;">다원이음터</td>
+                                <td class="cell-green" onclick="filterByHeatmap('다원이음터', '청소년')">4.91</td>
+                                <td class="cell-green" onclick="filterByHeatmap('다원이음터', '성인')">4.86</td>
+                                <td class="cell-blue" onclick="filterByHeatmap('다원이음터', '학부모')">4.58</td>
+                                <td style="font-weight:700; color:#2563EB;">4.78</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:700; color:#0F172A;">송린이음터</td>
+                                <td class="cell-blue" onclick="filterByHeatmap('송린이음터', '청소년')">4.58</td>
+                                <td class="cell-blue" onclick="filterByHeatmap('송린이음터', '성인')">4.62</td>
+                                <td class="cell-amber" onclick="filterByHeatmap('송린이음터', '학부모')">4.31</td>
+                                <td style="font-weight:700; color:#2563EB;">4.50</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:700; color:#0F172A;">봉담이음터</td>
+                                <td class="cell-blue" onclick="filterByHeatmap('봉담이음터', '청소년')">4.50</td>
+                                <td class="cell-amber" onclick="filterByHeatmap('봉담이음터', '성인')">4.33</td>
+                                <td class="cell-blue" onclick="filterByHeatmap('봉담이음터', '학부모')">4.52</td>
+                                <td style="font-weight:700; color:#2563EB;">4.45</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- NPS 게이지 카드 -->
+                <div class="analytics-card-white">
+                    <div class="card-white-header">
+                        <h3 class="card-white-title">
+                            <i class="fa-solid fa-gauge-high" style="color: #059669;"></i> 
+                            공공 순추천지수(NPS) 상세 분포
+                        </h3>
+                        <span style="font-size: 0.76rem; color: #059669; font-weight:700;">시민 신뢰도 최상위</span>
+                    </div>
+                    <div class="nps-box-white">
+                        <div class="nps-bar-track-light">
+                            <div class="nps-seg-promoter" id="nps-bar-prom" style="width: 72%;"></div>
+                            <div class="nps-seg-passive" id="nps-bar-pass" style="width: 20%;"></div>
+                            <div class="nps-seg-detractor" id="nps-bar-detr" style="width: 8%;"></div>
+                        </div>
+                        <div class="nps-legend-light">
+                            <div><span style="color:#10B981;">●</span> 추천자 (5점): <strong id="nps-pct-prom">72%</strong></div>
+                            <div><span style="color:#F59E0B;">●</span> 중립자 (4점): <strong id="nps-pct-pass">20%</strong></div>
+                            <div><span style="color:#EF4444;">●</span> 비추천자 (1~3점): <strong id="nps-pct-detr">8%</strong></div>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">
+                        * 공공 NPS가 <strong>+50% 이상</strong>을 기록할 경우 지자체 및 출연기관 평가 기준 '매우 우수한 정책 만족도'로 판정되며, 시민들의 자발적 참여 확산 단계로 분류됩니다.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Row 2: 차트 2열 (센터별 막대차트 + 5대 항목 방사형차트) -->
+            <div class="analytics-two-col">
+                <div class="analytics-card-white">
+                    <div class="card-white-header">
+                        <h3 class="card-white-title">
+                            <i class="fa-solid fa-chart-column" style="color: #2563EB;"></i> 
+                            4개 이음터 센터별 5대 문항 비교 막대 차트
+                        </h3>
+                        <span style="font-size: 0.76rem; color: var(--text-muted);">동탄중앙 / 다원 / 송린 / 봉담</span>
+                    </div>
+                    <div class="chart-box-white">
+                        <canvas id="masterBarChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="analytics-card-white">
+                    <div class="card-white-header">
+                        <h3 class="card-white-title">
+                            <i class="fa-solid fa-chart-pie" style="color: #059669;"></i> 
+                            5대 평가 영역 밸런스 방사형 차트 (Radar)
+                        </h3>
+                        <span style="font-size: 0.76rem; color: #059669; font-weight:700;">만점 5.0 기준</span>
+                    </div>
+                    <div class="chart-box-white">
+                        <canvas id="masterRadarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 3: 월별 추이 라인차트 & 시민 주관식 피드 -->
+            <div class="analytics-two-col">
+                <div class="analytics-card-white">
+                    <div class="card-white-header">
+                        <h3 class="card-white-title">
+                            <i class="fa-solid fa-chart-line" style="color: #D97706;"></i> 
+                            최근 3개월간(8월~10월) 월별 교육 만족도 추이선
+                        </h3>
+                        <span style="font-size: 0.76rem; color: #D97706; font-weight:700;">
+                            <i class="fa-solid fa-minus"></i> 목표 기준선: 4.5점
+                        </span>
+                    </div>
+                    <div class="chart-box-white">
+                        <canvas id="masterLineChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="analytics-card-white">
+                    <div class="card-white-header">
+                        <h3 class="card-white-title">
+                            <i class="fa-solid fa-comments" style="color: #059669;"></i> 
+                            시민 주관식 서술형 피드백 실시간 피드
+                        </h3>
+                        <span style="font-size: 0.76rem; color: var(--text-muted);">Q6 우수 & Q7 건의</span>
+                    </div>
+                    <div class="feed-container-white" id="master-feed-container">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================================================
+             VIEW 2: 데이터 & 모델링 랩 (Data & Modeling Studio)
+             ========================================================================== -->
+        <section class="view-content-pane" id="view-pane-modeling">
+            
+            <!-- 5+2 표준 평가 지표 스키마 -->
+            <div class="analytics-card-white">
+                <div class="card-white-header">
+                    <h3 class="card-white-title">
+                        <i class="fa-solid fa-table-list" style="color: #059669;"></i> 
+                        화성시인재육성재단 5+2 공공 표준 평가 지표 모델
+                    </h3>
+                    <span style="font-size: 0.76rem; color: var(--text-muted);">정량 5문항 + 정성 2문항 체계</span>
+                </div>
+                <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:1.2rem;">
+                    <div style="background:#F8FAFC; border:1px solid var(--border-light); border-radius:12px; padding:1.2rem;">
+                        <h4 style="color:#059669; font-size:0.95rem; margin-bottom:10px;"><i class="fa-solid fa-star"></i> 정량 평가 5문항 (5점 리커트 척도)</h4>
+                        <ul style="list-style:none; display:flex; flex-direction:column; gap:8px; font-size:0.83rem; color:#334155;">
+                            <li><strong>Q1 (강사 전문성):</strong> 전문 지식 수준과 강의 내용 전달력 (가중치 20%)</li>
+                            <li><strong>Q2 (커리큘럼):</strong> 교육 내용의 실무·생활 활용도 및 구성의 체계성 (가중치 20%)</li>
+                            <li><strong>Q3 (시설·기자재):</strong> 이음터 강의실 환경, 디지털 실습 기자재 지원 (가중치 20%)</li>
+                            <li><strong>Q4 (행정 지원):</strong> 수강 접수, 일정 안내, 현장 운영의 친절성 (가중치 20%)</li>
+                            <li><strong>Q5 (재참여·추천):</strong> 향후 강좌 재수강 및 주변인 추천 의향 [NPS 지표] (가중치 20%)</li>
+                        </ul>
+                    </div>
+                    <div style="background:#F8FAFC; border:1px solid var(--border-light); border-radius:12px; padding:1.2rem;">
+                        <h4 style="color:#4F46E5; font-size:0.95rem; margin-bottom:10px;"><i class="fa-solid fa-comment-dots"></i> 정성 평가 2문항 (주관식 서술형)</h4>
+                        <ul style="list-style:none; display:flex; flex-direction:column; gap:12px; font-size:0.83rem; color:#334155;">
+                            <li><strong>Q6 (우수 강점):</strong> 본 교육 과정에서 가장 유익하거나 만족스러웠던 점 (자연어 형태소 감성 분석 및 우수 요인 도출)</li>
+                            <li><strong>Q7 (개선 건의):</strong> 시설, 운영, 교육 내용 측면에서 개선이 필요한 사항 (차기년도 사업 계획 및 예산 환류 과제 도출)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NLP 형태소 키워드 분석 클라우드 -->
+            <div class="analytics-card-white">
+                <div class="card-white-header">
+                    <h3 class="card-white-title">
+                        <i class="fa-solid fa-brain" style="color: #4F46E5;"></i> 
+                        주관식 서술형 피드백 자연어 NLP 감성 분석 (Top 5 빈출 키워드)
+                    </h3>
+                    <span style="font-size: 0.76rem; color: var(--text-muted);">형태소 단위 자동 추출</span>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.4rem;">
+                    <div>
+                        <div style="font-size:0.86rem; font-weight:700; color:#065F46; margin-bottom:8px;">
+                            <i class="fa-solid fa-thumbs-up"></i> Q6 긍정 피드백 핵심 강점 Top 5
+                        </div>
+                        <div class="tag-cloud-white">
+                            <span class="keyword-chip-white chip-pos-white">강사 전문성 <span class="chip-count-white">48회</span></span>
+                            <span class="keyword-chip-white chip-pos-white">최신 AI 실습 <span class="chip-count-white">42회</span></span>
+                            <span class="keyword-chip-white chip-pos-white">교재 완성도 <span class="chip-count-white">36회</span></span>
+                            <span class="keyword-chip-white chip-pos-white">친절한 현장 안내 <span class="chip-count-white">31회</span></span>
+                            <span class="keyword-chip-white chip-pos-white">실무 적용성 <span class="chip-count-white">29회</span></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="font-size:0.86rem; font-weight:700; color:#92400E; margin-bottom:8px;">
+                            <i class="fa-solid fa-triangle-exclamation"></i> Q7 개선 건의사항 행정 과제 Top 5
+                        </div>
+                        <div class="tag-cloud-white">
+                            <span class="keyword-chip-white chip-imp-white">주차 공간 부족 <span class="chip-count-white">24회</span></span>
+                            <span class="keyword-chip-white chip-imp-white">냉난방 온도 조절 <span class="chip-count-white">19회</span></span>
+                            <span class="keyword-chip-white chip-imp-white">실습 시간 확대 <span class="chip-count-white">17회</span></span>
+                            <span class="keyword-chip-white chip-imp-white">심화 강좌 개설 <span class="chip-count-white">15회</span></span>
+                            <span class="keyword-chip-white chip-imp-white">수강 신청 시스템 <span class="chip-count-white">12회</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 100건 가상 JSON DB 인스펙터 -->
+            <div class="analytics-card-white">
+                <div class="card-white-header">
+                    <h3 class="card-white-title">
+                        <i class="fa-solid fa-database" style="color: #2563EB;"></i> 
+                        100건 가상 정형 JSON DB 실시간 인스펙터 (개인정보 100% 비식별화)
+                    </h3>
+                    <div style="display:flex; gap:8px;">
+                        <button class="action-chip" onclick="copyMasterJSON()"><i class="fa-regular fa-copy"></i> 전체 JSON 복사</button>
+                        <button class="action-chip" onclick="exportMasterJSON()"><i class="fa-solid fa-download"></i> JSON 파일 저장</button>
+                    </div>
+                </div>
+                <pre class="snippet-pre" id="master-json-viewer" style="max-height: 220px; overflow-y: auto;"></pre>
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================================================
+             VIEW 3: 부서 엑셀 스튜디오 (Excel CSV Studio)
+             ========================================================================== -->
+        <section class="view-content-pane" id="view-pane-excel">
+            <div class="excel-studio-card">
+                <div class="card-white-header">
+                    <div>
+                        <span class="badge-master-tag" style="background:#ECFDF5; color:#059669; border-color:#A7F3D0;">
+                            <i class="fa-solid fa-file-excel"></i> 내일 출근해서 바로 쓰는 실무 도구
+                        </span>
+                        <h3 style="font-size:1.35rem; font-weight:800; color:#0F172A; margin-top:5px;">
+                            내 부서 엑셀(CSV) 설문 데이터 즉시 반영 및 시뮬레이션
+                        </h3>
+                        <p style="font-size:0.84rem; color:var(--text-muted); margin-top:3px;">
+                            구글 폼, 네이버 폼, 오프라인 설문 취합 엑셀에서 응답 데이터를 복사하여 아래 텍스트창에 붙여넣고 [데이터 즉시 반영]을 클릭하세요.
+                        </p>
+                    </div>
+                    <div style="display:flex; gap:8px;">
+                        <button class="action-chip" onclick="loadSampleMasterCSV()"><i class="fa-solid fa-magic"></i> 예시 데이터 채우기</button>
+                        <button class="action-chip action-chip-primary" onclick="applyMasterCSV()"><i class="fa-solid fa-play"></i> 데이터 즉시 반영</button>
+                    </div>
+                </div>
+                <textarea class="excel-textarea-white" id="master-csv-area" placeholder="센터명,참여대상,q1,q2,q3,q4,q5,q6_positive,q7_improvement
+동탄중앙이음터,성인,5,5,5,5,5,대시보드 실습이 업무에 즉시 활용 가능하여 매우 유익했습니다,실습 시간 확대 요망
+다원이음터,청소년,5,4,4,5,5,AI 프롬프트 작성 실습이 흥미진진했습니다,더 많은 예제 제공 희망
+송린이음터,학부모,4,4,3,4,4,자녀 교육과 연계된 디지털 행정 안내가 좋았습니다,주차 공간 개선 요망
+봉담이음터,성인,4,4,4,4,5,경영평가 100점 환산 공식이 실질적이었습니다,강의실 와이파이 점검 요망"></textarea>
+                
+                <div style="background:#F8FAFC; border:1px solid var(--border-light); border-radius:10px; padding:1rem; font-size:0.8rem; color:var(--text-muted); line-height:1.5;">
+                    📌 <strong>입력 형식 안내:</strong> 콤마(,)로 구분된 9개 열(센터명, 참여대상, Q1, Q2, Q3, Q4, Q5, 긍정 피드백, 개선 건의사항)을 입력하시면, 1·2·3부 통합 대시보드의 KPI, 막대 차트, 방사형 차트, 피드가 실시간으로 즉시 갱신됩니다.
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             VIEW 4: 통합 프롬프트 허브 (Master Prompt Hub - 15 Prompts)
+             ========================================================================== -->
+        <section class="view-content-pane" id="view-pane-prompt">
+            <div class="prompt-hub-card">
+                <div class="card-white-header">
+                    <div>
+                        <span class="badge-master-tag"><i class="fa-solid fa-graduation-cap"></i> 수강생 실습 아카이브</span>
+                        <h3 style="font-size:1.35rem; font-weight:800; color:#0F172A; margin-top:5px;">
+                            🎓 1·2·3부 통합 프롬프트 패키지 & 추천 AI 플랫폼 가이드
+                        </h3>
+                        <p style="font-size:0.84rem; color:var(--text-muted); margin-top:3px;">
+                            단계별 프롬프트를 원클릭 복사하여 선호하는 AI 플랫폼에 붙여넣기(Ctrl+V)하세요.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 5 AI Platform Badges -->
+                <div class="platform-row-white">
+                    <span style="font-size:0.82rem; font-weight:700; color:var(--text-heading);">추천 플랫폼:</span>
+                    <a href="https://antigravity.google/" target="_blank" rel="noopener noreferrer" class="platform-chip-white recommended">
+                        <i class="fa-solid fa-atom"></i> 구글 안티그래비티 (추천)
+                    </a>
+                    <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="platform-chip-white">
+                        <i class="fa-solid fa-brain"></i> Claude (Artifacts 기능)
+                    </a>
+                    <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" class="platform-chip-white">
+                        <i class="fa-solid fa-robot"></i> ChatGPT (Canvas/코드)
+                    </a>
+                    <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer" class="platform-chip-white">
+                        <i class="fa-brands fa-google"></i> Google Gemini
+                    </a>
+                    <a href="https://v0.dev" target="_blank" rel="noopener noreferrer" class="platform-chip-white">
+                        <i class="fa-solid fa-code"></i> v0.dev (웹 컴포넌트)
+                    </a>
+                </div>
+
+                <!-- Sub Tabs (1~7 Steps) -->
+                <div class="prompt-sub-tabs">
+                    <button class="sub-tab-btn active" onclick="switchPromptStep(1, this)">1. 표준 지표 스키마</button>
+                    <button class="sub-tab-btn" onclick="switchPromptStep(2, this)">2. 100건 가상 DB</button>
+                    <button class="sub-tab-btn" onclick="switchPromptStep(3, this)">3. 100점 환산 로직</button>
+                    <button class="sub-tab-btn" onclick="switchPromptStep(4, this)">4. 4×3 교차 분석</button>
+                    <button class="sub-tab-btn" onclick="switchPromptStep(5, this)">5. 공공 NPS 연산</button>
+                    <button class="sub-tab-btn" onclick="switchPromptStep(6, this)">6. 서술형 NLP 키워드</button>
+                    <button class="sub-tab-btn" onclick="switchPromptStep(7, this)">7. 원스톱 풀스택 대시보드</button>
+                </div>
+
+                <!-- Panel 1 -->
+                <div class="prompt-snippet-box prompt-step-panel active" id="step-panel-1">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <strong style="font-size:0.9rem; color:#059669;">[Step 1] 화성시 5+2 표준 평가 지표 스키마 명세</strong>
+                        <button class="btn-copy-white" onclick="copySnippetText('snippet-1')"><i class="fa-regular fa-copy"></i> 프롬프트 복사</button>
+                    </div>
+                    <div class="snippet-pre" id="snippet-1">화성시인재육성재단 이음터 문화·ICT 강좌 및 장학 멘토링 프로그램 평가를 위한
+표준 7문항(q1_instructor, q2_curriculum, q3_facility, q4_admin, q5_recommendation: 5점 척도,
+q6_positive, q7_improvement: 서술형)의 스키마 명세를 Markdown 테이블로 정리해줘.
+각 문항별 평가 목적, 측정 척도(1~5점 리커트 및 텍스트), 그리고 행정적 관리 기준을 함께 기술해줘.</div>
+                </div>
+
+                <!-- Panel 2 -->
+                <div class="prompt-snippet-box prompt-step-panel" id="step-panel-2" style="display:none;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <strong style="font-size:0.9rem; color:#059669;">[Step 2] 100명분 가상 정형 JSON DB 생성</strong>
+                        <button class="btn-copy-white" onclick="copySnippetText('snippet-2')"><i class="fa-regular fa-copy"></i> 프롬프트 복사</button>
+                    </div>
+                    <div class="snippet-pre" id="snippet-2">위 7개 문항을 기반으로 화성시인재육성재단의 최근 3개월 수강생 100명분의 가상 응답 데이터를
+JSON 배열 포맷(const surveyData = [...])으로 작성해줘. 
+센터(동탄중앙/다원/송린/봉담)와 대상(청소년/성인/학부모)을 고르게 분포시키고, 
+개인정보 보호 규정을 준수하여 식별자는 RESP_001~RESP_100 형태로 부여해줘.
+q1~q5 점수는 공공 교육 현실을 반영하여 평균 4.3~4.6 수준으로 정규분포를 이루게 하고,
+실제 공공 교육 현장의 생생한 수강 후기 및 건의사항(주차, 냉난방, 실습 시간 등)을 현실감 있게 포함해줘.</div>
+                </div>
+
+                <!-- Panel 3 -->
+                <div class="prompt-snippet-box prompt-step-panel" id="step-panel-3" style="display:none;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <strong style="font-size:0.9rem; color:#059669;">[Step 3] 종합 평점 및 공공 100점 환산 연산</strong>
+                        <button class="btn-copy-white" onclick="copySnippetText('snippet-3')"><i class="fa-regular fa-copy"></i> 프롬프트 복사</button>
+                    </div>
+                    <div class="snippet-pre" id="snippet-3">`surveyData` 배열을 순회하여 문항별(q1~q5) 평균 점수, 전체 종합 평균 점수(5점 만점),
+그리고 공공 평가지표 및 화성시의회 행정사무감사 보고용 100점 환산 점수( (전체평균 / 5.0) * 100 )를
+소수점 둘째 자리까지 계산하여 콘솔에 깔끔하게 출력하는 JavaScript 함수를 작성해줘.</div>
+                </div>
+
+                <!-- Panel 4 -->
+                <div class="prompt-snippet-box prompt-step-panel" id="step-panel-4" style="display:none;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <strong style="font-size:0.9rem; color:#059669;">[Step 4] 4개 센터 × 3대 수강 대상 다차원 교차 분석</strong>
+                        <button class="btn-copy-white" onclick="copySnippetText('snippet-4')"><i class="fa-regular fa-copy"></i> 프롬프트 복사</button>
+                    </div>
+                    <div class="snippet-pre" id="snippet-4">`surveyData`를 바탕으로 
+(1) 4개 이음터 센터(동탄중앙, 다원, 송린, 봉담)별 평균 만족도 및 응답자 수,
+(2) 청소년, 성인, 학부모 수강 대상별 항목별 만족도를 그룹화하여 집계하고,
+(3) 4×3 교차 매트릭스(Center × Target) 히트맵 테이블을 생성할 수 있는 데이터 전처리 JavaScript 함수를 작성해줘.</div>
+                </div>
+
+                <!-- Panel 5 -->
+                <div class="prompt-snippet-box prompt-step-panel" id="step-panel-5" style="display:none;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <strong style="font-size:0.9rem; color:#059669;">[Step 5] 공공 순추천지수(NPS) 산출 알고리즘</strong>
+                        <button class="btn-copy-white" onclick="copySnippetText('snippet-5')"><i class="fa-regular fa-copy"></i> 프롬프트 복사</button>
+                    </div>
+                    <div class="snippet-pre" id="snippet-5">`surveyData`의 q5(추천 의향) 응답값을 5점 리커트 척도 기준으로 분석하여:
+- 추천자 (Promoters): 5점 응답자
+- 중립자 (Passives): 4점 응답자
+- 비추천자 (Detractors): 1~3점 응답자
+각 그룹의 인원수와 백분율을 구하고, 최종 공공 NPS 지수 [ (추천자 비율 - 비추천자 비율) * 100 ]를
+산출하는 로직을 코드로 작성해줘. 결과값(-100 ~ +100)의 행정적 의미도 함께 요약해줘.</div>
+                </div>
+
+                <!-- Panel 6 -->
+                <div class="prompt-snippet-box prompt-step-panel" id="step-panel-6" style="display:none;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <strong style="font-size:0.9rem; color:#059669;">[Step 6] 서술형 자연어 형태소 NLP 키워드 추출</strong>
+                        <button class="btn-copy-white" onclick="copySnippetText('snippet-6')"><i class="fa-regular fa-copy"></i> 프롬프트 복사</button>
+                    </div>
+                    <div class="snippet-pre" id="snippet-6">`surveyData` 내 q6_positive와 q7_improvement의 서술형 문장들을 형태소 단위로 분석하여,
+가장 많이 언급된 핵심 긍정 키워드 Top 5와 개선 요구 키워드 Top 5를 빈도수(언급 횟수)와 함께 추출해줘.
+도출된 개선 요구 키워드를 재단의 차기년도 사업 계획서 및 예산안에 반영할 수 있는 구체적 행정 개선안도 제안해줘.</div>
+                </div>
+
+                <!-- Panel 7 -->
+                <div class="prompt-snippet-box prompt-step-panel" id="step-panel-7" style="display:none;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <strong style="font-size:0.9rem; color:#059669;">[Step 7] 단 하나의 완성형 풀스택 대시보드 웹앱 렌더링</strong>
+                        <button class="btn-copy-white" onclick="copySnippetText('snippet-7')"><i class="fa-regular fa-copy"></i> 프롬프트 복사</button>
+                    </div>
+                    <div class="snippet-pre" id="snippet-7">당신은 공공 데이터 시각화 전문가입니다. 앞서 정의한 100건의 화성시인재육성재단 설문 데이터와
+통계 연산 로직을 통합하여, 단일 페이지 React 대시보드 웹 컴포넌트를 완성해줘.
+깔끔한 화이트 테마, 상단 센터/대상 드롭다운 필터, 4대 KPI 카드, Recharts 기반의
+센터별 막대차트, 영역별 방사형차트, 월별 추이선, 주관식 피드백 피드가 완벽히 연동되어야 해.</div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Global Toast Feedback -->
+    <div class="toast-white" id="master-toast">
+        <i class="fa-solid fa-circle-check" style="color: #10B981;"></i>
+        <span id="master-toast-text">복사되었습니다.</span>
+    </div>
+
+    <script>
+        /* ==========================================================================
+           Master Tab Navigation
+           ========================================================================== */
+        function switchMasterView(viewId, btn) {
+            document.querySelectorAll('.view-tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.view-content-pane').forEach(p => p.classList.remove('active'));
+
+            btn.classList.add('active');
+            const targetPane = document.getElementById(`view-pane-${viewId}`);
+            if (targetPane) targetPane.classList.add('active');
+
+            if (viewId === 'executive' && mBarChart && mRadarChart && mLineChart) {
+                mBarChart.resize();
+                mRadarChart.resize();
+                mLineChart.resize();
+            }
+        }
+
+        function switchPromptStep(stepIdx, btn) {
+            document.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.prompt-step-panel').forEach(p => p.style.display = 'none');
+
+            btn.classList.add('active');
+            const panel = document.getElementById(`step-panel-${stepIdx}`);
+            if (panel) panel.style.display = 'flex';
+        }
+
+        function showMasterToast(msg) {
+            const toast = document.getElementById('master-toast');
+            document.getElementById('master-toast-text').textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        function copySnippetText(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                navigator.clipboard.writeText(el.innerText || el.textContent).then(() => {
+                    showMasterToast("프롬프트가 클립보드에 복사되었습니다! AI에 붙여넣기(Ctrl+V)하세요.");
+                });
+            }
+        }
+
+        /* ==========================================================================
+           Synthetic Master Survey DB (100 Records)
+           ========================================================================== */
+        const centers = ["동탄중앙이음터", "다원이음터", "송린이음터", "봉담이음터"];
+        const targets = ["청소년", "성인", "학부모"];
+
+        const posFeedSamples = [
+            "강사님의 전문 지식과 안티그래비티 대시보드 시연이 매우 직관적이었습니다.",
+            "엑셀로 며칠씩 걸리던 만족도 조사를 프롬프트 한 번으로 통계 낼 수 있어 놀라웠습니다.",
+            "이음터 시설과 디지털 장비 지원이 훌륭하여 실습 집중도가 높았습니다.",
+            "청소년 눈높이에 맞춘 AI 프롬프트 설명 덕분에 어렵지 않게 따라갈 수 있었습니다.",
+            "학부모 관점에서 디지털 교육의 실무 유용성을 확실히 체감한 뜻깊은 시간이었습니다."
+        ];
+
+        const impFeedSamples = [
+            "이음터 지하 주차 공간이 협소하여 대중교통 이용 안내가 강화되었으면 합니다.",
+            "강의실 냉난방 온도가 다소 쌀쌀하여 실시간 온도 조절이 필요합니다.",
+            "실습 시간이 너무 빨리 지나갔습니다. 다음에는 2일 코스 심화 강좌 개설을 희망합니다.",
+            "수강 신청 시스템 서버가 접수 당일 다소 느렸던 점 개선 부탁드립니다.",
+            "교재 내용을 집에서도 복습할 수 있는 동영상 요약본이 제공되면 좋겠습니다."
+        ];
+
+        let masterDB = [];
+        for (let i = 1; i <= 100; i++) {
+            const cName = centers[i % centers.length];
+            const pType = targets[i % targets.length];
+            const q1 = (i % 7 === 0) ? 4 : 5;
+            const q2 = (i % 5 === 0) ? 4 : 5;
+            const q3 = (cName === "봉담이음터" && i % 3 === 0) ? 3 : (i % 4 === 0 ? 4 : 5);
+            const q4 = (i % 6 === 0) ? 4 : 5;
+            const q5 = (i % 8 === 0) ? 3 : (i % 4 === 0 ? 4 : 5);
+
+            masterDB.push({
+                id: `RESP_${String(i).padStart(3, '0')}`,
+                centerName: cName,
+                participantType: pType,
+                q1: q1, q2: q2, q3: q3, q4: q4, q5: q5,
+                positive: posFeedSamples[i % posFeedSamples.length],
+                improvement: impFeedSamples[i % impFeedSamples.length]
+            });
+        }
+
+        // Render Master JSON Viewer
+        document.getElementById('master-json-viewer').textContent = JSON.stringify(masterDB.slice(0, 10), null, 2) + "\n\n// ... 총 100건 가상 데이터셋 전체 내장됨";
+
+        function copyMasterJSON() {
+            navigator.clipboard.writeText(JSON.stringify(masterDB, null, 2)).then(() => {
+                showMasterToast("100건 전체 JSON 데이터셋이 복사되었습니다!");
+            });
+        }
+
+        function exportMasterJSON() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(masterDB, null, 2));
+            const dlAnchor = document.createElement('a');
+            dlAnchor.setAttribute("href", dataStr);
+            dlAnchor.setAttribute("download", "hshe_unified_100_db.json");
+            dlAnchor.click();
+            showMasterToast("JSON 파일 다운로드가 시작되었습니다.");
+        }
+
+        /* ==========================================================================
+           Chart.js Configurations (Optimized for Pure White Canvas)
+           ========================================================================== */
+        let mBarChart = null;
+        let mRadarChart = null;
+        let mLineChart = null;
+
+        function initWhiteCharts() {
+            // 1. Grouped Bar Chart (Light Theme)
+            const ctxBar = document.getElementById('masterBarChart').getContext('2d');
+            mBarChart = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: centers,
+                    datasets: [
+                        { label: 'Q1 강사 전문성', data: [4.90, 4.95, 4.75, 4.80], backgroundColor: '#2563EB' },
+                        { label: 'Q2 커리큘럼', data: [4.80, 4.85, 4.65, 4.70], backgroundColor: '#4F46E5' },
+                        { label: 'Q3 시설·기자재', data: [4.60, 4.65, 4.45, 4.30], backgroundColor: '#D97706' },
+                        { label: 'Q4 행정 지원', data: [4.85, 4.80, 4.70, 4.75], backgroundColor: '#059669' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { min: 3.5, max: 5.0, grid: { color: '#F1F5F9' }, ticks: { color: '#64748B' } },
+                        x: { grid: { display: false }, ticks: { color: '#334155', font: { weight: 'bold' } } }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#334155', font: { size: 11, weight: '600' } } }
+                    }
+                }
+            });
+
+            // 2. Radar Chart (Light Theme)
+            const ctxRadar = document.getElementById('masterRadarChart').getContext('2d');
+            mRadarChart = new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: ['강사 전문성', '커리큘럼 실무', '시설·기자재', '행정 지원', '시민 추천(NPS)'],
+                    datasets: [{
+                        label: '5대 표준 지표 평균',
+                        data: [4.85, 4.75, 4.50, 4.78, 4.82],
+                        backgroundColor: 'rgba(5, 150, 105, 0.15)',
+                        borderColor: '#059669',
+                        pointBackgroundColor: '#2563EB',
+                        pointBorderColor: '#FFFFFF',
+                        pointHoverBackgroundColor: '#FFFFFF',
+                        pointHoverBorderColor: '#2563EB'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            min: 3.0,
+                            max: 5.0,
+                            grid: { color: '#E2E8F0' },
+                            angleLines: { color: '#E2E8F0' },
+                            pointLabels: { color: '#1E293B', font: { size: 11, weight: 'bold' } },
+                            ticks: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+
+            // 3. Line Chart (Monthly Trend with Target Line)
+            const ctxLine = document.getElementById('masterLineChart').getContext('2d');
+            mLineChart = new Chart(ctxLine, {
+                type: 'line',
+                data: {
+                    labels: ['8월 (방학 특강)', '9월 (정규 2기)', '10월 (정규 3기)'],
+                    datasets: [
+                        {
+                            label: '월별 종합 만족도 평점',
+                            data: [4.42, 4.58, 4.65],
+                            borderColor: '#2563EB',
+                            backgroundColor: 'rgba(37, 99, 235, 0.08)',
+                            fill: true,
+                            tension: 0.35,
+                            borderWidth: 3,
+                            pointRadius: 6,
+                            pointBackgroundColor: '#2563EB'
+                        },
+                        {
+                            label: '재단 목표 기준선 (4.5점)',
+                            data: [4.50, 4.50, 4.50],
+                            borderColor: '#D97706',
+                            borderDash: [6, 6],
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { min: 4.0, max: 5.0, grid: { color: '#F1F5F9' }, ticks: { color: '#64748B' } },
+                        x: { grid: { display: false }, ticks: { color: '#334155', font: { weight: 'bold' } } }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#334155', font: { size: 11, weight: '600' } } },
+                        tooltip: {
+                            callbacks: {
+                                afterBody: function(context) {
+                                    if (context[0].dataIndex === 0) return '응답 88명 · 폭염으로 인한 시설 냉방 이슈';
+                                    if (context[0].dataIndex === 1) return '응답 95명 · AI 실무 커리큘럼 만족도 상승';
+                                    if (context[0].dataIndex === 2) return '응답 100명 · 이음터 전 센터 최고 평점 경신';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        /* ==========================================================================
+           Master Analytics & Real-time Filter Logic
+           ========================================================================== */
+        function filterByHeatmap(center, target) {
+            document.getElementById('exec-filter-center').value = center;
+            document.getElementById('exec-filter-target').value = target;
+            updateMasterAnalytics();
+            showMasterToast(`${center} · ${target} 필터가 적용되었습니다.`);
+        }
+
+        function resetMasterFilters() {
+            document.getElementById('exec-filter-center').value = 'all';
+            document.getElementById('exec-filter-target').value = 'all';
+            updateMasterAnalytics();
+            showMasterToast("전체 데이터 필터로 리셋되었습니다.");
+        }
+
+        function updateMasterAnalytics() {
+            const cVal = document.getElementById('exec-filter-center').value;
+            const tVal = document.getElementById('exec-filter-target').value;
+
+            let filtered = masterDB;
+            if (cVal !== 'all') filtered = filtered.filter(d => d.centerName === cVal);
+            if (tVal !== 'all') filtered = filtered.filter(d => d.participantType === tVal);
+
+            const count = filtered.length;
+            document.getElementById('exec-kpi-count').textContent = `${count}명`;
+
+            if (count === 0) {
+                document.getElementById('exec-kpi-avg').textContent = "0.0";
+                document.getElementById('exec-kpi-100').textContent = "0.0점";
+                document.getElementById('exec-kpi-retention').textContent = "0%";
+                document.getElementById('exec-kpi-nps').textContent = "0%";
+                return;
+            }
+
+            let sumTotal = 0;
+            let countPositiveQ5 = 0;
+            let countPromoters = 0;
+            let countPassives = 0;
+            let countDetractors = 0;
+
+            filtered.forEach(d => {
+                const rowAvg = (d.q1 + d.q2 + d.q3 + d.q4 + d.q5) / 5;
+                sumTotal += rowAvg;
+                if (d.q5 >= 4) countPositiveQ5++;
+                if (d.q5 === 5) countPromoters++;
+                else if (d.q5 === 4) countPassives++;
+                else countDetractors++;
+            });
+
+            const overallAvg = (sumTotal / count).toFixed(2);
+            const score100 = (overallAvg * 20).toFixed(1);
+            const retentionPct = ((countPositiveQ5 / count) * 100).toFixed(1);
+
+            const pctProm = Math.round((countPromoters / count) * 100);
+            const pctDetr = Math.round((countDetractors / count) * 100);
+            const pctPass = 100 - pctProm - pctDetr;
+            const npsScore = pctProm - pctDetr;
+
+            document.getElementById('exec-kpi-avg').textContent = overallAvg;
+            document.getElementById('exec-kpi-100').textContent = `${score100}점`;
+            document.getElementById('exec-kpi-retention').textContent = `${retentionPct}%`;
+            document.getElementById('exec-kpi-nps').textContent = `${npsScore >= 0 ? '+' : ''}${npsScore}%`;
+
+            // Update NPS Bar
+            document.getElementById('nps-bar-prom').style.width = `${pctProm}%`;
+            document.getElementById('nps-bar-pass').style.width = `${pctPass}%`;
+            document.getElementById('nps-bar-detr').style.width = `${pctDetr}%`;
+            document.getElementById('nps-pct-prom').textContent = `${pctProm}%`;
+            document.getElementById('nps-pct-pass').textContent = `${pctPass}%`;
+            document.getElementById('nps-pct-detr').textContent = `${pctDetr}%`;
+
+            renderMasterFeed(filtered);
+        }
+
+        function renderMasterFeed(list) {
+            const container = document.getElementById('master-feed-container');
+            const items = list.slice(0, 4).map(d => `
+                <div class="feedback-card-white">
+                    <div class="feedback-meta-white">
+                        <span style="color:#059669;">${d.centerName} · ${d.participantType}</span>
+                        <span style="color:#94A3B8;">${d.id}</span>
+                    </div>
+                    <div style="color:#0F172A; margin-bottom:3px;"><strong>[우수]</strong> "${d.positive}"</div>
+                    <div style="color:#D97706;"><strong>[건의]</strong> "${d.improvement}"</div>
+                </div>
+            `).join('');
+
+            container.innerHTML = items || '<p style="color:#94A3B8; font-size:0.8rem;">해당 조건의 피드백이 없습니다.</p>';
+        }
+
+        /* Excel Studio Importer */
+        function loadSampleMasterCSV() {
+            const sample = `동탄중앙이음터,성인,5,5,5,5,5,안티그래비티 대시보드 구축이 실무에 큰 도움이 되었습니다,실습 시간 확대 요망
+다원이음터,청소년,5,4,4,5,5,프롬프트로 차트 만드는 과정이 흥미진진했습니다,더 다양한 AI 툴 소개 희망
+송린이음터,학부모,4,4,3,4,4,공공기관 행정 혁신 사례가 인상적이었습니다,주차 공간 부족 문제 개선 필요
+봉담이음터,성인,4,4,4,4,5,지자체 경영평가 100점 환산 공식이 실질적이었습니다,강의실 와이파이 점검 요망`;
+            document.getElementById('master-csv-area').value = sample;
+            showMasterToast("부서 예시 CSV 데이터가 로드되었습니다.");
+        }
+
+        function applyMasterCSV() {
+            const text = document.getElementById('master-csv-area').value.trim();
+            if (!text) {
+                showMasterToast("CSV 데이터를 입력해주세요.");
+                return;
+            }
+
+            const lines = text.split('\n');
+            const newDB = [];
+            lines.forEach((line, idx) => {
+                const parts = line.split(',');
+                if (parts.length >= 7) {
+                    newDB.push({
+                        id: `CUSTOM_${String(idx + 1).padStart(3, '0')}`,
+                        centerName: parts[0].trim(),
+                        participantType: parts[1].trim(),
+                        q1: parseFloat(parts[2]) || 4,
+                        q2: parseFloat(parts[3]) || 4,
+                        q3: parseFloat(parts[4]) || 4,
+                        q4: parseFloat(parts[5]) || 4,
+                        q5: parseFloat(parts[6]) || 4,
+                        positive: parts[7] ? parts[7].trim() : "실무 활용도가 높았습니다.",
+                        improvement: parts[8] ? parts[8].trim() : "시설 및 시간 개선 희망."
+                    });
+                }
+            });
+
+            if (newDB.length > 0) {
+                masterDB = newDB;
+                updateMasterAnalytics();
+                showMasterToast(`부서 엑셀 데이터 ${newDB.length}건이 통합 대시보드에 즉시 반영되었습니다!`);
+                switchMasterView('executive', document.getElementById('btn-view-executive'));
+            } else {
+                showMasterToast("올바른 CSV 형식(콤마 구분 7개 열 이상)으로 입력해주세요.");
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initWhiteCharts();
+            updateMasterAnalytics();
+        });
+    </script>
+</body>
+</html>

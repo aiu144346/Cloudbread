@@ -429,6 +429,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 ${target === 'public' ? `
                     <div style="display:flex; flex-direction:column; gap:1.2rem; margin-top:1.5rem;">
+                        <!-- 화성시인재육성재단 2026 AX 특강 1·2·3부 통합 마스터 대시보드 포털 카드 (White Luxury) -->
+                        <div style="background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%); color:#0F172A; border-radius:18px; padding:2rem 2.4rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 14px 35px rgba(0, 0, 0, 0.08); border:2px solid #059669;">
+                            <div style="max-width:720px;">
+                                <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+                                    <span style="background:#ECFDF5; color:#059669; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; border:1px solid #A7F3D0;">👑 1·2·3부 통합 완성형 포털</span>
+                                    <span style="background:#EFF6FF; color:#2563EB; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; border:1px solid #BFDBFE;">화이트 테마</span>
+                                </div>
+                                <h3 style="font-size:1.45rem; font-weight:900; margin:0; color:#0F172A; letter-spacing:-0.02em;">교육만족도 데이터 분석 및 시각화 실시간 총괄 대시보드</h3>
+                                <p style="font-size:0.92rem; color:#475569; margin:8px 0 0 0; line-height:1.5;">1부 표준 지표 모델링 + 2부 100건 가상 DB 및 다차원 통계 + 3부 인터랙티브 대시보드와 부서 엑셀(CSV) 즉시 반영 시뮬레이터를 순백색 캔버스에 집대성한 올인원 마스터 대시보드</p>
+                            </div>
+                            <a href="lecture-hshe-master.html" style="background:linear-gradient(135deg, #059669 0%, #047857 100%); color:#FFFFFF; font-weight:800; font-size:1rem; padding:14px 26px; border-radius:12px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s; box-shadow:0 6px 20px rgba(5, 150, 105, 0.35);"><i class="fa-solid fa-shapes"></i> 통합 마스터 대시보드 입장하기 →</a>
+                        </div>
+
                         <!-- 화성시인재육성재단 2026 AX 특강 1부 포털 카드 -->
                         <div style="background: linear-gradient(135deg, #0F172A 0%, #064E3B 50%, #0F766E 100%); color:#FFFFFF; border-radius:18px; padding:1.8rem 2.2rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 12px 30px rgba(16, 185, 129, 0.25); border:1px solid rgba(52, 211, 153, 0.35);">
                             <div style="max-width:700px;">
