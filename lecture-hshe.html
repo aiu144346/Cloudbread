@@ -302,11 +302,11 @@
         }
 
         .laser-blade.sweep-forward {
-            animation: laserSweepForward 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: laserSweepForward 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .laser-blade.sweep-backward {
-            animation: laserSweepBackward 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: laserSweepBackward 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         @keyframes laserSweepForward {
@@ -323,30 +323,30 @@
             100% { left: -5%; opacity: 0; }
         }
 
-        /* 3D Exit & Enter Animations */
+        /* 3D Exit & Enter Animations (Calibrated to 1.5x Cinematic Pacing) */
         .slide-card.exit-to-left {
             display: flex !important;
-            animation: slideExitLeft 0.55s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+            animation: slideExitLeft 0.85s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
             z-index: 5;
             pointer-events: none;
         }
 
         .slide-card.exit-to-right {
             display: flex !important;
-            animation: slideExitRight 0.55s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+            animation: slideExitRight 0.85s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
             z-index: 5;
             pointer-events: none;
         }
 
         .slide-card.enter-from-right {
             display: flex !important;
-            animation: slideEnterRight 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+            animation: slideEnterRight 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
             z-index: 10;
         }
 
         .slide-card.enter-from-left {
             display: flex !important;
-            animation: slideEnterLeft 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+            animation: slideEnterLeft 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
             z-index: 10;
         }
 
@@ -430,7 +430,7 @@
         }
 
         .slide-card.active::after {
-            animation: shimmerSweep 1.2s var(--ease-out-expo) forwards;
+            animation: shimmerSweep 1.8s var(--ease-out-expo) forwards;
         }
 
         @keyframes shimmerSweep {
@@ -445,7 +445,7 @@
         .layer-depth-3 { transform: translateZ(75px); }
 
         /* ==========================================================================
-           Kinetic Micro-Interactions: Internal Card & Box Animations
+           Kinetic Micro-Interactions: Internal Card & Box Animations (1.5x Paced)
            ========================================================================== */
         .kinetic-box {
             opacity: 0;
@@ -455,13 +455,13 @@
         }
 
         .slide-card.active .kinetic-box {
-            animation: boxPopIn 0.65s cubic-bezier(0.34, 1.35, 0.64, 1) forwards;
+            animation: boxPopIn 0.95s cubic-bezier(0.34, 1.35, 0.64, 1) forwards;
         }
 
-        .slide-card.active .kinetic-box.k-delay-1 { animation-delay: 0.08s; }
-        .slide-card.active .kinetic-box.k-delay-2 { animation-delay: 0.18s; }
-        .slide-card.active .kinetic-box.k-delay-3 { animation-delay: 0.28s; }
-        .slide-card.active .kinetic-box.k-delay-4 { animation-delay: 0.38s; }
+        .slide-card.active .kinetic-box.k-delay-1 { animation-delay: 0.15s; }
+        .slide-card.active .kinetic-box.k-delay-2 { animation-delay: 0.30s; }
+        .slide-card.active .kinetic-box.k-delay-3 { animation-delay: 0.45s; }
+        .slide-card.active .kinetic-box.k-delay-4 { animation-delay: 0.60s; }
 
         @keyframes boxPopIn {
             0% {
@@ -500,7 +500,7 @@
         }
 
         .slide-card.active .border-beam::before {
-            animation: borderBeamSweep 2s ease-in-out infinite;
+            animation: borderBeamSweep 2.5s ease-in-out infinite;
             opacity: 1;
         }
 
@@ -509,11 +509,11 @@
             100% { background-position: 200% 0; }
         }
 
-        /* Kinetic List Stagger */
+        /* Kinetic List Stagger (1.5x Paced) */
         .kinetic-list li {
             opacity: 0;
             transform: translateX(-14px);
-            transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.65s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .slide-card.active .kinetic-list li {
@@ -521,15 +521,15 @@
             transform: translateX(0);
         }
 
-        .slide-card.active .kinetic-list li:nth-child(1) { transition-delay: 0.15s; }
-        .slide-card.active .kinetic-list li:nth-child(2) { transition-delay: 0.25s; }
-        .slide-card.active .kinetic-list li:nth-child(3) { transition-delay: 0.35s; }
+        .slide-card.active .kinetic-list li:nth-child(1) { transition-delay: 0.25s; }
+        .slide-card.active .kinetic-list li:nth-child(2) { transition-delay: 0.40s; }
+        .slide-card.active .kinetic-list li:nth-child(3) { transition-delay: 0.55s; }
 
-        /* Kinetic Table Rows */
+        /* Kinetic Table Rows (1.5x Paced) */
         .kinetic-row {
             opacity: 0;
             transform: translateY(12px);
-            transition: all 0.4s var(--ease-out-expo);
+            transition: all 0.6s var(--ease-out-expo);
         }
 
         .slide-card.active .kinetic-row {
@@ -537,18 +537,18 @@
             transform: translateY(0);
         }
 
-        .slide-card.active .kinetic-row:nth-child(1) { transition-delay: 0.1s; }
-        .slide-card.active .kinetic-row:nth-child(2) { transition-delay: 0.16s; }
-        .slide-card.active .kinetic-row:nth-child(3) { transition-delay: 0.22s; }
-        .slide-card.active .kinetic-row:nth-child(4) { transition-delay: 0.28s; }
-        .slide-card.active .kinetic-row:nth-child(5) { transition-delay: 0.34s; }
+        .slide-card.active .kinetic-row:nth-child(1) { transition-delay: 0.15s; }
+        .slide-card.active .kinetic-row:nth-child(2) { transition-delay: 0.25s; }
+        .slide-card.active .kinetic-row:nth-child(3) { transition-delay: 0.35s; }
+        .slide-card.active .kinetic-row:nth-child(4) { transition-delay: 0.45s; }
+        .slide-card.active .kinetic-row:nth-child(5) { transition-delay: 0.55s; }
 
-        /* Stamp Checkmark for Slide 11 */
+        /* Stamp Checkmark for Slide 11 (1.5x Paced) */
         .stamp-check {
             display: inline-block;
             transform: scale(0) rotate(-45deg);
             opacity: 0;
-            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s;
+            transition: transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s;
         }
 
         .slide-card.active .stamp-check {
@@ -556,13 +556,13 @@
             opacity: 1;
         }
 
-        .slide-card.active .stamp-delay-1 { transition-delay: 0.2s; }
-        .slide-card.active .stamp-delay-2 { transition-delay: 0.35s; }
-        .slide-card.active .stamp-delay-3 { transition-delay: 0.5s; }
+        .slide-card.active .stamp-delay-1 { transition-delay: 0.3s; }
+        .slide-card.active .stamp-delay-2 { transition-delay: 0.55s; }
+        .slide-card.active .stamp-delay-3 { transition-delay: 0.8s; }
 
         /* Breathing Pulse for Key Badges */
         .breathing-pulse {
-            animation: badgeBreathe 2.8s infinite ease-in-out;
+            animation: badgeBreathe 3.5s infinite ease-in-out;
         }
 
         @keyframes badgeBreathe {
@@ -570,7 +570,7 @@
             50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); }
         }
 
-        /* Kinetic Typography Mask Reveal */
+        /* Kinetic Typography Mask Reveal (1.5x Paced) */
         .mask-container {
             overflow: hidden;
             display: inline-block;
@@ -579,16 +579,16 @@
         .mask-text {
             display: inline-block;
             transform: translateY(110%);
-            transition: transform 0.7s var(--ease-out-expo);
+            transition: transform 1.05s var(--ease-out-expo);
         }
 
         .slide-card.active .mask-text {
             transform: translateY(0);
         }
 
-        .slide-card.active .mask-text.delay-1 { transition-delay: 0.1s; }
-        .slide-card.active .mask-text.delay-2 { transition-delay: 0.2s; }
-        .slide-card.active .mask-text.delay-3 { transition-delay: 0.3s; }
+        .slide-card.active .mask-text.delay-1 { transition-delay: 0.15s; }
+        .slide-card.active .mask-text.delay-2 { transition-delay: 0.30s; }
+        .slide-card.active .mask-text.delay-3 { transition-delay: 0.45s; }
 
         /* Header Styling */
         .slide-header {
@@ -1995,8 +1995,8 @@
             counters.forEach(counter => {
                 const target = parseInt(counter.dataset.target);
                 let current = 0;
-                const duration = 800; // ms
-                const stepTime = 20;
+                const duration = 1200; // ms (1.5x calibrated for clear visual absorption)
+                const stepTime = 25;
                 const totalSteps = duration / stepTime;
                 const increment = target / totalSteps;
 
@@ -2034,13 +2034,13 @@
                 }
             }
 
-            // 2. Ambient Flash Pulse
+            // 2. Ambient Flash Pulse (1.5x pacing)
             orb1.classList.add('ambient-pulse');
             orb2.classList.add('ambient-pulse');
             setTimeout(() => {
                 orb1.classList.remove('ambient-pulse');
                 orb2.classList.remove('ambient-pulse');
-            }, 600);
+            }, 900);
 
             // 3. Directional 3D Transition
             if (currentCard && nextCard) {
@@ -2069,13 +2069,13 @@
                 orb1.style.background = `radial-gradient(circle, ${palette.orb1} 0%, transparent 70%)`;
                 orb2.style.background = `radial-gradient(circle, ${palette.orb2} 0%, transparent 70%)`;
 
-                // Settle transition
+                // Settle transition (850ms, matching 1.5x animation duration)
                 setTimeout(() => {
                     currentCard.classList.remove('active', 'exit-to-left', 'exit-to-right');
                     nextCard.className = 'slide-card active';
                     triggerSlideLifecycle(nextCard);
                     isTransitioning = false;
-                }, 550);
+                }, 850);
             } else {
                 currentSlide = next;
                 updateSlideUI();
