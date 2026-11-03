@@ -449,6 +449,16 @@ document.addEventListener("DOMContentLoaded", () => {
                             <a href="lecture-hshe-part2.html" style="background:#38BDF8; color:#030712; font-weight:800; font-size:0.95rem; padding:12px 24px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s; box-shadow:0 4px 15px rgba(56, 189, 248, 0.4);"><i class="fa-solid fa-arrow-up-right-from-square"></i> 2부 데이터 모델링 랩 입장하기 →</a>
                         </div>
 
+                        <!-- 화성시인재육성재단 2026 AX 특강 3부 대시보드 시각화 포털 카드 -->
+                        <div style="background: linear-gradient(135deg, #064E3B 0%, #0F766E 50%, #0284C7 100%); color:#FFFFFF; border-radius:18px; padding:1.8rem 2.2rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 12px 30px rgba(16, 185, 129, 0.25); border:1px solid rgba(16, 185, 129, 0.45);">
+                            <div style="max-width:700px;">
+                                <span style="background:rgba(16, 185, 129, 0.2); color:#34D399; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; display:inline-block; margin-bottom:8px; border:1px solid rgba(16, 185, 129, 0.5);">📈 2026 화성시인재육성재단 AX 마스터클래스 [3부]</span>
+                                <h3 style="font-size:1.35rem; font-weight:800; margin:0; color:#FFFFFF;">교육만족도 대시보드 구축 및 시각화 (3부 시각화 랩)</h3>
+                                <p style="font-size:0.9rem; color:#E2E8F0; margin:6px 0 0 0;">4대 KPI 요약 카드, 센터별 막대차트, 5대 지표 방사형차트, 3개월 월별 추이 라인차트 및 부서 엑셀(CSV) 즉시 교체 시뮬레이터</p>
+                            </div>
+                            <a href="lecture-hshe-part3.html" style="background:#10B981; color:#030712; font-weight:800; font-size:0.95rem; padding:12px 24px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s; box-shadow:0 4px 15px rgba(16, 185, 129, 0.4);"><i class="fa-solid fa-arrow-up-right-from-square"></i> 3부 실시간 대시보드 입장하기 →</a>
+                        </div>
+
                         <!-- 울산 북구청 신규 공무원 AI 특강 카드 -->
                         <div style="background: linear-gradient(135deg, #002D62 0%, #0047AB 100%); color:#FFFFFF; border-radius:18px; padding:1.8rem 2.2rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 12px 30px rgba(0, 71, 171, 0.2); border:1px solid rgba(255,255,255,0.15);">
                             <div style="max-width:700px;">
