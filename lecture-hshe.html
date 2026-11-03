@@ -1302,6 +1302,148 @@
             .timeline-grid, .shield-grid, .craft-pipeline { grid-template-columns: 1fr; }
             .viewport-mock { grid-template-columns: 1fr; height: auto; }
         }
+
+        /* ==========================================================================
+           Hands-on Prompt Workshop & Platform Guide Styles
+           ========================================================================== */
+        .prompt-workshop-card {
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.95) 0%, rgba(19, 29, 49, 0.85) 100%);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 2.2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prompt-workshop-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #10B981, #38BDF8, #818CF8);
+        }
+
+        .workshop-intro-banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            padding-bottom: 1.6rem;
+            border-bottom: 1px solid var(--border-glass);
+            margin-bottom: 1.6rem;
+        }
+
+        .platform-chip-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .platform-chip {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            padding: 7px 12px;
+            font-size: 0.82rem;
+            color: #E2E8F0;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.25s ease;
+        }
+
+        .platform-chip:hover {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: var(--primary-emerald);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .platform-chip.recommended {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: var(--primary-emerald);
+            color: #6EE7B7;
+            font-weight: 700;
+        }
+
+        .prompt-tab-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1.4rem;
+            flex-wrap: wrap;
+        }
+
+        .prompt-nav-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-glass);
+            color: var(--text-muted);
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prompt-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.09);
+            color: #fff;
+        }
+
+        .prompt-nav-btn.active {
+            background: linear-gradient(135deg, #10B981 0%, #0D9488 100%);
+            color: #030712;
+            border-color: var(--primary-emerald);
+            box-shadow: 0 4px 15px var(--primary-emerald-glow);
+        }
+
+        .prompt-panel {
+            display: none;
+        }
+
+        .prompt-panel.active {
+            display: block;
+            animation: cardEnter 0.4s var(--ease-out-expo);
+        }
+
+        .prompt-box-meta {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            padding: 14px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .prompt-editor-area {
+            background: #060A14;
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            padding: 1.2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.84rem;
+            line-height: 1.7;
+            color: #CBD5E1;
+            white-space: pre-wrap;
+            max-height: 380px;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6);
+        }
     </style>
 </head>
 <body>
@@ -1866,6 +2008,152 @@
                     </div>
                 </div>
 
+                <!-- Live Workshop Hands-on Prompt Package & Platform Guide -->
+                <div class="prompt-workshop-card">
+                    <div class="workshop-intro-banner">
+                        <div>
+                            <span class="slide-badge-pill" style="margin-bottom:8px;"><i class="fa-solid fa-laptop-code"></i> 수강생 원클릭 실습 키트</span>
+                            <h3 style="font-size:1.4rem; font-weight:800; color:#fff; display:flex; align-items:center; gap:10px;">
+                                <i class="fa-solid fa-terminal" style="color:var(--primary-emerald);"></i> 단계별 실습 프롬프트 패키지 & 복사 가이드
+                            </h3>
+                            <p style="font-size:0.9rem; color:var(--text-muted); margin-top:6px;">
+                                아래 프롬프트를 복사하여 <strong>원하시는 AI 도구(안티그래비티, Claude, ChatGPT, Gemini, v0)</strong>의 대화창에 바로 붙여넣기(Ctrl+V)하세요.
+                            </p>
+                        </div>
+                        <div>
+                            <div style="font-size:0.78rem; font-weight:700; color:#94A3B8; margin-bottom:8px;">💡 어디에 붙여넣나요? (추천 플랫폼 바로가기)</div>
+                            <div class="platform-chip-group">
+                                <span class="platform-chip recommended" title="2026 AX 메인 실습 플랫폼"><i class="fa-solid fa-star"></i> 구글 안티그래비티 (추천)</span>
+                                <a href="https://claude.ai" target="_blank" class="platform-chip" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> Claude (Artifacts)</a>
+                                <a href="https://chatgpt.com" target="_blank" class="platform-chip" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> ChatGPT (Canvas)</a>
+                                <a href="https://gemini.google.com" target="_blank" class="platform-chip" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> Google Gemini</a>
+                                <a href="https://v0.dev" target="_blank" class="platform-chip" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> V0.dev (웹앱)</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Prompt Navigation Tabs -->
+                    <div class="prompt-tab-nav">
+                        <button class="prompt-nav-btn active" onclick="switchPromptTab(1, this)">
+                            <i class="fa-solid fa-database"></i> [프롬프트 1] 2부: 설문 문항 & 100건 JSON DB 생성
+                        </button>
+                        <button class="prompt-nav-btn" onclick="switchPromptTab(2, this)">
+                            <i class="fa-solid fa-calculator"></i> [프롬프트 2] 2부: 통계 집계 & 주관식 감성 분석
+                        </button>
+                        <button class="prompt-nav-btn" onclick="switchPromptTab(3, this)">
+                            <i class="fa-solid fa-cubes"></i> [프롬프트 3] 3부: 실시간 웹 대시보드 원스톱 구축
+                        </button>
+                    </div>
+
+                    <!-- Prompt 1 Panel -->
+                    <div class="prompt-panel active" id="prompt-panel-1">
+                        <div class="prompt-box-meta">
+                            <div>
+                                <strong style="color:#10B981;"><i class="fa-solid fa-circle-info"></i> 사용 목적:</strong>
+                                <span style="font-size:0.86rem; color:#E2E8F0; margin-left:6px;">화성시인재육성재단 맞춤형 7개 설문 문항 설계 및 100명분 가상 JSON 데이터셋 생성</span>
+                            </div>
+                            <div style="display:flex; gap:10px; align-items:center;">
+                                <span style="font-size:0.78rem; color:#38BDF8; font-weight:700;">붙여넣기: 안티그래비티 / Claude / ChatGPT / Gemini</span>
+                                <button class="copy-pill-btn" onclick="copyPromptContent('prompt-text-1')"><i class="fa-regular fa-copy"></i> 프롬프트 1 복사하기</button>
+                            </div>
+                        </div>
+                        <div class="prompt-editor-area" id="prompt-text-1">[Role]
+당신은 공공 교육기관 전문 평가설계자이자 데이터 엔지니어입니다.
+
+[Context]
+화성시인재육성재단 산하 이음터(동탄중앙, 다원, 송린, 봉담 등) 및 장학사업 프로그램의 교육 만족도를 체계적으로 수집·분석하고자 합니다.
+
+[Action]
+1. 공공 교육과정에 적합한 만족도 설문 문항 7개를 설계하세요.
+   - 강사 전문성 및 전달력 (5점 척도)
+   - 커리큘럼 및 교재 적절성 (5점 척도)
+   - 강의실 시설 및 실습 기자재 환경 (5점 척도)
+   - 행정 안내 및 접수 지원 (5점 척도)
+   - 향후 재수강 및 타인 추천 의향 (5점 척도)
+   - 만족했던 점 (단답형)
+   - 개선 및 건의사항 (서술형)
+2. 위 문항을 기준으로 화성시인재육성재단의 최근 3개월간 수강생 100명분의 가상 응답 데이터를 유효한 JSON 배열 형태로 생성하세요.
+   - 필수 필드: id, submissionDate, centerName, programName, participantType('청소년', '성인', '학부모'), q1, q2, q3, q4, q5, positiveFeedback, improvementFeedback.
+
+[Format]
+설문 문항 명세를 표로 요약한 후, 웹 대시보드에 직접 내장할 수 있는 완전한 JSON 코드 블록을 제공하세요.</div>
+                    </div>
+
+                    <!-- Prompt 2 Panel -->
+                    <div class="prompt-panel" id="prompt-panel-2">
+                        <div class="prompt-box-meta">
+                            <div>
+                                <strong style="color:#38BDF8;"><i class="fa-solid fa-circle-info"></i> 사용 목적:</strong>
+                                <span style="font-size:0.86rem; color:#E2E8F0; margin-left:6px;">종합 만족도 평균(100점 환산), 센터별 순위, 순추천지수(NPS), 개선 키워드 Top 5 도출</span>
+                            </div>
+                            <div style="display:flex; gap:10px; align-items:center;">
+                                <span style="font-size:0.78rem; color:#38BDF8; font-weight:700;">붙여넣기: 안티그래비티 / Claude / ChatGPT / Gemini</span>
+                                <button class="copy-pill-btn" onclick="copyPromptContent('prompt-text-2')"><i class="fa-regular fa-copy"></i> 프롬프트 2 복사하기</button>
+                            </div>
+                        </div>
+                        <div class="prompt-editor-area" id="prompt-text-2">[Role]
+공공 데이터 분석 전문가
+
+[Context]
+앞서 생성된 화성시인재육성재단 만족도 데이터셋을 바탕으로 차년도 사업계획 수립 및 결과보고서에 필요한 핵심 통계와 개선 과제를 도출해야 합니다.
+
+[Action]
+제공된 데이터를 활용하여 다음 항목을 계산 및 분석하세요:
+1. 종합 만족도 평균 (5점 만점 및 100점 환산 점수)
+2. 이음터 센터별 및 수강 대상별 평균 만족도 순위
+3. 순추천지수(NPS) 환산 결과
+4. 주관식 건의사항(improvementFeedback)을 텍스트 마이닝 관점에서 분석하여 도출된 '시설/운영 개선 핵심 키워드 Top 5'와 실행 대안
+
+[Format]
+수치 결과는 가독성 높은 Markdown 표로 구성하고, 핵심 시사점은 실행 가능한 불릿 포인트로 제시하세요.</div>
+                    </div>
+
+                    <!-- Prompt 3 Panel -->
+                    <div class="prompt-panel" id="prompt-panel-3">
+                        <div class="prompt-box-meta">
+                            <div>
+                                <strong style="color:#FBBF24;"><i class="fa-solid fa-circle-info"></i> 사용 목적:</strong>
+                                <span style="font-size:0.86rem; color:#E2E8F0; margin-left:6px;">단일 React + Tailwind 코드로 필터 반응형 웹 대시보드 즉시 빌드</span>
+                            </div>
+                            <div style="display:flex; gap:10px; align-items:center;">
+                                <span style="font-size:0.78rem; color:#10B981; font-weight:700;">붙여넣기: 구글 안티그래비티 / Claude Artifacts / v0.dev</span>
+                                <button class="copy-pill-btn" onclick="copyPromptContent('prompt-text-3')"><i class="fa-regular fa-copy"></i> 프롬프트 3 복사하기</button>
+                            </div>
+                        </div>
+                        <div class="prompt-editor-area" id="prompt-text-3">[Role]
+Senior Frontend & UI/UX Developer specializing in Public Sector Dashboards
+
+[Context]
+화성시인재육성재단 임직원이 내부 회의 및 사업 평가 보고에서 즉시 활용할 수 있는 '교육만족도 실시간 모니터링 대시보드' 단일 웹 애플리케이션을 제작합니다.
+
+[Requirements]
+1. Environment: Single-file React component, Tailwind CSS styling, Lucide React Icons, Chart.js 또는 Recharts 사용.
+2. Design Style:
+   - 배경: 신뢰감을 주는 딥 네이비(#0F172A) 및 선명한 카드 컨테이너(#1E293B).
+   - 포인트 컬러: 에메랄드 그린(#10B981) 및 소프트 스카이블루(#38BDF8).
+   - 타이포그래피: 직관적이고 시인성 높은 공공 대시보드 스타일.
+
+[UI Components & Layout]
+1. Header:
+   - "화성시인재육성재단 교육만족도 통합 모니터링 시스템" 타이틀 및 실시간 갱신 배지.
+   - 드롭다운 필터: 센터 선택(전체/동탄중앙/다원/송린/봉담), 대상 선택(전체/청소년/성인/학부모).
+2. KPI Cards (4단 그리드):
+   - 종합 만족도 (5.0 만점 기준)
+   - 총 유효 응답자 수
+   - 재참여 및 추천 의향률 (%)
+   - 순추천지수 (NPS)
+3. Charts Section (2열 배치):
+   - 좌측: 센터별 5개 지표 평균 비교 막대 차트 (Bar Chart)
+   - 우측: 5대 핵심 항목 밸런스 방사형 레이더 차트 (Radar Chart)
+4. Feedback & Insights:
+   - 시민 주관식 긍정 피드백 / 개선 건의사항 최신 롤링 피드
+   - AI 추천 종합 총평 배너
+
+[Action]
+위 가상 데이터 100건을 내장하고, 상단 필터 변경 시 모든 KPI 카드와 차트가 동적으로 즉각 반응하는 완전하고 에러 없는 단일 React 코드를 완성하세요.</div>
+                    </div>
+                </div>
+
                 <!-- Raw JSON Dataset Viewer -->
                 <div class="raw-data-card">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -2168,6 +2456,27 @@
             navigator.clipboard.writeText(text).then(() => {
                 showToast("실습 프롬프트가 클립보드에 복사되었습니다!");
             });
+        }
+
+        /* ==========================================================================
+           Hands-on Prompt Workshop & Copy Helpers
+           ========================================================================== */
+        function switchPromptTab(index, btn) {
+            document.querySelectorAll('.prompt-nav-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.prompt-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            const panel = document.getElementById(`prompt-panel-${index}`);
+            if (panel) panel.classList.add('active');
+        }
+
+        function copyPromptContent(elementId) {
+            const el = document.getElementById(elementId);
+            if (el) {
+                const text = el.innerText || el.textContent;
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast("프롬프트가 복사되었습니다! 원하는 AI 플랫폼에 붙여넣기(Ctrl+V)하세요.");
+                });
+            }
         }
 
         /* ==========================================================================
