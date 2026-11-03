@@ -444,6 +444,132 @@
         .layer-depth-2 { transform: translateZ(45px); }
         .layer-depth-3 { transform: translateZ(75px); }
 
+        /* ==========================================================================
+           Kinetic Micro-Interactions: Internal Card & Box Animations
+           ========================================================================== */
+        .kinetic-box {
+            opacity: 0;
+            transform: translateY(28px) scale(0.95);
+            filter: blur(4px);
+            will-change: transform, opacity, filter;
+        }
+
+        .slide-card.active .kinetic-box {
+            animation: boxPopIn 0.65s cubic-bezier(0.34, 1.35, 0.64, 1) forwards;
+        }
+
+        .slide-card.active .kinetic-box.k-delay-1 { animation-delay: 0.08s; }
+        .slide-card.active .kinetic-box.k-delay-2 { animation-delay: 0.18s; }
+        .slide-card.active .kinetic-box.k-delay-3 { animation-delay: 0.28s; }
+        .slide-card.active .kinetic-box.k-delay-4 { animation-delay: 0.38s; }
+
+        @keyframes boxPopIn {
+            0% {
+                opacity: 0;
+                transform: translateY(28px) scale(0.95);
+                filter: blur(4px);
+            }
+            65% {
+                transform: translateY(-4px) scale(1.015);
+                filter: blur(0px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0px);
+            }
+        }
+
+        /* Border Beam Ray (Neon Shimmer Border) */
+        .border-beam {
+            position: relative;
+        }
+
+        .border-beam::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(16, 185, 129, 0.8) 50%, transparent 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .slide-card.active .border-beam::before {
+            animation: borderBeamSweep 2s ease-in-out infinite;
+            opacity: 1;
+        }
+
+        @keyframes borderBeamSweep {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Kinetic List Stagger */
+        .kinetic-list li {
+            opacity: 0;
+            transform: translateX(-14px);
+            transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slide-card.active .kinetic-list li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-card.active .kinetic-list li:nth-child(1) { transition-delay: 0.15s; }
+        .slide-card.active .kinetic-list li:nth-child(2) { transition-delay: 0.25s; }
+        .slide-card.active .kinetic-list li:nth-child(3) { transition-delay: 0.35s; }
+
+        /* Kinetic Table Rows */
+        .kinetic-row {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .slide-card.active .kinetic-row {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-card.active .kinetic-row:nth-child(1) { transition-delay: 0.1s; }
+        .slide-card.active .kinetic-row:nth-child(2) { transition-delay: 0.16s; }
+        .slide-card.active .kinetic-row:nth-child(3) { transition-delay: 0.22s; }
+        .slide-card.active .kinetic-row:nth-child(4) { transition-delay: 0.28s; }
+        .slide-card.active .kinetic-row:nth-child(5) { transition-delay: 0.34s; }
+
+        /* Stamp Checkmark for Slide 11 */
+        .stamp-check {
+            display: inline-block;
+            transform: scale(0) rotate(-45deg);
+            opacity: 0;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s;
+        }
+
+        .slide-card.active .stamp-check {
+            transform: scale(1) rotate(0deg);
+            opacity: 1;
+        }
+
+        .slide-card.active .stamp-delay-1 { transition-delay: 0.2s; }
+        .slide-card.active .stamp-delay-2 { transition-delay: 0.35s; }
+        .slide-card.active .stamp-delay-3 { transition-delay: 0.5s; }
+
+        /* Breathing Pulse for Key Badges */
+        .breathing-pulse {
+            animation: badgeBreathe 2.8s infinite ease-in-out;
+        }
+
+        @keyframes badgeBreathe {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(16, 185, 129, 0.2); }
+            50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); }
+        }
+
         /* Kinetic Typography Mask Reveal */
         .mask-container {
             overflow: hidden;
@@ -1250,21 +1376,21 @@
                                             단순한 질의응답을 넘어, 자연어 지시만으로 데이터베이스 구축과 실시간 인터랙티브 웹 대시보드를 완성하는 차세대 <strong>바이브 코딩(Vibe Coding)</strong> 실무 워크플로우를 체화합니다.
                                         </p>
                                         <div style="display:flex; flex-direction:column; gap:10px; margin-top:1.5rem;">
-                                            <div class="s1-info-badge"><i class="fa-regular fa-calendar-check" style="color:var(--primary-emerald);"></i> <strong>일시:</strong> 2026. 11. 10. (화) 13:30 ~ 15:30 (총 2시간)</div>
-                                            <div class="s1-info-badge"><i class="fa-solid fa-location-dot" style="color:var(--secondary-cyan);"></i> <strong>장소:</strong> 서연이음터 5층 대강당</div>
-                                            <div class="s1-info-badge"><i class="fa-solid fa-building-columns" style="color:#A78BFA;"></i> <strong>대상:</strong> 재단 본부 및 산하 이음터(동탄중앙·다원·송린·봉담 등) 임직원</div>
-                                            <div class="s1-info-badge"><i class="fa-solid fa-user-tie" style="color:var(--primary-emerald);"></i> <strong>강사:</strong> 정우진 (네오픽스에이아이 대표 / 한국장학재단 감사 자문위원)</div>
+                                            <div class="s1-info-badge kinetic-box k-delay-1"><i class="fa-regular fa-calendar-check" style="color:var(--primary-emerald);"></i> <strong>일시:</strong> 2026. 11. 10. (화) 13:30 ~ 15:30 (총 2시간)</div>
+                                            <div class="s1-info-badge kinetic-box k-delay-2"><i class="fa-solid fa-location-dot" style="color:var(--secondary-cyan);"></i> <strong>장소:</strong> 서연이음터 5층 대강당</div>
+                                            <div class="s1-info-badge kinetic-box k-delay-3"><i class="fa-solid fa-building-columns" style="color:#A78BFA;"></i> <strong>대상:</strong> 재단 본부 및 산하 이음터(동탄중앙·다원·송린·봉담 등) 임직원</div>
+                                            <div class="s1-info-badge kinetic-box k-delay-4"><i class="fa-solid fa-user-tie" style="color:var(--primary-emerald);"></i> <strong>강사:</strong> 정우진 (네오픽스에이아이 대표 / 한국장학재단 감사 자문위원)</div>
                                         </div>
                                     </div>
-                                    <div class="s1-mockup-3d layer-depth-3">
+                                    <div class="s1-mockup-3d layer-depth-3 kinetic-box k-delay-2">
                                         <div style="font-size:0.85rem; color:#38BDF8; font-weight:800; margin-bottom:12px; display:flex; justify-content:space-between;">
                                             <span><i class="fa-solid fa-bolt"></i> 1교시 산출물 프리뷰</span>
-                                            <span style="color:#10B981;">LIVE READY</span>
+                                            <span style="color:#10B981;" class="breathing-pulse">LIVE READY</span>
                                         </div>
-                                        <div style="background:rgba(255,255,255,0.06); padding:14px; border-radius:12px; border:1px solid rgba(255,255,255,0.12); margin-bottom:12px;">
+                                        <div style="background:rgba(255,255,255,0.06); padding:14px; border-radius:12px; border:1px solid rgba(255,255,255,0.12); margin-bottom:12px;" class="kinetic-box k-delay-3">
                                             <span style="color:#10B981; font-weight:800; font-family:monospace;">[DB]</span> 100명분 가상 설문 JSON 데이터셋 구축
                                         </div>
-                                        <div style="background:rgba(255,255,255,0.06); padding:14px; border-radius:12px; border:1px solid rgba(255,255,255,0.12);">
+                                        <div style="background:rgba(255,255,255,0.06); padding:14px; border-radius:12px; border:1px solid rgba(255,255,255,0.12);" class="kinetic-box k-delay-4 border-beam">
                                             <span style="color:#38BDF8; font-weight:800; font-family:monospace;">[UI]</span> 4대 핵심 KPI 카드 & 센터별 인터랙티브 시각화
                                         </div>
                                     </div>
@@ -1281,7 +1407,7 @@
                             </div>
                             <div class="slide-body">
                                 <div class="timeline-grid layer-depth-2">
-                                    <div class="timeline-card">
+                                    <div class="timeline-card kinetic-box k-delay-1">
                                         <div class="timeline-year-tag"><span style="color:#94A3B8;">2024년</span> <i class="fa-regular fa-comment-dots" style="color:#94A3B8;"></i></div>
                                         <h4 style="font-size:1.15rem; font-weight:800;">프롬프트 기초 & 초안 작성</h4>
                                         <p style="font-size:0.9rem; color:#94A3B8; line-height:1.7;">ChatGPT 대화창 활용, 단순 문서 요약, 보도자료 초안 작성 보조</p>
@@ -1289,7 +1415,7 @@
                                             <i class="fa-solid fa-xmark"></i> <strong>한계:</strong> 일회성 텍스트 복사·붙여넣기 수준
                                         </div>
                                     </div>
-                                    <div class="timeline-card">
+                                    <div class="timeline-card kinetic-box k-delay-2">
                                         <div class="timeline-year-tag"><span style="color:#38BDF8;">2025년</span> <i class="fa-solid fa-magnifying-glass" style="color:#38BDF8;"></i></div>
                                         <h4 style="font-size:1.15rem; font-weight:800;">검색 고도화 & 팩트체크</h4>
                                         <p style="font-size:0.9rem; color:#94A3B8; line-height:1.7;">퍼플렉시티(Perplexity) 기반 실시간 웹 검색, 출처 확인, 타 기관 사례 벤치마킹</p>
@@ -1297,7 +1423,7 @@
                                             <i class="fa-solid fa-xmark"></i> <strong>한계:</strong> 파편화된 정보 취득, 행정 시스템 구현 불가
                                         </div>
                                     </div>
-                                    <div class="timeline-card active-year layer-depth-3">
+                                    <div class="timeline-card active-year layer-depth-3 kinetic-box k-delay-3 border-beam">
                                         <div class="timeline-year-tag"><span style="color:#10B981;">2026년</span> <i class="fa-solid fa-rocket" style="color:#10B981;"></i></div>
                                         <h4 style="font-size:1.15rem; font-weight:800; color:#fff;">실행형 에이전트 & AX 실무</h4>
                                         <p style="font-size:0.9rem; color:#E2E8F0; line-height:1.7;"><strong>구글 안티그래비티</strong> 도입: 데이터베이스 구축 + 시각화 웹앱 즉시 빌드</p>
@@ -1318,17 +1444,17 @@
                             </div>
                             <div class="slide-body">
                                 <div class="vibe-grid layer-depth-2">
-                                    <div class="vibe-box">
+                                    <div class="vibe-box kinetic-box k-delay-1">
                                         <h4 style="color:#F43F5E; font-size:1.2rem; margin-bottom:14px; font-weight:800;"><i class="fa-solid fa-xmark"></i> 전통적 개발 방식 (외주/수작업)</h4>
-                                        <ul style="font-size:0.95rem; color:#CBD5E1; line-height:2; padding-left:20px;">
+                                        <ul class="kinetic-list" style="font-size:0.95rem; color:#CBD5E1; line-height:2; padding-left:20px;">
                                             <li>C, Java, Python 등 복잡한 컴퓨터 문법 사전 학습 필수</li>
                                             <li>전산팀/외주 개발사 의뢰 시 <strong>수 주~수 개월</strong> 소요</li>
                                             <li>단순 설문 취합 및 집계도 매번 엑셀 수작업으로 병목 발생</li>
                                         </ul>
                                     </div>
-                                    <div class="vibe-box vibe-new layer-depth-3">
+                                    <div class="vibe-box vibe-new layer-depth-3 kinetic-box k-delay-2 border-beam">
                                         <h4 style="color:#10B981; font-size:1.2rem; margin-bottom:14px; font-weight:800;"><i class="fa-solid fa-check"></i> 2026 바이브 코딩 (안티그래비티)</h4>
-                                        <ul style="font-size:0.95rem; color:#E2E8F0; line-height:2; padding-left:20px;">
+                                        <ul class="kinetic-list" style="font-size:0.95rem; color:#E2E8F0; line-height:2; padding-left:20px;">
                                             <li><strong>일상 자연어 프롬프트</strong>로 화면 레이아웃과 데이터 수식 정의</li>
                                             <li>현업 담당자가 기획과 동시에 <strong>10분 만에 웹앱 프로토타입</strong> 확보</li>
                                             <li>공공 실무자 1인이 자신만의 행정 전용 소프트웨어를 직접 빌드</li>
@@ -1347,7 +1473,7 @@
                             </div>
                             <div class="slide-body">
                                 <div class="shield-grid layer-depth-2">
-                                    <div class="shield-card">
+                                    <div class="shield-card kinetic-box k-delay-1">
                                         <div class="shield-icon-halo"><i class="fa-solid fa-user-shield"></i></div>
                                         <h4 style="font-size:1.15rem; font-weight:800;">원칙 1: 개인정보 비식별화</h4>
                                         <p style="font-size:0.9rem; color:#94A3B8; line-height:1.7;">성명, 연락처, 주소 등 고유식별정보 가명/익명 마스킹 처리</p>
@@ -1355,7 +1481,7 @@
                                             홍길동 ➔ 수강생_A<br>010-1234-5678 ➔ ID_001
                                         </div>
                                     </div>
-                                    <div class="shield-card">
+                                    <div class="shield-card kinetic-box k-delay-2">
                                         <div class="shield-icon-halo" style="background:rgba(244,63,94,0.15); color:#F43F5E; border-color:rgba(244,63,94,0.3);"><i class="fa-solid fa-lock"></i></div>
                                         <h4 style="font-size:1.15rem; font-weight:800;">원칙 2: 비공개 문서 필터링</h4>
                                         <p style="font-size:0.9rem; color:#94A3B8; line-height:1.7;">대외비, 내부 감사자료, 미확정 예산안은 사외형 AI 프롬프트 입력 엄격 금지</p>
@@ -1363,7 +1489,7 @@
                                             🔒 사내 승인된 로컬/보안 모델 사용
                                         </div>
                                     </div>
-                                    <div class="shield-card">
+                                    <div class="shield-card kinetic-box k-delay-3 border-beam">
                                         <div class="shield-icon-halo" style="background:rgba(16,185,129,0.15); color:#10B981; border-color:rgba(16,185,129,0.3);"><i class="fa-solid fa-check-double"></i></div>
                                         <h4 style="font-size:1.15rem; font-weight:800;">원칙 3: AI 환각 3단계 검증</h4>
                                         <p style="font-size:0.9rem; color:#94A3B8; line-height:1.7;">통계 수치 및 계산 공식 교차 검증 로직 내장 (계산식 프롬프트 삽입)</p>
@@ -1384,23 +1510,23 @@
                             </div>
                             <div class="slide-body">
                                 <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:1.8rem; width:100%;" class="layer-depth-2">
-                                    <div style="background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); border-radius:18px; padding:2rem; transition:transform 0.3s;" onmouseenter="this.style.transform='translateY(-6px)'" onmouseleave="this.style.transform='translateY(0)'">
+                                    <div class="kinetic-box k-delay-1" style="background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); border-radius:18px; padding:2rem; transition:transform 0.3s;" onmouseenter="this.style.transform='translateY(-6px)'" onmouseleave="this.style.transform='translateY(0)'">
                                         <div style="font-size:2.2rem; color:#10B981; margin-bottom:12px;"><i class="fa-solid fa-cloud"></i></div>
                                         <h4 style="font-size:1.2rem; font-weight:800; margin-bottom:10px;">무설치 클라우드 환경</h4>
                                         <p style="font-size:0.92rem; color:#94A3B8; line-height:1.7;">Node.js, VS Code 등 개발 도구 설치 없이 크롬 브라우저에서 즉시 실행</p>
-                                        <span style="display:inline-block; margin-top:14px; font-size:0.8rem; color:#38BDF8; font-weight:800; font-family:monospace;">#Zero-Setup</span>
+                                        <span class="breathing-pulse" style="display:inline-block; margin-top:14px; font-size:0.8rem; color:#38BDF8; font-weight:800; font-family:monospace;">#Zero-Setup</span>
                                     </div>
-                                    <div style="background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); border-radius:18px; padding:2rem; transition:transform 0.3s;" onmouseenter="this.style.transform='translateY(-6px)'" onmouseleave="this.style.transform='translateY(0)'">
+                                    <div class="kinetic-box k-delay-2" style="background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); border-radius:18px; padding:2rem; transition:transform 0.3s;" onmouseenter="this.style.transform='translateY(-6px)'" onmouseleave="this.style.transform='translateY(0)'">
                                         <div style="font-size:2.2rem; color:#38BDF8; margin-bottom:12px;"><i class="fa-solid fa-bolt"></i></div>
                                         <h4 style="font-size:1.2rem; font-weight:800; margin-bottom:10px;">실시간 핫 리로딩</h4>
                                         <p style="font-size:0.92rem; color:#94A3B8; line-height:1.7;">프롬프트를 수정하면 1초 만에 우측 화면에 변경사항이 라이브 반영</p>
-                                        <span style="display:inline-block; margin-top:14px; font-size:0.8rem; color:#10B981; font-weight:800; font-family:monospace;">#Real-Time Preview</span>
+                                        <span class="breathing-pulse" style="display:inline-block; margin-top:14px; font-size:0.8rem; color:#10B981; font-weight:800; font-family:monospace;">#Real-Time Preview</span>
                                     </div>
-                                    <div style="background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); border-radius:18px; padding:2rem; transition:transform 0.3s;" onmouseenter="this.style.transform='translateY(-6px)'" onmouseleave="this.style.transform='translateY(0)'">
+                                    <div class="kinetic-box k-delay-3 border-beam" style="background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); border-radius:18px; padding:2rem; transition:transform 0.3s;" onmouseenter="this.style.transform='translateY(-6px)'" onmouseleave="this.style.transform='translateY(0)'">
                                         <div style="font-size:2.2rem; color:#A78BFA; margin-bottom:12px;"><i class="fa-solid fa-database"></i></div>
                                         <h4 style="font-size:1.2rem; font-weight:800; margin-bottom:10px;">데이터-UI 원스톱 통합</h4>
                                         <p style="font-size:0.92rem; color:#94A3B8; line-height:1.7;">JSON/CSV 데이터를 프롬프트로 생성하거나 업로드하면 차트와 자동 연동</p>
-                                        <span style="display:inline-block; margin-top:14px; font-size:0.8rem; color:#A78BFA; font-weight:800; font-family:monospace;">#Full-Stack Agent</span>
+                                        <span class="breathing-pulse" style="display:inline-block; margin-top:14px; font-size:0.8rem; color:#A78BFA; font-weight:800; font-family:monospace;">#Full-Stack Agent</span>
                                     </div>
                                 </div>
                             </div>
@@ -1415,7 +1541,7 @@
                             </div>
                             <div class="slide-body">
                                 <div class="viewport-mock layer-depth-2">
-                                    <div class="vp-col active" onclick="highlightVp(this)">
+                                    <div class="vp-col active kinetic-box k-delay-1" onclick="highlightVp(this)">
                                         <div class="vp-head"><i class="fa-solid fa-terminal" style="color:#10B981;"></i> ① 프롬프트 캔버스</div>
                                         <div class="vp-body">
                                             <span style="color:#10B981; font-weight:700;">[Role]</span> 공공데이터 분석가<br>
@@ -1423,7 +1549,7 @@
                                             <span style="color:#FBBF24; font-weight:700;">[Theme]</span> 딥 네이비 & 에메랄드
                                         </div>
                                     </div>
-                                    <div class="vp-col" onclick="highlightVp(this)">
+                                    <div class="vp-col kinetic-box k-delay-2" onclick="highlightVp(this)">
                                         <div class="vp-head"><i class="fa-solid fa-code" style="color:#38BDF8;"></i> ② 실시간 코드 에디터</div>
                                         <div class="vp-body">
                                             import React from 'react';<br>
@@ -1434,7 +1560,7 @@
                                             }
                                         </div>
                                     </div>
-                                    <div class="vp-col" onclick="highlightVp(this)">
+                                    <div class="vp-col kinetic-box k-delay-3 border-beam" onclick="highlightVp(this)">
                                         <div class="vp-head"><i class="fa-solid fa-play" style="color:#10B981;"></i> ③ 라이브 웹 프리뷰</div>
                                         <div class="vp-body" style="background:#0A0F1D; display:flex; flex-direction:column; justify-content:center; align-items:center;">
                                             <div style="background:#131D31; border-radius:10px; padding:16px; width:90%; border:1px solid #10B981; box-shadow:0 0 20px var(--primary-emerald-glow);">
@@ -1456,22 +1582,22 @@
                             </div>
                             <div class="slide-body">
                                 <div class="craft-pipeline layer-depth-2">
-                                    <div class="craft-step">
+                                    <div class="craft-step kinetic-box k-delay-1">
                                         <span class="craft-num">01</span>
                                         <div style="color:#10B981; font-weight:800; font-size:1.25rem; margin-bottom:8px;">Context / Role</div>
                                         <p style="font-size:0.9rem; color:#CBD5E1; line-height:1.6;">공공기관 평가 설계자 및 UI/UX 전문가 페르소나 부여</p>
                                     </div>
-                                    <div class="craft-step">
+                                    <div class="craft-step kinetic-box k-delay-2">
                                         <span class="craft-num">02</span>
                                         <div style="color:#38BDF8; font-weight:800; font-size:1.25rem; margin-bottom:8px;">Action 지시</div>
                                         <p style="font-size:0.9rem; color:#CBD5E1; line-height:1.6;">"만족도 5대 항목 비교 막대 차트와 필터 컴포넌트 제작"</p>
                                     </div>
-                                    <div class="craft-step">
+                                    <div class="craft-step kinetic-box k-delay-3">
                                         <span class="craft-num">03</span>
                                         <div style="color:#FBBF24; font-weight:800; font-size:1.25rem; margin-bottom:8px;">Format 규격</div>
                                         <p style="font-size:0.9rem; color:#CBD5E1; line-height:1.6;">정형 JSON 데이터 구조(100건 내장) 및 React 컴포넌트 규격 지정</p>
                                     </div>
-                                    <div class="craft-step">
+                                    <div class="craft-step kinetic-box k-delay-4 border-beam">
                                         <span class="craft-num">04</span>
                                         <div style="color:#F472B6; font-weight:800; font-size:1.25rem; margin-bottom:8px;">Target Style</div>
                                         <p style="font-size:0.9rem; color:#CBD5E1; line-height:1.6;">다크 네이비(#0F172A), 에메랄드 그린 포인트, 반응형 그리드</p>
@@ -1489,19 +1615,19 @@
                             </div>
                             <div class="slide-body">
                                 <div class="compare-grid layer-depth-2">
-                                    <div class="compare-card before">
+                                    <div class="compare-card before kinetic-box k-delay-1">
                                         <h4 style="color:#F43F5E; font-size:1.25rem; margin-bottom:12px; font-weight:800;"><i class="fa-solid fa-triangle-exclamation"></i> 기존 수작업 방식 (Before)</h4>
-                                        <ul style="font-size:0.95rem; color:#CBD5E1; line-height:2; padding-left:20px;">
+                                        <ul class="kinetic-list" style="font-size:0.95rem; color:#CBD5E1; line-height:2; padding-left:20px;">
                                             <li>강좌마다 엑셀 파일이 따로 분산되어 취합에 수일 소요</li>
                                             <li>단순 평균 점수 외 센터별/수강생 유형별 교차 분석 불가</li>
                                             <li>시민 주관식 개선의견 텍스트 정리에 막대한 야근 발생</li>
                                         </ul>
                                     </div>
-                                    <div class="compare-card after layer-depth-3">
+                                    <div class="compare-card after layer-depth-3 kinetic-box k-delay-2 border-beam">
                                         <h4 style="color:#10B981; font-size:1.25rem; margin-bottom:6px; font-weight:800;"><i class="fa-solid fa-circle-check"></i> 안티그래비티 대시보드 (After)</h4>
                                         <div class="counter-huge" data-target="80">0%</div>
                                         <div style="font-size:0.95rem; color:#E2E8F0; font-weight:700; margin-bottom:10px;">행정 소요시간 즉시 단축 효과</div>
-                                        <ul style="font-size:0.92rem; color:#CBD5E1; line-height:1.8; padding-left:20px;">
+                                        <ul class="kinetic-list" style="font-size:0.92rem; color:#CBD5E1; line-height:1.8; padding-left:20px;">
                                             <li><strong>원클릭 표준 DB화:</strong> 분산된 데이터를 단일 JSON 규격으로 통합</li>
                                             <li><strong>실시간 다차원 필터:</strong> 이음터별, 대상별 클릭 한 번으로 비교</li>
                                         </ul>
@@ -1519,11 +1645,11 @@
                             </div>
                             <div class="slide-body">
                                 <div style="width:100%;" class="layer-depth-2">
-                                    <div class="q-tabs">
+                                    <div class="q-tabs kinetic-box k-delay-1">
                                         <button class="q-tab-btn active" onclick="switchQTab('quant', this)">정량 평가 5문항 (5점 척도)</button>
                                         <button class="q-tab-btn" onclick="switchQTab('qual', this)">정성 평가 2문항 (주관식)</button>
                                     </div>
-                                    <div id="q-table-wrap">
+                                    <div id="q-table-wrap" class="kinetic-box k-delay-2 border-beam">
                                         <table class="q-table" id="table-quant">
                                             <thead>
                                                 <tr>
@@ -1533,11 +1659,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr><td><strong>Q1 (강사)</strong></td><td>강사의 전문성 및 강의 전달력에 만족하는가?</td><td>전문성 및 전달력</td></tr>
-                                                <tr><td><strong>Q2 (내용)</strong></td><td>커리큘럼의 구성과 실무 활용성이 우수한가?</td><td>커리큘럼 실무 적절성</td></tr>
-                                                <tr><td><strong>Q3 (시설)</strong></td><td>교육 장소, 실습 기자재, 환경 지원이 원활했는가?</td><td>시설 및 기자재 편의성</td></tr>
-                                                <tr><td><strong>Q4 (행정)</strong></td><td>수강 신청 및 교육 운영 안내 지원이 신속했는가?</td><td>행정 지원 친절도</td></tr>
-                                                <tr><td><strong>Q5 (추천)</strong></td><td>향후 관련 강좌 재수강 및 타인 추천 의향이 있는가?</td><td>순추천지수(NPS) 환산</td></tr>
+                                                <tr class="kinetic-row"><td><strong>Q1 (강사)</strong></td><td>강사의 전문성 및 강의 전달력에 만족하는가?</td><td>전문성 및 전달력</td></tr>
+                                                <tr class="kinetic-row"><td><strong>Q2 (내용)</strong></td><td>커리큘럼의 구성과 실무 활용성이 우수한가?</td><td>커리큘럼 실무 적절성</td></tr>
+                                                <tr class="kinetic-row"><td><strong>Q3 (시설)</strong></td><td>교육 장소, 실습 기자재, 환경 지원이 원활했는가?</td><td>시설 및 기자재 편의성</td></tr>
+                                                <tr class="kinetic-row"><td><strong>Q4 (행정)</strong></td><td>수강 신청 및 교육 운영 안내 지원이 신속했는가?</td><td>행정 지원 친절도</td></tr>
+                                                <tr class="kinetic-row"><td><strong>Q5 (추천)</strong></td><td>향후 관련 강좌 재수강 및 타인 추천 의향이 있는가?</td><td>순추천지수(NPS) 환산</td></tr>
                                             </tbody>
                                         </table>
                                         <table class="q-table" id="table-qual" style="display:none;">
@@ -1549,8 +1675,8 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr><td><strong>Q6 (강점)</strong></td><td>본 프로그램에서 가장 유익했던 점은 무엇입니까?</td><td>우수 요인 마이닝</td></tr>
-                                                <tr><td><strong>Q7 (개선)</strong></td><td>향후 프로그램 개선 및 건의사항은 무엇입니까?</td><td>차년도 과제 도출</td></tr>
+                                                <tr class="kinetic-row"><td><strong>Q6 (강점)</strong></td><td>본 프로그램에서 가장 유익했던 점은 무엇입니까?</td><td>우수 요인 마이닝</td></tr>
+                                                <tr class="kinetic-row"><td><strong>Q7 (개선)</strong></td><td>향후 프로그램 개선 및 건의사항은 무엇입니까?</td><td>차년도 과제 도출</td></tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -1567,22 +1693,22 @@
                             </div>
                             <div class="slide-body">
                                 <div style="width:100%;" class="layer-depth-2">
-                                    <div class="prompt-copy-box">
+                                    <div class="prompt-copy-box kinetic-box k-delay-1 border-beam">
                                         <span id="prompt-text">"화성시인재육성재단 이음터 맞춤형 강의 만족도 설문 문항 7개를 기준으로 최근 3개월간 수강생 100명분의 가상 응답 데이터를 JSON 배열 포맷으로 생성해줘. (필드: id, centerName, programName, participantType, q1~q5, improvementFeedback)"</span>
                                         <button class="copy-pill-btn" onclick="copyPrompt()"><i class="fa-regular fa-copy"></i> 복사하기</button>
                                     </div>
                                     <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px;">
-                                        <div style="background:#070C18; padding:16px; border-radius:12px; border:1px solid var(--border-glass); font-size:0.86rem;">
+                                        <div class="kinetic-box k-delay-2" style="background:#070C18; padding:16px; border-radius:12px; border:1px solid var(--border-glass); font-size:0.86rem;">
                                             <strong style="color:#10B981;"><i class="fa-solid fa-code-branch"></i> 필수 스키마 규격</strong>
-                                            <ul style="color:#94A3B8; margin-top:8px; line-height:1.7; padding-left:18px;">
+                                            <ul class="kinetic-list" style="color:#94A3B8; margin-top:8px; line-height:1.7; padding-left:18px;">
                                                 <li>centerName: 동탄중앙, 다원, 송린, 봉담 등</li>
                                                 <li>participantType: 청소년, 성인, 학부모</li>
                                                 <li>q1~q5: 1~5 정수형 만족도 점수</li>
                                             </ul>
                                         </div>
-                                        <div style="background:#070C18; padding:16px; border-radius:12px; border:1px solid var(--border-glass); font-size:0.86rem;">
+                                        <div class="kinetic-box k-delay-3" style="background:#070C18; padding:16px; border-radius:12px; border:1px solid var(--border-glass); font-size:0.86rem;">
                                             <strong style="color:#38BDF8;"><i class="fa-solid fa-link"></i> 2교시 대시보드 연동 준비</strong>
-                                            <ul style="color:#94A3B8; margin-top:8px; line-height:1.7; padding-left:18px;">
+                                            <ul class="kinetic-list" style="color:#94A3B8; margin-top:8px; line-height:1.7; padding-left:18px;">
                                                 <li>데이터 무결성 검증 (응답 누락 및 결측치 0% 확인)</li>
                                                 <li>클립보드에 복사하여 2교시 대시보드에 즉각 전달</li>
                                             </ul>
@@ -1601,15 +1727,15 @@
                             </div>
                             <div class="slide-body">
                                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; width:100%;" class="layer-depth-2">
-                                    <div style="background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); border-radius:18px; padding:2rem;">
+                                    <div class="kinetic-box k-delay-1" style="background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); border-radius:18px; padding:2rem;">
                                         <h4 style="color:#10B981; font-size:1.2rem; margin-bottom:14px; font-weight:800;"><i class="fa-solid fa-clipboard-check"></i> 1교시 달성 성과</h4>
                                         <div style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:#E2E8F0;">
-                                            <div><i class="fa-solid fa-circle-check" style="color:#10B981;"></i> 구글 안티그래비티 기본 인터페이스 및 바이브 코딩 개념 습득</div>
-                                            <div><i class="fa-solid fa-circle-check" style="color:#10B981;"></i> 화성시인재육성재단 맞춤형 표준 만족도 7문항 설계 완료</div>
-                                            <div><i class="fa-solid fa-circle-check" style="color:#10B981;"></i> 대시보드 연동을 위한 100명분 가상 정형 DB(JSON) 확보</div>
+                                            <div><i class="fa-solid fa-circle-check stamp-check stamp-delay-1" style="color:#10B981;"></i> 구글 안티그래비티 기본 인터페이스 및 바이브 코딩 개념 습득</div>
+                                            <div><i class="fa-solid fa-circle-check stamp-check stamp-delay-2" style="color:#10B981;"></i> 화성시인재육성재단 맞춤형 표준 만족도 7문항 설계 완료</div>
+                                            <div><i class="fa-solid fa-circle-check stamp-check stamp-delay-3" style="color:#10B981;"></i> 대시보드 연동을 위한 100명분 가상 정형 DB(JSON) 확보</div>
                                         </div>
                                     </div>
-                                    <div style="background:linear-gradient(145deg, rgba(16,185,129,0.12) 0%, rgba(56,189,248,0.12) 100%); border:1px solid var(--primary-emerald); border-radius:18px; padding:2rem;" class="layer-depth-3">
+                                    <div class="kinetic-box k-delay-2 border-beam" style="background:linear-gradient(145deg, rgba(16,185,129,0.12) 0%, rgba(56,189,248,0.12) 100%); border:1px solid var(--primary-emerald); border-radius:18px; padding:2rem;" class="layer-depth-3">
                                         <h4 style="color:#38BDF8; font-size:1.2rem; margin-bottom:14px; font-weight:800;"><i class="fa-solid fa-forward"></i> 2교시 실습 예고</h4>
                                         <div style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:#E2E8F0;">
                                             <div><strong>2부: 지능형 데이터 분석</strong> — 센터별 순위, NPS 계산, 주관식 감성 키워드 Top 5 도출</div>
@@ -1856,6 +1982,14 @@
 
         // Trigger State Machine: Count-Up & Re-triggering animations
         function triggerSlideLifecycle(card) {
+            // Re-trigger kinetic box animations
+            const kineticElements = card.querySelectorAll('.kinetic-box');
+            kineticElements.forEach(el => {
+                el.style.animation = 'none';
+                void el.offsetWidth; // Force reflow
+                el.style.animation = '';
+            });
+
             // Count-up numbers
             const counters = card.querySelectorAll('[data-target]');
             counters.forEach(counter => {
