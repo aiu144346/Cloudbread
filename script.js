@@ -429,14 +429,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 ${target === 'public' ? `
                     <div style="display:flex; flex-direction:column; gap:1.2rem; margin-top:1.5rem;">
-                        <!-- 화성시인재육성재단 2026 AX 특강 전용 포털 카드 -->
+                        <!-- 화성시인재육성재단 2026 AX 특강 1부 포털 카드 -->
                         <div style="background: linear-gradient(135deg, #0F172A 0%, #064E3B 50%, #0F766E 100%); color:#FFFFFF; border-radius:18px; padding:1.8rem 2.2rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 12px 30px rgba(16, 185, 129, 0.25); border:1px solid rgba(52, 211, 153, 0.35);">
                             <div style="max-width:700px;">
-                                <span style="background:rgba(52, 211, 153, 0.2); color:#34D399; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; display:inline-block; margin-bottom:8px; border:1px solid rgba(52, 211, 153, 0.4);">🏛️ 2026 화성시인재육성재단 AX 마스터클래스</span>
-                                <h3 style="font-size:1.35rem; font-weight:800; margin:0; color:#FFFFFF;">공공기관 행정 혁신을 위한 차세대 AI 실무 워크플로우 (2026 AX 실무편)</h3>
-                                <p style="font-size:0.9rem; color:#E2E8F0; margin:6px 0 0 0;">엑셀 취합을 넘어 실시간 대시보드로 — 구글 안티그래비티 기반 교육만족도 DB 구축, 정형 데이터 통계 가공 및 인터랙티브 웹 대시보드 시각화</p>
+                                <span style="background:rgba(52, 211, 153, 0.2); color:#34D399; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; display:inline-block; margin-bottom:8px; border:1px solid rgba(52, 211, 153, 0.4);">🏛️ 2026 화성시인재육성재단 AX 마스터클래스 [1부]</span>
+                                <h3 style="font-size:1.35rem; font-weight:800; margin:0; color:#FFFFFF;">공공기관 행정 혁신을 위한 차세대 AI 실무 워크플로우 (1부 기획편)</h3>
+                                <p style="font-size:0.9rem; color:#E2E8F0; margin:6px 0 0 0;">3D 시네마틱 슬라이드 & 구글 안티그래비티 기반 교육만족도 조사 기획 및 시뮬레이션 대시보드</p>
                             </div>
-                            <a href="lecture-hshe.html" style="background:#10B981; color:#030712; font-weight:800; font-size:0.95rem; padding:12px 24px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s; box-shadow:0 4px 15px rgba(16, 185, 129, 0.4);"><i class="fa-solid fa-arrow-up-right-from-square"></i> 전용 실습 대시보드 입장하기 →</a>
+                            <a href="lecture-hshe.html" style="background:#10B981; color:#030712; font-weight:800; font-size:0.95rem; padding:12px 24px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s; box-shadow:0 4px 15px rgba(16, 185, 129, 0.4);"><i class="fa-solid fa-arrow-up-right-from-square"></i> 1부 실습 대시보드 입장하기 →</a>
+                        </div>
+
+                        <!-- 화성시인재육성재단 2026 AX 특강 2부 데이터 모델링 포털 카드 -->
+                        <div style="background: linear-gradient(135deg, #0A1128 0%, #0369A1 50%, #4338CA 100%); color:#FFFFFF; border-radius:18px; padding:1.8rem 2.2rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 12px 30px rgba(56, 189, 248, 0.25); border:1px solid rgba(56, 189, 248, 0.4);">
+                            <div style="max-width:700px;">
+                                <span style="background:rgba(56, 189, 248, 0.2); color:#38BDF8; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; display:inline-block; margin-bottom:8px; border:1px solid rgba(56, 189, 248, 0.4);">📊 2026 화성시인재육성재단 AX 마스터클래스 [2부]</span>
+                                <h3 style="font-size:1.35rem; font-weight:800; margin:0; color:#FFFFFF;">교육만족도 데이터 분석 및 모델링 (2부 모델링 랩)</h3>
+                                <p style="font-size:0.9rem; color:#E2E8F0; margin:6px 0 0 0;">5+2 표준 지표, 100건 가상 DB, 공공 100점 환산, 4×3 교차 매트릭스, NPS 산출 및 주관식 NLP 감성 분석 원스톱 파이프라인</p>
+                            </div>
+                            <a href="lecture-hshe-part2.html" style="background:#38BDF8; color:#030712; font-weight:800; font-size:0.95rem; padding:12px 24px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s; box-shadow:0 4px 15px rgba(56, 189, 248, 0.4);"><i class="fa-solid fa-arrow-up-right-from-square"></i> 2부 데이터 모델링 랩 입장하기 →</a>
                         </div>
 
                         <!-- 울산 북구청 신규 공무원 AI 특강 카드 -->
