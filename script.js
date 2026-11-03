@@ -428,13 +428,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 ` : ''}
 
                 ${target === 'public' ? `
-                    <div style="background: linear-gradient(135deg, #002D62 0%, #0047AB 100%); color:#FFFFFF; border-radius:18px; padding:1.8rem 2.2rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 12px 30px rgba(0, 71, 171, 0.2); border:1px solid rgba(255,255,255,0.15);">
-                        <div>
-                            <span style="background:rgba(0,240,255,0.2); color:#00F0FF; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; display:inline-block; margin-bottom:8px;">🏛️ 실전 마스터클래스 전용 포털 오픈</span>
-                            <h3 style="font-size:1.35rem; font-weight:800; margin:0; color:#FFFFFF;">울산 북구청 신규 공무원 AI 행정혁신 120분 마스터클래스</h3>
-                            <p style="font-size:0.9rem; color:#CBD5E1; margin:4px 0 0 0;">행정×기술 투트랙 실시간 프롬프트 랩, 과제 실시간 업로드 및 라이브 쇼케이스 전용 페이지</p>
+                    <div style="display:flex; flex-direction:column; gap:1.2rem; margin-top:1.5rem;">
+                        <!-- 화성시인재육성재단 2026 AX 특강 전용 포털 카드 -->
+                        <div style="background: linear-gradient(135deg, #0F172A 0%, #064E3B 50%, #0F766E 100%); color:#FFFFFF; border-radius:18px; padding:1.8rem 2.2rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 12px 30px rgba(16, 185, 129, 0.25); border:1px solid rgba(52, 211, 153, 0.35);">
+                            <div style="max-width:700px;">
+                                <span style="background:rgba(52, 211, 153, 0.2); color:#34D399; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; display:inline-block; margin-bottom:8px; border:1px solid rgba(52, 211, 153, 0.4);">🏛️ 2026 화성시인재육성재단 AX 마스터클래스</span>
+                                <h3 style="font-size:1.35rem; font-weight:800; margin:0; color:#FFFFFF;">공공기관 행정 혁신을 위한 차세대 AI 실무 워크플로우 (2026 AX 실무편)</h3>
+                                <p style="font-size:0.9rem; color:#E2E8F0; margin:6px 0 0 0;">엑셀 취합을 넘어 실시간 대시보드로 — 구글 안티그래비티 기반 교육만족도 DB 구축, 정형 데이터 통계 가공 및 인터랙티브 웹 대시보드 시각화</p>
+                            </div>
+                            <a href="lecture-hshe.html" style="background:#10B981; color:#030712; font-weight:800; font-size:0.95rem; padding:12px 24px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s; box-shadow:0 4px 15px rgba(16, 185, 129, 0.4);"><i class="fa-solid fa-arrow-up-right-from-square"></i> 전용 실습 대시보드 입장하기 →</a>
                         </div>
-                        <a href="lecture-ubs.html" style="background:#00F0FF; color:#030712; font-weight:800; font-size:0.95rem; padding:12px 24px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:transform 0.2s;"><i class="fa-solid fa-arrow-up-right-from-square"></i> 전용 실습 대시보드 입장하기 →</a>
+
+                        <!-- 울산 북구청 신규 공무원 AI 특강 카드 -->
+                        <div style="background: linear-gradient(135deg, #002D62 0%, #0047AB 100%); color:#FFFFFF; border-radius:18px; padding:1.8rem 2.2rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 12px 30px rgba(0, 71, 171, 0.2); border:1px solid rgba(255,255,255,0.15);">
+                            <div style="max-width:700px;">
+                                <span style="background:rgba(0,240,255,0.2); color:#00F0FF; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; display:inline-block; margin-bottom:8px;">🏛️ 실전 마스터클래스 전용 포털 오픈</span>
+                                <h3 style="font-size:1.35rem; font-weight:800; margin:0; color:#FFFFFF;">울산 북구청 신규 공무원 AI 행정혁신 120분 마스터클래스</h3>
+                                <p style="font-size:0.9rem; color:#CBD5E1; margin:6px 0 0 0;">행정×기술 투트랙 실시간 프롬프트 랩, 과제 실시간 업로드 및 라이브 쇼케이스 전용 페이지</p>
+                            </div>
+                            <a href="lecture-ubs.html" style="background:#00F0FF; color:#030712; font-weight:800; font-size:0.95rem; padding:12px 24px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:transform 0.2s;"><i class="fa-solid fa-arrow-up-right-from-square"></i> 전용 실습 대시보드 입장하기 →</a>
+                        </div>
                     </div>
                 ` : ''}
 
