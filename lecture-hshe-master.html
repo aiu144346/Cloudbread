@@ -763,18 +763,299 @@
 
         /* Print Optimization */
         @media print {
-            .master-header, .filter-controls-group, .nav-view-tabs, .header-actions, .platform-row-white, .btn-copy-white {
+            .master-header, .filter-controls-group, .nav-view-tabs, .header-actions, .platform-row-white, .btn-copy-white, .mobile-filter-chips {
                 display: none !important;
             }
             body { background: #FFFFFF !important; }
             .kpi-master-card, .analytics-card-white { box-shadow: none !important; border: 1px solid #CBD5E1 !important; }
         }
 
-        /* Responsive */
+        /* Mobile Touch Filter Chips */
+        .mobile-filter-chips {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .chip-scroll-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 2px;
+        }
+
+        .chip-scroll-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .chip-group-label {
+            font-size: 0.74rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            white-space: nowrap;
+            margin-right: 2px;
+        }
+
+        .filter-touch-chip {
+            background: #F1F5F9;
+            border: 1px solid var(--border-light);
+            color: var(--text-body);
+            padding: 6px 13px;
+            border-radius: 9999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            min-height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .filter-touch-chip.active {
+            background: var(--color-emerald);
+            color: #FFFFFF;
+            border-color: var(--color-emerald);
+            font-weight: 800;
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.3);
+        }
+
+        /* Heatmap Scroll Container */
+        .heatmap-scroll-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 8px;
+        }
+
+        .mobile-scroll-hint {
+            display: none;
+            font-size: 0.72rem;
+            color: var(--color-blue);
+            font-weight: 600;
+            margin-bottom: 6px;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* ==========================================================================
+           Mobile Smartphone Optimization Media Queries (< 768px and < 480px)
+           ========================================================================== */
         @media (max-width: 1024px) {
             .kpi-master-grid { grid-template-columns: repeat(2, 1fr); }
             .analytics-two-col { grid-template-columns: 1fr; }
             .header-top-row { flex-direction: column; height: auto; padding: 1rem; gap: 1rem; }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: max(0px, env(safe-area-inset-top));
+                padding-bottom: max(0px, env(safe-area-inset-bottom));
+            }
+
+            .main-container {
+                padding: 1rem 0.85rem !important;
+            }
+
+            .header-top-row {
+                flex-direction: column !important;
+                height: auto !important;
+                padding: 0.75rem 1rem !important;
+                gap: 0.75rem !important;
+            }
+
+            .brand-badge-logo {
+                width: 36px !important;
+                height: 36px !important;
+                font-size: 1.1rem !important;
+            }
+
+            .brand-text h1 {
+                font-size: 1.02rem !important;
+            }
+
+            .brand-text p {
+                font-size: 0.7rem !important;
+            }
+
+            .nav-view-tabs {
+                width: 100% !important;
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                scrollbar-width: none !important;
+                justify-content: flex-start !important;
+                padding: 3px !important;
+            }
+
+            .nav-view-tabs::-webkit-scrollbar {
+                display: none !important;
+            }
+
+            .view-tab-btn {
+                padding: 7px 12px !important;
+                font-size: 0.78rem !important;
+                white-space: nowrap !important;
+                flex-shrink: 0 !important;
+            }
+
+            .header-actions {
+                width: 100% !important;
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                scrollbar-width: none !important;
+                justify-content: flex-start !important;
+                padding-bottom: 2px !important;
+            }
+
+            .header-actions::-webkit-scrollbar {
+                display: none !important;
+            }
+
+            .action-chip {
+                padding: 6px 11px !important;
+                font-size: 0.76rem !important;
+                white-space: nowrap !important;
+                flex-shrink: 0 !important;
+            }
+
+            .desktop-only-filter {
+                display: none !important;
+            }
+
+            .mobile-filter-chips {
+                display: flex !important;
+            }
+
+            .filter-control-card {
+                padding: 1rem !important;
+                gap: 0.75rem !important;
+                border-radius: 14px !important;
+            }
+
+            .filter-left-info h2 {
+                font-size: 1.05rem !important;
+            }
+
+            .filter-left-info p {
+                font-size: 0.74rem !important;
+            }
+
+            .kpi-master-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 8px !important;
+            }
+
+            .kpi-master-card {
+                padding: 0.9rem !important;
+                gap: 0.35rem !important;
+                border-radius: 14px !important;
+            }
+
+            .kpi-master-val {
+                font-size: 1.55rem !important;
+            }
+
+            .kpi-master-title {
+                font-size: 0.72rem !important;
+            }
+
+            .kpi-master-sub {
+                font-size: 0.66rem !important;
+                flex-wrap: wrap !important;
+                gap: 3px !important;
+            }
+
+            .kpi-icon-box {
+                width: 28px !important;
+                height: 28px !important;
+                font-size: 0.85rem !important;
+            }
+
+            .analytics-two-col {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+            }
+
+            .analytics-card-white {
+                padding: 1.1rem !important;
+                border-radius: 14px !important;
+                gap: 0.9rem !important;
+            }
+
+            .card-white-title {
+                font-size: 0.95rem !important;
+            }
+
+            .chart-box-white {
+                height: 230px !important;
+            }
+
+            .mobile-scroll-hint {
+                display: flex !important;
+            }
+
+            .heatmap-white-table {
+                min-width: 440px !important;
+            }
+
+            .heatmap-white-table th, .heatmap-white-table td {
+                padding: 8px 6px !important;
+                font-size: 0.78rem !important;
+            }
+
+            .nps-box-white {
+                padding: 0.9rem !important;
+            }
+
+            .nps-legend-light {
+                flex-direction: column !important;
+                gap: 4px !important;
+                font-size: 0.76rem !important;
+            }
+
+            .excel-studio-card, .prompt-hub-card {
+                padding: 1.1rem !important;
+                border-radius: 14px !important;
+            }
+
+            .excel-textarea-white {
+                height: 100px !important;
+                font-size: 0.76rem !important;
+            }
+
+            .prompt-sub-tabs {
+                scrollbar-width: none !important;
+            }
+
+            .prompt-sub-tabs::-webkit-scrollbar {
+                display: none !important;
+            }
+
+            .sub-tab-btn {
+                padding: 7px 11px !important;
+                font-size: 0.76rem !important;
+                flex-shrink: 0 !important;
+            }
+
+            .btn-copy-white {
+                width: 100% !important;
+                justify-content: center !important;
+                padding: 8px !important;
+            }
+
+            .toast-white {
+                bottom: max(20px, env(safe-area-inset-bottom) + 10px) !important;
+                width: 90% !important;
+                max-width: 360px !important;
+                text-align: center !important;
+                font-size: 0.82rem !important;
+            }
         }
     </style>
 </head>
@@ -851,7 +1132,8 @@
                     </h2>
                     <p>동탄중앙·다원·송린·봉담 이음터 4개 거점 및 청소년·성인·학부모 3대 수혜 계층 다차원 실시간 집계</p>
                 </div>
-                <div class="filter-controls-group">
+                <!-- Desktop Dropdown Filters -->
+                <div class="filter-controls-group desktop-only-filter">
                     <select class="master-select" id="exec-filter-center" onchange="updateMasterAnalytics()">
                         <option value="all">전체 이음터 (4개 거점)</option>
                         <option value="동탄중앙이음터">동탄중앙이음터</option>
@@ -868,6 +1150,25 @@
                     <button class="action-chip" onclick="resetMasterFilters()" style="cursor: pointer;">
                         <i class="fa-solid fa-rotate-right"></i> 초기화
                     </button>
+                </div>
+
+                <!-- Mobile Quick Touch Filter Chips -->
+                <div class="mobile-filter-chips">
+                    <div class="chip-scroll-row">
+                        <span class="chip-group-label">거점:</span>
+                        <button class="filter-touch-chip active" data-type="center" data-val="all" onclick="selectTouchChip('center', 'all', this)">전체</button>
+                        <button class="filter-touch-chip" data-type="center" data-val="동탄중앙이음터" onclick="selectTouchChip('center', '동탄중앙이음터', this)">동탄중앙</button>
+                        <button class="filter-touch-chip" data-type="center" data-val="다원이음터" onclick="selectTouchChip('center', '다원이음터', this)">다원</button>
+                        <button class="filter-touch-chip" data-type="center" data-val="송린이음터" onclick="selectTouchChip('center', '송린이음터', this)">송린</button>
+                        <button class="filter-touch-chip" data-type="center" data-val="봉담이음터" onclick="selectTouchChip('center', '봉담이음터', this)">봉담</button>
+                    </div>
+                    <div class="chip-scroll-row">
+                        <span class="chip-group-label">대상:</span>
+                        <button class="filter-touch-chip active" data-type="target" data-val="all" onclick="selectTouchChip('target', 'all', this)">전체</button>
+                        <button class="filter-touch-chip" data-type="target" data-val="청소년" onclick="selectTouchChip('target', '청소년', this)">청소년</button>
+                        <button class="filter-touch-chip" data-type="target" data-val="성인" onclick="selectTouchChip('target', '성인', this)">성인</button>
+                        <button class="filter-touch-chip" data-type="target" data-val="학부모" onclick="selectTouchChip('target', '학부모', this)">학부모</button>
+                    </div>
                 </div>
             </div>
 
@@ -945,47 +1246,52 @@
                         </h3>
                         <span style="font-size: 0.76rem; color: var(--text-muted);">셀 클릭 시 세부 필터링</span>
                     </div>
-                    <table class="heatmap-white-table">
-                        <thead>
-                            <tr>
-                                <th>센터명</th>
-                                <th>청소년</th>
-                                <th>성인</th>
-                                <th>학부모</th>
-                                <th>거점 종합</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td style="font-weight:700; color:#0F172A;">동탄중앙이음터</td>
-                                <td class="cell-green" onclick="filterByHeatmap('동탄중앙이음터', '청소년')">4.82</td>
-                                <td class="cell-green" onclick="filterByHeatmap('동탄중앙이음터', '성인')">4.74</td>
-                                <td class="cell-blue" onclick="filterByHeatmap('동탄중앙이음터', '학부모')">4.60</td>
-                                <td style="font-weight:700; color:#2563EB;">4.72</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight:700; color:#0F172A;">다원이음터</td>
-                                <td class="cell-green" onclick="filterByHeatmap('다원이음터', '청소년')">4.91</td>
-                                <td class="cell-green" onclick="filterByHeatmap('다원이음터', '성인')">4.86</td>
-                                <td class="cell-blue" onclick="filterByHeatmap('다원이음터', '학부모')">4.58</td>
-                                <td style="font-weight:700; color:#2563EB;">4.78</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight:700; color:#0F172A;">송린이음터</td>
-                                <td class="cell-blue" onclick="filterByHeatmap('송린이음터', '청소년')">4.58</td>
-                                <td class="cell-blue" onclick="filterByHeatmap('송린이음터', '성인')">4.62</td>
-                                <td class="cell-amber" onclick="filterByHeatmap('송린이음터', '학부모')">4.31</td>
-                                <td style="font-weight:700; color:#2563EB;">4.50</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight:700; color:#0F172A;">봉담이음터</td>
-                                <td class="cell-blue" onclick="filterByHeatmap('봉담이음터', '청소년')">4.50</td>
-                                <td class="cell-amber" onclick="filterByHeatmap('봉담이음터', '성인')">4.33</td>
-                                <td class="cell-blue" onclick="filterByHeatmap('봉담이음터', '학부모')">4.52</td>
-                                <td style="font-weight:700; color:#2563EB;">4.45</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="mobile-scroll-hint">
+                        <i class="fa-solid fa-arrows-left-right"></i> 좌우로 스크롤하여 전체 이음터 확인
+                    </div>
+                    <div class="heatmap-scroll-wrapper">
+                        <table class="heatmap-white-table">
+                            <thead>
+                                <tr>
+                                    <th>센터명</th>
+                                    <th>청소년</th>
+                                    <th>성인</th>
+                                    <th>학부모</th>
+                                    <th>거점 종합</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-weight:700; color:#0F172A;">동탄중앙이음터</td>
+                                    <td class="cell-green" onclick="filterByHeatmap('동탄중앙이음터', '청소년')">4.82</td>
+                                    <td class="cell-green" onclick="filterByHeatmap('동탄중앙이음터', '성인')">4.74</td>
+                                    <td class="cell-blue" onclick="filterByHeatmap('동탄중앙이음터', '학부모')">4.60</td>
+                                    <td style="font-weight:700; color:#2563EB;">4.72</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight:700; color:#0F172A;">다원이음터</td>
+                                    <td class="cell-green" onclick="filterByHeatmap('다원이음터', '청소년')">4.91</td>
+                                    <td class="cell-green" onclick="filterByHeatmap('다원이음터', '성인')">4.86</td>
+                                    <td class="cell-blue" onclick="filterByHeatmap('다원이음터', '학부모')">4.58</td>
+                                    <td style="font-weight:700; color:#2563EB;">4.78</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight:700; color:#0F172A;">송린이음터</td>
+                                    <td class="cell-blue" onclick="filterByHeatmap('송린이음터', '청소년')">4.58</td>
+                                    <td class="cell-blue" onclick="filterByHeatmap('송린이음터', '성인')">4.62</td>
+                                    <td class="cell-amber" onclick="filterByHeatmap('송린이음터', '학부모')">4.31</td>
+                                    <td style="font-weight:700; color:#2563EB;">4.50</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight:700; color:#0F172A;">봉담이음터</td>
+                                    <td class="cell-blue" onclick="filterByHeatmap('봉담이음터', '청소년')">4.50</td>
+                                    <td class="cell-amber" onclick="filterByHeatmap('봉담이음터', '성인')">4.33</td>
+                                    <td class="cell-blue" onclick="filterByHeatmap('봉담이음터', '학부모')">4.52</td>
+                                    <td style="font-weight:700; color:#2563EB;">4.45</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <!-- NPS 게이지 카드 -->
@@ -1575,11 +1881,33 @@ q1~q5 점수는 공공 교육 현실을 반영하여 평균 4.3~4.6 수준으로
         }
 
         /* ==========================================================================
-           Master Analytics & Real-time Filter Logic
+           Master Analytics & Real-time Filter Logic (Touch & Desktop Unified)
            ========================================================================== */
+        function selectTouchChip(type, val, btn) {
+            if (type === 'center') {
+                document.getElementById('exec-filter-center').value = val;
+                document.querySelectorAll('.filter-touch-chip[data-type="center"]').forEach(b => b.classList.remove('active'));
+            } else {
+                document.getElementById('exec-filter-target').value = val;
+                document.querySelectorAll('.filter-touch-chip[data-type="target"]').forEach(b => b.classList.remove('active'));
+            }
+            if (btn) btn.classList.add('active');
+            updateMasterAnalytics();
+        }
+
+        function syncTouchChipsUI(cVal, tVal) {
+            document.querySelectorAll('.filter-touch-chip[data-type="center"]').forEach(b => {
+                b.classList.toggle('active', b.getAttribute('data-val') === cVal);
+            });
+            document.querySelectorAll('.filter-touch-chip[data-type="target"]').forEach(b => {
+                b.classList.toggle('active', b.getAttribute('data-val') === tVal);
+            });
+        }
+
         function filterByHeatmap(center, target) {
             document.getElementById('exec-filter-center').value = center;
             document.getElementById('exec-filter-target').value = target;
+            syncTouchChipsUI(center, target);
             updateMasterAnalytics();
             showMasterToast(`${center} · ${target} 필터가 적용되었습니다.`);
         }
@@ -1587,9 +1915,21 @@ q1~q5 점수는 공공 교육 현실을 반영하여 평균 4.3~4.6 수준으로
         function resetMasterFilters() {
             document.getElementById('exec-filter-center').value = 'all';
             document.getElementById('exec-filter-target').value = 'all';
+            syncTouchChipsUI('all', 'all');
             updateMasterAnalytics();
             showMasterToast("전체 데이터 필터로 리셋되었습니다.");
         }
+
+        function handleResponsiveChartLabels() {
+            if (!mBarChart) return;
+            const isMobile = window.innerWidth < 640;
+            const targetLabels = isMobile ? ['동탄', '다원', '송린', '봉담'] : centers;
+            if (JSON.stringify(mBarChart.data.labels) !== JSON.stringify(targetLabels)) {
+                mBarChart.data.labels = targetLabels;
+                mBarChart.update();
+            }
+        }
+        window.addEventListener('resize', handleResponsiveChartLabels);
 
         function updateMasterAnalytics() {
             const cVal = document.getElementById('exec-filter-center').value;
@@ -1715,6 +2055,7 @@ q1~q5 점수는 공공 교육 현실을 반영하여 평균 4.3~4.6 수준으로
 
         window.addEventListener('DOMContentLoaded', () => {
             initWhiteCharts();
+            handleResponsiveChartLabels();
             updateMasterAnalytics();
         });
     </script>
