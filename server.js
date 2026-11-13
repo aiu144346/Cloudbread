@@ -9,7 +9,7 @@ const { kv } = require('@vercel/kv'); // Add Vercel KV
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID_HERE';
 const authClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 
-const port = 3001;
+const port = process.env.PORT || 3000;
 const SESSIONS_FILE = path.join(__dirname, 'sessions.json');
 const BOARD_FILE = path.join(__dirname, 'board.json');
 const WORKSHOP_FILE = path.join(__dirname, 'workshop_submissions.json');
@@ -543,7 +543,15 @@ const requestListener = async (req, res) => {
                 res.end('Server Error: ' + error.code);
             }
         } else {
-            res.writeHead(200, { 'Content-Type': contentType });
+            const headers = { 'Content-Type': contentType };
+            if (filePath.includes(path.sep + 'assets' + path.sep)) {
+                headers['Cache-Control'] = 'public, max-age=31536000, immutable';
+            } else if (['.css', '.js', '.png', '.jpg', '.jpeg', '.webp', '.svg', '.ico', '.woff2'].includes(extname)) {
+                headers['Cache-Control'] = 'public, max-age=604800, stale-while-revalidate=86400';
+            } else if (extname === '.html') {
+                headers['Cache-Control'] = 'public, max-age=0, must-revalidate';
+            }
+            res.writeHead(200, headers);
             res.end(content, 'utf-8');
         }
     });
@@ -554,7 +562,18 @@ module.exports = requestListener;
 
 // Local Development
 if (require.main === module) {
-    http.createServer(requestListener).listen(port, () => {
-        console.log(`Server running at http://localhost:${port}/`);
+    const server = http.createServer(requestListener);
+    server.listen(port, '0.0.0.0', () => {
+        console.log(`Server running at http://localhost:${port}/ and http://0.0.0.0:${port}/`);
     });
+    if (port == 3000) {
+        try {
+            const server3001 = http.createServer(requestListener);
+            server3001.listen(3001, '0.0.0.0', () => {
+                console.log(`Also listening at http://localhost:3001/`);
+            });
+        } catch (e) {
+            console.warn("Could not bind 3001:", e.message);
+        }
+    }
 }

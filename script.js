@@ -1107,7 +1107,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     fetchStats();
-    setTimeout(() => incrementStat("total_visitors"), 2000);
+    try {
+        if (!sessionStorage.getItem("visited_counted")) {
+            sessionStorage.setItem("visited_counted", "true");
+            setTimeout(() => incrementStat("total_visitors"), 2000);
+        }
+    } catch(e) {}
 
     // --- Notice Bar Logic ---
     const topNoticeBar = document.getElementById("top-notice-bar");
@@ -1172,74 +1177,61 @@ document.addEventListener("DOMContentLoaded", () => {
     const fullPhotoGrid = document.getElementById("full-photo-grid");
 
     if (rows[0] || previewRow || fullPhotoGrid) {
-        const photoCount = 45;
-        const photosPerRow = 15;
-        const extensions = ['jpg', 'png', 'jfif', 'webp', 'jpeg'];
+        // 실제 존재하는 34개의 파일 목록만 명시하여 불필요한 404 재시도 폭탄(CDN 요청 초과 원인)을 원천 차단
+        const actualActivityFiles = [
+            "activity_001.jpg", "activity_002.jpg", "activity_003.jpg", "activity_004.jpg",
+            "activity_005.jpg", "activity_006.jpg", "activity_007.jpg", "activity_008.jpg",
+            "activity_009.jpg", "activity_010.jpg", "activity_011.jpg", "activity_012.jpg",
+            "activity_013.webp", "activity_014.jpg", "activity_016.png", "activity_017.png",
+            "activity_020.jpg", "activity_021.png", "activity_024.webp", "activity_025.jpg",
+            "activity_026.jpg", "activity_030.jpg", "activity_031.jpg", "activity_032.jpg",
+            "activity_033.jpg", "activity_034.jpg", "activity_035.jpg", "activity_036.jpg",
+            "activity_037.jpg", "activity_038.jpg", "activity_039.jpg", "activity_040.jpg",
+            "activity_041.jpg", "activity_042.jpg"
+        ];
 
         // 1. 아카이브 전용: 전체 사진 그리드
         if (fullPhotoGrid) {
-            for (let i = 1; i <= photoCount; i++) {
-                const photoNum = i.toString().padStart(3, '0');
+            actualActivityFiles.forEach(fileName => {
                 const card = document.createElement("div");
                 card.className = "photo-card reveal";
 
                 const img = document.createElement("img");
                 img.loading = "lazy";
-
-                let extIdx = 0;
-                const tryLoad = () => {
-                    if (extIdx < extensions.length) {
-                        img.src = `assets/activity/activity_${photoNum}.${extensions[extIdx]}`;
-                        extIdx++;
-                    } else { card.remove(); }
-                };
-                img.onerror = tryLoad;
-                tryLoad();
+                img.src = `assets/activity/${fileName}`;
+                img.alt = "강의 및 활동 사진";
 
                 card.appendChild(img);
                 fullPhotoGrid.appendChild(card);
-            }
+            });
         }
 
-        // 2. 메인 페이지 약식 노출 (12개만)
+        // 2. 메인 페이지 약식 노출 (12개)
         if (previewRow) {
-            for (let j = 0; j < 12; j++) {
-                const photoNum = (j + 1).toString().padStart(3, '0');
+            actualActivityFiles.slice(0, 12).forEach(fileName => {
                 const img = document.createElement("img");
                 img.className = "activity-img";
-                let extIdx = 0;
-                const tryLoad = () => {
-                    if (extIdx < extensions.length) {
-                        img.src = `assets/activity/activity_${photoNum}.${extensions[extIdx]}`;
-                        extIdx++;
-                    } else { img.remove(); }
-                };
-                img.onerror = tryLoad;
-                tryLoad();
+                img.loading = "lazy";
+                img.src = `assets/activity/${fileName}`;
+                img.alt = "활동 사진 미리보기";
                 previewRow.appendChild(img);
-            }
+            });
         }
 
         // 3. 서브페이지 마퀴 노출 (무한 루프)
         rows.forEach((row, rowIndex) => {
             if (!row) return;
-            const startIdx = rowIndex * photosPerRow + 1;
+            const sliceSize = Math.ceil(actualActivityFiles.length / rows.length);
+            const rowFiles = actualActivityFiles.slice(rowIndex * sliceSize, (rowIndex + 1) * sliceSize);
             for (let i = 0; i < 2; i++) {
-                for (let j = 0; j < photosPerRow; j++) {
-                    const photoNum = (startIdx + j).toString().padStart(3, '0');
+                rowFiles.forEach(fileName => {
                     const img = document.createElement("img");
                     img.className = "activity-img";
-                    let extIdx = 0;
-                    const tryLoadMarquee = () => {
-                        if (extIdx < extensions.length) {
-                            img.src = `assets/activity/activity_${photoNum}.${extensions[extIdx]}`;
-                            extIdx++;
-                        } else { img.remove(); }
-                    };
-                    img.onerror = tryLoadMarquee;
-                    tryLoadMarquee();
+                    img.loading = "lazy";
+                    img.src = `assets/activity/${fileName}`;
+                    img.alt = "활동 사진";
                     row.appendChild(img);
-                }
+                });
             }
         });
     }
