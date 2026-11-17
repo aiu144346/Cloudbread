@@ -417,13 +417,33 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
 
                 ${target === 'business' ? `
-                    <div style="background: linear-gradient(135deg, #070F2B 0%, #14213D 60%, #0E7C7B 100%); color:#FFFFFF; border-radius:18px; padding:1.8rem 2.2rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 12px 30px rgba(14, 124, 123, 0.25); border:1px solid rgba(255,255,255,0.15);">
-                        <div>
-                            <span style="background:rgba(0,240,255,0.2); color:#00F0FF; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; display:inline-block; margin-bottom:8px;">🏢 실전 엔터프라이즈 ERM 포털 오픈</span>
-                            <h3 style="font-size:1.35rem; font-weight:800; margin:0; color:#FFFFFF;">제주개발공사(JPDC) 전사적 리스크 대응과 조직의 실행 (ERM) 마스터클래스</h3>
-                            <p style="font-size:0.9rem; color:#CBD5E1; margin:4px 0 0 0;">COSO ERM 5대 전략, 10인 실시간 협업 PESTEL · SWOT-Risk · 5×5 리스크 평가 매트릭스 전용 대시보드</p>
+                    <div style="display:flex; flex-direction:column; gap:1.2rem; margin-top:1.5rem;">
+                        <!-- [NEW] Google Antigravity (AGY) 2026-2.32.1 심화 마스터클래스 & Swarm 웹·대시보드 원클릭 워크북 포털 -->
+                        <div style="background: linear-gradient(135deg, #06281E 0%, #0F172A 50%, #3B0764 100%); color:#FFFFFF; border-radius:18px; padding:2rem 2.3rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 14px 35px rgba(16, 185, 129, 0.28); border:1px solid rgba(52, 211, 153, 0.45);">
+                            <div style="max-width:680px;">
+                                <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:8px;">
+                                    <span style="background:rgba(16,185,129,0.22); color:#34D399; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; border:1px solid rgba(52,211,153,0.45);">🚀 NEW · GAY_2026-2.32.1 최신 릴리즈</span>
+                                    <span style="background:rgba(192,132,252,0.22); color:#E9D5FF; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; border:1px solid rgba(192,132,252,0.45);">🤖 Native Swarm (/teamwork) 특화</span>
+                                </div>
+                                <h3 style="font-size:1.4rem; font-weight:900; margin:0; color:#FFFFFF; letter-spacing:-0.02em;">Google Antigravity 심화 마스터클래스 &amp; 웹·대시보드 Swarm 원클릭 워크북</h3>
+                                <p style="font-size:0.92rem; color:#E2E8F0; margin:8px 0 0 0; line-height:1.55;">@ to mention · @ to action · / for actions 3대 제어 체계부터 다중 에이전트 Swarm 기반 반응형 웹페이지(5선) &amp; 데이터 시각화 대시보드(5선) 원클릭 Copy &amp; Paste 실습 바이블</p>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                                <a href="lecture-gay-2026.html" style="background:linear-gradient(135deg, #10B981 0%, #059669 100%); color:#022C22; font-weight:900; font-size:0.95rem; padding:13px 22px; border-radius:12px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; box-shadow:0 6px 20px rgba(16, 185, 129, 0.4);"><i class="fa-solid fa-cubes-stacked"></i> 통합 마스터 교안 &amp; 실습 허브 →</a>
+                                <a href="gay-swarm-workbook.html" target="_blank" style="background:rgba(255,255,255,0.12); border:1px solid rgba(192,132,252,0.55); color:#F3E8FF; font-weight:800; font-size:0.9rem; padding:12px 18px; border-radius:12px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap;"><i class="fa-solid fa-copy"></i> 웹·대시보드 Swarm 전용 워크북 ↗</a>
+                                <a href="assets/downloads/GAY_2026-2.32.1_Lecture_Master_Guide.md" download style="background:rgba(15,23,42,0.75); border:1px solid rgba(148,163,184,0.4); color:#CBD5E1; font-weight:700; font-size:0.86rem; padding:12px 16px; border-radius:12px; text-decoration:none; display:inline-flex; align-items:center; gap:6px; white-space:nowrap;"><i class="fa-solid fa-download"></i> MD 다운로드</a>
+                            </div>
                         </div>
-                        <a href="lecture-jpdc.html" style="background:#00F0FF; color:#030712; font-weight:800; font-size:0.95rem; padding:12px 24px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:transform 0.2s;"><i class="fa-solid fa-arrow-up-right-from-square"></i> 전용 실습 대시보드 입장하기 →</a>
+
+                        <!-- 기존 제주개발공사(JPDC) ERM 포털 카드 -->
+                        <div style="background: linear-gradient(135deg, #070F2B 0%, #14213D 60%, #0E7C7B 100%); color:#FFFFFF; border-radius:18px; padding:1.8rem 2.2rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 12px 30px rgba(14, 124, 123, 0.25); border:1px solid rgba(255,255,255,0.15);">
+                            <div>
+                                <span style="background:rgba(0,240,255,0.2); color:#00F0FF; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; display:inline-block; margin-bottom:8px;">🏢 실전 엔터프라이즈 ERM 포털 오픈</span>
+                                <h3 style="font-size:1.35rem; font-weight:800; margin:0; color:#FFFFFF;">제주개발공사(JPDC) 전사적 리스크 대응과 조직의 실행 (ERM) 마스터클래스</h3>
+                                <p style="font-size:0.9rem; color:#CBD5E1; margin:4px 0 0 0;">COSO ERM 5대 전략, 10인 실시간 협업 PESTEL · SWOT-Risk · 5×5 리스크 평가 매트릭스 전용 대시보드</p>
+                            </div>
+                            <a href="lecture-jpdc.html" style="background:#00F0FF; color:#030712; font-weight:800; font-size:0.95rem; padding:12px 24px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:transform 0.2s;"><i class="fa-solid fa-arrow-up-right-from-square"></i> 전용 실습 대시보드 입장하기 →</a>
+                        </div>
                     </div>
                 ` : ''}
 

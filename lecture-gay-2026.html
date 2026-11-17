@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Google Antigravity 2026-2.32.1 심화 마스터클래스 & Swarm 실습 허브 | CLOUD BREAD</title>
+  <meta name="description" content="구글 안티그래비티(AGY) 2026-2.32.1 심화 활용 가이드: @ to mention, @ to action, / for actions 3대 제어 체계부터 Native Swarm(/teamwork) 반응형 웹페이지·대시보드 시각화 원클릭 프롬프트 워크북까지." />
+  <link rel="canonical" href="https://www.cloudbread.me/lecture-gay-2026.html" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background-color: #030712;
+      color: #f8fafc;
+      line-height: 1.65;
+      word-break: keep-all;
+    }
+    code, pre {
+      font-family: 'JetBrains Mono', Consolas, monospace;
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+    }
+    .hero-glow {
+      border: 1px solid transparent;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(17, 24, 39, 0.95)) padding-box,
+                  linear-gradient(135deg, #10b981, #38bdf8, #a855f7) border-box;
+    }
+    .nav-tab.active {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #022c22;
+      font-weight: 800;
+      border-color: #10b981;
+      box-shadow: 0 4px 18px rgba(16, 185, 129, 0.35);
+    }
+    .sub-filter-btn.active {
+      background: #38bdf8;
+      color: #082f49;
+      border-color: #38bdf8;
+      font-weight: 800;
+    }
+    .toast-popup {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      transform: translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s ease;
+    }
+    .toast-popup.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="selection:bg-emerald-500 selection:text-slate-950 pb-24">
+
+  <!-- Sticky Header -->
+  <header class="glass-card sticky top-0 z-50 border-b border-slate-800 px-4 sm:px-8 py-3.5 flex items-center justify-between gap-3">
+    <div class="flex items-center gap-3 min-w-0">
+      <a href="showcase.html?target=business" class="text-slate-400 hover:text-white transition px-2.5 py-1.5 rounded-lg bg-slate-800/70 border border-slate-700 text-xs font-bold flex items-center gap-1.5 shrink-0">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>쇼케이스 (Business)</span>
+      </a>
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 via-cyan-400 to-purple-500 flex items-center justify-center text-slate-950 font-black shadow-lg shrink-0">
+        <i class="fa-solid fa-cubes-stacked"></i>
+      </div>
+      <div class="min-w-0">
+        <div class="flex items-center gap-2 flex-wrap">
+          <h1 class="text-sm sm:text-base font-extrabold text-white truncate">Google Antigravity (AGY) 2026-2.32.1 심화 마스터클래스</h1>
+          <span class="text-[11px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-extrabold px-2 py-0.5 rounded-full shrink-0">GAY_2026-2.32.1</span>
+        </div>
+        <p class="text-[11px] sm:text-xs text-slate-400 truncate">@ to mention · @ to action · / for actions &amp; Native Swarm 웹/대시보드 원클릭 실습 허브</p>
+      </div>
+    </div>
+
+    <div class="hidden md:flex items-center gap-2 shrink-0">
+      <a href="assets/downloads/GAY_2026-2.32.1_Lecture_Master_Guide.md" download class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-xs transition">
+        <i class="fa-solid fa-file-arrow-down text-emerald-400"></i>
+        <span>마스터 교안 (.md)</span>
+      </a>
+      <a href="gay-swarm-workbook.html" target="_blank" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs transition shadow-md">
+        <i class="fa-solid fa-bolt"></i>
+        <span>웹·대시보드 Swarm 전용 워크북 새창 ↗</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-6">
+    <div class="hero-glow rounded-3xl p-6 sm:p-10 relative overflow-hidden shadow-2xl">
+      <div class="absolute -right-20 -top-20 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-20 -bottom-20 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10 space-y-4">
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">🚀 2026.11 최신 업데이트 반영</span>
+          <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">🤖 Native Swarm (/teamwork)</span>
+          <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-purple-500/20 text-purple-300 border border-purple-500/40">📋 수강생 원클릭 Copy &amp; Paste</span>
+        </div>
+
+        <h2 class="text-2xl sm:text-4xl font-black text-white tracking-tight leading-tight">
+          컨텍스트 핀셋 타겟팅(<code class="text-emerald-400">@</code>)부터 <br class="hidden sm:inline" />
+          다중 에이전트 군집 협업(<code class="text-cyan-400">/teamwork</code>)까지 완벽 마스터
+        </h2>
+
+        <p class="text-sm sm:text-base text-slate-300 max-w-4xl leading-relaxed">
+          Google Antigravity의 3대 핵심 조작 체계(<strong>@ to mention</strong>, <strong>@ to action</strong>, <strong>/ for actions</strong>)와 2026년 최신 기능(<strong>Native Swarm</strong>, <strong>Dynamic Workflow</strong>, <strong>/automation</strong>, <strong>Generative UI</strong>, <strong>Hooks</strong>)을 한눈에 익히고, 수강생들이 <strong>[📋 프롬프트 복사]</strong> 버튼 클릭 한 번으로 고품질 반응형 웹페이지와 데이터 시각화 대시보드를 즉시 구현할 수 있는 통합 실습 플랫폼입니다.
+        </p>
+
+        <!-- Download & Quick Links Bar -->
+        <div class="pt-3 flex flex-wrap gap-2.5">
+          <a href="assets/downloads/GAY_2026-2.32.1.md" download class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-slate-600 text-xs font-bold text-slate-200 transition">
+            <i class="fa-solid fa-download text-cyan-400"></i> 원본 변환본 (GAY_2026-2.32.1.md)
+          </a>
+          <a href="assets/downloads/GAY_2026-2.32.1_Lecture_Master_Guide.md" download class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-slate-600 text-xs font-bold text-slate-200 transition">
+            <i class="fa-solid fa-book-open text-emerald-400"></i> 통합 마스터 강의교안 (.md)
+          </a>
+          <a href="assets/downloads/GAY_2026-2.32.1_Web_Dashboard_Swarm_Workbook.md" download class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-slate-600 text-xs font-bold text-slate-200 transition">
+            <i class="fa-solid fa-laptop-code text-purple-400"></i> 웹·대시보드 Swarm 전용 워크북 (.md)
+          </a>
+          <a href="gay-swarm-workbook.html" target="_blank" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 border border-purple-400/50 text-xs font-extrabold text-purple-200 transition">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> 웹·대시보드 Swarm 독립 워크북 열기 (.html)
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Navigation Tabs -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 mb-6">
+    <div class="glass-card rounded-2xl p-2 flex flex-wrap gap-2">
+      <button onclick="switchMainTab('tab-workbook', this)" class="nav-tab active flex-1 min-w-[200px] py-3 px-4 rounded-xl border border-slate-700/80 text-sm font-bold text-slate-300 transition flex items-center justify-center gap-2">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <span>1. 웹페이지 &amp; 대시보드 Swarm 원클릭 실습팩 (22선)</span>
+      </button>
+      <button onclick="switchMainTab('tab-theory', this)" class="nav-tab flex-1 min-w-[200px] py-3 px-4 rounded-xl border border-slate-700/80 text-sm font-bold text-slate-300 transition flex items-center justify-center gap-2">
+        <i class="fa-solid fa-sitemap"></i>
+        <span>2. @mention · @action · / 커맨드 &amp; 2026 신기능 교안</span>
+      </button>
+      <button onclick="switchMainTab('tab-swarm-guide', this)" class="nav-tab flex-1 min-w-[200px] py-3 px-4 rounded-xl border border-slate-700/80 text-sm font-bold text-slate-300 transition flex items-center justify-center gap-2">
+        <i class="fa-solid fa-people-group"></i>
+        <span>3. 초보자용 Swarm 4인조 황금 아키텍처 해설</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- TAB 1: 원클릭 Copy & Paste 프롬프트 워크북 (웹페이지 + 대시보드 + 기초 + 지휘) -->
+  <!-- ===================================================================== -->
+  <main id="tab-workbook" class="max-w-6xl mx-auto px-4 sm:px-6 space-y-6">
+
+    <!-- Topic Live Customizer -->
+    <div class="glass-card rounded-2xl p-4 sm:p-5 border-l-4 border-l-emerald-400 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+      <div class="space-y-1">
+        <div class="text-sm font-extrabold text-emerald-300 flex items-center gap-2">
+          <i class="fa-solid fa-sliders"></i>
+          <span>수강생 맞춤형 실습 주제 실시간 자동 치환기</span>
+        </div>
+        <p class="text-xs text-slate-400">아래 입력창에 본인의 프로젝트 주제를 적으면, 모든 실습 프롬프트 내부의 <code class="text-cyan-300">[주제]</code>가 즉시 내 주제로 바뀝니다!</p>
+      </div>
+      <div class="flex items-center gap-2 flex-1 max-w-xl">
+        <input id="topicInput" type="text" oninput="renderPrompts()" placeholder="예: 2026 임직원 AI 역량강화 교육만족도 대시보드" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-400" />
+        <button onclick="document.getElementById('topicInput').value=''; renderPrompts();" class="px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300 shrink-0 border border-slate-700">초기화</button>
+      </div>
+    </div>
+
+    <!-- Filter & Search Bar -->
+    <div class="glass-card rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex flex-wrap gap-2">
+        <button onclick="setSubFilter('all', this)" class="sub-filter-btn active px-3.5 py-2 rounded-xl border border-slate-700 text-xs font-bold text-slate-300 transition">전체 프롬프트 (22)</button>
+        <button onclick="setSubFilter('dash', this)" class="sub-filter-btn px-3.5 py-2 rounded-xl border border-slate-700 text-xs font-bold text-emerald-300 transition">📊 대시보드 시각화 Swarm (5)</button>
+        <button onclick="setSubFilter('web', this)" class="sub-filter-btn px-3.5 py-2 rounded-xl border border-slate-700 text-xs font-bold text-purple-300 transition">🌐 반응형 웹페이지 Swarm (5)</button>
+        <button onclick="setSubFilter('basic', this)" class="sub-filter-btn px-3.5 py-2 rounded-xl border border-slate-700 text-xs font-bold text-cyan-300 transition">⚡ 기초·핵심 @ / 레시피 (6)</button>
+        <button onclick="setSubFilter('ctrl', this)" class="sub-filter-btn px-3.5 py-2 rounded-xl border border-slate-700 text-xs font-bold text-amber-300 transition">🎮 Swarm 실시간 지휘 (6)</button>
+      </div>
+      <div class="relative flex-1 min-w-[220px] max-w-xs">
+        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-500 text-xs"></i>
+        <input id="searchBox" type="text" oninput="renderPrompts()" placeholder="프롬프트 키워드 검색 (예: 히트맵, CSV, 에러)..." class="w-full bg-slate-950 border border-slate-700 rounded-xl pl-9 pr-3.5 py-2 text-xs text-white focus:outline-none focus:border-cyan-400" />
+      </div>
+    </div>
+
+    <!-- Prompt Cards Container -->
+    <div id="promptCardsList" class="space-y-5"></div>
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- TAB 2: @ to mention, @ to action, / for actions & 2026 최신 기능 교안 -->
+  <!-- ===================================================================== -->
+  <section id="tab-theory" class="max-w-6xl mx-auto px-4 sm:px-6 space-y-8 hidden">
+
+    <!-- 1. 구조적 이해 -->
+    <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-5">
+      <div class="flex items-center gap-2 text-emerald-400 font-extrabold text-sm">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>MODULE 1. 프롬프트 3대 제어 체계의 구조적 이해</span>
+      </div>
+      <h3 class="text-xl sm:text-2xl font-black text-white">Ask anything, <code class="text-emerald-400">@ to mention</code>, <code class="text-purple-400">@ to action</code>, <code class="text-cyan-400">/ for actions</code></h3>
+      <pre class="bg-slate-950 border border-slate-800 rounded-2xl p-5 text-xs sm:text-sm text-slate-200 overflow-x-auto leading-relaxed">┌─────────────────────────────────────────────────────────────────────────┐
+│                            Chat Input Box                               │
+│         "Ask anything, @ to mention, / for actions..."                  │
+└──────────────┬──────────────────────────────────────────┬───────────────┘
+               │                                          │
+         [@ 키 입력]                                 [/ 키 입력]
+         ┌─────┴──────────────────────┐                   │
+         ▼                            ▼                   ▼
+  [@ to mention]               [@ to action]       [/ for actions]
+  (어떤 정보를 볼 것인가)        (누가/무엇으로 행할 것인가) (어떤 방식으로 실행할 것인가)
+  · 파일 / 폴더 (@src/...)      · 전문 서브에이전트 호출   · /plan (단계별 기획)
+  · 코드 심볼 (@UserService)    · @research / @browser    · /goal (끝까지 자율 실행)
+  · 터미널 로그 (@terminal)     · @image-generator        · /grill-me (인터뷰형 설계)
+  · Git 변경분 (@git:diff)      · @firestore-rules-author · /teamwork (다중 에이전트)
+  · 프로젝트 규칙 (@rule:...)   · @ai-architect 등        · /automation (정기 스케줄)
+  · 이전 대화 (@conversation)   · @mcp:&lt;서버명&gt; 직접 지정  · /boost (고난도 심층 추론)</pre>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4">
+          <div class="text-emerald-400 font-extrabold text-sm mb-1">🎯 @ to mention (시야 고정)</div>
+          <p class="text-xs text-slate-300">전체 코드베이스를 탐색하느라 토큰과 시간을 낭비하지 않도록 특정 파일, 심볼(함수/클래스), 터미널 로그, 규칙에 에이전트 시야를 즉시 고정합니다.</p>
+        </div>
+        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4">
+          <div class="text-purple-400 font-extrabold text-sm mb-1">🤖 @ to action (주체/도구 위임)</div>
+          <p class="text-xs text-slate-300">일반 대화를 넘어 읽기 전용 조사관(<code>@research</code>), 내장 브라우저(<code>@browser</code>), 이미지 생성기, 또는 외부 MCP 서버에 실행 권한을 직접 위임합니다.</p>
+        </div>
+        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4">
+          <div class="text-cyan-400 font-extrabold text-sm mb-1">⚡ / for actions (모드 전환)</div>
+          <p class="text-xs text-slate-300">사전 계획서 작성(<code>/plan</code>), 역질문 인터뷰(<code>/grill-me</code>), 무중단 완수(<code>/goal</code>), 다중 에이전트 협업(<code>/teamwork</code>) 등 실행 루프를 전환합니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. @ to mention 표 -->
+    <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-4">
+      <h3 class="text-lg sm:text-xl font-extrabold text-white">📌 1. <code class="text-emerald-400">@ to mention</code> : 8대 정밀 컨텍스트 주입 레퍼런스</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead>
+            <tr class="border-b border-slate-700 text-slate-300 bg-slate-900/60">
+              <th class="p-3 font-extrabold">멘션 대상</th>
+              <th class="p-3 font-extrabold">입력 예시</th>
+              <th class="p-3 font-extrabold">핵심 기능 및 활용 팁</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800 text-slate-300">
+            <tr><td class="p-3 font-bold text-white">Files (파일)</td><td class="p-3"><code class="text-emerald-300">@src/auth/token.py</code></td><td class="p-3">지정한 파일 전체 코드를 즉시 로드합니다. 일부 글자만 쳐도 퍼지 검색으로 자동완성됩니다.</td></tr>
+            <tr><td class="p-3 font-bold text-white">Folders (폴더)</td><td class="p-3"><code class="text-emerald-300">@src/components/</code></td><td class="p-3">폴더 트리 구조와 모듈 인터페이스 요약을 주입해 아키텍처를 파악하게 합니다.</td></tr>
+            <tr><td class="p-3 font-bold text-white">Code Symbols (심볼)</td><td class="p-3"><code class="text-emerald-300">@validate_token</code>, <code class="text-emerald-300">@UserService</code></td><td class="p-3">어느 파일에 있는지 몰라도 함수·클래스 이름만으로 정확히 타겟팅합니다.</td></tr>
+            <tr><td class="p-3 font-bold text-white">Terminal (터미널)</td><td class="p-3"><code class="text-emerald-300">@terminal</code></td><td class="p-3">최근 터미널 stdout/stderr 및 에러 스택 트레이스를 드래그 복사 없이 1초 만에 주입합니다.</td></tr>
+            <tr><td class="p-3 font-bold text-white">Git Context</td><td class="p-3"><code class="text-emerald-300">@git:diff</code>, <code class="text-emerald-300">@git:staged</code></td><td class="p-3">현재 수정 사항을 로드하여 셀프 코드 리뷰, 커밋 메시지, PR 본문 작성에 활용합니다.</td></tr>
+            <tr><td class="p-3 font-bold text-white">Rules (규칙)</td><td class="p-3"><code class="text-emerald-300">@rule:clean-architecture</code></td><td class="p-3"><code>.agents/rules/</code> 또는 <code>GEMINI.md</code>에 정의된 프로젝트 규칙을 이번 턴에 강제 적용합니다.</td></tr>
+            <tr><td class="p-3 font-bold text-white">Past Conversations</td><td class="p-3"><code class="text-emerald-300">@conversation:&lt;id&gt;</code></td><td class="p-3">이전 대화 세션의 결정 사항과 해결 맥락을 현재 대화로 끌어와 이어서 작업합니다.</td></tr>
+            <tr><td class="p-3 font-bold text-white">Web &amp; Docs</td><td class="p-3"><code class="text-emerald-300">@web:https://...</code></td><td class="p-3">공식 문서나 최신 API 레퍼런스 URL을 지정하여 최신 스펙 기준으로 코딩하게 합니다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 3. / for actions & 2026 신기능 -->
+    <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-4">
+      <h3 class="text-lg sm:text-xl font-extrabold text-white">⚡ 2. <code class="text-cyan-400">/ for actions</code> 슬래시 커맨드 &amp; 2026-2.32.1 6대 최신 기능</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead>
+            <tr class="border-b border-slate-700 text-slate-300 bg-slate-900/60">
+              <th class="p-3 font-extrabold">명령어 / 신기능</th>
+              <th class="p-3 font-extrabold">핵심 동작</th>
+              <th class="p-3 font-extrabold">실전 활용 포인트</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800 text-slate-300">
+            <tr><td class="p-3 font-bold text-cyan-300"><code>/plan</code></td><td class="p-3">코드 작성 전 상세 실행 계획서(Artifact)를 먼저 작성하고 검토받음</td><td class="p-3">대규모 리팩토링, 아키텍처 변경 전 필수</td></tr>
+            <tr><td class="p-3 font-bold text-cyan-300"><code>/grill-me</code></td><td class="p-3">에이전트가 먼저 역질문(인터뷰)을 던져 요구사항의 빈틈을 메움</td><td class="p-3">아이디어만 있고 세부 기획/엣지케이스가 모호할 때</td></tr>
+            <tr><td class="p-3 font-bold text-cyan-300"><code>/goal</code></td><td class="p-3">빌드 통과·테스트 100% 성공 등 목표 달성까지 무중단 자율 루프 실행</td><td class="p-3">야간 작업, 연쇄 에러 디버깅 완수</td></tr>
+            <tr><td class="p-3 font-bold text-emerald-300"><code>/teamwork</code> (Swarm)</td><td class="p-3">공유 메시지 보드 기반 다중 에이전트(UI/데이터/차트/검수) 병렬 협업</td><td class="p-3">반응형 웹페이지 및 인터랙티브 대시보드 풀스택 구축</td></tr>
+            <tr><td class="p-3 font-bold text-emerald-300"><code>/automation</code> (신규)</td><td class="p-3">5단계 마법사로 타임존(<code>CRON_TZ</code>) 기반 정기 백그라운드 에이전트 생성</td><td class="p-3">매일 아침 9시 PR 체크, 주간 프로젝트 요약 보고서 자동화</td></tr>
+            <tr><td class="p-3 font-bold text-purple-300"><code>run_workflow</code> (신규)</td><td class="p-3">Python 스크립트로 <code>agent()</code>, <code>parallel()</code>, <code>pipeline()</code> 대규모 제어</td><td class="p-3">수십 개 소스 파일 동시 보안 감사 및 일괄 마이그레이션</td></tr>
+            <tr><td class="p-3 font-bold text-purple-300"><code>Generative UI</code> (신규)</td><td class="p-3">채팅창 내부에 즉시 조작 가능한 HTML/Tailwind 위젯(<code>&lt;agent-embed&gt;</code>) 렌더링</td><td class="p-3">실시간 예산/비용 시뮬레이터, 인터랙티브 차트 설명</td></tr>
+            <tr><td class="p-3 font-bold text-amber-300"><code>hooks.json</code> (신규)</td><td class="p-3"><code>PreToolUse</code>, <code>PostToolUse</code>, <code>Stop</code> 등 6대 생명주기 이벤트 제어</td><td class="p-3">위험 명령어 차단, 코드 수정 직후 자동 Linter 실행 강제</td></tr>
+            <tr><td class="p-3 font-bold text-cyan-300"><code>/learn</code> &amp; <code>/boost</code></td><td class="p-3">해결 노하우를 <code>.agents/rules/</code>에 영구 저장(<code>/learn</code>) / 심층 추론(<code>/boost</code>)</td><td class="p-3">팀 컨벤션 자산화 및 고난도 동시성/성능 버그 해결</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- TAB 3: 초보자용 Swarm 4인조 황금 아키텍처 해설 -->
+  <!-- ===================================================================== -->
+  <section id="tab-swarm-guide" class="max-w-6xl mx-auto px-4 sm:px-6 space-y-6 hidden">
+    <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-6">
+      <div class="flex items-center gap-2 text-cyan-400 font-extrabold text-sm">
+        <i class="fa-solid fa-people-arrows"></i>
+        <span>MODULE 3 &amp; 7. 왜 에이전트 1명 대신 Swarm(/teamwork)으로 웹과 대시보드를 만드나요?</span>
+      </div>
+
+      <h3 class="text-xl sm:text-2xl font-black text-white">🍳 "1인 푸드트럭" vs "4인 전문 셰프 레스토랑 주방"</h3>
+      <p class="text-sm text-slate-300 leading-relaxed">
+        에이전트 1명에게 <strong>데이터 100건 생성 + 다차원 필터 계산 + 4종 차트 렌더링 + 반응형 UI 디자인</strong>을 한꺼번에 시키면, 뒤로 갈수록 앞선 변수명을 잊어버려 차트가 빈 화면으로 뜨거나 디자인을 고치다 계산 로직을 망가뜨립니다. 반면 <strong>Native Swarm(<code>/teamwork</code>)</strong>은 전문 역할을 나눈 4명의 워커가 독립된 작업 공간(<code>workspace: "share"</code>)에서 자기 전담 파일만 동시에 작성합니다.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-slate-900/90 border border-emerald-500/30 rounded-2xl p-5 space-y-2">
+          <div class="text-xs font-extrabold text-emerald-400">ROLE 1 · 데이터 &amp; 통계 엔진</div>
+          <div class="text-base font-black text-white">🗄️ data-architect</div>
+          <div class="text-xs font-mono text-slate-400">전담: data.js</div>
+          <p class="text-xs text-slate-300">보드의 #1번 데이터 스키마 계약에 맞춰 120건의 현실적인 데이터셋과 다중 필터·집계 함수를 완벽히 구현합니다.</p>
+        </div>
+
+        <div class="bg-slate-900/90 border border-cyan-500/30 rounded-2xl p-5 space-y-2">
+          <div class="text-xs font-extrabold text-cyan-400">ROLE 2 · 레이아웃 &amp; KPI 카드</div>
+          <div class="text-base font-black text-white">🎛️ dashboard-ui</div>
+          <div class="text-xs font-mono text-slate-400">전담: index.html, dashboard.css</div>
+          <p class="text-xs text-slate-300">상단 멀티 필터 바, 4대 핵심 KPI 요약 카드, 2×2 차트 그리드, 상세 피드백 테이블 UI를 반응형으로 구축합니다.</p>
+        </div>
+
+        <div class="bg-slate-900/90 border border-purple-500/30 rounded-2xl p-5 space-y-2">
+          <div class="text-xs font-extrabold text-purple-400">ROLE 3 · 인터랙티브 차트</div>
+          <div class="text-base font-black text-white">📈 chart-visualizer</div>
+          <div class="text-xs font-mono text-slate-400">전담: charts.js, app.js</div>
+          <p class="text-xs text-slate-300">필터 변경 시 0.1초 만에 동시 갱신되는 막대·그룹바·도넛·추이 차트와 엑셀 호환 CSV 다운로드 기능을 연결합니다.</p>
+        </div>
+
+        <div class="bg-slate-900/90 border border-amber-500/30 rounded-2xl p-5 space-y-2">
+          <div class="text-xs font-extrabold text-amber-400">ROLE 4 · 교차 검증 검수관</div>
+          <div class="text-base font-black text-white">🕵️ qa-verifier</div>
+          <div class="text-xs font-mono text-slate-400">직접 파일 수정 절대 금지!</div>
+          <p class="text-xs text-slate-300">필터 선택 시 KPI 숫자와 차트 합계가 일치하는지, 0건 검색 시 NaN 에러가 없는지 검수하여 담당 워커에게 수정을 지시합니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toast Notification -->
+  <div id="toastPopup" class="toast-popup bg-emerald-400 text-slate-950 font-extrabold px-5 py-3.5 rounded-xl shadow-2xl flex items-center gap-2 text-sm">
+    <i class="fa-solid fa-circle-check text-lg"></i>
+    <span>클립보드에 복사되었습니다! Antigravity 채팅창에 붙여넣기(Ctrl+V) 하세요.</span>
+  </div>
+
+  <script>
+    const ALL_PROMPTS = [
+      // ================= 1. 대시보드 시각화 Swarm (5선) =================
+      {
+        cat: 'dash',
+        badge: '📊 대시보드 Swarm B-1 (공공/교육 표준)',
+        badgeClass: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
+        workers: ['data-architect', 'dashboard-ui', 'chart-visualizer', 'qa-verifier'],
+        files: 'data.js, index.html, dashboard.css, charts.js, app.js',
+        title: '교육과정 만족도 설문 다차원 분석 & 시각화 대시보드 (120건 가상 DB 내장)',
+        desc: '센터별·대상별 멀티 필터 + 4대 핵심 KPI 카드 + 4종 인터랙티브 차트(막대/그룹바/도넛/추이 라인) + 감성 분석 테이블 + 엑셀 CSV 다운로드까지 한 번에 완성합니다.',
+        defaultTopic: '화성시인재육성재단 이음터 교육과정 만족도 다차원 분석 대시보드',
+        prompt: `/teamwork
+공공기관/교육기관 실무자가 바로 사용할 수 있는 '[__TOPIC__]' 웹 애플리케이션을 4인조 Native Swarm으로 구축해줘.
+
+[0. 총괄 Coordinator 필수 지침: 데이터 스키마 계약(Contract) 선공지]
+워커들을 생성할 때 모든 워커가 동일한 데이터 필드명을 사용하도록 아래 JSON 스키마와 전역 인터페이스 규격을 브리프(brief)에 명시해줘:
+- 레코드 필드: \`{ id, date, centerName ("동탄중앙"|"다원"|"송린"|"봉담"), programName, targetGroup ("청소년"|"성인"|"학부모"), q1_instructor(1~5), q2_curriculum(1~5), q3_facility(1~5), q4_admin(1~5), q5_recommend(1~5), feedbackText, sentiment ("긍정"|"중립"|"개선필요") }\`
+
+[1. Swarm 4인조 워커 역할 및 파일 전담(File Ownership)]
+각 작성 워커는 \`workspace: "share"\`로 격리하여 파일 충돌을 방지해줘:
+
+1) \`data-architect\` (전담 파일: \`data.js\`)
+   - 위 스키마를 따르는 현실적이고 구체적인 120건의 가상 설문 응답 데이터 배열(\`SURVEY_DATA\`) 생성 (센터별·대상별 편차와 생생한 한글 주관식 피드백 포함)
+   - 필터 조건(\`center\`, \`target\`, \`searchKeyword\`)을 받아 필터링된 배열과 요약 통계(총 응답수, 종합 만족도 100점 환산 점수, 문항별 평균, 추천 의향 비율, 센터별 평균 비교 데이터)를 반환하는 \`DashboardEngine\` 전역 객체 제공
+
+2) \`dashboard-ui\` (전담 파일: \`index.html\`, \`dashboard.css\`)
+   - 공공기관 보고용 고신뢰 다크 네이비 & 슬레이트 테마 반응형 그리드 레이아웃 구성
+   - 상단 컨트롤 바: 센터 선택 드롭다운, 교육대상 탭 버튼, 강좌명/피드백 검색창, [필터 초기화] 버튼, [현재 데이터 CSV 다운로드] 버튼
+   - 상단 4대 핵심 KPI 카드: ① 총 응답 인원, ② 종합 만족도 점수(100점 만점 환산 + 목표 대비 증감 배지), ③ 최고 만족 항목, ④ 재수강/추천 의향률(%)
+   - 중앙 2x2 차트 캔버스 영역 및 하단 주관식 피드백 상세 테이블(감성 배지 필터 및 스크롤 포함) 마크업
+
+3) \`chart-visualizer\` (전담 파일: \`charts.js\`, \`app.js\`)
+   - 필터 변경 이벤트 발생 시 \`DashboardEngine\`에서 계산된 데이터를 받아 KPI 카드, 4종 차트, 하단 테이블을 0.1초 만에 동시 리렌더링
+   - 4대 시각화 차트 구현 (외부 CDN 차단 환경에서도 100% 작동하도록 고해상도 HTML5 Canvas 또는 인터랙티브 SVG 차트로 직접 구현, 마우스 호버 툴팁 필수):
+     ① [막대 차트] 5대 평가 문항별(강사/내용/시설/행정/추천) 평균 점수 비교
+     ② [그룹 바 차트] 4개 센터별(동탄중앙·다원·송린·봉담) 종합 만족도 비교
+     ③ [도넛 차트] 교육대상별(청소년·성인·학부모) 응답 비중 및 감성(긍정/중립/개선필요) 비율
+     ④ [추이 라인 차트] 최근 6개월간 월별 만족도 점수 변화 추이
+   - [CSV 다운로드] 클릭 시 현재 필터링된 결과를 UTF-8 BOM이 포함된 엑셀 호환 \`.csv\` 파일로 즉시 다운로드하는 기능 구현
+
+4) \`qa-verifier\` (전담: 데이터 정합성 & 인터랙션 검수, 직접 파일 수정 금지)
+   - 검증 1: 특정 센터(예: '다원')를 필터링했을 때 상단 KPI 카드의 응답자 수와 도넛 차트 합계, 하단 테이블 행 개수가 정확히 일치하는지 확인
+   - 검증 2: 검색어에 존재하지 않는 단어를 입력해 결과가 0건일 때 차트나 평균 계산에서 \`NaN\` 에러가 나지 않고 '조건에 맞는 데이터가 없습니다' 안내가 뜨는지 검증
+   - 오류 발견 시 보드에서 담당 워커를 \`@멘션\`하여 즉시 수정시킬 것
+
+모든 검증이 완료되면 워크스페이스에 최종 파일을 통합하고 브라우저 확인 방법을 안내해줘.`
+      },
+      {
+        cat: 'dash',
+        badge: '📊 대시보드 Swarm B-2 (기업/경영 표준)',
+        badgeClass: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
+        workers: ['finance-data', 'executive-layout', 'analytics-charts', 'verifier'],
+        files: 'financeData.js, index.html, style.css, analytics.js',
+        title: '부서별 예산 집행률·매출 KPI 및 이상징후(Anomaly) 모니터링 대시보드',
+        desc: '4개 본부 × 12개월 예산 대비 실집행 복합 차트 + 예산 초과 주의(Warning) 자동 감지 배너 + What-if 시뮬레이션 슬라이더가 탑재된 경영 대시보드입니다.',
+        defaultTopic: '2026년 4개 사업본부별 예산 편성 대비 실집행 내역 및 분기별 성과 지표',
+        prompt: `/teamwork
+기업 및 기관 경영진을 위한 '부서별 예산 집행률·매출 KPI 및 이상징후(Anomaly) 실시간 모니터링 대시보드'를 4인조 Swarm으로 개발해줘.
+
+- 분석 주제: [__TOPIC__]
+- Swarm 분담 구조:
+  1) \`finance-data\` (\`financeData.js\`, workspace: "share"): 4개 본부 × 12개월 예산/실집행/성과 데이터셋 생성 및 달성률·집행 잔액·예산 초과 위험도(90% 이상 주의, 100% 초과 위험) 자동 판별 함수 구현
+  2) \`executive-layout\` (\`index.html\`, \`style.css\`, workspace: "share"): 경영진 브리핑용 다크/라이트 테마 대시보드, 본부/분기 필터, 목표 달성률 게이지 카드 4종, '예산 초과 주의(Anomaly Warning)' 알림 배너 및 상세 내역 정렬 테이블 구현
+  3) \`analytics-charts\` (\`analytics.js\`, workspace: "share"): 월별 예산 대비 실집행 이중 막대/라인 복합 차트, 비용 항목별 도넛 차트, 예산 조정 시뮬레이션 슬라이더(What-if 분석기) 구현
+  4) \`verifier\` (workspace: "inherit"): 필터 및 시뮬레이션 슬라이더 조작 시 모든 숫자와 차트가 오차 없이 동기화되는지 검수 후 피드백
+
+검수 완료 후 메인 워크스페이스에 병합해줘.`
+      },
+      {
+        cat: 'dash',
+        badge: '📊 대시보드 Swarm B-3 (시설/공간 운영)',
+        badgeClass: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
+        workers: ['facility-data', 'heatmap-ui', 'heatmap-engine', 'verifier'],
+        files: 'facilityData.js, index.html, heatmap.css, heatmapChart.js',
+        title: '요일·시간대별 시설 가동률 컬러 히트맵(Heatmap) & 예약 현황 대시보드',
+        desc: '도서관·이음터·회의실·실습실 등의 요일(월~일) × 시간대(09~21시) 혼잡도를 컬러 그라데이션 히트맵으로 시각화하는 공간 운영 대시보드입니다.',
+        defaultTopic: '복합문화센터 5대 공간 (대강당, AI실습실, 미디어스튜디오, 공유오피스, 세미나실)',
+        prompt: `/teamwork
+공간 및 시설 운영자를 위한 '요일·시간대별 시설 가동률 히트맵(Heatmap) 및 예약 현황 분석 대시보드'를 4인조 Swarm으로 구축해줘.
+
+- 분석 대상 시설: [__TOPIC__]
+- Swarm 분담 구조:
+  1) \`facility-data\` (\`facilityData.js\`, workspace: "share")
+     - 5개 공간 × 7일(월~일) × 12개 시간대(09시~21시)의 이용률(0~100%), 예약 건수, 노쇼(No-show) 비율 데이터셋 및 피크타임 자동 추출 함수 구현
+  2) \`heatmap-ui\` (\`index.html\`, \`heatmap.css\`, workspace: "share")
+     - 공간 선택 탭, 주간/월간 필터, 4대 운영 KPI 카드(평균 가동률, 최고 피크 시간대, 총 이용객 수, 노쇼율), 중앙 7×12 컬러 히트맵 그리드 컨테이너, 우측 공간별 비교 차트 영역 마크업
+  3) \`heatmap-engine\` (\`heatmapChart.js\`, workspace: "share")
+     - 이용률 수치(0~100%)에 따라 에메랄드/블루/앰버/레드 그라데이션 색상이 동적으로 칠해지고 셀에 마우스를 올리면 상세 예약 건수가 뜨는 인터랙티브 히트맵 + 공간별 가동률 가로 막대 차트 구현
+  4) \`verifier\` (workspace: "inherit")
+     - 공간 탭을 클릭할 때마다 히트맵 셀 색상과 피크타임 KPI가 즉시 갱신되는지 검증
+
+검수 완료 후 메인 워크스페이스에 병합해줘.`
+      },
+      {
+        cat: 'dash',
+        badge: '📊 대시보드 Swarm B-4 (노코드 드래그앤드롭 BI)',
+        badgeClass: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
+        workers: ['csv-parser', 'bi-studio-ui', 'auto-chart-engine', 'verifier'],
+        files: 'parserEngine.js, index.html, studio.css, biCharts.js',
+        title: '브라우저에 CSV/JSON 파일을 드래그앤드롭하면 자동 분석되는 셀프 BI 스튜디오',
+        desc: '대시보드 화면에 내 엑셀(CSV)이나 JSON 파일을 마우스로 끌어다 놓기만 하면 컬럼을 자동 인식해 차트와 KPI 카드를 즉석에서 그려주는 만능 웹앱입니다.',
+        defaultTopic: '노코드 셀프 BI 데이터 시각화 스튜디오',
+        prompt: `/teamwork
+사용자가 웹 브라우저 화면에 아무 CSV 또는 JSON 파일이나 마우스로 드래그 앤 드롭(Drag & Drop)하면, 컬럼 타입을 자동 인식하여 KPI 카드와 차트를 즉석에서 생성해주는 '[__TOPIC__]' 웹앱을 4인조 Swarm으로 개발해줘.
+
+[Swarm 워커 분담]
+1) \`csv-parser\` (workspace: "share", 전담: \`parserEngine.js\`)
+   - 한글 인코딩(UTF-8/EUC-KR)을 지원하는 CSV/JSON 파서 및 컬럼 자동 분류기(수치형 컬럼 vs 카테고리형 컬럼 vs 날짜형 컬럼 자동 감지) 구현
+   - 파일이 없을 때도 바로 체험할 수 있는 '기본 샘플 데이터셋 3종(교육만족도 / 예산집행현황 / 시설이용률)' 원클릭 로드 기능 포함
+2) \`bi-studio-ui\` (workspace: "share", 전담: \`index.html\`, \`studio.css\`)
+   - 상단 파일 드래그앤드롭 존 + 샘플 데이터 선택 버튼 + X축(카테고리)/Y축(수치)/집계방식(합계·평균·건수)을 사용자가 직접 골라 바꿀 수 있는 차트 빌더 컨트롤 패널 레이아웃 구현
+3) \`auto-chart-engine\` (workspace: "share", 전담: \`biCharts.js\`)
+   - 선택된 컬럼에 맞춰 막대 차트, 라인 차트, 도넛 차트, 산점도(분포)를 실시간 전환하여 렌더링하고, 수치형 컬럼들의 기초 통계(합계, 평균, 최댓값, 최솟값) KPI 카드와 데이터 탐색 테이블을 동적 생성
+4) \`verifier\` (workspace: "inherit", 전담: 품질 검수)
+   - 샘플 데이터 3종을 번갈아 클릭했을 때와 잘못된 형식의 파일을 넣었을 때 에러 없이 부드럽게 차트와 컬럼 선택기가 갱신되는지 검증
+
+검수 완료 후 메인 워크스페이스에 병합해줘.`
+      },
+      {
+        cat: 'dash',
+        badge: '📊 대시보드 Swarm B-5 (로컬 파일 멘션형)',
+        badgeClass: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
+        workers: ['schema-parser', 'ui-chart-builder', 'verifier'],
+        files: '멘션한 @데이터파일 기반 자동 생성',
+        title: '내 폴더 안의 실제 @CSV / @JSON 파일을 멘션해 맞춤형 대시보드로 즉시 변환',
+        desc: '워크스페이스에 넣어둔 내 실제 데이터 파일을 @파일명 으로 멘션하여 그 파일의 컬럼 구조에 딱 맞는 전용 대시보드를 생성합니다.',
+        defaultTopic: '내 로컬 데이터 파일 맞춤형 대시보드',
+        prompt: `@[내_데이터파일.csv_또는_.json] /teamwork
+첨부(멘션)한 데이터 파일의 실제 컬럼 구조와 데이터 성격을 먼저 분석한 뒤, 이 데이터를 가장 효과적으로 탐색하고 시각화할 수 있는 맞춤형 인터랙티브 대시보드 웹앱을 3인조 Swarm으로 만들어줘:
+1. \`schema-parser\` (workspace: "share"): 멘션된 파일의 컬럼 타입(날짜, 카테고리, 수치형 지표, 텍스트)을 분석해 정제된 JS 데이터 모듈로 변환하고 핵심 인사이트 3가지를 도출
+2. \`ui-chart-builder\` (workspace: "share"): 카테고리 컬럼은 상단 멀티 필터로, 수치형 컬럼은 4대 KPI 카드와 비교 막대/추이 차트로, 전체 로우는 검색 가능한 테이블로 자동 매핑하여 구현
+3. \`verifier\` (workspace: "inherit"): 원본 파일의 총 건수 및 합계 수치가 대시보드 화면의 수치와 100% 일치하는지 대조 검수 후 병합`
+      },
+
+      // ================= 2. 반응형 웹페이지 Swarm (5선) =================
+      {
+        cat: 'web',
+        badge: '🌐 웹페이지 Swarm A-1 (초급 3인조)',
+        badgeClass: 'bg-purple-500/20 text-purple-300 border-purple-500/40',
+        workers: ['layout-designer', 'interaction-dev', 'qa-verifier'],
+        files: 'index.html, styles.css, app.js',
+        title: '기관/기업 교육과정 홍보 & 실시간 수강신청 원페이지 웹사이트',
+        desc: '모집 마감 카운트다운 타이머 + 주차별 커리큘럼 탭 + 실시간 유효성 검사 수강신청 폼 + 신청 완료 축하 모달이 작동하는 반응형 홍보 사이트입니다.',
+        defaultTopic: '2026 공공기관 AI 에이전트 & 바이브 코딩 실무 마스터 과정',
+        prompt: `/teamwork
+기관/기업 교육과정을 안내하고 실시간으로 수강신청을 받는 '반응형 원페이지 홍보 웹사이트'를 Native Swarm(3인조 협업팀)으로 제작해줘.
+
+[1. 프로젝트 주제 및 디자인 컨셉]
+- 과정명: [__TOPIC__]
+- 디자인 테마: 신뢰감을 주는 다크 네이비(#0F172A) 헤더 + 밝고 깔끔한 카드 섹션 + 에메랄드(#10B981) 포인트 버튼, 모바일/태블릿/PC 완벽 반응형
+
+[2. Swarm 워커 역할 및 파일 소유권(File Ownership) 분담]
+파일 충돌이 절대 발생하지 않도록 각 워커에게 독립 워크스페이스(workspace: "share")를 부여하고 담당 파일을 엄격히 분리해줘:
+
+1) \`layout-designer\` (전담 파일: \`index.html\`, \`styles.css\`)
+   - 상단 고정 네비게이션 바, 히어로 배너(핵심 카피 + 모집 마감 카운트다운 영역 + '수강신청 바로가기' CTA 버튼)
+   - 교육 특장점 3단 카드, 주차별 상세 커리큘럼 탭 영역, 강사 소개 카드, 수강신청 입력 폼(이름, 소속 부서, 이메일, 연락처, 참가 트랙 선택), FAQ 아코디언 섹션 마크업 및 스타일링
+   - \`app.js\`와 연결할 DOM 요소의 \`id\`와 \`data-*\` 속성 규격을 보드(#1)에 먼저 공유할 것
+
+2) \`interaction-dev\` (전담 파일: \`app.js\`)
+   - \`layout-designer\`가 공유한 DOM ID 규격에 맞춰 순수 JavaScript 인터랙션 구현
+   - 기능 1: 모집 마감일까지 남은 시간 실시간 카운트다운 타이머
+   - 기능 2: 커리큘럼 주차별 탭 클릭 시 부드러운 콘텐츠 전환 및 FAQ 아코디언 열기/닫기
+   - 기능 3: 수강신청 폼 실시간 유효성 검증(빈칸, 이메일/전화번호 형식 체크) 및 제출 시 신청자 정보를 요약 보여주는 축하 모달 팝업 + 로컬스토리지 신청 내역 저장
+
+3) \`qa-verifier\` (전담: 통합 검수 및 브라우저 테스트, 직접 파일 수정 금지)
+   - 두 워커의 작업이 끝나면 HTML과 JS의 ID/클래스 바인딩이 정확히 일치하는지, 콘솔 에러가 없는지 검수
+   - 문제가 발견되면 직접 수정하지 말고 보드에서 \`@layout-designer\` 또는 \`@interaction-dev\`를 멘션해 수정시킬 것
+
+모든 검수가 완료되면 내 메인 워크스페이스에 파일들을 병합하고, 완성된 페이지 주요 기능과 Swarm 보드 링크를 안내해줘.`
+      },
+      {
+        cat: 'web',
+        badge: '🌐 웹페이지 Swarm A-2 (중급 4인조)',
+        badgeClass: 'bg-purple-500/20 text-purple-300 border-purple-500/40',
+        workers: ['ui-shell', 'calculator-engine', 'motion-ux', 'verifier'],
+        files: 'index.html, theme.css, calculator.js, interactions.js',
+        title: '다크모드 & 인터랙티브 도입효과(ROI) 계산기가 탑재된 서비스 소개 웹앱',
+        desc: '라이트/다크모드 테마 전환 + 사용자가 슬라이더를 움직이면 연간 절감 시간·비용이 실시간 애니메이션으로 계산되는 SaaS급 랜딩페이지입니다.',
+        defaultTopic: 'AI 업무 자동화 솔루션 도입 효과 시뮬레이터 & 소개 페이지',
+        prompt: `/teamwork
+인터랙티브 도입 효과(ROI) 계산기와 다크모드를 지원하는 고품질 '[__TOPIC__]' 웹앱을 4인조 Swarm으로 개발해줘.
+
+[Swarm 워커 구성 및 파일 분담]
+1) \`ui-shell\` (workspace: "share", 전담: \`index.html\`, \`theme.css\`)
+   - CSS 변수(\`--bg\`, \`--card\`, \`--text\`, \`--accent\`) 기반 라이트/다크모드 테마 시스템 구축
+   - 상단 GNB(다크모드 토글 스위치 포함), 히어로 섹션, 기능 비교 섹션, ROI 계산기 컨테이너, 고객 후기 그리드 레이아웃 작성 후 DOM 명세를 보드에 공유
+
+2) \`calculator-engine\` (workspace: "share", 전담: \`calculator.js\`)
+   - 사용자가 '월간 반복 업무 시간(슬라이더)', '참여 인원수(슬라이더)', '도입 플랜(탭)'을 조절하면 실시간으로 ① 연간 절감 시간, ② 예상 절감 비용(원), ③ 생산성 향상률(%)을 계산해 애니메이션 숫자와 게이지 바로 업데이트하는 모듈 구현
+
+3) \`motion-ux\` (workspace: "share", 전담: \`interactions.js\`)
+   - 다크모드 토글 상태 유지, 스크롤 시 섹션 페이드인 효과, 기능별 탭 필터링, 상단 이동(Top) 플로팅 버튼 및 무료 체험 신청 모달 구현
+
+4) \`verifier\` (workspace: "inherit", 전담: 품질 검수)
+   - 다크모드 전환 시 글자 가독성 대비가 깨지는 곳이 없는지, ROI 계산기 슬라이더 조작 시 \`NaN\`이나 스크립트 오류가 나지 않는지 철저히 검증하여 담당 워커에게 피드백
+
+최종 검수 통과 후 모든 파일을 워크스페이스에 반영하고 실행 방법을 알려줘.`
+      },
+      {
+        cat: 'web',
+        badge: '🌐 웹페이지 Swarm A-3 (카탈로그 포털)',
+        badgeClass: 'bg-purple-500/20 text-purple-300 border-purple-500/40',
+        workers: ['catalog-data', 'portal-ui', 'filter-compare-js', 'verifier'],
+        files: 'programs.js, index.html, portal.css, portalApp.js',
+        title: '실시간 검색·다중 태그 필터·상세 비교 모달이 있는 프로그램 카탈로그 포털',
+        desc: '24개의 강좌/사업/서비스 카드를 키워드와 태그로 즉시 필터링하고, 최대 3개 항목을 담아서 스펙을 나란히 비교하는 인터랙티브 웹 포털입니다.',
+        defaultTopic: '화성시 이음터 시민 문화·AI 강좌 통합 검색 및 비교 포털',
+        prompt: `/teamwork
+사용자가 다양한 프로그램(또는 강좌/서비스)을 실시간 검색·필터링하고 최대 3개를 선택해 한눈에 비교할 수 있는 '인터랙티브 프로그램 카탈로그 웹 포털'을 4인조 Swarm으로 제작해줘.
+
+- 포털 주제: [__TOPIC__]
+- Swarm 워커 역할 및 파일 분담:
+  1) \`catalog-data\` (workspace: "share", 전담: \`programs.js\`)
+     - 24개의 구체적인 프로그램 데이터 배열 생성 (필드: \`id, title, center, category, target, dayOfWeek, fee, capacity, currentEnrolled, rating, tags, summary, instructor\`)
+  2) \`portal-ui\` (workspace: "share", 전담: \`index.html\`, \`portal.css\`)
+     - 상단 실시간 검색바, 센터별/대상별/요일별 멀티 필터 칩, 정렬 드롭다운(인기순/마감임박순/평점순), 반응형 3열 카드 그리드, 하단 플로팅 '선택 항목 비교함(최대 3개)' 바 및 비교 모달 마크업
+  3) \`filter-compare-js\` (workspace: "share", 전담: \`portalApp.js\`)
+     - 검색어 및 멀티 필터 조합에 따른 즉시 카드 렌더링, 모집 정원 대비 신청률 프로그레스 바 표시, '비교 담기' 체크 시 하단 비교 트레이 활성화 및 3열 스펙 비교 모달 팝업 기능 구현
+  4) \`verifier\` (workspace: "inherit", 전담: 통합 검수)
+     - 다중 필터 해제 시 전체 목록이 정상 복구되는지, 4개 이상 비교 담기 시도 시 안내 토스트가 뜨는지 검증 후 피드백
+
+검수 완료 후 메인 워크스페이스에 병합해줘.`
+      },
+      {
+        cat: 'web',
+        badge: '🌐 웹페이지 Swarm A-4 (양방향 헬프데스크)',
+        badgeClass: 'bg-purple-500/20 text-purple-300 border-purple-500/40',
+        workers: ['ticket-store', 'helpdesk-ui', 'ticket-logic', 'verifier'],
+        files: 'mockTickets.js, index.html, helpdesk.css, helpdeskApp.js',
+        title: '시민/고객 온라인 신청·문의 접수 및 실시간 처리상태(Step Bar) 조회 웹앱',
+        desc: '온라인 문의 접수 시 고유 접수번호가 발급되고, 조회 탭에서 접수번호로 진행 단계(접수완료➔검토중➔처리완료)를 실시간 조회하는 양방향 웹페이지입니다.',
+        defaultTopic: '장학금 신청 및 시설 대관 온라인 헬프데스크 센터',
+        prompt: `/teamwork
+고객이나 시민이 온라인으로 문의/신청서를 접수하고 발급받은 접수번호로 실시간 처리 단계(접수완료 ➔ 담당자배정 ➔ 검토중 ➔ 처리완료)를 조회할 수 있는 '인터랙티브 헬프데스크 & 민원 조회 웹페이지'를 4인조 Swarm으로 만들어줘.
+
+- 서비스 주제: [__TOPIC__]
+- Swarm 워커 분담:
+  1) \`ticket-store\` (workspace: "share", 전담: \`mockTickets.js\`)
+     - 초기 샘플 접수 건 15개(각기 다른 진행 단계와 담당자 답변 포함) 및 로컬스토리지 연동 티켓 저장·조회·상태 업데이트 유틸리티(\`TicketDB\`) 구현
+  2) \`helpdesk-ui\` (workspace: "share", 전담: \`index.html\`, \`helpdesk.css\`)
+     - 상단 3대 메뉴 탭(① 온라인 문의/신청 접수, ② 실시간 처리현황 조회, ③ FAQ 빠른 해결), 진행 단계별 시각적 Step Progress Bar, 상태 배지 디자인 구현
+  3) \`ticket-logic\` (workspace: "share", 전담: \`helpdeskApp.js\`)
+     - 신규 문의 작성 후 제출 시 고유 접수번호(예: \`REQ-2026-1042\`)를 즉시 발급하고, '현황 조회' 탭에서 해당 번호를 검색하면 방금 등록한 내역과 진행 상태 스텝 바가 바로 조회되도록 연동
+  4) \`verifier\` (workspace: "inherit", 전담: E2E 흐름 검수)
+     - 신규 접수 ➔ 접수번호 복사 ➔ 조회 탭에서 검색까지 전체 사용자 시나리오가 새로고침 후에도 정상 동작하는지 검수
+
+모든 검수 완료 후 메인 워크스페이스에 반영해줘.`
+      },
+      {
+        cat: 'web',
+        badge: '🌐 웹페이지 Swarm A-5 (리뉴얼 3인조)',
+        badgeClass: 'bg-purple-500/20 text-purple-300 border-purple-500/40',
+        workers: ['modern-stylist', 'a11y-mobile-fixer', 'verifier'],
+        files: '기존 @index.html 및 CSS 업그레이드',
+        title: '기존 웹페이지 디자인 현대화 + 모바일 반응형 + 웹 접근성(A11y) 동시 개편',
+        desc: '이미 만들어 둔 index.html의 스크립트 기능은 100% 보존하면서 최신 UI 트렌드와 모바일 화면 대응, 웹 접근성을 한 번에 업그레이드합니다.',
+        defaultTopic: '기존 웹페이지 리뉴얼',
+        prompt: `@index.html /teamwork
+현재 웹페이지 파일을 분석해서 기존 스크립트 기능은 100% 그대로 유지하면서 디자인 현대화, 웹 접근성(A11y), 모바일 반응형을 동시에 업그레이드하는 3인조 Swarm을 구동해줘:
+- \`modern-stylist\` (workspace: "share"): 타이포그래피 계층 구조, 카드 그림자/여백, 컬러 팔레트를 최신 트렌드로 개선
+- \`a11y-mobile-fixer\` (workspace: "share"): 시맨틱 HTML 태그 교정, 키보드 탭 이동 포커스 스타일, ARIA 라벨 추가 및 375px 모바일 화면 완벽 대응
+- \`verifier\` (workspace: "inherit"): 기존 버튼/탭/모달 기능이 하나도 깨지지 않았는지 전후 비교 검증 후 병합`
+      },
+
+      // ================= 3. 기초·핵심 @ / 레시피 (6선) =================
+      {
+        cat: 'basic',
+        badge: '⚡ 기초·핵심 1 (@terminal + /plan)',
+        badgeClass: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40',
+        workers: ['@terminal', '/plan'],
+        files: '에러 원인 진단 및 계획서(Artifact) 생성',
+        title: '터미널 에러 드래그 없이 1초 만에 해결 계획서 세우기',
+        desc: '터미널에 빨간 에러가 떴을 때 텍스트를 복사할 필요 없이 @terminal 한 단어로 원인을 분석하고 해결 계획서를 먼저 받습니다.',
+        defaultTopic: '',
+        prompt: `@terminal /plan
+방금 터미널에서 발생한 에러의 근본 원인을 분석해줘.
+코드를 바로 수정하지 말고, 어떤 파일의 어느 부분을 어떻게 고쳐야 하는지 단계별 해결 계획(Artifact)을 먼저 세워서 나에게 보여줘.`
+      },
+      {
+        cat: 'basic',
+        badge: '⚡ 기초·핵심 2 (/grill-me 인터뷰)',
+        badgeClass: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40',
+        workers: ['/grill-me'],
+        files: '맞춤형 요구사항 인터뷰 후 기획서 도출',
+        title: '막막한 아이디어를 완벽한 기획서로! AI 역질문 인터뷰',
+        desc: '만들고 싶은 웹페이지나 대시보드 아이디어만 던지면 AI가 시니어 PM처럼 나에게 객관식 질문을 던져 기획서를 완성해 줍니다.',
+        defaultTopic: '교육생 출결 및 만족도 실시간 관리 웹앱',
+        prompt: `/grill-me
+내가 이번에 만들고 싶은 기능은 [__TOPIC__]이야.
+아직 세부 요구사항이 완벽하지 않으니, 코드를 작성하기 전에 시니어 프로덕트 매니저이자 아키텍트 관점에서 내가 결정해야 할 핵심 질문(데이터 구조, 사용자 흐름, 예외 케이스, 디자인 스타일 등)을 객관식 위주로 인터뷰해줘.
+인터뷰가 끝나면 내 답변을 종합해서 최종 구현 기획서를 만들어줘.`
+      },
+      {
+        cat: 'basic',
+        badge: '⚡ 기초·핵심 3 (/goal 무중단 완수)',
+        badgeClass: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40',
+        workers: ['/goal'],
+        files: '모든 테스트 통과 시까지 자율 반복',
+        title: '모든 테스트가 100% 통과할 때까지 알아서 고치는 자율 루프',
+        desc: '코드 수정 ➔ 테스트 실행 ➔ 에러 분석 ➔ 재수정 루프를 모든 테스트가 통과할 때까지 멈추지 않고 스스로 반복합니다.',
+        defaultTopic: '',
+        prompt: `/goal
+현재 프로젝트의 테스트 스위트(및 빌드)를 실행해서 모든 테스트 케이스가 100% 통과(Pass)하고 에러가 0건이 될 때까지 중단하지 말고 원인을 찾아 코드를 수정하고 재검증해줘.
+주의: 테스트를 억지로 통과시키기 위해 테스트 조건을 삭제하지 말고 실제 로직 버그를 해결해줘.`
+      },
+      {
+        cat: 'basic',
+        badge: '⚡ 기초·핵심 4 (Generative UI)',
+        badgeClass: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40',
+        workers: ['Generative UI', '<agent-embed>'],
+        files: '채팅창 인라인 인터랙티브 HTML 위젯',
+        title: '채팅창 안에 마우스로 조작 가능한 미니 웹 시뮬레이터 위젯 띄우기',
+        desc: '정적 텍스트 답변 대신 채팅창 내부에 슬라이더와 탭이 작동하는 실시간 시뮬레이터 위젯(<agent-embed>)을 렌더링합니다.',
+        defaultTopic: '교육 프로그램 예산 배분 및 수강생 만족도 예측 시뮬레이터',
+        prompt: `Generative UI 스킬을 활용해서 채팅창 안에서 바로 조작할 수 있는 인라인 인터랙티브 위젯(<agent-embed>)을 만들어줘.
+- 위젯 주제: [__TOPIC__]
+- 인터랙티브 컨트롤: 슬라이더 3개(강사료 비중, 실습비 비중, 홍보비 비중), 대상 선택 탭 버튼, 리셋 버튼
+- 출력 화면: 컨트롤 조작에 따라 실시간으로 수치가 변하는 예상 만족도 점수 카드와 비교 막대그래프
+- 디자인: 다크/라이트 테마에 모두 호환되는 시맨틱 컬러 변수 적용 (높이 450px 이하 인라인 최적화)`
+      },
+      {
+        cat: 'basic',
+        badge: '⚡ 기초·핵심 5 (/automation 무인 비서)',
+        badgeClass: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40',
+        workers: ['/automation', 'sidecar.json'],
+        files: '크론(Cron) 백그라운드 자동화 생성',
+        title: '매주 정해진 시간에 혼자 깨어나 일하는 무인 자동화 비서 만들기',
+        desc: '크론(Cron) 스케줄러 기반으로 매주/매일 정해진 시각에 새 대화를 열어 보고서를 작성하는 백그라운드 자동화를 생성합니다.',
+        defaultTopic: '',
+        prompt: `/automation
+매주 월요일 오전 9시마다 자동으로 실행되는 백그라운드 자동화 작업을 만들어줘.
+- 자동화 이름: Weekly Project Digest
+- 수행할 작업 프롬프트: "현재 프로젝트의 최근 7일간 Git 커밋 내역과 변경된 문서들을 확인해서, 주간 주요 성과, 변경된 파일 요약, 이번 주 점검해야 할 핵심 체크리스트를 마크다운 보고서로 정리해줘."
+설정을 생성한 뒤, 권한(Permission) 문제가 없도록 지금 바로 1회 테스트 실행(Test-Run)까지 안내해줘.`
+      },
+      {
+        cat: 'basic',
+        badge: '⚡ 기초·핵심 6 (run_workflow 파이프라인)',
+        badgeClass: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40',
+        workers: ['run_workflow', 'parallel()'],
+        files: 'Python 기반 다중 파일 병렬 감사',
+        title: 'Python 동적 워크플로우로 폴더 내 모든 파일 병렬 코드 감사하기',
+        desc: '폴더 안의 수십 개 파일을 parallel()로 동시에 검사하여 보안 취약점과 개선점을 마크다운 표로 요약합니다.',
+        defaultTopic: '',
+        prompt: `run-workflow 스킬을 참조해서 \`run_workflow\` 도구로 다음 다단계 동적 파이프라인을 실행해줘:
+1. Phase 1 ("대상 파일 탐색"): 현재 프로젝트의 주요 소스 파일 목록을 JSON 배열로 추출하는 에이전트 실행
+2. Phase 2 ("병렬 코드 감사"): 추출된 각 파일에 대해 \`parallel()\`을 사용하여 동시에 에이전트를 띄우고, 보안 취약점·에러 처리 누락·성능 병목 여부를 3줄 이내로 진단
+3. Phase 3 ("종합 리포트"): 진단 결과 중 수정이 필요한 파일과 핵심 개선 사항만 모아서 마크다운 표로 최종 요약 출력`
+      },
+
+      // ================= 4. Swarm 실시간 지휘 & 수정 컨트롤러 (6선) =================
+      {
+        cat: 'ctrl',
+        badge: '🎮 실시간 지휘 C-1 (현황 조회)',
+        badgeClass: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
+        workers: ['swarm status'],
+        files: '보드 진행 상태 브리핑',
+        title: '현재 Swarm 워커들의 파일별 진행 현황 표로 브리핑받기',
+        desc: 'Swarm이 작업하는 도중 누가 어떤 파일을 완료했고 누가 작업 중(working)인지 한눈에 확인합니다.',
+        defaultTopic: '',
+        prompt: `지금 Swarm 보드 현황(status)을 확인해서 각 워커가 어떤 파일을 완료했고 누가 작업 중인지 표로 요약해줘.`
+      },
+      {
+        cat: 'ctrl',
+        badge: '🎮 실시간 지휘 C-2 (브라우저 라이브 검증)',
+        badgeClass: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
+        workers: ['@browser'],
+        files: '스크린샷 및 콘솔 에러 0건 확인',
+        title: '내장 브라우저 에이전트를 띄워 완성된 웹페이지/대시보드 자동 클릭 테스트하기',
+        desc: 'Swarm이 대시보드 제작을 마치자마자 @browser 가 직접 화면을 열어 필터와 탭을 클릭해보고 스크린샷을 찍어 보고합니다.',
+        defaultTopic: '',
+        prompt: `@browser 에이전트를 띄워서 방금 Swarm이 만든 index.html을 열고, 상단 필터와 탭 버튼을 하나씩 클릭해보며 차트와 화면이 에러 없이 잘 바뀌는지 스크린샷과 함께 검증해줘.`
+      },
+      {
+        cat: 'ctrl',
+        badge: '🎮 실시간 지휘 C-3 (UI 테마 핀셋 수정)',
+        badgeClass: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
+        workers: ['@dashboard-ui'],
+        files: '데이터/차트 코드 보존 + 스타일만 변경',
+        title: '데이터·차트 코드는 건드리지 않고 UI 컬러 테마만 보고서용 밝은 테마로 변경하기',
+        desc: '전체 대시보드를 다시 만들지 않고 UI 담당 워커만 콕 집어 색상과 폰트 스타일만 안전하게 수정시킵니다.',
+        defaultTopic: '',
+        prompt: `@dashboard-ui (또는 UI 담당 워커)에게만 지시해서, 데이터나 차트 로직은 그대로 두고 전체 디자인 테마를 화이트&블루 계열의 밝은 보고서 인쇄용 스타일로 변경해달라고 보드에 전달해줘.`
+      },
+      {
+        cat: 'ctrl',
+        badge: '🎮 실시간 지휘 C-4 (기능 핀셋 추가)',
+        badgeClass: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
+        workers: ['@chart-visualizer'],
+        files: '인쇄 버튼 및 Top 5 카드 추가',
+        title: '완성된 대시보드에 [화면 인쇄 / PDF 저장] 버튼과 Top 5 랭킹 카드만 추가시키기',
+        desc: '차트/인터랙션 담당 워커에게만 추가 요구사항을 전달하여 빠르게 기능을 확장합니다.',
+        defaultTopic: '',
+        prompt: `@chart-visualizer 워커에게 현재 대시보드 우측 상단에 [현재 화면 인쇄 / PDF 저장] 버튼과 상위 Top 5 항목만 하이라이트해서 보여주는 랭킹 카드를 추가해달라고 보드에 지시해줘.`
+      },
+      {
+        cat: 'ctrl',
+        badge: '🎮 실시간 지휘 C-5 (쿼터 소진 응급처치)',
+        badgeClass: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
+        workers: ['swarm model'],
+        files: '대화 기억 유지 모델 전환',
+        title: '모델 쿼터(Quota) 부족으로 멈춘 워커 맥락 유지한 채 깨우기',
+        desc: '작업 도중 특정 워커가 쿼터 소진으로 멈췄을 때 삭제(kill)하지 않고 기존 대화 기억을 그대로 유지한 채 모델을 바꿔 이어 달립니다.',
+        defaultTopic: '',
+        prompt: `혹시 모델 쿼터가 소진되어 멈춘 워커가 있다면, 삭제(kill)하지 말고 내 현재 모델로 전환(swarm model)해서 기존 맥락 그대로 이어서 작업하게 해줘.`
+      },
+      {
+        cat: 'ctrl',
+        badge: '🎮 실시간 지휘 C-6 (최종 병합 및 해산)',
+        badgeClass: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
+        workers: ['swarm kill'],
+        files: '메인 폴더 병합 확인 후 워커 종료',
+        title: '최종 결과물 메인 워크스페이스 병합 확인 후 모든 워커 안전 퇴근시키기',
+        desc: '웹페이지나 대시보드 완성본이 마음에 들 때, 내 폴더에 최종 반영을 확인하고 실행 중인 모든 워커들을 깔끔하게 종료합니다.',
+        defaultTopic: '',
+        prompt: `결과물이 완벽해! 각 워커의 작업물을 내 메인 워크스페이스에 최종 반영했는지 확인하고, 실행 중인 모든 Swarm 워커들을 안전하게 종료(kill)해줘.`
+      }
+    ];
+
+    let currentSubFilter = 'all';
+
+    function switchMainTab(tabId, btn) {
+      ['tab-workbook', 'tab-theory', 'tab-swarm-guide'].forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+      document.getElementById(tabId).classList.remove('hidden');
+      document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function setSubFilter(cat, btn) {
+      currentSubFilter = cat;
+      document.querySelectorAll('.sub-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderPrompts();
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function renderPrompts() {
+      const container = document.getElementById('promptCardsList');
+      const kw = document.getElementById('searchBox').value.trim().toLowerCase();
+      const customTopic = document.getElementById('topicInput').value.trim();
+
+      const filtered = ALL_PROMPTS.filter(item => {
+        const matchCat = currentSubFilter === 'all' || item.cat === currentSubFilter;
+        const resolved = item.prompt.replace('__TOPIC__', customTopic || item.defaultTopic);
+        const matchKw = !kw ||
+          item.title.toLowerCase().includes(kw) ||
+          item.desc.toLowerCase().includes(kw) ||
+          resolved.toLowerCase().includes(kw);
+        return matchCat && matchKw;
+      });
+
+      container.innerHTML = filtered.map(item => {
+        const finalPrompt = item.prompt.replace('__TOPIC__', customTopic || item.defaultTopic);
+        const workerPills = item.workers.map(w => `<span class="px-2 py-0.5 rounded-md bg-slate-800 border border-slate-700 text-[11px] font-mono text-cyan-300">🤖 ${escapeHtml(w)}</span>`).join('');
+        return `
+          <div class="glass-card rounded-2xl p-5 sm:p-6 hover:border-cyan-500/50 transition space-y-3">
+            <div class="flex flex-wrap items-start justify-between gap-3">
+              <div class="space-y-1.5">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="px-2.5 py-0.5 rounded-md text-xs font-extrabold border ${item.badgeClass}">${item.badge}</span>
+                  ${workerPills}
+                </div>
+                <h4 class="text-base sm:text-lg font-extrabold text-white">${item.title}</h4>
+              </div>
+              <button onclick="copyPromptText(this)" data-prompt="${encodeURIComponent(finalPrompt)}" class="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs sm:text-sm flex items-center gap-2 shadow-lg transition shrink-0 cursor-pointer">
+                <i class="fa-regular fa-copy"></i>
+                <span>프롬프트 원클릭 복사</span>
+              </button>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-300">${item.desc}</p>
+            <pre class="bg-slate-950 border border-slate-800/90 rounded-xl p-4 text-xs sm:text-[13px] text-slate-200 overflow-x-auto whitespace-pre-wrap leading-relaxed">${escapeHtml(finalPrompt)}</pre>
+            <div class="flex flex-wrap items-center justify-between gap-2 pt-1 text-xs text-slate-400">
+              <span>🗂️ <strong class="text-slate-300">전담 파일 / 동작:</strong> <code class="text-emerald-300">${item.files}</code></span>
+              <span>✨ 복사 후 Antigravity 채팅창에 <strong class="text-white">Ctrl + V</strong> 하세요</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function copyPromptText(btn) {
+      const raw = decodeURIComponent(btn.getAttribute('data-prompt'));
+      navigator.clipboard.writeText(raw).then(() => {
+        const prev = btn.innerHTML;
+        btn.classList.remove('bg-emerald-500', 'hover:bg-emerald-400');
+        btn.classList.add('bg-cyan-400');
+        btn.innerHTML = '<i class="fa-solid fa-check"></i><span>복사 완료! (Ctrl+V)</span>';
+        const toast = document.getElementById('toastPopup');
+        toast.classList.add('show');
+        setTimeout(() => {
+          btn.classList.remove('bg-cyan-400');
+          btn.classList.add('bg-emerald-500', 'hover:bg-emerald-400');
+          btn.innerHTML = prev;
+          toast.classList.remove('show');
+        }, 2000);
+      });
+    }
+
+    renderPrompts();
+  </script>
+</body>
+</html>
