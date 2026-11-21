@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>정우진 | 스마트폰 디지털 명함 · 천지인에이아이</title>
+  <meta name="description" content="천지인에이아이 대표 정우진(구름빵) 스마트폰 디지털 명함. 연락처 원클릭 저장, 강연 및 AX 컨설팅 문의." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="정우진 | 천지인에이아이 대표 · 디지털 명함" />
+  <meta property="og:description" content="공공기관·기업 AX 전환 컨설팅 & 생성형 AI 실무 교육 전문가 정우진 디지털 명함" />
+  <meta property="og:image" content="https://www.cloudbread.me/assets/og-image.png?v=2" />
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Pretendard', -apple-system, sans-serif;
+      background: linear-gradient(180deg, #090f1d 0%, #0f172a 48%, #f8fafc 48%, #f8fafc 100%);
+      min-height: 100dvh;
+      display: flex;
+      justify-content: center;
+      padding: 20px 16px 36px;
+      color: #0f172a;
+    }
+    .card-shell { width: 100%; max-width: 410px; }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #cbd5e1;
+      font-size: 0.82rem;
+      margin-bottom: 16px;
+    }
+    .top-bar a { color: #38bdf8; text-decoration: none; font-weight: 700; }
+    .profile-box {
+      background: #ffffff;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.16);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+    .profile-hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      padding: 28px 22px 24px;
+      text-align: center;
+      color: #fff;
+    }
+    .avatar {
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 3px solid #38bdf8;
+      margin: 0 auto 14px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 11px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.16);
+      color: #38bdf8;
+      font-size: 0.74rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    h1 { font-size: 1.45rem; font-weight: 800; letter-spacing: -0.02em; }
+    .role { font-size: 0.9rem; color: #cbd5e1; margin-top: 4px; }
+    .sub-role { font-size: 0.78rem; color: #94a3b8; margin-top: 3px; }
+    .mini-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .mini-stats div strong { display: block; font-size: 1.05rem; color: #38bdf8; }
+    .mini-stats div span { font-size: 0.72rem; color: #94a3b8; }
+    .body-area { padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+    .primary-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 4px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 14px;
+      border-radius: 14px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-save { background: #0284c7; color: #fff; box-shadow: 0 8px 20px rgba(2, 132, 199, 0.28); }
+    .btn-call { background: #0f172a; color: #fff; }
+    .link-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #f8fafc;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      text-decoration: none;
+      color: #0f172a;
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+    .link-left { display: flex; align-items: center; gap: 12px; }
+    .link-left i {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: #e0f2fe; color: #0284c7;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .link-item small { display: block; font-size: 0.75rem; font-weight: 500; color: #64748b; }
+    .footer-note { text-align: center; font-size: 0.76rem; color: #64748b; margin-top: 14px; }
+  </style>
+</head>
+<body>
+  <div class="card-shell">
+    <div class="top-bar">
+      <span><i class="fa-solid fa-qrcode"></i> CLOUD BREAD DIGITAL CARD</span>
+      <a href="index.html">홈페이지 보기 →</a>
+    </div>
+
+    <div class="profile-box">
+      <div class="profile-hero">
+        <picture>
+          <source srcset="assets/profile_main.webp" type="image/webp" />
+          <img class="avatar" src="assets/profile_main.jpg" alt="정우진 대표" />
+        </picture>
+        <div class="badge"><i class="fa-solid fa-sparkles"></i> AI · AX 혁신 전략가</div>
+        <h1>정우진</h1>
+        <div class="role">천지인에이아이 대표</div>
+        <div class="sub-role">한국장학재단 감사위원회 자문위원</div>
+
+        <div class="mini-stats">
+          <div><strong>8,092+</strong><span>누적 교육생</span></div>
+          <div><strong>120+</strong><span>출강 기관</span></div>
+          <div><strong>3권</strong><span>저서·번역서</span></div>
+        </div>
+      </div>
+
+      <div class="body-area">
+        <div class="primary-actions">
+          <button type="button" class="btn btn-save" id="downloadVcard">
+            <i class="fa-solid fa-user-plus"></i> 연락처 저장
+          </button>
+          <a href="tel:010-3616-2140" class="btn btn-call">
+            <i class="fa-solid fa-phone"></i> 전화 걸기
+          </a>
+        </div>
+
+        <a href="mailto:bluerain1026@gmail.com" class="link-item">
+          <span class="link-left">
+            <i class="fa-solid fa-envelope"></i>
+            <span>이메일 직접 문의<small>bluerain1026@gmail.com</small></span>
+          </span>
+          <i class="fa-solid fa-chevron-right" style="color:#94a3b8;"></i>
+        </a>
+
+        <a href="index.html#inquiry" class="link-item">
+          <span class="link-left">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>강연 · AX 컨설팅 30초 문의<small>실시간 이메일 접수 · 24시간 내 회신</small></span>
+          </span>
+          <i class="fa-solid fa-chevron-right" style="color:#94a3b8;"></i>
+        </a>
+
+        <a href="showcase.html" class="link-item">
+          <span class="link-left">
+            <i class="fa-solid fa-sparkles"></i>
+            <span>강의쇼케이스 & 라이브러리<small>대표 커리큘럼 및 출강 아카이브</small></span>
+          </span>
+          <i class="fa-solid fa-chevron-right" style="color:#94a3b8;"></i>
+        </a>
+
+        <a href="https://cloudbread-rag.streamlit.app" target="_blank" rel="noopener" class="link-item">
+          <span class="link-left">
+            <i class="fa-solid fa-robot"></i>
+            <span>AI 교안 & RAG 챗봇 실습<small>실전 구축 AI 어시스턴트 직접 체험</small></span>
+          </span>
+          <i class="fa-solid fa-arrow-up-right-from-square" style="color:#94a3b8;"></i>
+        </a>
+
+        <a href="youtube.html" class="link-item">
+          <span class="link-left">
+            <i class="fa-brands fa-youtube" style="background:#fee2e2; color:#dc2626;"></i>
+            <span>유튜브 Hub (@aiu1443)<small>생성형 AI · 프롬프트 · AX 전략 특강</small></span>
+          </span>
+          <i class="fa-solid fa-chevron-right" style="color:#94a3b8;"></i>
+        </a>
+      </div>
+    </div>
+
+    <p class="footer-note">010-3616-2140 · bluerain1026@gmail.com · 천지인에이아이</p>
+  </div>
+
+  <script>
+    document.getElementById('downloadVcard').addEventListener('click', () => {
+      const vcard = [
+        'BEGIN:VCARD',
+        'VERSION:3.0',
+        'N:정;우진;;;',
+        'FN:정우진 (천지인에이아이 대표)',
+        'ORG:천지인에이아이',
+        'TITLE:대표 / AI·AX 혁신 전략가',
+        'TEL;TYPE=CELL:010-3616-2140',
+        'EMAIL;TYPE=INTERNET:bluerain1026@gmail.com',
+        'URL:https://www.cloudbread.me',
+        'NOTE:공공기관·기업 AX 전환 컨설팅 및 생성형 AI 전문 교육',
+        'END:VCARD'
+      ].join('\n');
+      const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = '정우진_천지인에이아이_대표.vcf';
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>
