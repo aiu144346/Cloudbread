@@ -178,6 +178,7 @@ const contentData = {
 };
 
 const mediaData = [
+    { title: "[여론광장] 암기 교육 수명 다했다… ‘전 국민 AI 자격 시대’ 국가가 제대로 판 짜야", type: "column", source: "울산제일일보", url: "http://www.ujeil.com/news/articleView.html?idxno=395546", date: "2026.11", ogImage: "assets/ujeil_column_395546.png" },
     { title: "[테크 인사이트] 사무직군 AX의 본질: 고립된 로컬 데이터를 실시간 협업 대시보드로 깨우다 (JPDC 사례)", type: "column", source: "테크저널리스트 특별기고", url: "article-jpdc-ax.html", date: "2026.10", ogImage: "assets/images/jpdc_lecture_onsite_2026.jpg" },
     { title: "정우진 “구민배심원단 50인과 북구 대개조 100일 플랜 실현”", type: "article", source: "울산저널", url: "https://www.usjournal.kr/news/newsview.php?ncode=179513676709502", date: "2024", ogImage: "https://www.usjournal.kr/news/data/20180417/p179513676709502_688.jpg" },
     { title: "[울산人터뷰] 워커홀릭에 진심, 어공 정우진", type: "article", source: "울산저널", url: "https://www.usjournal.kr/news/newsview.php?ncode=1065564671845236", date: "2024", ogImage: "https://www.usjournal.kr/news/data/20230211/p1065564671845236_237_thum.jpg" },
