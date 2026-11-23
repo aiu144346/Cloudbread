@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>AI 시대, 공부를 다시 설계하라 | 고헌중학교 특별 강연 · CLOUD BREAD</title>
+
+  <!-- Fonts: Pretendard + Plus Jakarta Sans + JetBrains Mono -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS & FontAwesome -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Motion Graphics Engines: Three.js, GSAP 3, Canvas Confetti, QRCodeJS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'Pretendard', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+    html, body {
+      margin: 0; padding: 0; width: 100%; height: 100%;
+      overflow: hidden;
+      background: #050814;
+      color: #F8FAFC;
+      font-family: 'Pretendard', sans-serif;
+      letter-spacing: -0.02em;
+      user-select: none;
+    }
+
+    /* 3D WebGL Background Canvas */
+    #bg-canvas {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      z-index: 0; pointer-events: none;
+    }
+
+    /* Aurora Ambient Orbs */
+    .aurora-layer {
+      position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden;
+    }
+    .aurora-orb {
+      position: absolute; border-radius: 50%; filter: blur(110px); opacity: 0.28;
+      transition: background 1.2s ease, transform 1.5s ease;
+      animation: floatOrb 14s ease-in-out infinite alternate;
+    }
+    .orb-1 { width: 520px; height: 520px; top: -140px; left: -120px; background: #4F46E5; }
+    .orb-2 { width: 480px; height: 480px; bottom: -160px; right: -100px; background: #06B6D4; animation-delay: -5s; }
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(45px, 35px) scale(1.12); }
+    }
+
+    /* Cursor Spotlight */
+    #cursor-glow {
+      position: fixed; width: 420px; height: 420px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.14) 0%, rgba(6, 182, 212, 0.05) 40%, transparent 70%);
+      pointer-events: none; z-index: 2; transform: translate(-50%, -50%);
+      transition: opacity 0.3s ease;
+    }
+
+    /* Slide Container & Individual Slides */
+    #deck-stage {
+      position: relative; z-index: 10; width: 100%; height: 100%;
+    }
+    .slide {
+      position: absolute; inset: 0;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 68px 28px 86px;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    .slide.active {
+      display: flex;
+    }
+    .slide-inner {
+      width: 100%; max-width: 1180px; margin: auto;
+    }
+
+    /* Glassmorphism Cards */
+    .glass {
+      background: rgba(13, 19, 38, 0.66);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
+    }
+    .glass-hover {
+      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s ease, box-shadow 0.28s ease;
+    }
+    .glass-hover:hover {
+      transform: translateY(-4px);
+      border-color: rgba(129, 140, 248, 0.55);
+      box-shadow: 0 24px 60px rgba(79, 70, 229, 0.22);
+    }
+
+    /* Neon Gradients */
+    .grad-indigo { background: linear-gradient(135deg, #E0E7FF 0%, #818CF8 48%, #22D3EE 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .grad-rose { background: linear-gradient(135deg, #FECDD3 0%, #FB7185 50%, #F59E0B 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .grad-emerald { background: linear-gradient(135deg, #D1FAE5 0%, #34D399 50%, #38BDF8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .grad-gold { background: linear-gradient(135deg, #FEF3C7 0%, #FBBF24 50%, #F472B6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    /* Glitch Effect for Slide 2 */
+    .glitch {
+      position: relative; display: inline-block;
+    }
+    .glitch::before, .glitch::after {
+      content: attr(data-text);
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      opacity: 0.75; pointer-events: none;
+    }
+    .glitch::before {
+      color: #22D3EE; z-index: -1;
+      animation: glitch1 3.2s infinite linear alternate-reverse;
+    }
+    .glitch::after {
+      color: #F43F5E; z-index: -2;
+      animation: glitch2 2.7s infinite linear alternate-reverse;
+    }
+    @keyframes glitch1 {
+      0%, 92%, 100% { transform: translate(0, 0); }
+      94% { transform: translate(-2px, 1px); }
+      96% { transform: translate(2px, -1px); }
+    }
+    @keyframes glitch2 {
+      0%, 90%, 100% { transform: translate(0, 0); }
+      93% { transform: translate(2px, 1px); }
+      97% { transform: translate(-2px, -1px); }
+    }
+
+    /* 3D Flip Card (Slide 5) */
+    .flip-card {
+      perspective: 1000px; cursor: pointer; height: 158px;
+    }
+    .flip-inner {
+      position: relative; width: 100%; height: 100%;
+      transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      transform-style: preserve-3d;
+    }
+    .flip-card.flipped .flip-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-face {
+      position: absolute; inset: 0;
+      backface-visibility: hidden; -webkit-backface-visibility: hidden;
+      border-radius: 1rem;
+    }
+    .flip-back {
+      transform: rotateY(180deg);
+    }
+
+    /* Custom Scrollbar for inner boxes */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.3); border-radius: 99px; }
+
+    /* Pulse Ring */
+    @keyframes pulseRing {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.55); }
+      70% { transform: scale(1); box-shadow: 0 0 0 14px rgba(56, 189, 248, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+    }
+    .pulse-ring { animation: pulseRing 2.2s infinite; }
+
+    /* Stamp Animation (Slide 16) */
+    .stamp-badge {
+      transform: scale(1.8) rotate(-12deg); opacity: 0;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .pledged .stamp-badge {
+      transform: scale(1) rotate(-6deg); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 3D Neural Network Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Ambient Aurora Orbs -->
+  <div class="aurora-layer">
+    <div id="orb-1" class="aurora-orb orb-1"></div>
+    <div id="orb-2" class="aurora-orb orb-2"></div>
+  </div>
+
+  <!-- Spotlight Cursor -->
+  <div id="cursor-glow"></div>
+
+  <!-- Top HUD Header -->
+  <header class="fixed top-0 left-0 right-0 z-30 px-4 sm:px-8 py-3 flex items-center justify-between bg-slate-950/45 backdrop-blur-md border-b border-white/10">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 via-cyan-500 to-emerald-400 flex items-center justify-center font-black text-slate-950 text-xs shadow-lg">
+        CB
+      </div>
+      <div class="leading-tight">
+        <div class="text-xs sm:text-sm font-extrabold text-white tracking-tight flex items-center gap-2">
+          <span>고헌중학교 AI 스터디 전략 특강</span>
+          <span id="chapter-badge" class="hidden sm:inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/25 text-indigo-200 border border-indigo-400/30">INTRO</span>
+        </div>
+        <div class="text-[10px] text-slate-400 font-medium">정우진 대표 · 천지인에이아이 / CLOUD BREAD</div>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <a href="index.html" class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/15 text-slate-300 text-xs font-semibold border border-white/10 transition">
+        <i class="fa-solid fa-layer-group text-[11px]"></i>
+        <span>슬라이드 센터</span>
+      </a>
+      <a href="https://www.cloudbread.me/showcase?target=senior" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-500/20 hover:bg-indigo-500/35 text-indigo-200 text-xs font-bold border border-indigo-400/30 transition">
+        <i class="fa-solid fa-globe text-[11px]"></i>
+        <span>CLOUD BREAD 쇼케이스</span>
+      </a>
+      <button id="btn-sound" onclick="toggleSound()" title="사운드 효과 ON/OFF (M)" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/15 border border-white/10 text-slate-200 flex items-center justify-center text-xs transition">
+        <i id="icon-sound" class="fa-solid fa-volume-high text-cyan-400"></i>
+      </button>
+      <button onclick="toggleFullscreen()" title="전체화면 (F)" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/15 border border-white/10 text-slate-200 flex items-center justify-center text-xs transition">
+        <i class="fa-solid fa-expand"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Slide Stage -->
+  <main id="deck-stage">
+
+    <!-- =========================================================
+         SLIDE 01: COVER
+         ========================================================= -->
+    <section class="slide active" data-chapter="INTRO · 오프닝" data-theme="indigo" data-note="오프닝(2분): 고헌중학교 학생 여러분 반갑습니다! 오늘 슬라이드는 일반 PPT가 아니라 AI와 웹 기술로 만든 실시간 3D 인터랙티브 화면입니다. 60분 동안 AI 시대에 진짜 내 실력을 키우는 공부 전략을 함께 찾아봅시다.">
+      <div class="slide-inner text-center space-y-6">
+        <div class="anim-item inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/20 border border-indigo-400/40 text-indigo-200 text-xs sm:text-sm font-bold tracking-wide">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+          <span>고헌중학교 재학생 특별 강연 · 60분 인터랙티브 세션</span>
+        </div>
+
+        <h1 class="anim-item text-4xl sm:text-6xl lg:text-7xl font-black leading-[1.12] tracking-tight">
+          AI 시대,<br />
+          <span class="grad-indigo">공부를 다시 설계하라</span>
+        </h1>
+
+        <p class="anim-item text-base sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed font-medium">
+          정답을 외우는 시대는 끝났다.<br class="hidden sm:block" />
+          AI를 <strong class="text-cyan-300">나만의 1:1 튜터</strong>로 만들고, 대체 불가능한 <strong class="text-indigo-300">생각의 힘</strong>을 키우는 스터디 전략
+        </p>
+
+        <div class="anim-item flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+          <button onclick="nextSlide()" class="pulse-ring px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-500 via-blue-500 to-cyan-500 hover:brightness-110 text-white font-black text-base sm:text-lg shadow-2xl flex items-center gap-3 transition">
+            <span>강연 시작하기</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+          <div class="glass px-5 py-3 rounded-2xl flex items-center gap-3 text-left">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500/30 to-cyan-500/30 border border-indigo-400/40 flex items-center justify-center text-cyan-300 text-lg">
+              <i class="fa-solid fa-user-astronaut"></i>
+            </div>
+            <div>
+              <div class="text-xs text-slate-400 font-semibold">SPEAKER</div>
+              <div class="text-sm font-extrabold text-white">정우진 대표 <span class="text-cyan-300 font-semibold">(천지인에이아이 / CLOUD BREAD)</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="anim-item pt-4 flex items-center justify-center gap-6 text-xs text-slate-400">
+          <span><i class="fa-solid fa-keyboard mr-1 text-indigo-400"></i> ← / → 키보드 이동</span>
+          <span><i class="fa-solid fa-hand-pointer mr-1 text-cyan-400"></i> 화면 직접 클릭 체험</span>
+          <span><i class="fa-solid fa-clock mr-1 text-emerald-400"></i> 60분 풀코스</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SLIDE 02: LAST WEEK'S CSAT & AI CHEATING SHOCK
+         ========================================================= -->
+    <section class="slide" data-chapter="INTRO · 시사 쇼크" data-theme="rose" data-note="시사 훅(3분): 바로 지난주 수능이 있었습니다. 올해 수능장에서 가장 큰 비상 중 하나가 바로 'AI 활용 부정행위 우려'였습니다. AI가 시험 문제를 풀어버릴 수 있는 시대, 과연 시험과 공부의 의미는 어떻게 바뀔까요?">
+      <div class="slide-inner space-y-6">
+        <div class="anim-item flex items-center justify-between flex-wrap gap-2">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-extrabold">
+            <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+            <span>BREAKING ALERT · 지난주 2027학년도 수능 현장</span>
+          </div>
+          <span class="font-mono text-xs text-rose-400/80">STATUS: EXAM SECURITY RED ALERT</span>
+        </div>
+
+        <h2 class="anim-item text-3xl sm:text-5xl font-black leading-tight">
+          지난주 수능 시험장,<br />
+          <span class="glitch grad-rose" data-text="왜 AI 때문에 비상이 걸렸을까?">왜 AI 때문에 비상이 걸렸을까?</span>
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pt-2">
+          <div class="anim-item glass glass-hover rounded-2xl p-6 border-t-2 border-t-rose-500 space-y-3">
+            <div class="w-11 h-11 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-xl">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3 class="text-lg font-extrabold text-white">초소형 AI 기기 &amp; 부정시험 비상</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              스마트 안경·초소형 이어폰 등 AI와 실시간 연결되는 기기 때문에 시험장 보안과 감독에 초비상이 걸렸습니다.
+            </p>
+          </div>
+
+          <div class="anim-item glass glass-hover rounded-2xl p-6 border-t-2 border-t-amber-500 space-y-3">
+            <div class="w-11 h-11 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <h3 class="text-lg font-extrabold text-white">이미 수능 1등급을 넘는 AI</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              국어 비문학, 영어 독해, 킬러 수학 문제까지 몇 초 만에 풀어내는 추론형 AI가 누구나 쓰는 도구가 되었습니다.
+            </p>
+          </div>
+
+          <div class="anim-item glass glass-hover rounded-2xl p-6 border-t-2 border-t-cyan-400 space-y-3">
+            <div class="w-11 h-11 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center text-xl">
+              <i class="fa-solid fa-compass"></i>
+            </div>
+            <h3 class="text-lg font-extrabold text-white">우리가 던져야 할 진짜 질문</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              <strong class="text-cyan-300">"AI가 정답을 다 아는 시대"</strong>에 중학생인 나는 무엇을, 어떤 방식으로 공부해야 살아남고 빛날까?
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SLIDE 03: RIEMANN HYPOTHESIS + LIVE CANVAS VISUALIZER
+         ========================================================= -->
+    <section class="slide" data-chapter="PART 1 · 바뀐 세상" data-theme="indigo" data-note="리만가설(3분): 버튼 'AI 추론 가속'을 직접 눌러 보여주세요! 국제수학올림피아드(IMO) 메달 수준을 돌파한 AI가 이제 세계 수학자들이 160년 넘게 못 푼 '리만가설' 같은 초고난도 난제 탐색의 파트너가 된 시대입니다.">
+      <div class="slide-inner space-y-5">
+        <div class="anim-item flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <span class="text-xs font-mono text-cyan-400 font-bold tracking-widest">PART 01 · AI EVOLUTION</span>
+            <h2 class="text-3xl sm:text-5xl font-black text-white mt-1">
+              인류 최대 난제 <span class="grad-indigo">'리만가설'</span>에 도전하는 AI
+            </h2>
+          </div>
+          <button id="btn-riemann-boost" onclick="toggleRiemannBoost()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:brightness-110 text-white font-extrabold text-sm shadow-lg shadow-cyan-500/25 flex items-center gap-2 transition">
+            <i class="fa-solid fa-bolt"></i>
+            <span id="riemann-btn-label">AI 추론 가속 시뮬레이션</span>
+          </button>
+        </div>
+
+        <!-- Live Riemann Zeta Wave Visualizer -->
+        <div class="anim-item glass rounded-3xl p-4 sm:p-5 border border-cyan-400/30 relative overflow-hidden">
+          <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
+            <span>LIVE VISUALIZER: ζ(s) = Σ n⁻ˢ · Critical Line Re(s) = 1/2</span>
+            <span id="riemann-status" class="text-cyan-300 font-bold">MODE: STANDARD SCAN (1.2k hypotheses/sec)</span>
+          </div>
+          <canvas id="riemann-canvas" class="w-full h-48 sm:h-56 rounded-2xl bg-slate-950/80 border border-white/10"></canvas>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="anim-item glass rounded-2xl p-4 flex items-start gap-3">
+            <span class="text-2xl">🏆</span>
+            <div>
+              <div class="text-sm font-extrabold text-white">수학 올림피아드(IMO) 돌파</div>
+              <p class="text-xs text-slate-300 mt-1">단순 계산기를 넘어 스스로 논리 증명을 설계하는 추론 AI 시대가 열렸습니다.</p>
+            </div>
+          </div>
+          <div class="anim-item glass rounded-2xl p-4 flex items-start gap-3">
+            <span class="text-2xl">🌌</span>
+            <div>
+              <div class="text-sm font-extrabold text-white">160년 난제 연구의 파트너</div>
+              <p class="text-xs text-slate-300 mt-1">세계 수학자들이 160년간 매달린 리만가설·단백질 구조 등 미지의 영역을 AI가 함께 탐색합니다.</p>
+            </div>
+          </div>
+          <div class="anim-item glass rounded-2xl p-4 flex items-start gap-3">
+            <span class="text-2xl">⚡</span>
+            <div>
+              <div class="text-sm font-extrabold text-white">공부의 도구 자체가 혁신</div>
+              <p class="text-xs text-slate-300 mt-1">이제 학생들에게도 과거엔 상상 못 한 <strong class="text-cyan-300">완전히 새로운 학습 수단</strong>이 생겼습니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SLIDE 04: SHIFT OF HIGH-INCOME PROFESSIONS
+         ========================================================= -->
+    <section class="slide" data-chapter="PART 1 · 직업의 대전환" data-theme="rose" data-note="전문직 변화(3분): '전문직이 다 망한다'고 겁주기보다, '단순 암기·반복 분석 중심의 기존 전문직은 급격히 재편되고, AI를 지휘하는 융합형 인재만 살아남는다'는 본질을 짚어주세요.">
+      <div class="slide-inner space-y-6">
+        <div class="anim-item">
+          <span class="text-xs font-mono text-rose-400 font-bold tracking-widest">PART 01 · CAREER SHIFT</span>
+          <h2 class="text-3xl sm:text-5xl font-black mt-1">
+            고소득 전문직의 위기: <span class="grad-rose">지식 암기 시대의 종말</span>
+          </h2>
+          <p class="text-sm sm:text-base text-slate-300 mt-2">
+            과거에 가장 안전했던 고소득 전문직일수록, <strong>'정형화된 지식 처리'</strong> 비중이 높아 AI의 직접적인 도전을 받고 있습니다.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Left: High Automation Pressure -->
+          <div class="anim-item glass rounded-3xl p-6 border border-rose-500/35 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-black text-rose-300"><i class="fa-solid fa-triangle-exclamation mr-2"></i>급격한 대체·축소 영역</h3>
+              <span class="text-xs px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-200 font-bold">단순 지식·반복 분석</span>
+            </div>
+
+            <div class="space-y-3.5 text-sm">
+              <div>
+                <div class="flex justify-between mb-1"><span class="text-slate-200 font-bold">기초 법률 문서 검토·계약서 작성</span><span class="text-rose-400 font-mono font-bold">AI 대체 압력 85%</span></div>
+                <div class="h-2.5 rounded-full bg-slate-800 overflow-hidden"><div class="h-full bg-gradient-to-r from-rose-500 to-amber-500 rounded-full" style="width: 85%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1"><span class="text-slate-200 font-bold">정형 회계·세무 장부 처리</span><span class="text-rose-400 font-mono font-bold">AI 대체 압력 88%</span></div>
+                <div class="h-2.5 rounded-full bg-slate-800 overflow-hidden"><div class="h-full bg-gradient-to-r from-rose-500 to-amber-500 rounded-full" style="width: 88%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1"><span class="text-slate-200 font-bold">단순 번역 · 기초 코딩 · 1차 영상 판독</span><span class="text-rose-400 font-mono font-bold">AI 대체 압력 90%</span></div>
+                <div class="h-2.5 rounded-full bg-slate-800 overflow-hidden"><div class="h-full bg-gradient-to-r from-rose-500 to-amber-500 rounded-full" style="width: 90%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Rise of AI Commanders -->
+          <div class="anim-item glass rounded-3xl p-6 border border-emerald-400/35 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-lg font-black text-emerald-300"><i class="fa-solid fa-rocket mr-2"></i>새로운 가치 폭발 영역</h3>
+                <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-200 font-bold">AI 지휘·융합 판단</span>
+              </div>
+              <ul class="space-y-3 text-sm text-slate-200">
+                <li class="flex items-start gap-2.5"><i class="fa-solid fa-check-circle text-emerald-400 mt-1"></i><span>AI가 분석한 1,000건의 판례 속에서 <strong>최종 전략과 윤리적 판단</strong>을 내리는 전문가</span></li>
+                <li class="flex items-start gap-2.5"><i class="fa-solid fa-check-circle text-emerald-400 mt-1"></i><span>환자의 마음을 깊이 공감하고 <strong>AI 진단 결과를 맞춤 치료로 연결</strong>하는 의사</span></li>
+                <li class="flex items-start gap-2.5"><i class="fa-solid fa-check-circle text-emerald-400 mt-1"></i><span>문제를 새롭게 정의하고 <strong>여러 AI 에이전트를 지휘</strong>해 혁신을 만드는 설계자</span></li>
+              </ul>
+            </div>
+            <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-400/30 text-sm font-bold text-emerald-200">
+              💡 핵심 공식: 지식을 <span class="line-through text-slate-400">단순 암기</span>한 사람은 대체되지만, 지식을 <span class="text-white underline decoration-emerald-400">연결·지휘</span>하는 사람은 10배 더 귀해진다!
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SLIDE 05: TOP 10 FUTURE JOBS (3D INTERACTIVE FLIP DECK)
+         ========================================================= -->
+    <section class="slide" data-chapter="PART 1 · 미래 유망 직업 TOP 10" data-theme="indigo" data-note="미래 직업 TOP 10(3분): 학생들에게 '1번부터 10번 중 궁금한 번호 외쳐보세요!'라고 참여를 유도하고, 해당 카드를 클릭해서 3D로 뒤집어 보여주세요.">
+      <div class="slide-inner space-y-4">
+        <div class="anim-item flex flex-wrap items-end justify-between gap-2">
+          <div>
+            <span class="text-xs font-mono text-cyan-400 font-bold tracking-widest">INTERACTIVE 3D DECK · 카드를 클릭해 뒤집어 보세요!</span>
+            <h2 class="text-2xl sm:text-4xl font-black text-white mt-0.5">
+              AI 시대 더욱 각광받을 <span class="grad-indigo">유망 직업군 TOP 10</span>
+            </h2>
+          </div>
+          <button onclick="flipAllJobs()" class="px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-bold text-cyan-300 border border-cyan-400/30 transition">
+            <i class="fa-solid fa-rotate mr-1"></i> 전체 뒤집기
+          </button>
+        </div>
+
+        <div id="jobs-grid" class="anim-item grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+          <!-- Populated dynamically by JS for clean 3D flip cards -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SLIDE 06: NEW EVALUATION SYSTEM BEYOND CSAT
+         ========================================================= -->
+    <section class="slide" data-chapter="PART 1 · 평가의 변화" data-theme="indigo" data-note="평가 변화(2분): 수능과 내신 점수 하나로 줄 세우던 시대가 바뀌고 있습니다. '어떻게 생각했는가'를 보는 구술, 프로젝트, AI 협업 포트폴리오 평가가 확대됩니다.">
+      <div class="slide-inner space-y-6">
+        <div class="anim-item text-center">
+          <span class="text-xs font-mono text-indigo-300 font-bold tracking-widest">NEW EVALUATION PARADIGM</span>
+          <h2 class="text-3xl sm:text-5xl font-black text-white mt-1">
+            수능·내신 그 너머, <span class="grad-indigo">새로운 평가 수단</span>의 등장
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-11 gap-4 items-center">
+          <div class="anim-item md:col-span-5 glass rounded-3xl p-6 border border-slate-700/80 space-y-3 opacity-80">
+            <div class="text-xs font-mono text-slate-400 font-bold">PAST · 과거의 평가</div>
+            <h3 class="text-xl font-black text-slate-300">정답 맞히기 · 속도 경쟁</h3>
+            <ul class="space-y-2.5 text-sm text-slate-400">
+              <li>• 객관식 5지선다 정답률 중심</li>
+              <li>• 누가 더 많이 외웠는지 측정</li>
+              <li>• 혼자서 조용히 푸는 폐쇄형 시험</li>
+              <li>• 결과(점수)만 남고 과정은 사라짐</li>
+            </ul>
+          </div>
+
+          <div class="anim-item md:col-span-1 flex justify-center">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-400 flex items-center justify-center text-slate-950 font-black text-xl shadow-lg shadow-cyan-500/30">
+              <i class="fa-solid fa-arrow-right md:rotate-0 rotate-90"></i>
+            </div>
+          </div>
+
+          <div class="anim-item md:col-span-5 glass rounded-3xl p-6 border-2 border-cyan-400/50 space-y-3 shadow-cyan-500/15 shadow-2xl">
+            <div class="text-xs font-mono text-cyan-300 font-bold">FUTURE · AI 시대의 새 평가</div>
+            <h3 class="text-xl font-black text-white">사고 과정 · 문제 해결 포트폴리오</h3>
+            <ul class="space-y-2.5 text-sm text-slate-200">
+              <li><i class="fa-solid fa-sparkles text-cyan-400 mr-1.5"></i><strong>구술·심층 면접:</strong> "왜 그렇게 생각했는지" 직접 말로 설명</li>
+              <li><i class="fa-solid fa-sparkles text-cyan-400 mr-1.5"></i><strong>탐구 프로젝트:</strong> 스스로 질문을 만들고 끝까지 해결한 기록</li>
+              <li><i class="fa-solid fa-sparkles text-cyan-400 mr-1.5"></i><strong>AI 협업 역량:</strong> AI에게 어떻게 질문하고 검증했는지의 로그</li>
+              <li><i class="fa-solid fa-sparkles text-cyan-400 mr-1.5"></i><strong>과정 중심 성장:</strong> 시행착오를 고쳐나간 꾸준함의 증거</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SLIDE 07: INTERACTIVE QUIZ + TIMER + CONFETTI
+         ========================================================= -->
+    <section class="slide" data-chapter="INTERACTIVE · 현장 퀴즈" data-theme="gold" data-note="현장 손들기 퀴즈(2분): 타이머를 켜고 학생들에게 손들게 한 뒤, 정답(4번)을 클릭하면 팡파레와 함께 폭죽이 터집니다!">
+      <div class="slide-inner space-y-6 max-w-4xl">
+        <div class="anim-item flex items-center justify-between flex-wrap gap-3">
+          <span class="px-4 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-extrabold">
+            🎯 현장 손들기 퀴즈 · 10초 안에 골라보세요!
+          </span>
+          <button onclick="startQuizTimer()" class="px-4 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs flex items-center gap-2 transition">
+            <i class="fa-solid fa-stopwatch"></i>
+            <span id="quiz-timer-text">10초 타이머 시작</span>
+          </button>
+        </div>
+
+        <h2 class="anim-item text-3xl sm:text-5xl font-black text-white leading-tight">
+          다음 중 <span class="grad-gold">AI가 가장 잘 하지 못하는 것</span>은 무엇일까요?
+        </h2>
+
+        <div class="anim-item grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <button onclick="answerQuiz(1, this)" class="quiz-opt glass glass-hover text-left p-5 rounded-2xl border border-white/15 flex items-center gap-4">
+            <span class="w-10 h-10 rounded-xl bg-white/10 font-black text-lg flex items-center justify-center shrink-0">1</span>
+            <span class="text-base font-bold text-slate-100">영어 단어 10,000개를 1초 만에 암기하고 번역하기</span>
+          </button>
+          <button onclick="answerQuiz(2, this)" class="quiz-opt glass glass-hover text-left p-5 rounded-2xl border border-white/15 flex items-center gap-4">
+            <span class="w-10 h-10 rounded-xl bg-white/10 font-black text-lg flex items-center justify-center shrink-0">2</span>
+            <span class="text-base font-bold text-slate-100">고난도 수학 공식으로 복잡한 방정식 풀어내기</span>
+          </button>
+          <button onclick="answerQuiz(3, this)" class="quiz-opt glass glass-hover text-left p-5 rounded-2xl border border-white/15 flex items-center gap-4">
+            <span class="w-10 h-10 rounded-xl bg-white/10 font-black text-lg flex items-center justify-center shrink-0">3</span>
+            <span class="text-base font-bold text-slate-100">책 100권 분량의 자료를 10초 만에 3줄로 요약하기</span>
+          </button>
+          <button onclick="answerQuiz(4, this)" class="quiz-opt glass glass-hover text-left p-5 rounded-2xl border border-white/15 flex items-center gap-4">
+            <span class="w-10 h-10 rounded-xl bg-white/10 font-black text-lg flex items-center justify-center shrink-0">4</span>
+            <span class="text-base font-bold text-slate-100">스스로 "왜?"라는 질문을 품고 매일 꾸준히 탐구하기</span>
+          </button>
+        </div>
+
+        <div id="quiz-feedback" class="hidden glass rounded-2xl p-5 border border-emerald-400/50 bg-emerald-500/10 text-sm sm:text-base text-emerald-100 font-semibold"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SLIDE 08: WHY SCHOOL STUDY STILL MATTERS
+         ========================================================= -->
+    <section class="slide" data-chapter="PART 2 · 학교 공부의 진짜 의미" data-theme="emerald" data-note="학교 공부의 의미(4분): 'AI가 다 해주는데 학교 공부 왜 해요?'라는 질문에 명쾌하게 답해줍니다. 공부는 암기가 아니라 새로운 분야를 스스로 습득하는 근육을 기르는 과정입니다.">
+      <div class="slide-inner space-y-6">
+        <div class="anim-item text-center">
+          <span class="text-xs font-mono text-emerald-300 font-bold tracking-widest">PART 02 · THE ESSENCE OF LEARNING</span>
+          <h2 class="text-3xl sm:text-5xl font-black text-white mt-1">
+            "AI가 다 알려주는데,<br class="sm:hidden" /> <span class="grad-emerald">학교 공부가 의미가 있을까?</span>"
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div class="anim-item glass glass-hover rounded-3xl p-6 border border-emerald-400/30 space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center text-2xl">
+              <i class="fa-solid fa-dumbbell"></i>
+            </div>
+            <h3 class="text-xl font-black text-white">1. '새 분야를 배우는 근육'</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              공부는 시험 답을 외우는 게 아닙니다. 미래에 어떤 새로운 기술이 나와도 <strong class="text-emerald-300">스스로 학습하고 습득하는 방법(메타학습)</strong>을 훈련하는 과정입니다.
+            </p>
+          </div>
+
+          <div class="anim-item glass glass-hover rounded-3xl p-6 border border-cyan-400/30 space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center text-2xl">
+              <i class="fa-solid fa-magnifying-glass-chart"></i>
+            </div>
+            <h3 class="text-xl font-black text-white">2. AI의 거짓말 판별 능력</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              AI는 가끔 그럴듯한 거짓말(환각)을 합니다. 내 머릿속에 <strong class="text-cyan-300">교과 기초 개념</strong>이 없으면 AI가 틀린 답을 줘도 그대로 속아 넘어갑니다.
+            </p>
+          </div>
+
+          <div class="anim-item glass glass-hover rounded-3xl p-6 border border-indigo-400/30 space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 text-indigo-300 flex items-center justify-center text-2xl">
+              <i class="fa-solid fa-people-group"></i>
+            </div>
+            <h3 class="text-xl font-black text-white">3. 관계·협업·책임의 무대</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              학교는 친구들과 부딪히고 토론하며 <strong class="text-indigo-300">사람의 마음을 읽고 함께 문제를 해결하는</strong>, AI가 절대 가르쳐 줄 수 없는 살아있는 훈련장입니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SLIDE 09: POWER OF KOREAN LANGUAGE + LIVE RESOLUTION SLIDER
+         ========================================================= -->
+    <section class="slide" data-chapter="PART 2 · 국어 공부의 중요성" data-theme="emerald" data-note="국어의 힘(4분): 아래 '모국어 해상도 슬라이더'를 1단계에서 3단계로 드래그해 보여주세요! 모국어 어휘력과 문해력이 높을수록 AI에게서 10배 더 뛰어난 결과를 끌어냅니다.">
+      <div class="slide-inner space-y-5">
+        <div class="anim-item">
+          <span class="text-xs font-mono text-emerald-300 font-bold tracking-widest">SUPERPOWER IN THE AI ERA</span>
+          <h2 class="text-3xl sm:text-5xl font-black text-white mt-1">
+            왜 <span class="grad-emerald">'국어 공부'</span>가 AI 시대의 최강 무기인가?
+          </h2>
+          <p class="text-sm sm:text-base text-slate-300 mt-1.5">
+            AI를 움직이는 최강의 프로그래밍 언어는 파이썬이 아니라 바로 <strong class="text-white">우리의 모국어(한국어)</strong>입니다.
+          </p>
+        </div>
+
+        <!-- Interactive Language Resolution Slider -->
+        <div class="anim-item glass rounded-3xl p-6 border border-emerald-400/35 space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <div class="text-xs font-mono text-emerald-300 font-bold">INTERACTIVE DEMO · 질문 해상도 슬라이더를 움직여 보세요</div>
+              <div id="lang-level-title" class="text-lg sm:text-xl font-black text-white mt-0.5">Lv.1 낮은 문해력 — 막연한 질문</div>
+            </div>
+            <div class="flex items-center gap-3 w-full sm:w-72">
+              <span class="text-xs font-bold text-slate-400">Lv.1</span>
+              <input id="lang-slider" type="range" min="1" max="3" value="1" oninput="updateLangDemo(this.value)" class="w-full accent-emerald-400 cursor-pointer h-2 bg-slate-700 rounded-lg" />
+              <span class="text-xs font-bold text-emerald-300">Lv.3</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 rounded-2xl bg-slate-900/80 border border-white/10 space-y-2">
+              <div class="text-xs font-bold text-indigo-300"><i class="fa-solid fa-comment-dots mr-1"></i> 학생의 모국어 질문 (프롬프트)</div>
+              <p id="lang-prompt" class="text-sm sm:text-base text-white font-medium leading-relaxed">
+                "기후변화 발표 자료 좀 써줘."
+              </p>
+            </div>
+            <div class="p-4 rounded-2xl bg-emerald-950/40 border border-emerald-400/30 space-y-2">
+              <div class="text-xs font-bold text-emerald-300"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> AI가 만들어내는 결과물 수준</div>
+              <p id="lang-result" class="text-sm text-slate-200 leading-relaxed">
+                누구나 아는 뻔한 교과서 요약문 10줄 생성. 발표할 때 친구들이 지루해하고, 질문받으면 대답을 못 함.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="anim-item text-center text-sm sm:text-base font-extrabold text-emerald-200">
+          ✨ <span class="underline decoration-emerald-400 underline-offset-4">국어 실력 = 생각의 해상도 = AI 활용 능력의 한계선</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SLIDE 10: NEW TALENT MODEL (3 PILLARS)
+         ========================================================= -->
+    <section class="slide" data-chapter="PART 2 · AI 시대의 인재상" data-theme="emerald" data-note="AI 시대 인재상(3분): 결국 AI가 대체할 수 없는 3가지 핵심 인재상은 모국어 역량, 비판적 사고력, 그리고 매일 스스로를 지키는 성실함과 꾸준함입니다.">
+      <div class="slide-inner space-y-6">
+        <div class="anim-item text-center">
+          <span class="text-xs font-mono text-cyan-300 font-bold tracking-widest">FUTURE TALENT ARCHETYPE</span>
+          <h2 class="text-3xl sm:text-5xl font-black text-white mt-1">
+            AI가 절대 대체할 수 없는 <span class="grad-emerald">인재상 TOP 3</span>
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="anim-item glass glass-hover rounded-3xl p-7 border-b-4 border-b-emerald-400 text-center space-y-4">
+            <div class="w-16 h-16 mx-auto rounded-2xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center text-3xl">🗣️</div>
+            <div class="text-xs font-mono text-emerald-400 font-bold">PILLAR 01</div>
+            <h3 class="text-2xl font-black text-white">모국어 활용 역량 극대화</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              깊게 읽고, 정확하게 묻고, 내 생각을 설득력 있게 말하고 쓰는 힘. AI 시대의 최강 인터페이스입니다.
+            </p>
+          </div>
+
+          <div class="anim-item glass glass-hover rounded-3xl p-7 border-b-4 border-b-cyan-400 text-center space-y-4">
+            <div class="w-16 h-16 mx-auto rounded-2xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center text-3xl">🧠</div>
+            <div class="text-xs font-mono text-cyan-400 font-bold">PILLAR 02</div>
+            <h3 class="text-2xl font-black text-white">비판적 사고력</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              AI의 답변을 무조건 믿지 않고 "정말 맞을까? 다른 관점은 없을까?" 스스로 검증하고 반박하는 힘입니다.
+            </p>
+          </div>
+
+          <div class="anim-item glass glass-hover rounded-3xl p-7 border-b-4 border-b-amber-400 text-center space-y-4">
+            <div class="w-16 h-16 mx-auto rounded-2xl bg-amber-500/20 text-amber-300 flex items-center justify-center text-3xl">🔥</div>
+            <div class="text-xs font-mono text-amber-400 font-bold">PILLAR 03</div>
+            <h3 class="text-2xl font-black text-white">성실함과 꾸준함</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              유혹이 넘치는 세상에서 매일 정해진 목표를 묵묵히 완수하는 자기 관리력. <strong class="text-amber-300">AI가 대신해 줄 수 없는 유일한 능력</strong>입니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SLIDE 11: REPLACED VS COMMANDER SPLIT SCREEN
+         ========================================================= -->
+    <section class="slide" data-chapter="PART 2 · 결정적 차이" data-theme="indigo" data-note="대체 vs 지휘(2분): 같은 AI를 쓰더라도 5년 뒤 결과는 완전히 달라집니다. 나는 어느 쪽 학생이 될 것인가?">
+      <div class="slide-inner space-y-6">
+        <div class="anim-item text-center">
+          <h2 class="text-3xl sm:text-5xl font-black text-white">
+            같은 AI, <span class="grad-indigo">완전히 다른 5년 뒤</span>
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="anim-item glass rounded-3xl p-6 sm:p-8 border border-rose-500/35 space-y-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-black">
+              <i class="fa-solid fa-xmark"></i> AI에 끌려다니는 학생
+            </div>
+            <ul class="space-y-3.5 text-sm sm:text-base text-slate-300">
+              <li class="flex gap-3"><span class="text-rose-400 font-bold">01</span> 숙제를 복사·붙여넣기로 1분 만에 끝냄</li>
+              <li class="flex gap-3"><span class="text-rose-400 font-bold">02</span> AI가 준 답을 읽지도 않고 그대로 제출</li>
+              <li class="flex gap-3"><span class="text-rose-400 font-bold">03</span> 모르는 게 나오면 생각하기 전에 답부터 검색</li>
+              <li class="flex gap-3"><span class="text-rose-400 font-bold">04</span> AI가 꺼지면 아무것도 혼자 해결 못 함</li>
+            </ul>
+          </div>
+
+          <div class="anim-item glass rounded-3xl p-6 sm:p-8 border-2 border-cyan-400/55 shadow-cyan-500/15 shadow-2xl space-y-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-black">
+              <i class="fa-solid fa-crown"></i> AI를 지휘하는 학생 (AI 커맨더)
+            </div>
+            <ul class="space-y-3.5 text-sm sm:text-base text-white">
+              <li class="flex gap-3"><span class="text-cyan-400 font-bold">01</span> 먼저 내 생각을 적고, AI에게 피드백을 요청함</li>
+              <li class="flex gap-3"><span class="text-cyan-400 font-bold">02</span> AI 답변의 근거를 교과서와 교차 검증함</li>
+              <li class="flex gap-3"><span class="text-cyan-400 font-bold">03</span> AI를 소크라테스 튜터로 써서 내 약점을 돌파함</li>
+              <li class="flex gap-3"><span class="text-cyan-400 font-bold">04</span> AI와 협업해 혼자서는 불가능한 프로젝트를 완성함</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SLIDE 12: LIVE PROMPT MORPH & STREAMING SIMULATOR
+         ========================================================= -->
+    <section class="slide" data-chapter="PART 3 · 실전 AI 스터디 전략" data-theme="indigo" data-note="프롬프트 비교 시뮬레이터(4분): '실시간 AI 답변 비교 실행' 버튼을 누르면 두 AI가 동시에 타이핑되며 하수 vs 고수의 차이를 눈으로 바로 보여줍니다!">
+      <div class="slide-inner space-y-5">
+        <div class="anim-item flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <span class="text-xs font-mono text-cyan-400 font-bold tracking-widest">PART 03 · LIVE AI SIMULATOR</span>
+            <h2 class="text-2xl sm:text-4xl font-black text-white mt-0.5">
+              AI는 '정답 자판기'가 아니라 <span class="grad-indigo">'1:1 소크라테스 튜터'</span>
+            </h2>
+          </div>
+          <button onclick="runPromptSimulation()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-cyan-500 hover:brightness-110 text-white font-black text-sm shadow-lg shadow-indigo-500/30 flex items-center gap-2 transition">
+            <i class="fa-solid fa-play"></i>
+            <span>실시간 AI 답변 비교 실행</span>
+          </button>
+        </div>
+
+        <div class="anim-item grid grid-cols-1 md:grid-cols-2 gap-5">
+          <!-- Bad Prompt -->
+          <div class="glass rounded-3xl p-5 border border-rose-500/35 flex flex-col gap-3">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-extrabold">❌ 하수의 질문 (정답 자판기)</span>
+              <span class="text-xs font-mono text-rose-400">뇌 성장률: 0%</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-900/90 border border-white/10 text-sm font-bold text-slate-200">
+              "이차방정식 x² - 5x + 6 = 0 답 빨리 알려줘."
+            </div>
+            <div class="flex-1 min-h-[150px] p-4 rounded-xl bg-rose-950/25 border border-rose-500/20 font-mono text-xs sm:text-sm text-slate-300 leading-relaxed" id="sim-bad-output">
+              <span class="text-slate-500">▶ 상단 버튼을 눌러 AI 응답을 비교해 보세요...</span>
+            </div>
+          </div>
+
+          <!-- Good Prompt -->
+          <div class="glass rounded-3xl p-5 border-2 border-cyan-400/50 flex flex-col gap-3">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-extrabold">✅ 고수의 질문 (소크라테스 튜터)</span>
+              <span class="text-xs font-mono text-emerald-400">뇌 성장률: +300%</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-900/90 border border-cyan-400/30 text-sm font-bold text-cyan-100">
+              "정답은 절대 말하지 말고, x² - 5x + 6 = 0 을 인수분해할 수 있도록 나에게 1단계 힌트 질문만 던져줘."
+            </div>
+            <div class="flex-1 min-h-[150px] p-4 rounded-xl bg-cyan-950/25 border border-cyan-400/25 font-mono text-xs sm:text-sm text-cyan-100 leading-relaxed" id="sim-good-output">
+              <span class="text-slate-500">▶ 상단 버튼을 눌러 AI 응답을 비교해 보세요...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SLIDE 13: PERSONALIZED LEARNING STYLE TABS
+         ========================================================= -->
+    <section class="slide" data-chapter="PART 3 · 맞춤형 학습 전략" data-theme="indigo" data-note="학습 유형별 전략(4분): 모든 학생이 똑같이 공부할 필요는 없습니다. 내 공부 스타일에 맞는 AI 활용 전략을 골라 쓰는 것이 핵심입니다.">
+      <div class="slide-inner space-y-5">
+        <div class="anim-item text-center">
+          <span class="text-xs font-mono text-indigo-300 font-bold tracking-widest">PERSONALIZED STUDY STRATEGY</span>
+          <h2 class="text-3xl sm:text-5xl font-black text-white mt-1">
+            나에게 알맞은 <span class="grad-indigo">학습 유형별 AI 전략</span>
+          </h2>
+        </div>
+
+        <div class="anim-item flex flex-wrap justify-center gap-3">
+          <button onclick="selectStudyTab('concept', this)" class="study-tab px-5 py-2.5 rounded-xl bg-indigo-500 text-white font-extrabold text-sm shadow-lg transition">🧠 개념 이해형</button>
+          <button onclick="selectStudyTab('error', this)" class="study-tab px-5 py-2.5 rounded-xl bg-white/10 text-slate-300 hover:bg-white/20 font-extrabold text-sm transition">🎯 오답 분석형</button>
+          <button onclick="selectStudyTab('recall', this)" class="study-tab px-5 py-2.5 rounded-xl bg-white/10 text-slate-300 hover:bg-white/20 font-extrabold text-sm transition">📝 백지 복습형</button>
+        </div>
+
+        <div id="study-tab-panel" class="anim-item glass rounded-3xl p-6 sm:p-8 border border-indigo-400/40 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SLIDE 14: 4 SUBJECT PROMPTS (ONE-CLICK COPY)
+         ========================================================= -->
+    <section class="slide" data-chapter="PART 3 · 과목별 프롬프트" data-theme="indigo" data-note="과목별 질문 공식(4분): 오늘 집에 가서 바로 복사해 쓸 수 있는 국·영·수·과 실전 프롬프트 4가지입니다.">
+      <div class="slide-inner space-y-5">
+        <div class="anim-item text-center">
+          <span class="text-xs font-mono text-cyan-400 font-bold tracking-widest">READY-TO-USE PROMPTS</span>
+          <h2 class="text-3xl sm:text-4xl font-black text-white mt-1">
+            국·영·수·과 당장 오늘 써먹는 <span class="grad-indigo">AI 질문 공식 4선</span>
+          </h2>
+        </div>
+
+        <div class="anim-item grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="glass glass-hover rounded-2xl p-5 border-l-4 border-l-emerald-400 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-black text-emerald-300">📚 국어 · 비문학 구조 대결</span>
+              <button onclick="copyPrompt(this)" data-prompt="내가 이 비문학 지문을 3문장으로 요약해 볼게. 내 요약에서 빠진 핵심 논리와 반론을 짚어줘." class="text-xs px-2.5 py-1 rounded-lg bg-white/10 hover:bg-emerald-500/30 text-slate-200 font-bold transition"><i class="fa-regular fa-copy mr-1"></i>복사</button>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">"내가 이 비문학 지문을 3문장으로 요약해 볼게. 내 요약에서 빠진 핵심 논리와 반론을 짚어줘."</p>
+          </div>
+
+          <div class="glass glass-hover rounded-2xl p-5 border-l-4 border-l-indigo-400 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-black text-indigo-300">🔤 영어 · 나만의 스피킹 롤플레이</span>
+              <button onclick="copyPrompt(this)" data-prompt="너는 미국 중학교 친구야. 내가 오늘 외운 영단어 5개를 넣어서 대화할 테니, 어색한 표현만 자연스럽게 고쳐줘." class="text-xs px-2.5 py-1 rounded-lg bg-white/10 hover:bg-indigo-500/30 text-slate-200 font-bold transition"><i class="fa-regular fa-copy mr-1"></i>복사</button>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">"너는 미국 중학교 친구야. 내가 오늘 외운 영단어 5개를 넣어서 대화할 테니, 어색한 표현만 자연스럽게 고쳐줘."</p>
+          </div>
+
+          <div class="glass glass-hover rounded-2xl p-5 border-l-4 border-l-blue-400 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-black text-blue-300">📐 수학 · 쌍둥이 변형 문제 코치</span>
+              <button onclick="copyPrompt(this)" data-prompt="내가 틀린 이 문제와 핵심 원리는 같지만 숫자만 바꾼 쌍둥이 문제 3개를 난이도 순으로 출제해 줘." class="text-xs px-2.5 py-1 rounded-lg bg-white/10 hover:bg-blue-500/30 text-slate-200 font-bold transition"><i class="fa-regular fa-copy mr-1"></i>복사</button>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">"내가 틀린 이 문제와 핵심 원리는 같지만 숫자만 바꾼 쌍둥이 문제 3개를 난이도 순으로 출제해 줘."</p>
+          </div>
+
+          <div class="glass glass-hover rounded-2xl p-5 border-l-4 border-l-cyan-400 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-black text-cyan-300">🔬 과학 · 일상 현상 가설 검증</span>
+              <button onclick="copyPrompt(this)" data-prompt="옴의 법칙을 워터슬라이드에 비유해서 설명해 주고, 내가 이해했는지 확인하는 O/X 퀴즈 3개를 내줘." class="text-xs px-2.5 py-1 rounded-lg bg-white/10 hover:bg-cyan-500/30 text-slate-200 font-bold transition"><i class="fa-regular fa-copy mr-1"></i>복사</button>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">"옴의 법칙을 워터슬라이드에 비유해서 설명해 주고, 내가 이해했는지 확인하는 O/X 퀴즈 3개를 내줘."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SLIDE 15: LIVE DEMO LAUNCHPAD (AI_Study_M INTEGRATION)
+         ========================================================= -->
+    <section class="slide" data-chapter="PART 3 · 라이브 데모" data-theme="emerald" data-note="라이브 데모(4분): 'AI 학습 플랫폼(AI_Study_M) 바로가기' 버튼을 클릭하면 현재 로컬에서 실행 중인 중학생 맞춤형 영단어·수학·과학 AI 학습 플랫폼을 바로 시연할 수 있습니다!">
+      <div class="slide-inner space-y-6">
+        <div class="anim-item flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <span class="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-extrabold">
+              🚀 LIVE PLATFORM DEMO · 실제 구동 화면 체험
+            </span>
+            <h2 class="text-3xl sm:text-5xl font-black text-white mt-2">
+              중학생 맞춤형 <span class="grad-emerald">AI 학습 플랫폼 (AI_Study_M)</span>
+            </h2>
+          </div>
+        </div>
+
+        <div class="anim-item glass rounded-3xl p-6 sm:p-8 border-2 border-emerald-400/45 shadow-emerald-500/15 shadow-2xl space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-2xl bg-slate-900/80 border border-indigo-400/30 space-y-2">
+              <div class="text-2xl">🔤</div>
+              <div class="text-base font-black text-white">9레벨 영단어 Voca9</div>
+              <p class="text-xs text-slate-300">진단 테스트로 내 레벨을 찾고, 1,800 필수 단어를 게임·뇌과학 인출법으로 정복</p>
+              <a href="english.html" target="_blank" class="inline-flex items-center gap-1 text-xs font-bold text-indigo-300 hover:underline pt-1">영어 가이드 슬라이드 →</a>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-slate-900/80 border border-blue-400/30 space-y-2">
+              <div class="text-2xl">📐</div>
+              <div class="text-base font-black text-white">소크라테스 AI 수학</div>
+              <p class="text-xs text-slate-300">정답 대신 3단계 질문 힌트와 실생활 비유로 스스로 풀게 만드는 맞춤 수학 코치</p>
+              <a href="math.html" target="_blank" class="inline-flex items-center gap-1 text-xs font-bold text-blue-300 hover:underline pt-1">수학 가이드 슬라이드 →</a>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-slate-900/80 border border-cyan-400/30 space-y-2">
+              <div class="text-2xl">🔬</div>
+              <div class="text-base font-black text-white">60FPS AI 사이언스 랩</div>
+              <p class="text-xs text-slate-300">물리·화학·생명·지구과학 원리를 직접 슬라이더로 조작하는 가상 실험실</p>
+              <a href="science.html" target="_blank" class="inline-flex items-center gap-1 text-xs font-bold text-cyan-300 hover:underline pt-1">과학 가이드 슬라이드 →</a>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2 border-t border-white/10">
+            <div class="text-xs sm:text-sm text-slate-300">
+              <strong class="text-emerald-300">실시간 라이브 연동:</strong> 버튼 클릭 시 현재 구동 중인 중학생 AI 학습관으로 즉시 이동합니다.
+            </div>
+            <a href="../" target="_blank" rel="noopener" class="pulse-ring w-full sm:w-auto px-7 py-4 rounded-2xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-indigo-500 hover:brightness-110 text-slate-950 font-black text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-xl transition">
+              <i class="fa-solid fa-rocket"></i>
+              <span>AI 학습 플랫폼 (AI_Study_M) 바로가기</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SLIDE 16: AI STUDY ETHICS (INTERACTIVE PLEDGE STAMPS)
+         ========================================================= -->
+    <section class="slide" data-chapter="PART 3 · AI 학습 윤리" data-theme="rose" data-note="학습 윤리(2분): 각 원칙 카드를 클릭해 '약속 완료' 도장을 찍으며, 도입부의 수능 부정행위 이슈를 건강하게 마무리합니다.">
+      <div class="slide-inner space-y-6 max-w-4xl">
+        <div class="anim-item text-center">
+          <span class="text-xs font-mono text-rose-300 font-bold tracking-widest">AI STUDY ETHICS · 카드를 클릭해 약속 도장을 찍어보세요</span>
+          <h2 class="text-3xl sm:text-5xl font-black text-white mt-1">
+            당당하게 성장하는 <span class="grad-rose">AI 공부 3원칙</span>
+          </h2>
+        </div>
+
+        <div class="anim-item space-y-4">
+          <div onclick="togglePledge(this)" class="pledge-card glass glass-hover cursor-pointer rounded-2xl p-5 sm:p-6 border border-white/15 flex items-center justify-between gap-4 relative overflow-hidden">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-rose-500/20 text-rose-300 font-black text-xl flex items-center justify-center shrink-0">01</div>
+              <div>
+                <h3 class="text-lg sm:text-xl font-black text-white">시험·과제 대필 절대 금지</h3>
+                <p class="text-xs sm:text-sm text-slate-300 mt-0.5">AI가 대신 쓴 글과 푼 문제는 내 실력이 아니다. 출처를 투명하게 밝힌다.</p>
+              </div>
+            </div>
+            <div class="stamp-badge shrink-0 px-3 py-1 rounded-lg border-2 border-emerald-400 text-emerald-300 font-black text-xs">약속 완료 ✓</div>
+          </div>
+
+          <div onclick="togglePledge(this)" class="pledge-card glass glass-hover cursor-pointer rounded-2xl p-5 sm:p-6 border border-white/15 flex items-center justify-between gap-4 relative overflow-hidden">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-300 font-black text-xl flex items-center justify-center shrink-0">02</div>
+              <div>
+                <h3 class="text-lg sm:text-xl font-black text-white">교과서·선생님과 교차 검증</h3>
+                <p class="text-xs sm:text-sm text-slate-300 mt-0.5">AI의 답변은 100% 진실이 아니다. 반드시 내 눈과 교과서로 팩트 체크한다.</p>
+              </div>
+            </div>
+            <div class="stamp-badge shrink-0 px-3 py-1 rounded-lg border-2 border-emerald-400 text-emerald-300 font-black text-xs">약속 완료 ✓</div>
+          </div>
+
+          <div onclick="togglePledge(this)" class="pledge-card glass glass-hover cursor-pointer rounded-2xl p-5 sm:p-6 border border-white/15 flex items-center justify-between gap-4 relative overflow-hidden">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-cyan-500/20 text-cyan-300 font-black text-xl flex items-center justify-center shrink-0">03</div>
+              <div>
+                <h3 class="text-lg sm:text-xl font-black text-white">최종 정리는 반드시 '내 손과 뇌'로</h3>
+                <p class="text-xs sm:text-sm text-slate-300 mt-0.5">AI에게 배운 뒤에는 화면을 덮고, 내 언어로 다시 설명해 보며 내 것으로 만든다.</p>
+              </div>
+            </div>
+            <div class="stamp-badge shrink-0 px-3 py-1 rounded-lg border-2 border-emerald-400 text-emerald-300 font-black text-xs">약속 완료 ✓</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SLIDE 17: DEBATE, READING, PHILOSOPHY
+         ========================================================= -->
+    <section class="slide" data-chapter="PART 4 · 사고력의 3대 기둥" data-theme="gold" data-note="토론·독서·철학(4분): AI 시대에 생각의 힘을 키우려면 토론, 독서, 철학이라는 3가지 인문학적 엔진이 필수입니다.">
+      <div class="slide-inner space-y-6">
+        <div class="anim-item text-center">
+          <span class="text-xs font-mono text-amber-300 font-bold tracking-widest">PART 04 · THINKING POWERHOUSE</span>
+          <h2 class="text-3xl sm:text-5xl font-black text-white mt-1">
+            생각의 힘을 키우는 3대 엔진: <span class="grad-gold">독서 · 토론 · 철학</span>
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div class="anim-item glass glass-hover rounded-3xl p-6 border border-amber-400/35 space-y-3">
+            <div class="text-4xl">📖</div>
+            <h3 class="text-2xl font-black text-amber-300">독서 (Reading)</h3>
+            <p class="text-sm text-slate-200 leading-relaxed">
+              짧은 쇼츠 영상은 생각을 조각내지만, <strong>긴 호흡의 독서</strong>는 깊은 맥락과 타인의 삶을 통째로 이해하는 뇌의 용량을 키워줍니다.
+            </p>
+          </div>
+
+          <div class="anim-item glass glass-hover rounded-3xl p-6 border border-pink-400/35 space-y-3">
+            <div class="text-4xl">💬</div>
+            <h3 class="text-2xl font-black text-pink-300">토론 (Debate)</h3>
+            <p class="text-sm text-slate-200 leading-relaxed">
+              내 생각에 반대하는 의견을 마주할 때 뇌가 가장 크게 성장합니다. <strong>근거를 들어 설득하고 경청하는 힘</strong>이 리더십의 시작입니다.
+            </p>
+          </div>
+
+          <div class="anim-item glass glass-hover rounded-3xl p-6 border border-indigo-400/35 space-y-3">
+            <div class="text-4xl">🏛️</div>
+            <h3 class="text-2xl font-black text-indigo-300">철학 (Philosophy)</h3>
+            <p class="text-sm text-slate-200 leading-relaxed">
+              "왜 살아야 할까?", "정의란 무엇일까?" <strong>정답이 없는 질문</strong>에 스스로 답을 찾아가는 힘이 AI에게 방향을 지시하는 나침반이 됩니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SLIDE 18: INTERACTIVE THOUGHT PROJECT GENERATOR
+         ========================================================= -->
+    <section class="slide" data-chapter="PART 4 · 사고력 확장 프로젝트" data-theme="gold" data-note="사고력 확장 프로젝트 생성기(4분): 현장 학생에게 관심 분야를 물어보고 버튼을 클릭해 보세요! 1초 만에 맞춤형 독서·토론·철학 프로젝트가 생성됩니다.">
+      <div class="slide-inner space-y-5">
+        <div class="anim-item text-center">
+          <span class="text-xs font-mono text-amber-300 font-bold tracking-widest">INTERACTIVE GENERATOR · 관심사를 클릭해 프로젝트를 생성하세요!</span>
+          <h2 class="text-2xl sm:text-4xl font-black text-white mt-1">
+            나만의 <span class="grad-gold">사고력 확장 프로젝트</span> 즉석 생성기
+          </h2>
+        </div>
+
+        <!-- Interest Selector Chips -->
+        <div class="anim-item flex flex-wrap justify-center gap-2.5">
+          <button onclick="generateProject('game', this)" class="proj-chip px-4 py-2 rounded-xl bg-white/10 hover:bg-amber-500/30 border border-white/15 text-sm font-extrabold text-white transition">🎮 게임</button>
+          <button onclick="generateProject('sports', this)" class="proj-chip px-4 py-2 rounded-xl bg-white/10 hover:bg-amber-500/30 border border-white/15 text-sm font-extrabold text-white transition">⚽ 스포츠</button>
+          <button onclick="generateProject('space', this)" class="proj-chip px-4 py-2 rounded-xl bg-white/10 hover:bg-amber-500/30 border border-white/15 text-sm font-extrabold text-white transition">🚀 우주·과학</button>
+          <button onclick="generateProject('art', this)" class="proj-chip px-4 py-2 rounded-xl bg-white/10 hover:bg-amber-500/30 border border-white/15 text-sm font-extrabold text-white transition">🎨 웹툰·예술</button>
+          <button onclick="generateProject('bio', this)" class="proj-chip px-4 py-2 rounded-xl bg-white/10 hover:bg-amber-500/30 border border-white/15 text-sm font-extrabold text-white transition">🧬 의학·바이오</button>
+          <button onclick="generateProject('media', this)" class="proj-chip px-4 py-2 rounded-xl bg-white/10 hover:bg-amber-500/30 border border-white/15 text-sm font-extrabold text-white transition">📱 유튜브·미디어</button>
+        </div>
+
+        <!-- Generated 3-Step Roadmap -->
+        <div id="project-output" class="anim-item glass rounded-3xl p-6 border border-amber-400/40 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="p-4 rounded-2xl bg-slate-900/80 border border-white/10 space-y-1.5">
+            <div class="text-xs font-mono text-amber-300 font-bold">STEP 1 · 독서 탐구</div>
+            <div id="proj-read" class="text-sm sm:text-base font-bold text-white">위에서 관심 분야를 클릭하면 추천 독서 주제가 생성됩니다!</div>
+          </div>
+          <div class="p-4 rounded-2xl bg-slate-900/80 border border-white/10 space-y-1.5">
+            <div class="text-xs font-mono text-pink-300 font-bold">STEP 2 · AI 찬반 토론</div>
+            <div id="proj-debate" class="text-sm sm:text-base font-bold text-white">AI에게 반대 입장을 맡기고 펼칠 토론 주제가 나타납니다.</div>
+          </div>
+          <div class="p-4 rounded-2xl bg-slate-900/80 border border-white/10 space-y-1.5">
+            <div class="text-xs font-mono text-cyan-300 font-bold">STEP 3 · 나만의 철학 질문</div>
+            <div id="proj-phil" class="text-sm sm:text-base font-bold text-white">정답 없는 깊은 질문으로 한 학기 탐구 보고서를 완성해 보세요.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SLIDE 19: CLOSING + SPEAKER INFO + QR CODE
+         ========================================================= -->
+    <section class="slide" data-chapter="OUTRO · 마무리 & Q&A" data-theme="indigo" data-note="마무리 & Q&A(4분): 오늘 집에 가서 실천할 1가지를 마음속에 정해봅시다. 화면 우측 QR 코드를 스캔하면 오늘 슬라이드를 스마트폰에서 언제든 다시 체험할 수 있습니다. 질문 받겠습니다!">
+      <div class="slide-inner">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-8 space-y-5 text-center lg:text-left">
+            <div class="anim-item inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/20 border border-indigo-400/40 text-indigo-200 text-xs font-extrabold">
+              ✨ 고헌중학교 여러분의 빛나는 미래를 응원합니다!
+            </div>
+
+            <h2 class="anim-item text-3xl sm:text-5xl lg:text-6xl font-black leading-tight text-white">
+              AI는 가장 강력한 날개,<br />
+              <span class="grad-indigo">조종사는 바로 '나'</span>
+            </h2>
+
+            <div class="anim-item space-y-2.5 text-sm sm:text-base text-slate-200">
+              <p>✅ <strong>국어(모국어)</strong>로 생각의 해상도를 높이고,</p>
+              <p>✅ <strong>AI 1:1 튜터</strong>로 나만의 공부 전략을 설계하며,</p>
+              <p>✅ <strong>독서·토론·철학</strong>과 <strong>매일의 꾸준함</strong>으로 대체 불가능한 내가 되자!</p>
+            </div>
+
+            <div class="anim-item pt-3 flex flex-wrap items-center justify-center lg:justify-start gap-3">
+              <div class="glass px-5 py-3 rounded-2xl text-left">
+                <div class="text-[11px] text-slate-400 font-semibold">LECTURER</div>
+                <div class="text-sm sm:text-base font-black text-white">정우진 대표 <span class="text-cyan-300 font-semibold">(천지인에이아이 / CLOUD BREAD)</span></div>
+              </div>
+              <a href="https://www.cloudbread.me/showcase?target=senior" target="_blank" rel="noopener" class="px-5 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs sm:text-sm transition flex items-center gap-2">
+                <i class="fa-solid fa-globe"></i>
+                <span>cloudbread.me 쇼케이스</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- QR Code Card -->
+          <div class="anim-item lg:col-span-4 flex flex-col items-center">
+            <div class="glass rounded-3xl p-6 border border-cyan-400/40 text-center space-y-3 shadow-2xl">
+              <div class="text-xs font-extrabold text-cyan-300">📱 스마트폰으로 오늘 슬라이드 소장하기</div>
+              <div id="closing-qr" class="bg-white p-3 rounded-2xl inline-block shadow-lg"></div>
+              <div class="text-[11px] font-mono text-slate-300 break-all max-w-[220px]">
+                cloudbread.me/study/slides/goheon-ai-strategy.html
+              </div>
+              <div class="text-xs font-black text-amber-300 pt-1">💬 Q &amp; A · 무엇이든 물어보세요!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Floating Control Dock -->
+  <footer class="fixed bottom-3 left-1/2 -translate-x-1/2 z-30 w-[94%] max-w-3xl glass rounded-2xl px-4 py-2.5 flex items-center justify-between gap-3">
+    <div class="flex items-center gap-2">
+      <button onclick="prevSlide()" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition" title="이전 슬라이드 (←)">
+        <i class="fa-solid fa-chevron-left text-xs"></i>
+      </button>
+      <div class="font-mono text-xs sm:text-sm font-bold text-white min-w-[58px] text-center">
+        <span id="cur-num" class="text-cyan-300">01</span> / <span id="tot-num" class="text-slate-400">19</span>
+      </div>
+      <button onclick="nextSlide()" class="w-9 h-9 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white flex items-center justify-center transition shadow-md shadow-indigo-500/30" title="다음 슬라이드 (→ / Space)">
+        <i class="fa-solid fa-chevron-right text-xs"></i>
+      </button>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="flex-1 hidden sm:block">
+      <div class="h-1.5 rounded-full bg-slate-800 overflow-hidden">
+        <div id="progress-bar" class="h-full bg-gradient-to-r from-indigo-500 via-cyan-400 to-emerald-400 transition-all duration-500" style="width: 5%"></div>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-1.5">
+      <button onclick="toggleOverview()" class="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/15 text-slate-300 text-xs font-bold transition" title="전체 슬라이드 보기 (G)">
+        <i class="fa-solid fa-grip"></i><span class="hidden sm:inline ml-1">목차</span>
+      </button>
+      <button onclick="toggleSpeakerNotes()" class="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/15 text-slate-300 text-xs font-bold transition" title="강사용 발표 노트 (N)">
+        <i class="fa-solid fa-clipboard-list"></i><span class="hidden sm:inline ml-1">노트</span>
+      </button>
+    </div>
+  </footer>
+
+  <!-- Speaker Notes Drawer (N key) -->
+  <div id="speaker-notes-drawer" class="hidden fixed bottom-20 right-4 sm:right-8 z-40 w-[92%] sm:w-96 glass rounded-2xl p-5 border border-cyan-400/40 shadow-2xl space-y-3">
+    <div class="flex items-center justify-between border-b border-white/10 pb-2">
+      <span class="text-xs font-extrabold text-cyan-300"><i class="fa-solid fa-microphone-lines mr-1.5"></i>강사 발표 큐시트 (N)</span>
+      <div class="flex items-center gap-2">
+        <span id="lecture-clock" class="font-mono text-xs text-amber-300 font-bold">00:00</span>
+        <button onclick="toggleSpeakerNotes()" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+    <p id="speaker-note-text" class="text-xs sm:text-sm text-slate-200 leading-relaxed"></p>
+  </div>
+
+  <!-- Slide Grid Overview Modal (G key) -->
+  <div id="overview-modal" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl p-6 sm:p-10 overflow-y-auto">
+    <div class="max-w-5xl mx-auto space-y-6">
+      <div class="flex items-center justify-between">
+        <h3 class="text-xl sm:text-2xl font-black text-white">전체 슬라이드 목차 (19 Slides)</h3>
+        <button onclick="toggleOverview()" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-bold">닫기 (ESC)</button>
+      </div>
+      <div id="overview-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 px-5 py-2.5 rounded-xl bg-emerald-500 text-slate-950 font-black text-xs sm:text-sm shadow-2xl opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+  <script>
+    /* ============================================================
+       1. WEB AUDIO SYNTH SOUND ENGINE
+       ============================================================ */
+    let soundEnabled = true;
+    let audioCtx = null;
+    function getAudioCtx() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      return audioCtx;
+    }
+    function playTone(freq, duration = 0.08, type = 'sine', vol = 0.05) {
+      if (!soundEnabled) return;
+      try {
+        const ctx = getAudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(vol, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.start(); osc.stop(ctx.currentTime + duration);
+      } catch (e) {}
+    }
+    function playSlideSfx() { playTone(520, 0.07, 'sine', 0.04); setTimeout(() => playTone(680, 0.08, 'sine', 0.03), 40); }
+    function playFlipSfx() { playTone(760, 0.06, 'triangle', 0.05); }
+    function playSuccessSfx() {
+      [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => setTimeout(() => playTone(f, 0.16, 'triangle', 0.07), i * 75));
+    }
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const icon = document.getElementById('icon-sound');
+      icon.className = soundEnabled ? 'fa-solid fa-volume-high text-cyan-400' : 'fa-solid fa-volume-xmark text-slate-500';
+      showToast(soundEnabled ? '🔊 사운드 효과 ON' : '🔇 사운드 효과 OFF');
+    }
+
+    /* ============================================================
+       2. THREE.JS 3D NEURAL NETWORK PARTICLE UNIVERSE
+       ============================================================ */
+    const themeColors = {
+      indigo: { p: 0x6366f1, l: 0x22d3ee, o1: '#4F46E5', o2: '#06B6D4' },
+      rose:   { p: 0xf43f5e, l: 0xf59e0b, o1: '#E11D48', o2: '#D97706' },
+      emerald:{ p: 0x10b981, l: 0x38bdf8, o1: '#059669', o2: '#0284C7' },
+      gold:   { p: 0xfbbf24, l: 0xf472b6, o1: '#D97706', o2: '#DB2777' }
+    };
+
+    let scene, camera, renderer, points, linesMesh, targetColor = new THREE.Color(0x6366f1);
+    let mouseX = 0, mouseY = 0;
+
+    function initThreeBG() {
+      const canvas = document.getElementById('bg-canvas');
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
+      camera.position.z = 260;
+
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      const count = 130;
+      const positions = new Float32Array(count * 3);
+      const velocities = [];
+      for (let i = 0; i < count; i++) {
+        positions[i * 3]     = (Math.random() - 0.5) * 480;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 320;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 260;
+        velocities.push({
+          x: (Math.random() - 0.5) * 0.25,
+          y: (Math.random() - 0.5) * 0.25,
+          z: (Math.random() - 0.5) * 0.2
+        });
+      }
+
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const mat = new THREE.PointsMaterial({ color: 0x818cf8, size: 3.2, transparent: true, opacity: 0.85 });
+      points = new THREE.Points(geo, mat);
+      scene.add(points);
+
+      // Synaptic connection lines
+      const maxLines = count * 6;
+      const linePositions = new Float32Array(maxLines * 6);
+      const lineGeo = new THREE.BufferGeometry();
+      lineGeo.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+      const lineMat = new THREE.LineBasicMaterial({ color: 0x22d3ee, transparent: true, opacity: 0.16 });
+      linesMesh = new THREE.LineSegments(lineGeo, lineMat);
+      scene.add(linesMesh);
+
+      function animate() {
+        requestAnimationFrame(animate);
+        const pos = points.geometry.attributes.position.array;
+        for (let i = 0; i < count; i++) {
+          pos[i * 3]     += velocities[i].x;
+          pos[i * 3 + 1] += velocities[i].y;
+          pos[i * 3 + 2] += velocities[i].z;
+          if (Math.abs(pos[i * 3]) > 250) velocities[i].x *= -1;
+          if (Math.abs(pos[i * 3 + 1]) > 170) velocities[i].y *= -1;
+          if (Math.abs(pos[i * 3 + 2]) > 140) velocities[i].z *= -1;
+        }
+        points.geometry.attributes.position.needsUpdate = true;
+
+        // Connect nearby nodes
+        const lPos = linesMesh.geometry.attributes.position.array;
+        let ptr = 0;
+        for (let i = 0; i < count; i++) {
+          for (let j = i + 1; j < count; j++) {
+            const dx = pos[i * 3] - pos[j * 3];
+            const dy = pos[i * 3 + 1] - pos[j * 3 + 1];
+            const dz = pos[i * 3 + 2] - pos[j * 3 + 2];
+            const distSq = dx * dx + dy * dy + dz * dz;
+            if (distSq < 4200 && ptr < maxLines * 6 - 6) {
+              lPos[ptr++] = pos[i * 3]; lPos[ptr++] = pos[i * 3 + 1]; lPos[ptr++] = pos[i * 3 + 2];
+              lPos[ptr++] = pos[j * 3]; lPos[ptr++] = pos[j * 3 + 1]; lPos[ptr++] = pos[j * 3 + 2];
+            }
+          }
+        }
+        linesMesh.geometry.setDrawRange(0, ptr / 3);
+        linesMesh.geometry.attributes.position.needsUpdate = true;
+
+        // Smooth camera parallax & color transition
+        scene.rotation.y += 0.0009;
+        camera.position.x += (mouseX * 28 - camera.position.x) * 0.03;
+        camera.position.y += (-mouseY * 18 - camera.position.y) * 0.03;
+        camera.lookAt(scene.position);
+        points.material.color.lerp(targetColor, 0.04);
+
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    }
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+      const glow = document.getElementById('cursor-glow');
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+
+    /* ============================================================
+       3. SLIDE NAVIGATION & GSAP CINEMATIC TRANSITIONS
+       ============================================================ */
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    let currentIndex = 0;
+
+    function showSlide(index, silent = false) {
+      if (index < 0 || index >= slides.length) return;
+      slides[currentIndex].classList.remove('active');
+      currentIndex = index;
+      const slide = slides[currentIndex];
+      slide.classList.add('active');
+      slide.scrollTop = 0;
+
+      // Update UI counters & theme
+      document.getElementById('cur-num').textContent = String(currentIndex + 1).padStart(2, '0');
+      document.getElementById('tot-num').textContent = String(slides.length).padStart(2, '0');
+      document.getElementById('progress-bar').style.width = ((currentIndex + 1) / slides.length * 100) + '%';
+      document.getElementById('chapter-badge').textContent = slide.dataset.chapter || '';
+      document.getElementById('speaker-note-text').textContent = slide.dataset.note || '발표 노트가 없습니다.';
+
+      const t = themeColors[slide.dataset.theme || 'indigo'];
+      targetColor.setHex(t.p);
+      if (linesMesh) linesMesh.material.color.setHex(t.l);
+      document.getElementById('orb-1').style.background = t.o1;
+      document.getElementById('orb-2').style.background = t.o2;
+
+      // GSAP Staggered Kinetic Entrance
+      const items = slide.querySelectorAll('.anim-item');
+      gsap.killTweensOf(items);
+      gsap.fromTo(items,
+        { opacity: 0, y: 28, scale: 0.97 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.65, stagger: 0.08, ease: 'power3.out', clearProps: 'transform' }
+      );
+
+      if (!silent) playSlideSfx();
+      if (currentIndex === 2) resizeRiemannCanvas();
+    }
+
+    function nextSlide() { if (currentIndex < slides.length - 1) showSlide(currentIndex + 1); }
+    function prevSlide() { if (currentIndex > 0) showSlide(currentIndex - 1); }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+      else if (e.key === 'Home') showSlide(0);
+      else if (e.key === 'End') showSlide(slides.length - 1);
+      else if (e.key.toLowerCase() === 'g') toggleOverview();
+      else if (e.key.toLowerCase() === 'n') toggleSpeakerNotes();
+      else if (e.key.toLowerCase() === 'f') toggleFullscreen();
+      else if (e.key.toLowerCase() === 'm') toggleSound();
+      else if (e.key === 'Escape') {
+        document.getElementById('overview-modal').classList.add('hidden');
+      }
+    });
+
+    // Touch Swipe for Mobile
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+    document.addEventListener('touchend', (e) => {
+      const diff = e.changedTouches[0].screenX - touchStartX;
+      if (Math.abs(diff) > 55) diff < 0 ? nextSlide() : prevSlide();
+    }, { passive: true });
+
+    /* ============================================================
+       4. WIDGET 1: RIEMANN ZETA LIVE CANVAS (SLIDE 03)
+       ============================================================ */
+    let riemannBoost = false;
+    let riemannPhase = 0;
+    function resizeRiemannCanvas() {
+      const c = document.getElementById('riemann-canvas');
+      if (!c) return;
+      c.width = c.clientWidth || 900;
+      c.height = c.clientHeight || 220;
+    }
+    function toggleRiemannBoost() {
+      riemannBoost = !riemannBoost;
+      document.getElementById('riemann-btn-label').textContent = riemannBoost ? '표준 모드로 복귀' : 'AI 추론 가속 시뮬레이션';
+      document.getElementById('riemann-status').textContent = riemannBoost
+        ? 'MODE: HYPER-REASONING AI (14.8M hypotheses/sec ⚡)'
+        : 'MODE: STANDARD SCAN (1.2k hypotheses/sec)';
+      playFlipSfx();
+    }
+    function startRiemannLoop() {
+      const c = document.getElementById('riemann-canvas');
+      const ctx = c.getContext('2d');
+      function draw() {
+        requestAnimationFrame(draw);
+        if (currentIndex !== 2) return;
+        const w = c.width, h = c.height;
+        ctx.fillStyle = riemannBoost ? 'rgba(5, 8, 20, 0.22)' : 'rgba(5, 8, 20, 0.35)';
+        ctx.fillRect(0, 0, w, h);
+
+        // Critical Line axis
+        ctx.strokeStyle = 'rgba(148, 163, 184, 0.2)';
+        ctx.beginPath(); ctx.moveTo(0, h / 2); ctx.lineTo(w, h / 2); ctx.stroke();
+
+        const speed = riemannBoost ? 0.095 : 0.028;
+        riemannPhase += speed;
+
+        // Multi-harmonic Zeta-like Wave
+        const waves = riemannBoost ? 3 : 2;
+        for (let k = 0; k < waves; k++) {
+          ctx.beginPath();
+          ctx.lineWidth = k === 0 ? 2.6 : 1.3;
+          ctx.strokeStyle = k === 0 ? (riemannBoost ? '#22D3EE' : '#818CF8') : (k === 1 ? '#A855F7' : '#34D399');
+          for (let x = 0; x < w; x += 4) {
+            const t = (x / w) * Math.PI * (6 + k * 2) + riemannPhase * (1 + k * 0.4);
+            const y = h / 2 + Math.sin(t) * (h * 0.24) * Math.cos(t * 0.37 + k) + Math.sin(t * 2.1) * (riemannBoost ? 18 : 8);
+            x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+        }
+
+        // Zero-point glowing nodes
+        const nodeCount = riemannBoost ? 14 : 6;
+        for (let i = 1; i <= nodeCount; i++) {
+          const nx = ((i / (nodeCount + 1)) * w + Math.sin(riemannPhase + i) * 18);
+          const ny = h / 2;
+          ctx.beginPath();
+          ctx.arc(nx, ny, riemannBoost ? 5 : 3.5, 0, Math.PI * 2);
+          ctx.fillStyle = riemannBoost ? '#34D399' : '#38BDF8';
+          ctx.fill();
+        }
+      }
+      draw();
+    }
+
+    /* ============================================================
+       5. WIDGET 2: TOP 10 FUTURE JOBS 3D FLIP DECK (SLIDE 05)
+       ============================================================ */
+    const futureJobs = [
+      { no: '01', icon: '🤖', title: 'AI 에이전트 설계자', desc: '여러 AI를 연결해 스스로 일하는 시스템을 설계하는 미래 건축가.' },
+      { no: '02', icon: '⚖️', title: 'AI 윤리·거버넌스 전문가', desc: 'AI의 편향과 위험을 감시하고 안전한 규칙을 만드는 디지털 판사.' },
+      { no: '03', icon: '✨', title: 'HCI 인터랙션 디자이너', desc: '사람과 AI가 가장 자연스럽게 소통하는 화면과 경험을 설계.' },
+      { no: '04', icon: '🧬', title: '바이오·헬스케어 융합 연구원', desc: 'AI로 신약을 발견하고 개인 맞춤 유전자 치료를 여는 과학자.' },
+      { no: '05', icon: '🛡️', title: '사이버 보안·신뢰 전문가', desc: '딥페이크와 AI 해킹으로부터 사회와 개인을 지키는 방패.' },
+      { no: '06', icon: '🦾', title: '피지컬 AI·로보틱스 공학자', desc: 'AI 두뇌를 현실 세계의 휴머노이드 로봇에 심는 엔지니어.' },
+      { no: '07', icon: '🌍', title: '기후·에너지 솔루션 전문가', desc: 'AI 예측으로 탄소 중립과 차세대 청정에너지를 설계하는 개척자.' },
+      { no: '08', icon: '🎬', title: '창의 IP·스토리 디렉터', desc: 'AI를 제작 도구로 삼아 마음을 울리는 세계관과 이야기를 창조.' },
+      { no: '09', icon: '💛', title: '심리 상담·인간 공감 코치', desc: '기계가 흉내 낼 수 없는 깊은 공감으로 사람의 마음을 치유.' },
+      { no: '10', icon: '🎓', title: '맞춤형 AI 학습 멘토', desc: '학생 한 명 한 명의 잠재력을 깨우고 성장 방향을 안내하는 코치.' }
+    ];
+
+    function buildJobsGrid() {
+      const grid = document.getElementById('jobs-grid');
+      grid.innerHTML = futureJobs.map(j => `
+        <div class="flip-card" onclick="this.classList.toggle('flipped'); playFlipSfx();">
+          <div class="flip-inner">
+            <div class="flip-face glass p-4 flex flex-col justify-between border border-indigo-400/30 hover:border-cyan-400/60">
+              <div class="flex items-center justify-between">
+                <span class="font-mono text-xs font-black text-cyan-400">TOP ${j.no}</span>
+                <span class="text-2xl">${j.icon}</span>
+              </div>
+              <div class="text-sm sm:text-base font-black text-white leading-snug">${j.title}</div>
+              <div class="text-[10px] text-slate-400">클릭해서 상세 보기 ↻</div>
+            </div>
+            <div class="flip-face flip-back bg-gradient-to-br from-indigo-600/90 to-cyan-700/90 p-4 flex flex-col justify-between border border-cyan-300/60 shadow-xl">
+              <div class="text-xs font-black text-cyan-200">${j.icon} ${j.title}</div>
+              <p class="text-xs text-white leading-relaxed font-medium">${j.desc}</p>
+              <div class="text-[10px] text-cyan-200 font-bold">핵심: 질문력 + 융합 사고</div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+    let allFlipped = false;
+    function flipAllJobs() {
+      allFlipped = !allFlipped;
+      document.querySelectorAll('.flip-card').forEach((c, idx) => {
+        setTimeout(() => c.classList.toggle('flipped', allFlipped), idx * 45);
+      });
+      playFlipSfx();
+    }
+
+    /* ============================================================
+       6. WIDGET 3: QUIZ + TIMER + CONFETTI (SLIDE 07)
+       ============================================================ */
+    let quizTimerInt = null;
+    function startQuizTimer() {
+      clearInterval(quizTimerInt);
+      let sec = 10;
+      const el = document.getElementById('quiz-timer-text');
+      el.textContent = `남은 시간: ${sec}초`;
+      playTone(600, 0.08);
+      quizTimerInt = setInterval(() => {
+        sec--;
+        if (sec > 0) {
+          el.textContent = `남은 시간: ${sec}초`;
+          playTone(500 + (10 - sec) * 30, 0.05);
+        } else {
+          clearInterval(quizTimerInt);
+          el.textContent = '⏰ 시간 종료! 정답을 눌러보세요';
+          playTone(300, 0.25, 'sawtooth', 0.05);
+        }
+      }, 1000);
+    }
+    function answerQuiz(choice, btn) {
+      const fb = document.getElementById('quiz-feedback');
+      fb.classList.remove('hidden');
+      if (choice === 4) {
+        clearInterval(quizTimerInt);
+        btn.classList.add('border-emerald-400', 'bg-emerald-500/20');
+        fb.innerHTML = '🎉 <strong>정답입니다!</strong> AI는 암기·계산·요약의 신이지만, <strong>스스로 호기심을 품고 끝까지 꾸준히 탐구하는 힘</strong>은 오직 인간만의 고유한 영역입니다!';
+        playSuccessSfx();
+        confetti({ particleCount: 95, spread: 75, origin: { y: 0.65 } });
+      } else {
+        btn.classList.add('border-rose-500', 'bg-rose-500/15');
+        fb.innerHTML = '💡 <strong>아쉬워요!</strong> ' + choice + '번은 이미 AI가 인간보다 수백 배 빠르게 해내는 영역입니다. 다시 골라보세요!';
+        playTone(220, 0.14, 'sawtooth', 0.05);
+      }
+    }
+
+    /* ============================================================
+       7. WIDGET 4: LANGUAGE RESOLUTION SLIDER (SLIDE 09)
+       ============================================================ */
+    const langLevels = {
+      1: {
+        title: 'Lv.1 낮은 문해력 — 막연한 질문',
+        prompt: '"기후변화 발표 자료 좀 써줘."',
+        result: '누구나 아는 뻔한 교과서 요약문 10줄 생성. 발표할 때 친구들이 지루해하고, 질문받으면 대답을 못 함.'
+      },
+      2: {
+        title: 'Lv.2 중간 문해력 — 조건이 있는 질문',
+        prompt: '"중학생 눈높이에서 기후변화가 우리 동네 여름 날씨에 미치는 영향을 3가지 사례로 정리해 줘."',
+        result: '친근하고 구체적인 사례가 담긴 깔끔한 3단 발표 초안 완성! 이해도가 훨씬 높아짐.'
+      },
+      3: {
+        title: 'Lv.3 최상위 모국어 역량 — 생각의 해상도가 높은 질문',
+        prompt: '"고헌중 친구들이 공감할 3분 발표 대본을 짤 거야. 도입은 충격적인 통계 1개로 시작하고, 반대 의견(경제 비용 문제)까지 짚은 뒤 우리가 학교에서 실천할 1가지 행동을 제안하는 구조로 피드백해 줘."',
+        result: '🏆 청중을 사로잡는 완벽한 논리 구조 + 반론 대비 + 실천 메시지까지 갖춘 A+ 수준 발표 완성! 결국 국어 실력이 AI 실력!'
+      }
+    };
+    function updateLangDemo(val) {
+      const d = langLevels[val];
+      document.getElementById('lang-level-title').textContent = d.title;
+      document.getElementById('lang-prompt').textContent = d.prompt;
+      document.getElementById('lang-result').textContent = d.result;
+      playTone(400 + val * 120, 0.06);
+    }
+
+    /* ============================================================
+       8. WIDGET 5: PROMPT STREAMING SIMULATOR (SLIDE 12)
+       ============================================================ */
+    let simIntervals = [];
+    function runPromptSimulation() {
+      simIntervals.forEach(clearInterval); simIntervals = [];
+      const badEl = document.getElementById('sim-bad-output');
+      const goodEl = document.getElementById('sim-good-output');
+      badEl.textContent = ''; goodEl.textContent = '';
+
+      const badText = "정답은 x = 2 또는 x = 3 입니다.\n\n[결과] 학생이 답만 받아 적고 끝냄. 다음 시험에 숫자만 바뀌어 나오면 또 틀림. (실력 변화 없음)";
+      const goodText = "좋아! 같이 풀어보자 😊\n1단계 질문: 곱해서 +6이 되고, 더해서 -5가 되는 두 정수는 무엇일까?\n\n(학생이 스스로 '-2와 -3!'을 떠올림 → 완전한 내 실력으로 체득!)";
+
+      function stream(el, text, speed) {
+        let i = 0;
+        const iv = setInterval(() => {
+          el.textContent += text[i++];
+          if (i >= text.length) clearInterval(iv);
+        }, speed);
+        simIntervals.push(iv);
+      }
+      playFlipSfx();
+      stream(badEl, badText, 24);
+      stream(goodEl, goodText, 26);
+    }
+
+    /* ============================================================
+       9. STUDY TYPE TABS (SLIDE 13) & COPY PROMPT (SLIDE 14)
+       ============================================================ */
+    const studyTabs = {
+      concept: {
+        badge: 'CONCEPT MASTER',
+        title: '개념이 헷갈릴 때: "비유 + 눈높이 변환" 전략',
+        desc: '교과서 글자가 머리에 안 들어올 때, 내가 좋아하는 게임·스포츠·웹툰에 비유해 달라고 요청하면 5분 만에 개념이 뚫립니다.',
+        prompt: '"광합성 과정을 롤(LoL)이나 요리 레시피에 비유해서 중학생이 한 번에 이해할 수 있게 설명해 줘."'
+      },
+      error: {
+        badge: 'ERROR ANALYZER',
+        title: '문제를 틀렸을 때: "내 사고 과정 진단" 전략',
+        desc: '해설지를 그냥 읽지 말고, 내가 어디까지 생각했는지 AI에게 말해주면 정확히 어떤 개념 구멍 때문에 틀렸는지 짚어줍니다.',
+        prompt: '"내가 이 문제를 이렇게 풀었는데 틀렸어. 정답 대신 내 풀이에서 논리가 어긋난 지점 1곳만 찾아줘."'
+      },
+      recall: {
+        badge: 'ACTIVE RECALL',
+        title: '시험 직전 암기할 때: "백지 복습 코치" 전략',
+        desc: '공부한 내용을 내가 선생님처럼 AI에게 설명해 보고, 빠뜨린 핵심 키워드만 채점받는 최강의 뇌과학 공부법입니다.',
+        prompt: '"내가 지금부터 조선의 통치 체제를 설명할게. 너는 채점관이 되어서 내가 빠뜨린 핵심 개념 3가지만 알려줘."'
+      }
+    };
+    function selectStudyTab(key, btn) {
+      document.querySelectorAll('.study-tab').forEach(b => {
+        b.className = 'study-tab px-5 py-2.5 rounded-xl bg-white/10 text-slate-300 hover:bg-white/20 font-extrabold text-sm transition';
+      });
+      if (btn) btn.className = 'study-tab px-5 py-2.5 rounded-xl bg-indigo-500 text-white font-extrabold text-sm shadow-lg transition';
+      const d = studyTabs[key];
+      document.getElementById('study-tab-panel').innerHTML = `
+        <div class="md:col-span-7 space-y-3">
+          <span class="text-xs font-mono text-cyan-400 font-bold">${d.badge}</span>
+          <h3 class="text-xl sm:text-2xl font-black text-white">${d.title}</h3>
+          <p class="text-sm sm:text-base text-slate-300 leading-relaxed">${d.desc}</p>
+        </div>
+        <div class="md:col-span-5 p-5 rounded-2xl bg-slate-900/90 border border-cyan-400/35 space-y-2">
+          <div class="text-xs font-bold text-cyan-300"><i class="fa-solid fa-terminal mr-1"></i> 실전 프롬프트 예시</div>
+          <p class="text-sm text-white font-semibold leading-relaxed">${d.prompt}</p>
+        </div>
+      `;
+      playFlipSfx();
+    }
+
+    function copyPrompt(btn) {
+      const txt = btn.getAttribute('data-prompt');
+      navigator.clipboard.writeText(txt).then(() => showToast('📋 프롬프트가 복사되었습니다!'));
+      playTone(820, 0.08);
+    }
+
+    /* ============================================================
+       10. ETHICS PLEDGE (SLIDE 16) & THOUGHT GENERATOR (SLIDE 18)
+       ============================================================ */
+    function togglePledge(el) {
+      el.classList.toggle('pledged');
+      playSuccessSfx();
+      const all = document.querySelectorAll('.pledge-card.pledged').length;
+      if (all === 3) confetti({ particleCount: 70, spread: 60, origin: { y: 0.7 } });
+    }
+
+    const projectPresets = {
+      game:   { r: '《호모 루덴스》 또는 게임 기획·확률 심리학 도서 읽기', d: '"게임 속 확률형 아이템과 AI NPC는 공정한가?" AI와 찬반 토론', p: '가상 세계에서 이룬 성취도 현실만큼 가치 있을까?' },
+      sports: { r: '스포츠 데이터 분석(머니볼) & 스포츠 심리학 도서 탐구', d: '"AI 심판이 인간 심판을 100% 대체해야 하는가?" AI와 토론', p: '완벽한 판정보다 인간의 실수와 드라마가 더 중요할까?' },
+      space:  { r: '《코스모스》 또는 화성 이주·우주 탐사 과학 교양서 읽기', d: '"지구 환경 복원 vs 우주 개척, 어디에 먼저 투자할까?" 토론', p: '인류가 지구를 떠나 다른 행성에 산다면 우리는 여전히 같은 인류일까?' },
+      art:    { r: '예술사 입문서 또는 스토리텔링·웹툰 연출 기법 도서 탐구', d: '"AI가 그린 그림도 진짜 예술 작품으로 인정해야 할까?" 토론', p: '고통과 경험이 없는 기계가 만든 아름다움은 우리 마음을 울릴 수 있을까?' },
+      bio:    { r: '유전자 편집(크리스퍼)·생명 윤리 관련 청소년 과학서 읽기', d: '"AI와 유전자 기술로 질병 없는 인간을 설계해도 될까?" 토론', p: '인간의 한계를 기술로 없애는 것은 진보일까, 위험일까?' },
+      media:  { r: '미디어 리터러시·알고리즘의 비밀을 다룬 도서 읽기', d: '"추천 알고리즘은 우리의 선택을 돕는가, 조종하는가?" 토론', p: '내가 지금 보고 싶은 영상은 정말 "내가" 선택한 것일까?' }
+    };
+    function generateProject(key, btn) {
+      document.querySelectorAll('.proj-chip').forEach(b => b.classList.remove('bg-amber-500', 'text-slate-950'));
+      btn.classList.add('bg-amber-500', 'text-slate-950');
+      const p = projectPresets[key];
+      document.getElementById('proj-read').textContent = p.r;
+      document.getElementById('proj-debate').textContent = p.d;
+      document.getElementById('proj-phil').textContent = p.p;
+      gsap.fromTo('#project-output > div', { y: 12, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.08, duration: 0.4 });
+      playSuccessSfx();
+      confetti({ particleCount: 45, spread: 55, origin: { y: 0.72 } });
+    }
+
+    /* ============================================================
+       11. UTILITIES: OVERVIEW, NOTES, FULLSCREEN, QR, CLOCK
+       ============================================================ */
+    function toggleOverview() {
+      const modal = document.getElementById('overview-modal');
+      modal.classList.toggle('hidden');
+      if (!modal.classList.contains('hidden')) {
+        const grid = document.getElementById('overview-grid');
+        grid.innerHTML = slides.map((s, idx) => {
+          const title = (s.querySelector('h1, h2')?.textContent || '').trim().slice(0, 32);
+          return `
+            <button onclick="showSlide(${idx}); toggleOverview();" class="glass p-4 rounded-2xl text-left border ${idx === currentIndex ? 'border-cyan-400 bg-cyan-500/15' : 'border-white/10 hover:border-indigo-400'} transition">
+              <div class="font-mono text-xs text-cyan-400 font-bold mb-1">SLIDE ${String(idx + 1).padStart(2, '0')}</div>
+              <div class="text-xs font-extrabold text-white line-clamp-2">${title}</div>
+            </button>
+          `;
+        }).join('');
+      }
+    }
+    function toggleSpeakerNotes() {
+      document.getElementById('speaker-notes-drawer').classList.toggle('hidden');
+    }
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
+      else document.exitFullscreen().catch(() => {});
+    }
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.style.opacity = '1';
+      clearTimeout(t._to);
+      t._to = setTimeout(() => { t.style.opacity = '0'; }, 1800);
+    }
+
+    // Lecture elapsed timer
+    let elapsedSec = 0;
+    setInterval(() => {
+      elapsedSec++;
+      const m = String(Math.floor(elapsedSec / 60)).padStart(2, '0');
+      const s = String(elapsedSec % 60).padStart(2, '0');
+      const el = document.getElementById('lecture-clock');
+      if (el) el.textContent = `${m}:${s}`;
+    }, 1000);
+
+    // Boot everything
+    window.addEventListener('DOMContentLoaded', () => {
+      initThreeBG();
+      buildJobsGrid();
+      selectStudyTab('concept', document.querySelector('.study-tab'));
+      startRiemannLoop();
+      new QRCode(document.getElementById('closing-qr'), {
+        text: 'https://www.cloudbread.me/study/slides/goheon-ai-strategy.html',
+        width: 156, height: 156,
+        colorDark: '#090D16', colorLight: '#FFFFFF',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+      showSlide(0, true);
+    });
+  </script>
+</body>
+</html>

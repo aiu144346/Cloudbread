@@ -612,6 +612,26 @@ document.addEventListener("DOMContentLoaded", () => {
                             </div>
                         </div>
 
+                        <!-- 🔥 특별 강연 피처드 배너: 고헌중학교 AI 스터디 전략 -->
+                        <div style="background:linear-gradient(135deg, #090D16 0%, #1E1B4B 55%, #083344 100%); border-radius:22px; padding:1.8rem 2rem; border:2px solid rgba(56,189,248,0.45); box-shadow:0 16px 36px rgba(15,23,42,0.22); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.4rem;">
+                            <div style="flex:1; min-width:260px;">
+                                <span style="background:rgba(34,211,238,0.18); color:#67E8F9; font-size:0.78rem; font-weight:800; padding:5px 12px; border-radius:9999px; display:inline-block; margin-bottom:10px; border:1px solid rgba(34,211,238,0.4);">
+                                    🔥 NEW 고헌중학교 특별 강연 · 3D 모션 그래픽 19슬라이드
+                                </span>
+                                <h4 style="font-size:1.4rem; font-weight:900; color:#FFFFFF; margin:0 0 8px 0; letter-spacing:-0.02em;">
+                                    AI 시대, 공부를 다시 설계하라 (중학생 스터디 전략 특강)
+                                </h4>
+                                <p style="font-size:0.9rem; color:#CBD5E1; line-height:1.6; margin:0;">
+                                    Three.js 3D 뉴럴 네트워크 · 리만가설 실시간 파동 시뮬레이터 · 미래 유망 직업 TOP 10 3D 플립 카드 · 소크라테스 프롬프트 비교기 · 사고력 확장 프로젝트 생성기 탑재 (정우진 대표)
+                                </p>
+                            </div>
+                            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                                <a href="study/slides/goheon-ai-strategy.html" target="_blank" style="background:linear-gradient(90deg, #6366F1, #06B6D4, #10B981); color:#050814; font-weight:900; font-size:0.94rem; padding:13px 22px; border-radius:14px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; box-shadow:0 8px 24px rgba(6,182,212,0.35); transition:all 0.2s;">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> 3D 특강 슬라이드 실행 ▶
+                                </a>
+                            </div>
+                        </div>
+
                         <!-- 3-Column Subject Cards Grid (Clean Modern White Glass Cards) -->
                         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:1.4rem;">
 
