@@ -450,6 +450,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 ${target === 'public' ? `
                     <div style="display:flex; flex-direction:column; gap:1.2rem; margin-top:1.5rem;">
+                        <!-- [NEW] 2026 울산광역시·권역 청소년진로지원센터 AX 협력 & 초개인화 학습지도 60분 시네마틱 마스터클래스 -->
+                        <div style="background: linear-gradient(135deg, #050811 0%, #064E3B 52%, #0C4A6E 100%); color:#FFFFFF; border-radius:18px; padding:2rem 2.4rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 16px 40px rgba(16, 185, 129, 0.28); border:2px solid rgba(52, 211, 153, 0.55);">
+                            <div style="max-width:720px;">
+                                <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:8px;">
+                                    <span style="background:rgba(16,185,129,0.24); color:#34D399; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; border:1px solid rgba(52,211,153,0.5);">🎬 NEW · 2026.12.03 시네마틱 58슬라이드</span>
+                                    <span style="background:rgba(56,189,248,0.22); color:#7DD3FC; font-size:0.8rem; font-weight:800; padding:4px 12px; border-radius:9999px; border:1px solid rgba(56,189,248,0.45);">🏛️ 울산 5개 구·군 진로센터 맞춤형</span>
+                                </div>
+                                <h3 style="font-size:1.45rem; font-weight:900; margin:0; color:#FFFFFF; letter-spacing:-0.02em;">AI 시대 청소년진로지원센터 AX 협력 체계 및 초개인화 학습 지도 전략</h3>
+                                <p style="font-size:0.92rem; color:#E2E8F0; margin:8px 0 0 0; line-height:1.55;">Luis Urrutia 스타일 Morph·Push 시네마틱 4모듈(58장) · 와튼/MIT/OECD 실증 차트 · MASK-5 비식별화 라이브 시뮬레이터 · 소크라테스 프롬프트 5종 원클릭 복사 · 울산 ‘1+5+N’ 협력 거버넌스</p>
+                            </div>
+                            <a href="lecture-ulsan-career.html" style="background:linear-gradient(135deg, #10B981 0%, #38BDF8 100%); color:#030712; font-weight:900; font-size:1rem; padding:14px 26px; border-radius:12px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s; box-shadow:0 6px 22px rgba(16, 185, 129, 0.45);"><i class="fa-solid fa-clapperboard"></i> 시네마틱 슬라이드 입장하기 →</a>
+                        </div>
+
                         <!-- 화성시인재육성재단 2026 AX 특강 1·2·3부 통합 마스터 대시보드 포털 카드 (White Luxury) -->
                         <div style="background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%); color:#0F172A; border-radius:18px; padding:2rem 2.4rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 14px 35px rgba(0, 0, 0, 0.08); border:2px solid #059669;">
                             <div style="max-width:720px;">
