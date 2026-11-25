@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>[울산광역시·권역] AI 시대 청소년진로지원센터 AX 협력 & 초개인화 학습지도 60분 시네마틱 마스터클래스 | 정우진</title>
-    <meta name="description" content="Luis Urrutia 시네마틱 Morph & Push 모션그래픽 엔진 기반 4모듈 58슬라이드 웹 프레젠테이션. 2026 AI 기본법·MASK-5 비식별화 시뮬레이터·소크라테스 프롬프트 5종·울산 1+5+N 협력 거버넌스.">
+    <meta name="description" content="Spatial Zoom, Progressive Disclosure, FLIP Magic Move 모션그래픽 엔진 기반 4모듈 58슬라이드 웹 프레젠테이션. 클릭 시 중앙 클로즈업·연속 스포트라이트·MASK-5 시뮬레이터·프롬프트 5종.">
     <link rel="canonical" href="https://www.cloudbread.me/lecture-ulsan-career.html">
 
     <!-- Fonts & Icons -->
@@ -17,8 +17,8 @@
         :root {
             --bg-void: #050811;
             --bg-surface: rgba(15, 23, 42, 0.72);
-            --bg-glass: rgba(15, 23, 42, 0.58);
-            --border-glass: rgba(255, 255, 255, 0.11);
+            --bg-card-minimal: rgba(15, 23, 42, 0.56);
+            --border-glass: rgba(255, 255, 255, 0.12);
             --text-main: #F8FAFC;
             --text-sub: #CBD5E1;
             --text-muted: #94A3B8;
@@ -35,21 +35,21 @@
             background: var(--bg-void); color: var(--text-main);
         }
 
-        /* Cinematic Dark Ambient Stage (Luis Urrutia Soft-Edge Atmosphere) */
+        /* Cinematic Dark Ambient Stage */
         .cinematic-stage-bg {
             position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
             background: radial-gradient(circle at 50% 45%, #0B1325 0%, #050811 72%, #020409 100%);
         }
         .ambient-orb {
-            position: absolute; border-radius: 50%; filter: blur(130px); opacity: 0.42;
-            transition: background 1.2s var(--ease-cinematic), transform 1.4s var(--ease-cinematic);
+            position: absolute; border-radius: 50%; filter: blur(130px); opacity: 0.44;
+            transition: background 1.2s var(--ease-cinematic), transform 1.2s var(--ease-cinematic);
             will-change: transform, background;
         }
-        .orb-1 { width: 680px; height: 680px; top: -220px; left: -160px; background: radial-gradient(circle, #065F46 0%, transparent 70%); }
-        .orb-2 { width: 640px; height: 640px; bottom: -220px; right: -160px; background: radial-gradient(circle, #1E3A8A 0%, transparent 70%); }
+        .orb-1 { width: 700px; height: 700px; top: -230px; left: -170px; background: radial-gradient(circle, #065F46 0%, transparent 70%); }
+        .orb-2 { width: 650px; height: 650px; bottom: -230px; right: -170px; background: radial-gradient(circle, #1E3A8A 0%, transparent 70%); }
         .soft-vignette {
             position: fixed; inset: 0; pointer-events: none; z-index: 1;
-            background: radial-gradient(ellipse at center, transparent 52%, rgba(2, 4, 9, 0.78) 100%);
+            background: radial-gradient(ellipse at center, transparent 48%, rgba(2, 4, 9, 0.82) 100%);
         }
         .grid-overlay {
             position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.04;
@@ -61,36 +61,44 @@
         /* Top Glass Navbar */
         .top-bar {
             position: fixed; top: 0; left: 0; right: 0; height: 62px; z-index: 100;
-            background: rgba(5, 8, 17, 0.78); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+            background: rgba(5, 8, 17, 0.8); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
             border-bottom: 1px solid var(--border-glass);
-            display: flex; align-items: center; justify-content: space-between; padding: 0 1.4rem; gap: 1rem;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 1.3rem; gap: 0.8rem;
         }
-        .brand-left { display: flex; align-items: center; gap: 0.75rem; min-width: 0; }
+        .brand-left { display: flex; align-items: center; gap: 0.7rem; min-width: 0; }
         .back-pill {
-            color: var(--text-sub); text-decoration: none; font-size: 0.8rem; font-weight: 700;
-            padding: 6px 12px; border-radius: 999px; border: 1px solid var(--border-glass);
+            color: var(--text-sub); text-decoration: none; font-size: 0.78rem; font-weight: 700;
+            padding: 6px 11px; border-radius: 999px; border: 1px solid var(--border-glass);
             background: rgba(255,255,255,0.04); display: inline-flex; align-items: center; gap: 6px;
             transition: all 0.2s ease; white-space: nowrap;
         }
         .back-pill:hover { background: rgba(255,255,255,0.12); color: #fff; }
-        .deck-label { font-size: 0.84rem; font-weight: 800; letter-spacing: -0.02em; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .deck-label { font-size: 0.83rem; font-weight: 800; letter-spacing: -0.02em; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .deck-label span { color: var(--mod-accent); }
 
-        .module-tabs { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.04); padding: 4px; border-radius: 999px; border: 1px solid var(--border-glass); }
+        .module-tabs { display: flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.04); padding: 4px; border-radius: 999px; border: 1px solid var(--border-glass); }
         .mod-tab {
             border: none; background: transparent; color: var(--text-muted); font-family: inherit;
-            font-size: 0.78rem; font-weight: 700; padding: 6px 13px; border-radius: 999px; cursor: pointer;
+            font-size: 0.76rem; font-weight: 700; padding: 6px 12px; border-radius: 999px; cursor: pointer;
             transition: all 0.25s var(--ease-cinematic); white-space: nowrap;
         }
         .mod-tab:hover { color: #fff; }
         .mod-tab.active { background: var(--mod-accent); color: #030712; box-shadow: 0 0 18px color-mix(in srgb, var(--mod-accent) 45%, transparent); }
 
-        .top-controls { display: flex; align-items: center; gap: 8px; }
+        .top-controls { display: flex; align-items: center; gap: 7px; }
+        .mode-pill {
+            border: 1px solid color-mix(in srgb, var(--mod-accent) 50%, transparent);
+            background: color-mix(in srgb, var(--mod-accent) 14%, transparent);
+            color: var(--mod-accent); font-family: inherit; font-size: 0.74rem; font-weight: 800;
+            padding: 6px 11px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
+            transition: all 0.2s; white-space: nowrap;
+        }
+        .mode-pill:hover { background: var(--mod-accent); color: #030712; }
         .timer-chip {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 700;
-            padding: 5px 11px; border-radius: 8px; border: 1px solid var(--border-glass);
+            font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; font-weight: 700;
+            padding: 5px 10px; border-radius: 8px; border: 1px solid var(--border-glass);
             background: rgba(255,255,255,0.04); color: var(--text-sub); cursor: pointer;
-            display: inline-flex; align-items: center; gap: 6px;
+            display: inline-flex; align-items: center; gap: 5px;
         }
         .timer-chip.running { border-color: var(--mod-accent); color: var(--mod-accent); }
         .icon-btn {
@@ -100,12 +108,18 @@
         }
         .icon-btn:hover, .icon-btn.active { background: rgba(255,255,255,0.14); color: #fff; border-color: var(--mod-accent); }
 
-        /* Main Slide Viewport */
+        /* Main Slide Viewport with Depth-of-Field Blur on Spotlight */
         .stage-viewport {
             position: fixed; top: 62px; bottom: 56px; left: 0; right: 0; z-index: 10;
             display: flex; align-items: center; justify-content: center;
             padding: clamp(1rem, 2.5vw, 2.2rem) clamp(1.2rem, 4vw, 4rem);
             perspective: 1400px; overflow: hidden;
+            transition: filter 0.55s var(--ease-cinematic), transform 0.55s var(--ease-cinematic), opacity 0.55s var(--ease-cinematic);
+        }
+        body.spotlight-open .stage-viewport {
+            filter: blur(14px) brightness(0.42);
+            transform: scale(0.93);
+            pointer-events: none;
         }
         .slide-frame {
             width: 100%; max-width: 1240px; height: 100%; max-height: 760px;
@@ -113,121 +127,199 @@
             will-change: transform, opacity, filter;
         }
 
-        /* Cinematic Transition Animations (Luis Urrutia Morph / Push-H / Zoom / Split) */
-        @keyframes enterZoom {
-            from { opacity: 0; transform: scale(1.07) translateY(14px); filter: blur(8px); }
-            to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
-        }
-        @keyframes enterMorph {
-            from { opacity: 0; transform: scale(0.96) translateY(18px); filter: blur(4px); }
-            to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
-        }
-        @keyframes enterPushRight {
-            from { opacity: 0; transform: translate3d(110px, 0, 0) scale(0.98); }
-            to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
-        }
-        @keyframes enterPushLeft {
-            from { opacity: 0; transform: translate3d(-110px, 0, 0) scale(0.98); }
-            to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
-        }
-        @keyframes enterSplit {
-            from { opacity: 0; clip-path: inset(0 48% 0 48%); }
-            to { opacity: 1; clip-path: inset(0 0 0 0); }
-        }
+        /* Cinematic Slide Transitions */
+        @keyframes enterZoom { from { opacity: 0; transform: scale(1.07) translateY(14px); filter: blur(8px); } to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); } }
+        @keyframes enterMorph { from { opacity: 0; transform: scale(0.96) translateY(18px); filter: blur(4px); } to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); } }
+        @keyframes enterPushRight { from { opacity: 0; transform: translate3d(115px, 0, 0) scale(0.98); } to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); } }
+        @keyframes enterPushLeft { from { opacity: 0; transform: translate3d(-115px, 0, 0) scale(0.98); } to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); } }
+        @keyframes enterSplit { from { opacity: 0; clip-path: inset(0 48% 0 48%); } to { opacity: 1; clip-path: inset(0 0 0 0); } }
         .anim-zoom { animation: enterZoom 0.78s var(--ease-cinematic) both; }
         .anim-morph { animation: enterMorph 0.72s var(--ease-morph) both; }
         .anim-push-next { animation: enterPushRight 0.72s var(--ease-cinematic) both; }
         .anim-push-prev { animation: enterPushLeft 0.72s var(--ease-cinematic) both; }
         .anim-split { animation: enterSplit 0.78s var(--ease-cinematic) both; }
 
-        .stagger-item { opacity: 0; transform: translateY(16px); animation: staggerUp 0.6s var(--ease-cinematic) forwards; }
+        .stagger-item { opacity: 0; transform: translateY(18px); animation: staggerUp 0.62s var(--ease-cinematic) forwards; }
         @keyframes staggerUp { to { opacity: 1; transform: translateY(0); } }
 
         /* Typography & Gradients */
         .slide-top-meta { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 0.9rem; flex-wrap: wrap; }
         .slide-badge {
             display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px; border-radius: 999px;
-            font-size: 0.78rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase;
+            font-size: 0.77rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase;
             background: color-mix(in srgb, var(--mod-accent) 16%, transparent);
             color: var(--mod-accent); border: 1px solid color-mix(in srgb, var(--mod-accent) 42%, transparent);
         }
         .timeline-pill {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.74rem; font-weight: 700;
             color: #94A3B8; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass);
             padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px;
         }
         .slide-title {
-            font-size: clamp(1.75rem, 3.4vw, 2.85rem); font-weight: 900; line-height: 1.22;
-            letter-spacing: -0.03em; color: #FFFFFF; margin-bottom: 1.35rem;
+            font-size: clamp(1.8rem, 3.5vw, 2.95rem); font-weight: 900; line-height: 1.22;
+            letter-spacing: -0.03em; color: #FFFFFF; margin-bottom: 1.4rem;
         }
-        .hero-title { font-size: clamp(2.3rem, 4.8vw, 4.1rem); line-height: 1.15; margin-bottom: 1.2rem; }
+        .hero-title { font-size: clamp(2.4rem, 5vw, 4.3rem); line-height: 1.14; margin-bottom: 1.25rem; }
         .grad-emerald { background: linear-gradient(120deg, #34D399, #38BDF8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .grad-cyan { background: linear-gradient(120deg, #38BDF8, #818CF8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .grad-gold { background: linear-gradient(120deg, #FBBF24, #F97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .grad-rose { background: linear-gradient(120deg, #FB7185, #F43F5E); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Reusable Glass Cards */
+        /* Interactive Minimal Cards (Progressive Disclosure Tier 1) */
         .glass-card {
-            background: var(--bg-surface); border: 1px solid var(--border-glass); border-radius: 18px;
-            padding: 1.4rem 1.55rem; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35); transition: transform 0.25s var(--ease-cinematic), border-color 0.25s;
+            background: var(--bg-surface); border: 1px solid var(--border-glass); border-radius: 20px;
+            padding: 1.45rem 1.6rem; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.36); position: relative; overflow: hidden;
+            transition: transform 0.35s var(--ease-cinematic), border-color 0.3s, box-shadow 0.35s, background 0.3s;
         }
-        .glass-card:hover { border-color: rgba(255,255,255,0.24); transform: translateY(-2px); }
+        .focusable-card {
+            cursor: pointer; user-select: none;
+        }
+        .focusable-card::after {
+            content: ''; position: absolute; inset: 0; opacity: 0; pointer-events: none;
+            background: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--mod-accent) 22%, transparent), transparent 68%);
+            transition: opacity 0.35s;
+        }
+        .focusable-card:hover {
+            transform: translateY(-6px) scale(1.018);
+            border-color: color-mix(in srgb, var(--mod-accent) 70%, transparent);
+            box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 28px color-mix(in srgb, var(--mod-accent) 22%, transparent);
+        }
+        .focusable-card:hover::after { opacity: 1; }
 
-        /* Layout: Hero & Opener */
+        .zoom-cue {
+            margin-top: 0.9rem; display: inline-flex; align-items: center; gap: 6px;
+            font-size: 0.76rem; font-weight: 800; color: var(--mod-accent); opacity: 0.85;
+            letter-spacing: 0.02em; transition: transform 0.25s, opacity 0.25s;
+        }
+        .focusable-card:hover .zoom-cue { transform: translateX(4px); opacity: 1; }
+
+        /* Minimal Mode hides Tier-2 details on initial stage */
+        body.minimal-mode .detail-hidden-in-minimal { display: none !important; }
+        body.minimal-mode .minimal-card-pad { padding: 2rem 1.7rem; display: flex; flex-direction: column; justify-content: space-between; min-height: 205px; }
+        body:not(.minimal-mode) .zoom-cue { opacity: 0.55; }
+
+        .stage-hint-bar {
+            margin-top: 1.15rem; text-align: center; font-size: 0.82rem; font-weight: 700;
+            color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .pulse-dot {
+            width: 8px; height: 8px; border-radius: 50%; background: var(--mod-accent);
+            box-shadow: 0 0 12px var(--mod-accent); animation: pulseBeat 1.8s infinite;
+        }
+        @keyframes pulseBeat { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.45); opacity: 0.55; } }
+
+        /* Center-Stage FLIP Spotlight Overlay (Tier 2 & Tier 3) */
+        .spotlight-overlay {
+            position: fixed; inset: 0; z-index: 160; display: none;
+            align-items: center; justify-content: center; padding: 4.8rem 1.5rem 5.2rem;
+            background: rgba(3, 6, 15, 0.55);
+        }
+        .spotlight-overlay.open { display: flex; }
+
+        .spotlight-stage {
+            width: min(860px, 94vw); max-height: 78vh; overflow-y: auto;
+            background: linear-gradient(155deg, rgba(15, 23, 42, 0.96) 0%, rgba(7, 12, 26, 0.98) 100%);
+            border: 1.5px solid color-mix(in srgb, var(--mod-accent) 68%, transparent);
+            border-radius: 28px; padding: clamp(1.8rem, 3.5vw, 2.8rem);
+            box-shadow: 0 36px 100px rgba(0, 0, 0, 0.78), 0 0 60px color-mix(in srgb, var(--mod-accent) 22%, transparent);
+            position: relative; will-change: transform, opacity;
+        }
+        .spotlight-close {
+            position: absolute; top: 1.25rem; right: 1.25rem; width: 40px; height: 40px; border-radius: 50%;
+            border: 1px solid var(--border-glass); background: rgba(255,255,255,0.06); color: #fff;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem;
+            transition: all 0.2s;
+        }
+        .spotlight-close:hover { background: var(--mod-accent); color: #030712; transform: rotate(90deg); }
+        .spotlight-kicker {
+            display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem; font-weight: 800; color: var(--mod-accent);
+            background: color-mix(in srgb, var(--mod-accent) 16%, transparent);
+            border: 1px solid color-mix(in srgb, var(--mod-accent) 42%, transparent);
+            padding: 5px 14px; border-radius: 999px; margin-bottom: 1.1rem;
+        }
+        .spotlight-title {
+            font-size: clamp(1.55rem, 2.8vw, 2.35rem); font-weight: 900; color: #fff;
+            line-height: 1.25; letter-spacing: -0.03em; margin-bottom: 0.65rem;
+        }
+        .spotlight-sub { font-size: 1rem; font-weight: 700; color: var(--mod-secondary); margin-bottom: 1.25rem; }
+        .spotlight-body {
+            font-size: clamp(1.05rem, 1.55vw, 1.24rem); color: #E2E8F0; line-height: 1.78;
+            font-weight: 500; margin-bottom: 1.4rem;
+        }
+        .spotlight-list { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.4rem; }
+        .spotlight-list li {
+            font-size: 1.05rem; color: #F1F5F9; line-height: 1.65; padding: 0.85rem 1.1rem 0.85rem 2.3rem;
+            border-radius: 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+            position: relative;
+        }
+        .spotlight-list li::before { content: '→'; position: absolute; left: 0.95rem; color: var(--mod-accent); font-weight: 900; }
+
+        /* Spotlight Bottom Sequential Chain Switcher */
+        .spotlight-chain-bar {
+            margin-top: 1.5rem; padding-top: 1.2rem; border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; flex-wrap: wrap;
+        }
+        .chain-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+        .chain-pill {
+            border: 1px solid var(--border-glass); background: rgba(255,255,255,0.05); color: var(--text-sub);
+            font-family: inherit; font-size: 0.78rem; font-weight: 700; padding: 6px 12px; border-radius: 999px;
+            cursor: pointer; transition: all 0.2s; max-width: 185px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
+        .chain-pill:hover { border-color: var(--mod-accent); color: #fff; }
+        .chain-pill.active { background: var(--mod-accent); color: #030712; border-color: var(--mod-accent); font-weight: 800; }
+        .chain-nav-btns { display: flex; gap: 8px; }
+
+        /* Layout Grids & Components */
         .hero-wrap { text-align: center; max-width: 980px; margin: 0 auto; }
         .hero-sub { font-size: clamp(1.05rem, 1.6vw, 1.32rem); color: var(--text-sub); line-height: 1.65; margin-bottom: 2rem; font-weight: 500; }
         .hero-meta-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-        .hero-chip {
-            padding: 9px 16px; border-radius: 12px; background: rgba(255,255,255,0.05);
-            border: 1px solid var(--border-glass); font-size: 0.86rem; color: var(--text-sub); font-weight: 600;
-        }
+        .hero-chip { padding: 9px 16px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); font-size: 0.86rem; color: var(--text-sub); font-weight: 600; }
 
-        /* Layout: Editorial Focus */
         .editorial-grid { display: grid; grid-template-columns: 0.85fr 1.35fr; gap: 2rem; align-items: center; }
         .editorial-big {
             font-family: 'JetBrains Mono', monospace; font-size: clamp(2.8rem, 5.6vw, 5rem); font-weight: 900;
-            letter-spacing: -0.04em; line-height: 1; padding: 2.2rem 1.6rem; border-radius: 22px; text-align: center;
+            letter-spacing: -0.04em; line-height: 1; padding: 2.4rem 1.6rem; border-radius: 24px; text-align: center;
             background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01));
             border: 1px solid var(--border-glass); color: var(--mod-accent);
             text-shadow: 0 0 40px color-mix(in srgb, var(--mod-accent) 40%, transparent);
         }
         .point-stack { display: flex; flex-direction: column; gap: 0.9rem; }
-        .point-row { display: flex; gap: 1rem; align-items: flex-start; padding: 1.05rem 1.25rem; border-radius: 14px; background: rgba(255,255,255,0.04); border: 1px solid var(--border-glass); }
-        .point-icon { width: 38px; height: 38px; border-radius: 10px; background: color-mix(in srgb, var(--mod-accent) 18%, transparent); color: var(--mod-accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1rem; }
-        .point-row h4 { font-size: 1.02rem; font-weight: 800; color: #fff; margin-bottom: 3px; }
-        .point-row p { font-size: 0.9rem; color: var(--text-sub); line-height: 1.5; }
+        .point-row {
+            display: flex; gap: 1rem; align-items: center; padding: 1.1rem 1.3rem; border-radius: 16px;
+            background: rgba(15,23,42,0.68); border: 1px solid var(--border-glass);
+        }
+        .point-icon { width: 42px; height: 42px; border-radius: 12px; background: color-mix(in srgb, var(--mod-accent) 18%, transparent); color: var(--mod-accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.05rem; }
+        .point-row h4 { font-size: 1.04rem; font-weight: 800; color: #fff; margin-bottom: 2px; }
+        .point-row p { font-size: 0.89rem; color: var(--text-sub); line-height: 1.5; }
 
-        /* Layout: Grids */
-        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
-        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-        .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.85rem; }
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.3rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.15rem; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.05rem; }
+        .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.9rem; }
 
-        .vs-box { padding: 1.6rem; border-radius: 18px; border: 1px solid var(--border-glass); }
+        .vs-box { padding: 1.7rem; border-radius: 20px; border: 1px solid var(--border-glass); }
         .vs-left { background: rgba(148, 163, 184, 0.06); }
         .vs-right { background: linear-gradient(145deg, color-mix(in srgb, var(--mod-accent) 15%, transparent), rgba(15,23,42,0.75)); border-color: color-mix(in srgb, var(--mod-accent) 45%, transparent); }
-        .vs-box h3 { font-size: 1.12rem; font-weight: 800; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
+        .vs-box h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
         .vs-list { list-style: none; display: flex; flex-direction: column; gap: 0.72rem; }
         .vs-list li { font-size: 0.94rem; color: var(--text-sub); line-height: 1.5; padding-left: 1.35rem; position: relative; }
         .vs-list li::before { content: '→'; position: absolute; left: 0; color: var(--mod-accent); font-weight: 900; }
 
-        /* Quote Hero */
         .quote-box {
             padding: clamp(1.8rem, 3.2vw, 2.8rem); border-radius: 24px;
             background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(15,23,42,0.75));
             border: 1px solid color-mix(in srgb, var(--mod-accent) 38%, transparent);
-            position: relative; overflow: hidden;
         }
-        .quote-kr { font-size: clamp(1.25rem, 2.15vw, 1.72rem); font-weight: 800; line-height: 1.55; color: #fff; margin-bottom: 1rem; }
+        .quote-kr { font-size: clamp(1.25rem, 2.2vw, 1.78rem); font-weight: 800; line-height: 1.55; color: #fff; margin-bottom: 1rem; }
         .quote-en { font-size: 0.92rem; color: var(--text-muted); font-style: italic; line-height: 1.55; margin-bottom: 1.25rem; }
         .quote-author { font-size: 0.96rem; font-weight: 800; color: var(--mod-accent); }
         .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.1rem; }
         .mini-tag { font-size: 0.78rem; font-weight: 700; padding: 4px 11px; border-radius: 999px; background: rgba(255,255,255,0.07); color: var(--text-sub); }
 
-        /* Pillars & Bento */
-        .pillar-num { font-family: 'JetBrains Mono', monospace; font-size: 1.8rem; font-weight: 900; color: var(--mod-accent); margin-bottom: 0.5rem; }
-        .pillar-title { font-size: 1.04rem; font-weight: 800; color: #fff; margin-bottom: 0.45rem; }
+        .pillar-num { font-family: 'JetBrains Mono', monospace; font-size: 2.1rem; font-weight: 900; color: var(--mod-accent); margin-bottom: 0.6rem; }
+        .pillar-title { font-size: 1.12rem; font-weight: 800; color: #fff; margin-bottom: 0.45rem; line-height: 1.35; }
         .pillar-desc { font-size: 0.87rem; color: var(--text-sub); line-height: 1.55; }
         .footer-strip {
             margin-top: 1.15rem; padding: 0.85rem 1.25rem; border-radius: 12px;
@@ -236,112 +328,73 @@
             font-size: 0.92rem; font-weight: 700; color: #fff; text-align: center;
         }
 
-        /* Dual KPI */
-        .kpi-card { text-align: center; padding: 2.2rem 1.8rem; }
-        .kpi-number { font-family: 'JetBrains Mono', monospace; font-size: clamp(3.6rem, 7vw, 5.8rem); font-weight: 900; line-height: 1; margin-bottom: 0.7rem; }
-        .kpi-label { font-size: 1.14rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+        .kpi-card { text-align: center; padding: 2.4rem 1.8rem; }
+        .kpi-number { font-family: 'JetBrains Mono', monospace; font-size: clamp(3.8rem, 7.2vw, 6rem); font-weight: 900; line-height: 1; margin-bottom: 0.8rem; }
+        .kpi-label { font-size: 1.18rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
         .kpi-sub { font-size: 0.9rem; color: var(--text-sub); line-height: 1.55; }
 
-        /* Tables */
         .cinematic-table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 16px; border: 1px solid var(--border-glass); background: rgba(15,23,42,0.72); }
         .cinematic-table th { text-align: left; padding: 0.95rem 1.15rem; font-size: 0.86rem; font-weight: 800; background: rgba(255,255,255,0.06); color: var(--mod-accent); border-bottom: 1px solid var(--border-glass); }
-        .cinematic-table td { padding: 0.9rem 1.15rem; font-size: 0.88rem; color: var(--text-sub); line-height: 1.5; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .cinematic-table tr:last-child td { border-bottom: none; }
+        .cinematic-table td { padding: 0.95rem 1.15rem; font-size: 0.9rem; color: var(--text-sub); line-height: 1.5; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .cinematic-table tbody tr { cursor: pointer; transition: background 0.2s; }
+        .cinematic-table tbody tr:hover { background: color-mix(in srgb, var(--mod-accent) 12%, transparent); }
         .cinematic-table td:first-child { font-weight: 800; color: #fff; white-space: nowrap; }
 
         /* Prompt Copy Card */
-        .prompt-box {
-            background: #090F1E; border: 1px solid color-mix(in srgb, var(--mod-accent) 45%, transparent);
-            border-radius: 16px; padding: 1.25rem 1.4rem; position: relative; max-height: 370px; overflow-y: auto;
-        }
-        .prompt-pre {
-            font-family: 'JetBrains Mono', 'Pretendard', monospace; font-size: 0.84rem; line-height: 1.65;
-            color: #E2E8F0; white-space: pre-wrap; word-break: keep-all;
-        }
-        .copy-btn {
-            position: sticky; top: 0; float: right; z-index: 5;
-            background: var(--mod-accent); color: #030712; border: none; border-radius: 10px;
-            padding: 8px 16px; font-family: inherit; font-size: 0.82rem; font-weight: 800; cursor: pointer;
-            display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 6px 20px rgba(16,185,129,0.35);
-        }
-        .copy-btn:hover { filter: brightness(1.1); }
+        .prompt-box { background: #090F1E; border: 1px solid color-mix(in srgb, var(--mod-accent) 45%, transparent); border-radius: 16px; padding: 1.25rem 1.4rem; position: relative; max-height: 370px; overflow-y: auto; }
+        .prompt-pre { font-family: 'JetBrains Mono', 'Pretendard', monospace; font-size: 0.84rem; line-height: 1.65; color: #E2E8F0; white-space: pre-wrap; word-break: keep-all; }
+        .copy-btn { position: sticky; top: 0; float: right; z-index: 5; background: var(--mod-accent); color: #030712; border: none; border-radius: 10px; padding: 8px 16px; font-family: inherit; font-size: 0.82rem; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 6px 20px rgba(16,185,129,0.35); }
 
-        /* Interactive MASK-5 Simulator */
+        /* MASK-5 Simulator */
         .sim-wrap { display: flex; flex-direction: column; gap: 1rem; }
         .sim-toggle-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-        .sim-btn {
-            padding: 10px 22px; border-radius: 12px; border: none; font-family: inherit; font-weight: 800; font-size: 0.92rem;
-            cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.25s;
-        }
+        .sim-btn { padding: 10px 22px; border-radius: 12px; border: none; font-family: inherit; font-weight: 800; font-size: 0.92rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.25s; }
         .sim-btn.red { background: #F43F5E; color: #fff; box-shadow: 0 6px 22px rgba(244,63,94,0.35); }
         .sim-btn.green { background: #10B981; color: #030712; box-shadow: 0 6px 22px rgba(16,185,129,0.35); }
-        .sim-stage {
-            padding: 1.8rem 2rem; border-radius: 20px; font-size: 1.1rem; line-height: 1.85;
-            transition: all 0.55s var(--ease-cinematic); border: 2px solid;
-        }
+        .sim-stage { padding: 1.8rem 2rem; border-radius: 20px; font-size: 1.1rem; line-height: 1.85; transition: all 0.55s var(--ease-cinematic); border: 2px solid; }
         .sim-stage.danger { background: rgba(244,63,94,0.09); border-color: rgba(244,63,94,0.55); }
         .sim-stage.safe { background: rgba(16,185,129,0.09); border-color: rgba(16,185,129,0.55); }
         .pii-bad { background: rgba(244,63,94,0.28); color: #FDA4AF; padding: 2px 7px; border-radius: 6px; font-weight: 800; text-decoration: line-through rgba(244,63,94,0.8); }
         .pii-safe { background: rgba(16,185,129,0.24); color: #6EE7B7; padding: 2px 8px; border-radius: 6px; font-weight: 800; }
 
-        /* Interactive Traffic Light */
+        /* Traffic Light */
         .tl-grid { display: grid; grid-template-columns: 110px 1fr; gap: 1.5rem; align-items: center; }
-        .tl-housing {
-            background: #0A1020; border: 1px solid var(--border-glass); border-radius: 28px;
-            padding: 1rem 0.7rem; display: flex; flex-direction: column; align-items: center; gap: 1rem;
-        }
-        .tl-lamp {
-            width: 64px; height: 64px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.18);
-            cursor: pointer; opacity: 0.35; transition: all 0.3s;
-        }
+        .tl-housing { background: #0A1020; border: 1px solid var(--border-glass); border-radius: 28px; padding: 1rem 0.7rem; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+        .tl-lamp { width: 64px; height: 64px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.18); cursor: pointer; opacity: 0.35; transition: all 0.3s; }
         .tl-lamp.active { opacity: 1; transform: scale(1.1); }
         .tl-lamp.r { background: #F43F5E; box-shadow: 0 0 28px rgba(244,63,94,0.65); }
         .tl-lamp.y { background: #F59E0B; box-shadow: 0 0 28px rgba(245,158,11,0.65); }
         .tl-lamp.g { background: #10B981; box-shadow: 0 0 28px rgba(16,185,129,0.65); }
 
-        /* Governance 1+5+N Diagram */
+        /* Governance & Ladder */
         .gov-stack { display: flex; flex-direction: column; gap: 0.9rem; }
-        .gov-tier { padding: 1.05rem 1.3rem; border-radius: 16px; border: 1px solid var(--border-glass); background: rgba(15,23,42,0.75); }
-        .gov-tier h4 { font-size: 0.95rem; font-weight: 800; margin-bottom: 0.45rem; display: flex; align-items: center; gap: 8px; }
+        .gov-tier { padding: 1.15rem 1.4rem; border-radius: 16px; border: 1px solid var(--border-glass); background: rgba(15,23,42,0.75); }
+        .gov-tier h4 { font-size: 1rem; font-weight: 800; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px; }
         .gov-chips { display: flex; flex-wrap: wrap; gap: 8px; }
         .gov-chip { padding: 6px 12px; border-radius: 10px; font-size: 0.82rem; font-weight: 700; background: rgba(255,255,255,0.06); color: var(--text-sub); border: 1px solid rgba(255,255,255,0.09); }
+        .ladder-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; align-items: end; }
+        .ladder-col { padding: 1.35rem; border-radius: 18px; border: 1px solid var(--border-glass); background: rgba(15,23,42,0.78); display: flex; flex-direction: column; justify-content: space-between; gap: 0.5rem; }
+        .ladder-hrs { font-family: 'JetBrains Mono', monospace; font-size: 1.85rem; font-weight: 900; color: #FBBF24; }
 
-        /* Ladder 4 */
-        .ladder-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.9rem; align-items: end; }
-        .ladder-col { padding: 1.2rem; border-radius: 16px; border: 1px solid var(--border-glass); background: rgba(15,23,42,0.78); display: flex; flex-direction: column; gap: 0.5rem; }
-        .ladder-hrs { font-family: 'JetBrains Mono', monospace; font-size: 1.55rem; font-weight: 900; color: #FBBF24; }
-
-        /* Checklist 15 Interactive */
-        .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-height: 410px; overflow-y: auto; padding-right: 4px; }
-        .check-item {
-            display: flex; align-items: flex-start; gap: 10px; padding: 0.62rem 0.85rem; border-radius: 10px;
-            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); cursor: pointer;
-            font-size: 0.82rem; color: var(--text-sub); line-height: 1.45; transition: all 0.2s;
-        }
+        /* Checklist & QA */
+        .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; max-height: 410px; overflow-y: auto; padding-right: 4px; }
+        .check-item { display: flex; align-items: flex-start; gap: 10px; padding: 0.62rem 0.85rem; border-radius: 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); cursor: pointer; font-size: 0.82rem; color: var(--text-sub); line-height: 1.45; transition: all 0.2s; }
         .check-item.checked { background: rgba(16,185,129,0.14); border-color: rgba(16,185,129,0.5); color: #fff; }
         .check-item input { margin-top: 3px; accent-color: #10B981; cursor: pointer; }
         .score-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem; padding: 0.7rem 1.1rem; border-radius: 12px; background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.35); }
 
-        /* QA Flip Cards */
         .qa-stack { display: flex; flex-direction: column; gap: 0.65rem; max-height: 440px; overflow-y: auto; }
-        .qa-card {
-            border-radius: 13px; border: 1px solid var(--border-glass); background: rgba(15,23,42,0.76);
-            padding: 0.88rem 1.15rem; cursor: pointer; transition: all 0.25s;
-        }
-        .qa-card:hover { border-color: var(--mod-accent); }
-        .qa-q { font-size: 0.93rem; font-weight: 800; color: #fff; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
-        .qa-a { font-size: 0.87rem; color: #A7F3D0; line-height: 1.55; margin-top: 0.55rem; padding-top: 0.55rem; border-top: 1px solid rgba(255,255,255,0.08); display: none; }
-        .qa-card.open .qa-a { display: block; }
-        .qa-card.open { border-color: var(--mod-accent); background: rgba(16,185,129,0.08); }
+        .qa-card { border-radius: 13px; border: 1px solid var(--border-glass); background: rgba(15,23,42,0.76); padding: 0.95rem 1.2rem; cursor: pointer; transition: all 0.25s; }
+        .qa-card:hover { border-color: var(--mod-accent); transform: translateX(4px); }
+        .qa-q { font-size: 0.96rem; font-weight: 800; color: #fff; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
 
-        /* Chart Container */
         .chart-layout { display: grid; grid-template-columns: 1.3fr 0.9fr; gap: 1.4rem; align-items: center; }
         .chart-card { height: 350px; padding: 1.2rem; }
 
-        /* Bottom Control Dock */
+        /* Bottom Dock */
         .bottom-dock {
             position: fixed; bottom: 0; left: 0; right: 0; height: 56px; z-index: 100;
-            background: rgba(5, 8, 17, 0.82); backdrop-filter: blur(18px);
+            background: rgba(5, 8, 17, 0.85); backdrop-filter: blur(18px);
             border-top: 1px solid var(--border-glass);
             display: flex; align-items: center; justify-content: space-between; padding: 0 1.4rem; gap: 1rem;
         }
@@ -350,7 +403,7 @@
         .slide-counter strong { color: #fff; }
         .nav-btns { display: flex; align-items: center; gap: 8px; }
         .nav-btn {
-            padding: 7px 16px; border-radius: 10px; border: 1px solid var(--border-glass);
+            padding: 7px 15px; border-radius: 10px; border: 1px solid var(--border-glass);
             background: rgba(255,255,255,0.06); color: #fff; font-family: inherit; font-size: 0.82rem; font-weight: 700;
             cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;
         }
@@ -362,8 +415,8 @@
         .notes-drawer {
             position: fixed; left: 50%; bottom: 66px; transform: translateX(-50%) translateY(20px);
             width: min(920px, 92vw); padding: 1.15rem 1.45rem; border-radius: 16px;
-            background: rgba(7, 12, 26, 0.94); border: 1px solid color-mix(in srgb, var(--mod-accent) 50%, transparent);
-            backdrop-filter: blur(20px); z-index: 120; box-shadow: 0 20px 50px rgba(0,0,0,0.65);
+            background: rgba(7, 12, 26, 0.95); border: 1px solid color-mix(in srgb, var(--mod-accent) 50%, transparent);
+            backdrop-filter: blur(20px); z-index: 180; box-shadow: 0 20px 50px rgba(0,0,0,0.65);
             opacity: 0; pointer-events: none; transition: all 0.3s var(--ease-cinematic);
         }
         .notes-drawer.open { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
@@ -371,29 +424,26 @@
         .notes-body { font-size: 0.92rem; color: #E2E8F0; line-height: 1.65; }
 
         /* Overview Grid Modal */
-        .grid-modal {
-            position: fixed; inset: 0; z-index: 200; background: rgba(3, 6, 14, 0.95); backdrop-filter: blur(22px);
-            padding: 2rem; overflow-y: auto; display: none;
-        }
+        .grid-modal { position: fixed; inset: 0; z-index: 200; background: rgba(3, 6, 14, 0.95); backdrop-filter: blur(22px); padding: 2rem; overflow-y: auto; display: none; }
         .grid-modal.open { display: block; }
         .grid-modal-head { max-width: 1260px; margin: 0 auto 1.4rem; display: flex; justify-content: space-between; align-items: center; }
         .thumb-grid { max-width: 1260px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.85rem; }
-        .thumb-card {
-            padding: 0.9rem 1rem; border-radius: 12px; background: rgba(255,255,255,0.04); border: 1px solid var(--border-glass);
-            cursor: pointer; transition: all 0.2s; text-align: left;
-        }
+        .thumb-card { padding: 0.9rem 1rem; border-radius: 12px; background: rgba(255,255,255,0.04); border: 1px solid var(--border-glass); cursor: pointer; transition: all 0.2s; text-align: left; }
         .thumb-card:hover, .thumb-card.current { border-color: var(--mod-accent); background: rgba(16,185,129,0.12); transform: translateY(-2px); }
         .thumb-num { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 800; color: var(--mod-accent); margin-bottom: 4px; }
         .thumb-title { font-size: 0.82rem; font-weight: 700; color: #fff; line-height: 1.38; }
 
-        /* Toast */
-        .toast {
-            position: fixed; top: 76px; right: 20px; z-index: 250; padding: 10px 18px; border-radius: 10px;
-            background: #10B981; color: #030712; font-size: 0.85rem; font-weight: 800;
-            transform: translateY(-16px); opacity: 0; pointer-events: none; transition: all 0.3s;
-        }
+        .toast { position: fixed; top: 76px; right: 20px; z-index: 250; padding: 10px 18px; border-radius: 10px; background: #10B981; color: #030712; font-size: 0.85rem; font-weight: 800; transform: translateY(-16px); opacity: 0; pointer-events: none; transition: all 0.3s; }
         .toast.show { transform: translateY(0); opacity: 1; }
 
+        @media (max-width: 1360px) {
+            .deck-label { display: none; }
+            .mod-tab { padding: 6px 9px; font-size: 0.72rem; }
+        }
+        @media (max-width: 1080px) {
+            .timer-chip { display: none; }
+            .mode-pill span { display: none; }
+        }
         @media (max-width: 960px) {
             .deck-label, .hint-keys, .timer-chip { display: none; }
             .editorial-grid, .grid-2, .grid-3, .grid-4, .grid-5, .chart-layout, .ladder-grid, .check-grid, .tl-grid { grid-template-columns: 1fr; }
@@ -403,7 +453,7 @@
         }
     </style>
 </head>
-<body>
+<body class="minimal-mode">
     <!-- Ambient Cinematic Stage -->
     <div class="cinematic-stage-bg">
         <div class="ambient-orb orb-1" id="orb1"></div>
@@ -416,16 +466,19 @@
     <header class="top-bar">
         <div class="brand-left">
             <a href="showcase.html?target=public" class="back-pill"><i class="fa-solid fa-arrow-left"></i> 쇼케이스</a>
-            <div class="deck-label">울산 청소년진로센터 <span>AX 시네마틱 마스터클래스</span></div>
+            <div class="deck-label">울산 청소년진로센터 <span>AX 시네마틱 v2.0</span></div>
         </div>
         <nav class="module-tabs" id="moduleTabs" aria-label="강의 모듈 선택"></nav>
         <div class="top-controls">
-            <button class="timer-chip" id="timerBtn" title="60분 발표 타이머 (클릭: 시작/일시정지, 더블클릭: 리셋)">
+            <button class="mode-pill" id="modeToggleBtn" title="초기 화면 미니멀(클릭 클로즈업) vs 전체 텍스트 펼치기 전환 (M)">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> <span id="modeToggleText">미니멀 클로즈업 ON</span>
+            </button>
+            <button class="timer-chip" id="timerBtn" title="60분 타이머 (클릭: 시작/일시정지, 더블클릭: 리셋)">
                 <i class="fa-regular fa-clock"></i> <span id="timerText">60:00</span>
             </button>
-            <button class="icon-btn" id="notesBtn" title="발표자 대본 토글 (N)"><i class="fa-solid fa-microphone-lines"></i></button>
-            <button class="icon-btn" id="gridBtn" title="58장 전체 개요 보기 (G)"><i class="fa-solid fa-table-cells"></i></button>
-            <button class="icon-btn" id="fsBtn" title="전체화면 발표 모드 (F)"><i class="fa-solid fa-expand"></i></button>
+            <button class="icon-btn" id="notesBtn" title="발표자 대본 (N)"><i class="fa-solid fa-microphone-lines"></i></button>
+            <button class="icon-btn" id="gridBtn" title="58장 전체 개요 (G)"><i class="fa-solid fa-table-cells"></i></button>
+            <button class="icon-btn" id="fsBtn" title="전체화면 (F)"><i class="fa-solid fa-expand"></i></button>
         </div>
     </header>
 
@@ -433,6 +486,11 @@
     <main class="stage-viewport" id="stageViewport">
         <section class="slide-frame" id="slideFrame" aria-live="polite"></section>
     </main>
+
+    <!-- Center-Stage FLIP Spotlight Close-Up Overlay -->
+    <div class="spotlight-overlay" id="spotlightOverlay" onclick="if(event.target===this) closeSpotlight()">
+        <div class="spotlight-stage" id="spotlightStage"></div>
+    </div>
 
     <!-- Speaker Notes Drawer -->
     <aside class="notes-drawer" id="notesDrawer">
@@ -462,7 +520,7 @@
             <span id="modIndicator" style="color:var(--mod-accent); margin-right:8px;">M1</span>
             <strong id="curNum">01</strong> / <span id="totNum">58</span>
         </div>
-        <div class="hint-keys">키보드: <b>← / → / Space</b> 이동 · <b>N</b> 대본 · <b>G</b> 전체목록 · <b>F</b> 전체화면</div>
+        <div class="hint-keys"><b>카드 클릭</b> 중앙 클로즈업 · <b>↑/↓</b> 카드 순차 줌 · <b>←/→</b> 슬라이드 · <b>M</b> 미니멀/전체 · <b>N</b> 대본</div>
         <div class="nav-btns">
             <button class="nav-btn" id="prevBtn"><i class="fa-solid fa-chevron-left"></i> 이전</button>
             <button class="nav-btn" id="nextBtn">다음 <i class="fa-solid fa-chevron-right"></i></button>
@@ -482,6 +540,9 @@
         let checklistState = new Array(15).fill(false);
         let simSafeMode = false;
         let tlActive = 'r';
+        let minimalMode = true;
+        let currentFocusItems = [];
+        let activeFocusIdx = -1;
 
         const CHECKLIST_ITEMS = [
             '[보안 1] 업무용 생성형 AI 계정의 모델 학습 데이터 활용 거부(Opt-out) 완료',
@@ -507,13 +568,12 @@
             g: { title: '🟢 GREEN · 자유 활용 권장', color: '#10B981', scope: '공개된 울산 산업·고용 통계, 커리어넷·꿈길 공개 직무 정보, 일반 진로 교육 교안 아이디어, 소크라테스 공통 프롬프트 개발, 홍보 카드뉴스 초안', env: '일반 상용 생성형 AI 및 공공 권장 AI 도구', action: '저작권 및 할루시네이션(존재하지 않는 학과·자격증·법령) 최종 검증 후 배포' }
         };
 
-        // Init Module Tabs & Overview Grid
         function initChrome() {
-            const tabEl = document.getElementById('moduleTabs');
-            tabEl.innerHTML = MODULES.map(m => `<button class="mod-tab" data-mod="${m.id}" onclick="jumpToSlide(${m.startIdx})">${m.code} · ${m.title}</button>`).join('');
+            document.getElementById('moduleTabs').innerHTML = MODULES.map(m =>
+                `<button class="mod-tab" data-mod="${m.id}" onclick="jumpToSlide(${m.startIdx})">${m.code} · ${m.title}</button>`
+            ).join('');
             document.getElementById('totNum').textContent = String(SLIDES.length).padStart(2, '0');
-            const thumbEl = document.getElementById('thumbGrid');
-            thumbEl.innerHTML = SLIDES.map((s, idx) => `
+            document.getElementById('thumbGrid').innerHTML = SLIDES.map((s, idx) => `
                 <button class="thumb-card" data-idx="${idx}" onclick="jumpToSlide(${idx}); toggleGrid(false);">
                     <div class="thumb-num">${s.mod} · SLIDE ${String(s.num).padStart(2,'0')} (${s.trans.toUpperCase()})</div>
                     <div class="thumb-title">${s.title.replace(/<[^>]+>/g, '')}</div>
@@ -532,42 +592,125 @@
             navigator.clipboard.writeText(PROMPTS[key] || '').then(() => showToast('프롬프트가 클립보드에 복사되었습니다!'));
         };
 
-        window.toggleMaskSim = function() {
-            simSafeMode = !simSafeMode;
-            renderMaskSimulator();
+        // ========== FLIP CENTER-STAGE SPOTLIGHT ENGINE (v2.0) ==========
+        window.openSpotlight = function(itemIdx, sourceEl) {
+            if (!currentFocusItems[itemIdx]) return;
+            const firstRect = sourceEl ? sourceEl.getBoundingClientRect() : null;
+            activeFocusIdx = itemIdx;
+            const item = currentFocusItems[itemIdx];
+            const overlay = document.getElementById('spotlightOverlay');
+            const stage = document.getElementById('spotlightStage');
+
+            stage.innerHTML = `
+                <button class="spotlight-close" onclick="closeSpotlight()" title="닫기 (ESC)"><i class="fa-solid fa-xmark"></i></button>
+                <div class="spotlight-kicker">${item.kicker || `DETAIL ${String(itemIdx+1).padStart(2,'0')} / ${String(currentFocusItems.length).padStart(2,'0')}`}</div>
+                <h2 class="spotlight-title">${item.title}</h2>
+                ${item.sub ? `<div class="spotlight-sub">${item.sub}</div>` : ''}
+                ${item.body ? `<div class="spotlight-body">${item.body}</div>` : ''}
+                ${item.list ? `<ul class="spotlight-list">${item.list.map(li => `<li>${li}</li>`).join('')}</ul>` : ''}
+                ${item.tags ? `<div class="tag-row">${item.tags.map(t => `<span class="mini-tag">${t}</span>`).join('')}</div>` : ''}
+                <div class="spotlight-chain-bar">
+                    <div class="chain-pills">
+                        ${currentFocusItems.map((fi, i) => `
+                            <button class="chain-pill ${i===itemIdx?'active':''}" onclick="switchSpotlight(${i})">
+                                ${String(i+1).padStart(2,'0')}. ${fi.shortLabel || fi.title.replace(/<[^>]+>/g,'').slice(0,18)}
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div class="chain-nav-btns">
+                        <button class="nav-btn" onclick="stepSpotlight(-1)" ${itemIdx===0?'disabled':''}><i class="fa-solid fa-chevron-left"></i> 이전 카드</button>
+                        <button class="nav-btn" style="background:var(--mod-accent); color:#030712; border-color:var(--mod-accent);" onclick="stepSpotlight(1)">
+                            ${itemIdx === currentFocusItems.length - 1 ? '다음 슬라이드 <i class="fa-solid fa-forward"></i>' : '다음 카드 <i class="fa-solid fa-chevron-right"></i>'}
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.body.classList.add('spotlight-open');
+            overlay.classList.add('open');
+
+            // True FLIP Animation (First -> Last -> Invert -> Play)
+            stage.style.transition = 'none';
+            if (firstRect) {
+                const lastRect = stage.getBoundingClientRect();
+                const dx = (firstRect.left + firstRect.width / 2) - (lastRect.left + lastRect.width / 2);
+                const dy = (firstRect.top + firstRect.height / 2) - (lastRect.top + lastRect.height / 2);
+                const sx = Math.max(0.28, firstRect.width / lastRect.width);
+                const sy = Math.max(0.28, firstRect.height / lastRect.height);
+                stage.style.transform = `translate3d(${dx}px, ${dy}px, 0) scale(${sx}, ${sy})`;
+                stage.style.opacity = '0.25';
+            } else {
+                stage.style.transform = 'scale(0.88) translateY(24px)';
+                stage.style.opacity = '0';
+            }
+            void stage.offsetWidth;
+            stage.style.transition = 'transform 0.62s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease';
+            stage.style.transform = 'translate3d(0, 0, 0) scale(1)';
+            stage.style.opacity = '1';
         };
 
+        window.switchSpotlight = function(nextIdx) {
+            const stage = document.getElementById('spotlightStage');
+            stage.style.transition = 'transform 0.22s ease, opacity 0.18s ease';
+            stage.style.transform = 'scale(0.95) translateY(-10px)';
+            stage.style.opacity = '0';
+            setTimeout(() => openSpotlight(nextIdx, null), 170);
+        };
+
+        window.stepSpotlight = function(delta) {
+            const target = activeFocusIdx + delta;
+            if (target >= 0 && target < currentFocusItems.length) {
+                switchSpotlight(target);
+            } else if (delta > 0 && currentIdx < SLIDES.length - 1) {
+                closeSpotlight();
+                renderSlide(currentIdx + 1, 1);
+            } else if (delta < 0 && currentIdx > 0) {
+                closeSpotlight();
+                renderSlide(currentIdx - 1, -1);
+            }
+        };
+
+        window.closeSpotlight = function() {
+            const overlay = document.getElementById('spotlightOverlay');
+            const stage = document.getElementById('spotlightStage');
+            if (!overlay.classList.contains('open')) return;
+            stage.style.transition = 'transform 0.3s ease, opacity 0.25s ease';
+            stage.style.transform = 'scale(0.88)';
+            stage.style.opacity = '0';
+            document.body.classList.remove('spotlight-open');
+            setTimeout(() => {
+                overlay.classList.remove('open');
+                activeFocusIdx = -1;
+            }, 240);
+        };
+
+        // ========== INTERACTIVE WIDGETS ==========
+        window.toggleMaskSim = function() { simSafeMode = !simSafeMode; renderMaskSimulator(); };
         function renderMaskSimulator() {
-            const container = document.getElementById('maskSimContainer');
-            if (!container) return;
+            const c = document.getElementById('maskSimContainer');
+            if (!c) return;
             if (!simSafeMode) {
-                container.innerHTML = `
+                c.innerHTML = `
                     <div class="sim-toggle-bar">
                         <span style="font-weight:800; color:#FDA4AF;"><i class="fa-solid fa-triangle-exclamation"></i> 현재 상태: 위험 원문 (개인정보보호법 · 국정원 가이드북 위반)</span>
                         <button class="sim-btn green" onclick="toggleMaskSim()"><i class="fa-solid fa-wand-magic-sparkles"></i> MASK-5 비식별화 모핑 실행 →</button>
                     </div>
                     <div class="sim-stage danger">
                         “<span class="pii-bad">울산 북구 매곡동</span>에 사는 <span class="pii-bad">○○고 2학년 3반 김민수(010-1234-5678)</span> 학생. 아버지가 <span class="pii-bad">현대차 협력사 구조조정 불안</span>이 있고, 학생 본인은 <span class="pii-bad">경미한 ADHD 약을 복용 중</span>임. <span class="pii-bad">내신 3.8등급</span>이고 컴퓨터 게임과 드론 조립을 좋아함. 진로 로드맵 짜줘.”
-                    </div>
-                `;
+                    </div>`;
             } else {
-                container.innerHTML = `
+                c.innerHTML = `
                     <div class="sim-toggle-bar">
                         <span style="font-weight:800; color:#6EE7B7;"><i class="fa-solid fa-shield-check"></i> 변환 완료: 안전 입력문 (모든 식별자·민감정보 제거, 진로 핵심 신호 100% 보존)</span>
                         <button class="sim-btn red" onclick="toggleMaskSim()"><i class="fa-solid fa-rotate-left"></i> 위험 원문(Before) 다시 보기</button>
                     </div>
                     <div class="sim-stage safe">
                         “<span class="pii-safe">[학생A / 울산 인문계 고2 / 중위권]</span>이 기계·드론 조립과 게임 시스템 구조 분석에 높은 흥미를 보임. 긴 이론보다 <span class="pii-safe">직접 만들고 즉각 피드백을 받는 실습형 환경에서 집중력 우수</span>. 울산 지역 미래 모빌리티·제조 AI·드론 산업과 연계하여 학생 스스로 탐색할 <span class="pii-safe">소크라테스 질문 5개와 체험 로드맵 초안</span>을 제안해 줘.”
-                    </div>
-                `;
+                    </div>`;
             }
         }
 
-        window.selectTraffic = function(code) {
-            tlActive = code;
-            renderTrafficLight();
-        };
-
+        window.selectTraffic = function(code) { tlActive = code; renderTrafficLight(); };
         function renderTrafficLight() {
             const box = document.getElementById('tlContainer');
             if (!box) return;
@@ -587,15 +730,10 @@
                             <div class="point-row"><div><h4>필수 실무 안전 조치</h4><p>${d.action}</p></div></div>
                         </div>
                     </div>
-                </div>
-            `;
+                </div>`;
         }
 
-        window.toggleCheck = function(i) {
-            checklistState[i] = !checklistState[i];
-            renderChecklist();
-        };
-
+        window.toggleCheck = function(i) { checklistState[i] = !checklistState[i]; renderChecklist(); };
         function renderChecklist() {
             const box = document.getElementById('checklistBox');
             if (!box) return;
@@ -613,8 +751,7 @@
                             <span>${txt}</span>
                         </label>
                     `).join('')}
-                </div>
-            `;
+                </div>`;
         }
 
         function animateCounters() {
@@ -622,18 +759,22 @@
                 const target = parseFloat(el.dataset.countTo);
                 const suffix = el.dataset.suffix || '';
                 const start = performance.now();
-                const dur = 950;
                 function tick(now) {
-                    const p = Math.min(1, (now - start) / dur);
-                    const eased = 1 - Math.pow(1 - p, 3);
-                    el.textContent = Math.round(target * eased) + suffix;
+                    const p = Math.min(1, (now - start) / 950);
+                    el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + suffix;
                     if (p < 1) requestAnimationFrame(tick);
                 }
                 requestAnimationFrame(tick);
             });
         }
 
+        // ========== BUILD SLIDES (WITH PROGRESSIVE DISCLOSURE + FOCUS ITEMS) ==========
         function buildSlideBody(s) {
+            currentFocusItems = [];
+            const hintHtml = () => currentFocusItems.length > 0
+                ? `<div class="stage-hint-bar stagger-item" style="animation-delay:0.42s;"><span class="pulse-dot"></span> 카드를 클릭하거나 <b>↓</b> 키를 누르면 화면 정중앙으로 시네마틱 클로즈업됩니다 (${currentFocusItems.length}개 항목)</div>`
+                : '';
+
             if (s.layout === 'hero') {
                 return `<div class="hero-wrap">
                     <div class="slide-badge stagger-item" style="animation-delay:0.05s; margin-bottom:1.2rem;">${s.badge}</div>
@@ -644,12 +785,6 @@
                     </div>
                 </div>`;
             }
-
-            let top = `<div class="slide-top-meta">
-                <div class="slide-badge">${s.badge}</div>
-                ${s.timeline ? `<div class="timeline-pill"><i class="fa-solid fa-film"></i> ${s.timeline}</div>` : ''}
-            </div>
-            <h2 class="slide-title">${s.title}</h2>`;
 
             if (s.layout === 'module-opener') {
                 return `<div class="hero-wrap">
@@ -662,105 +797,174 @@
                 </div>`;
             }
 
+            let top = `<div class="slide-top-meta">
+                <div class="slide-badge">${s.badge}</div>
+                ${s.timeline ? `<div class="timeline-pill"><i class="fa-solid fa-film"></i> ${s.timeline}</div>` : ''}
+            </div>
+            <h2 class="slide-title">${s.title}</h2>`;
+
             if (s.layout === 'editorial-focus') {
+                currentFocusItems = s.points.map((pt, i) => ({
+                    kicker: `${s.bigText} · POINT 0${i+1}`, title: pt.title, body: pt.desc, shortLabel: pt.title
+                }));
                 return top + `<div class="editorial-grid">
                     <div class="editorial-big stagger-item">${s.bigText}</div>
                     <div class="point-stack">
-                        ${s.points.map((pt, i) => `<div class="point-row stagger-item" style="animation-delay:${0.1 + i*0.1}s;">
+                        ${s.points.map((pt, i) => `<div class="point-row focusable-card stagger-item" style="animation-delay:${0.1+i*0.1}s;" onclick="openSpotlight(${i}, this)">
                             <div class="point-icon"><i class="fa-solid ${pt.icon}"></i></div>
-                            <div><h4>${pt.title}</h4><p>${pt.desc}</p></div>
+                            <div style="flex:1;">
+                                <h4>${pt.title}</h4>
+                                <p class="detail-hidden-in-minimal">${pt.desc}</p>
+                            </div>
+                            <span class="zoom-cue" style="margin-top:0;">클로즈업 <i class="fa-solid fa-up-right-and-down-left-from-center"></i></span>
                         </div>`).join('')}
                     </div>
-                </div>`;
+                </div>` + hintHtml();
             }
 
             if (s.layout === 'vs-split') {
+                currentFocusItems = [
+                    { kicker: 'COMPARISON 01 · BEFORE', title: s.leftTitle, list: s.leftItems, shortLabel: s.leftTitle },
+                    { kicker: 'COMPARISON 02 · AFTER / CONTROL', title: s.rightTitle, list: s.rightItems, shortLabel: s.rightTitle }
+                ];
                 return top + `<div class="grid-2">
-                    <div class="vs-box vs-left stagger-item"><h3><i class="fa-solid fa-clock-rotate-left" style="color:#94A3B8;"></i> ${s.leftTitle}</h3>
-                        <ul class="vs-list">${s.leftItems.map(it => `<li>${it}</li>`).join('')}</ul>
+                    <div class="vs-box vs-left focusable-card minimal-card-pad stagger-item" onclick="openSpotlight(0, this)">
+                        <div>
+                            <h3><i class="fa-solid fa-clock-rotate-left" style="color:#94A3B8;"></i> ${s.leftTitle}</h3>
+                            <ul class="vs-list detail-hidden-in-minimal">${s.leftItems.map(it => `<li>${it}</li>`).join('')}</ul>
+                        </div>
+                        <div class="zoom-cue">핵심 ${s.leftItems.length}가지 클로즈업 <i class="fa-solid fa-arrow-up-right-from-square"></i></div>
                     </div>
-                    <div class="vs-box vs-right stagger-item" style="animation-delay:0.14s;"><h3><i class="fa-solid fa-bolt" style="color:var(--mod-accent);"></i> ${s.rightTitle}</h3>
-                        <ul class="vs-list">${s.rightItems.map(it => `<li>${it}</li>`).join('')}</ul>
+                    <div class="vs-box vs-right focusable-card minimal-card-pad stagger-item" style="animation-delay:0.14s;" onclick="openSpotlight(1, this)">
+                        <div>
+                            <h3><i class="fa-solid fa-bolt" style="color:var(--mod-accent);"></i> ${s.rightTitle}</h3>
+                            <ul class="vs-list detail-hidden-in-minimal">${s.rightItems.map(it => `<li>${it}</li>`).join('')}</ul>
+                        </div>
+                        <div class="zoom-cue">핵심 ${s.rightItems.length}가지 클로즈업 <i class="fa-solid fa-arrow-up-right-from-square"></i></div>
                     </div>
-                </div>`;
+                </div>` + hintHtml();
             }
 
             if (s.layout === 'quote-hero') {
-                return top + `<div class="quote-box stagger-item">
+                currentFocusItems = [{ kicker: 'ORIGINAL QUOTE', title: s.author, body: `${s.quote}<br><br><i style="color:#94A3B8; font-size:0.95rem;">${s.quoteEn}</i>`, tags: s.tags, shortLabel: s.author }];
+                return top + `<div class="quote-box focusable-card stagger-item" onclick="openSpotlight(0, this)">
                     <div class="quote-kr">${s.quote}</div>
-                    <div class="quote-en">${s.quoteEn}</div>
-                    <div class="quote-author">— ${s.author}</div>
+                    <div class="quote-en detail-hidden-in-minimal">${s.quoteEn}</div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.8rem;">
+                        <div class="quote-author">— ${s.author}</div>
+                        <span class="zoom-cue" style="margin-top:0;">원문 어록 클로즈업 <i class="fa-solid fa-expand"></i></span>
+                    </div>
                     <div class="tag-row">${s.tags.map(t => `<span class="mini-tag">${t}</span>`).join('')}</div>
                 </div>`;
             }
 
             if (s.layout === 'four-pillars') {
+                currentFocusItems = s.pillars.map((p, i) => ({
+                    kicker: `PILLAR ${p.num}`, title: p.title, body: p.desc, shortLabel: p.title
+                }));
                 return top + `<div class="grid-4">
-                    ${s.pillars.map((p, i) => `<div class="glass-card stagger-item" style="animation-delay:${0.06+i*0.09}s;">
-                        <div class="pillar-num">${p.num}</div>
-                        <div class="pillar-title">${p.title}</div>
-                        <div class="pillar-desc">${p.desc}</div>
+                    ${s.pillars.map((p, i) => `<div class="glass-card focusable-card minimal-card-pad stagger-item" style="animation-delay:${0.06+i*0.09}s;" onclick="openSpotlight(${i}, this)">
+                        <div>
+                            <div class="pillar-num">${p.num}</div>
+                            <div class="pillar-title">${p.title}</div>
+                            <div class="pillar-desc detail-hidden-in-minimal">${p.desc}</div>
+                        </div>
+                        <div class="zoom-cue">자세히 보기 ↗</div>
                     </div>`).join('')}
-                </div>${s.footerBar ? `<div class="footer-strip stagger-item" style="animation-delay:0.42s;">${s.footerBar}</div>` : ''}`;
+                </div>${s.footerBar ? `<div class="footer-strip stagger-item" style="animation-delay:0.4s;">${s.footerBar}</div>` : ''}` + hintHtml();
             }
 
             if (s.layout === 'dual-kpi') {
+                currentFocusItems = s.kpis.map((k, i) => ({
+                    kicker: `GLOBAL KPI 0${i+1}`, title: `${k.val}${k.suffix} — ${k.label}`, body: k.sub, shortLabel: `${k.val}${k.suffix}`
+                }));
                 return top + `<div class="grid-2">
-                    ${s.kpis.map((k, i) => `<div class="glass-card kpi-card stagger-item" style="animation-delay:${0.08+i*0.14}s; border-color:${k.color}55;">
+                    ${s.kpis.map((k, i) => `<div class="glass-card kpi-card focusable-card stagger-item" style="animation-delay:${0.08+i*0.14}s; border-color:${k.color}55;" onclick="openSpotlight(${i}, this)">
                         <div class="kpi-number" style="color:${k.color};" data-count-to="${k.val}" data-suffix="${k.suffix}">0${k.suffix}</div>
                         <div class="kpi-label">${k.label}</div>
-                        <div class="kpi-sub">${k.sub}</div>
+                        <div class="kpi-sub detail-hidden-in-minimal">${k.sub}</div>
+                        <div class="zoom-cue" style="justify-content:center;">데이터 해석 클로즈업 ↗</div>
                     </div>`).join('')}
-                </div>`;
+                </div>` + hintHtml();
             }
 
             if (s.layout === 'two-cards') {
+                currentFocusItems = s.cards.map((c, i) => ({
+                    kicker: c.tag, title: c.title, body: c.desc, shortLabel: c.title
+                }));
                 return top + `<div class="grid-2">
-                    ${s.cards.map((c, i) => `<div class="glass-card stagger-item" style="animation-delay:${0.08+i*0.12}s;">
-                        <div style="font-size:0.78rem; font-weight:800; color:var(--mod-accent); margin-bottom:0.5rem;">${c.tag}</div>
-                        <h3 style="font-size:1.18rem; font-weight:800; color:#fff; margin-bottom:0.65rem;">${c.title}</h3>
-                        <p style="font-size:0.93rem; color:var(--text-sub); line-height:1.65;">${c.desc}</p>
+                    ${s.cards.map((c, i) => `<div class="glass-card focusable-card minimal-card-pad stagger-item" style="animation-delay:${0.08+i*0.12}s;" onclick="openSpotlight(${i}, this)">
+                        <div>
+                            <div style="font-size:0.8rem; font-weight:800; color:var(--mod-accent); margin-bottom:0.55rem;">${c.tag}</div>
+                            <h3 style="font-size:1.3rem; font-weight:900; color:#fff; margin-bottom:0.65rem; line-height:1.35;">${c.title}</h3>
+                            <p class="detail-hidden-in-minimal" style="font-size:0.93rem; color:var(--text-sub); line-height:1.65;">${c.desc}</p>
+                        </div>
+                        <div class="zoom-cue">핵심 세부내용 클로즈업 ↗</div>
                     </div>`).join('')}
-                </div>`;
+                </div>` + hintHtml();
             }
 
             if (s.layout === 'scholar-pair') {
+                currentFocusItems = s.scholars.map(sc => ({
+                    kicker: sc.role, title: sc.name, body: sc.quote, tags: sc.tags.map(t=>'#'+t), shortLabel: sc.name
+                }));
                 return top + `<div class="grid-2">
-                    ${s.scholars.map((sc, i) => `<div class="glass-card stagger-item" style="animation-delay:${0.08+i*0.14}s;">
-                        <div style="font-size:1.12rem; font-weight:900; color:#fff;">${sc.name}</div>
-                        <div style="font-size:0.8rem; color:var(--mod-accent); font-weight:700; margin:3px 0 0.9rem;">${sc.role}</div>
-                        <p style="font-size:0.98rem; color:#F1F5F9; line-height:1.65; font-weight:600; margin-bottom:1rem;">${sc.quote}</p>
-                        <div class="tag-row">${sc.tags.map(t => `<span class="mini-tag">#${t}</span>`).join('')}</div>
+                    ${s.scholars.map((sc, i) => `<div class="glass-card focusable-card minimal-card-pad stagger-item" style="animation-delay:${0.08+i*0.14}s;" onclick="openSpotlight(${i}, this)">
+                        <div>
+                            <div style="font-size:1.3rem; font-weight:900; color:#fff;">${sc.name}</div>
+                            <div style="font-size:0.84rem; color:var(--mod-accent); font-weight:700; margin:4px 0 0.9rem;">${sc.role}</div>
+                            <p class="detail-hidden-in-minimal" style="font-size:0.98rem; color:#F1F5F9; line-height:1.65; font-weight:600; margin-bottom:0.8rem;">${sc.quote}</p>
+                            <div class="tag-row">${sc.tags.map(t => `<span class="mini-tag">#${t}</span>`).join('')}</div>
+                        </div>
+                        <div class="zoom-cue">석학 원문 어록 클로즈업 ↗</div>
                     </div>`).join('')}
-                </div>`;
+                </div>` + hintHtml();
             }
 
             if (s.layout === 'three-bento') {
+                currentFocusItems = s.items.map((it, i) => ({
+                    kicker: it.sub || `ITEM 0${i+1}`, title: it.title, body: it.desc, shortLabel: it.title
+                }));
                 return top + `<div class="grid-3">
-                    ${s.items.map((it, i) => `<div class="glass-card stagger-item" style="animation-delay:${0.06+i*0.1}s;">
-                        <div class="point-icon" style="margin-bottom:0.85rem;"><i class="fa-solid ${it.icon}"></i></div>
-                        <div style="font-size:1.05rem; font-weight:800; color:#fff; margin-bottom:3px;">${it.title}</div>
-                        <div style="font-size:0.78rem; color:var(--mod-accent); font-weight:700; margin-bottom:0.65rem;">${it.sub}</div>
-                        <div style="font-size:0.88rem; color:var(--text-sub); line-height:1.58;">${it.desc}</div>
+                    ${s.items.map((it, i) => `<div class="glass-card focusable-card minimal-card-pad stagger-item" style="animation-delay:${0.06+i*0.1}s;" onclick="openSpotlight(${i}, this)">
+                        <div>
+                            <div class="point-icon" style="margin-bottom:0.95rem;"><i class="fa-solid ${it.icon}"></i></div>
+                            <div style="font-size:1.15rem; font-weight:900; color:#fff; margin-bottom:4px; line-height:1.35;">${it.title}</div>
+                            <div style="font-size:0.8rem; color:var(--mod-accent); font-weight:700; margin-bottom:0.65rem;">${it.sub}</div>
+                            <div class="detail-hidden-in-minimal" style="font-size:0.88rem; color:var(--text-sub); line-height:1.58;">${it.desc}</div>
+                        </div>
+                        <div class="zoom-cue">자세히 보기 ↗</div>
                     </div>`).join('')}
-                </div>`;
+                </div>` + hintHtml();
             }
 
             if (s.layout === 'two-pillars-gold') {
+                currentFocusItems = s.pillars.map(p => ({
+                    kicker: `CORE COMPETENCY ${p.num}`, title: p.title, body: p.desc, shortLabel: p.title
+                }));
                 return top + `<div class="grid-2">
-                    ${s.pillars.map((p, i) => `<div class="glass-card stagger-item" style="animation-delay:${0.08+i*0.14}s; border-color:rgba(251,191,36,0.45); padding:2rem;">
-                        <div class="pillar-num" style="color:#FBBF24; font-size:2.4rem;">${p.num}</div>
-                        <h3 style="font-size:1.35rem; font-weight:900; color:#fff; margin-bottom:0.8rem;">${p.title}</h3>
-                        <p style="font-size:0.98rem; color:#E2E8F0; line-height:1.7;">${p.desc}</p>
+                    ${s.pillars.map((p, i) => `<div class="glass-card focusable-card minimal-card-pad stagger-item" style="animation-delay:${0.08+i*0.14}s; border-color:rgba(251,191,36,0.45); padding:2.2rem;" onclick="openSpotlight(${i}, this)">
+                        <div>
+                            <div class="pillar-num" style="color:#FBBF24; font-size:2.6rem;">${p.num}</div>
+                            <h3 style="font-size:1.45rem; font-weight:900; color:#fff; margin-bottom:0.75rem;">${p.title}</h3>
+                            <p class="detail-hidden-in-minimal" style="font-size:0.98rem; color:#E2E8F0; line-height:1.7;">${p.desc}</p>
+                        </div>
+                        <div class="zoom-cue" style="color:#FBBF24;">핵심 철학 클로즈업 ↗</div>
                     </div>`).join('')}
-                </div>`;
+                </div>` + hintHtml();
             }
 
             if (s.layout === 'compare-table') {
+                currentFocusItems = s.rows.map((r, i) => ({
+                    kicker: `${s.headers[0]} · 0${i+1}`,
+                    title: r[0],
+                    list: [`<b>${s.headers[1]}</b>: ${r[1]}`, `<b>${s.headers[2]}</b>: ${r[2]}`],
+                    shortLabel: r[0]
+                }));
                 return top + `<table class="cinematic-table stagger-item">
                     <thead><tr>${s.headers.map(h => `<th>${h}</th>`).join('')}</tr></thead>
-                    <tbody>${s.rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody>
-                </table>`;
+                    <tbody>${s.rows.map((r, i) => `<tr onclick="openSpotlight(${i}, this)">${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody>
+                </table>` + hintHtml();
             }
 
             if (s.layout === 'bridge') {
@@ -774,13 +978,19 @@
             }
 
             if (s.layout === 'steps-3') {
+                currentFocusItems = s.steps.map(st => ({
+                    kicker: st.step, title: st.title, body: st.desc, shortLabel: st.step.split('·')[0].trim()
+                }));
                 return top + `<div class="grid-3">
-                    ${s.steps.map((st, i) => `<div class="glass-card stagger-item" style="animation-delay:${0.08+i*0.12}s;">
-                        <div style="font-family:'JetBrains Mono',monospace; font-size:0.78rem; font-weight:800; color:var(--mod-accent); margin-bottom:0.55rem;">${st.step}</div>
-                        <h3 style="font-size:1.08rem; font-weight:800; color:#fff; margin-bottom:0.65rem;">${st.title}</h3>
-                        <p style="font-size:0.89rem; color:var(--text-sub); line-height:1.6;">${st.desc}</p>
+                    ${s.steps.map((st, i) => `<div class="glass-card focusable-card minimal-card-pad stagger-item" style="animation-delay:${0.08+i*0.12}s;" onclick="openSpotlight(${i}, this)">
+                        <div>
+                            <div style="font-family:'JetBrains Mono',monospace; font-size:0.8rem; font-weight:800; color:var(--mod-accent); margin-bottom:0.65rem;">${st.step}</div>
+                            <h3 style="font-size:1.18rem; font-weight:900; color:#fff; margin-bottom:0.65rem; line-height:1.35;">${st.title}</h3>
+                            <p class="detail-hidden-in-minimal" style="font-size:0.89rem; color:var(--text-sub); line-height:1.6;">${st.desc}</p>
+                        </div>
+                        <div class="zoom-cue">단계별 상세 보기 ↗</div>
                     </div>`).join('')}
-                </div>`;
+                </div>` + hintHtml();
             }
 
             if (s.layout === 'prompt-card') {
@@ -792,95 +1002,125 @@
             }
 
             if (s.layout === 'chart-wharton') {
+                currentFocusItems = [
+                    { kicker: 'WHARTON EXPERIMENT 01', title: 'GPT Base (연습 시): +48%', body: '가드레일 없는 일반 ChatGPT를 제공하자 연습 문제 정답률이 48% 급상승했습니다. 하지만 이는 사고 과정을 외주화한 “단기 생산성의 착시”였습니다.', shortLabel: '+48% 착시' },
+                    { kicker: 'WHARTON EXPERIMENT 02', title: 'GPT Base (AI 제거 본시험): -17%', body: 'AI를 치운 뒤 치른 본시험에서 일반 ChatGPT 사용 학생들은 AI를 한 번도 쓰지 않은 통제군보다 오히려 17% 낮은 성적을 기록했습니다(목발 효과).', shortLabel: '-17% 하락' },
+                    { kicker: 'WHARTON EXPERIMENT 03', title: 'GPT Tutor (소크라테스 가드레일): 학습 손실 0%', body: '정답을 직접 주지 않고 교사가 설계한 단계별 힌트와 질문만 던지도록 가드레일을 적용한 GPT Tutor 집단은 학습 손실을 완벽히 방어했습니다(PNAS 2025).', shortLabel: '0% 손실 방어' }
+                ];
                 return top + `<div class="chart-layout">
                     <div class="glass-card chart-card stagger-item"><canvas id="slideChart"></canvas></div>
                     <div class="point-stack stagger-item" style="animation-delay:0.15s;">
-                        <div class="point-row"><div class="point-icon" style="color:#34D399;"><i class="fa-solid fa-arrow-trend-up"></i></div><div><h4>GPT Base (연습 시): +48%</h4><p>단기 산출물 급증 — “생산성의 착시”</p></div></div>
-                        <div class="point-row"><div class="point-icon" style="color:#FB7185;"><i class="fa-solid fa-arrow-trend-down"></i></div><div><h4>GPT Base (AI 제거 본시험): -17%</h4><p>미사용 학생보다 오히려 하락 — “목발 효과”</p></div></div>
-                        <div class="point-row"><div class="point-icon" style="color:#38BDF8;"><i class="fa-solid fa-shield-halved"></i></div><div><h4>GPT Tutor (소크라테스 가드레일): 0% 손실</h4><p>힌트·질문 설계 시 장기 역량 완벽 보호 (PNAS 2025)</p></div></div>
+                        <div class="point-row focusable-card" onclick="openSpotlight(0, this)"><div class="point-icon" style="color:#34D399;"><i class="fa-solid fa-arrow-trend-up"></i></div><div style="flex:1;"><h4>GPT Base (연습 시): +48%</h4><p class="detail-hidden-in-minimal">단기 산출물 급증 — “생산성의 착시”</p></div><span class="zoom-cue" style="margin-top:0;">↗</span></div>
+                        <div class="point-row focusable-card" onclick="openSpotlight(1, this)"><div class="point-icon" style="color:#FB7185;"><i class="fa-solid fa-arrow-trend-down"></i></div><div style="flex:1;"><h4>GPT Base (AI 제거 본시험): -17%</h4><p class="detail-hidden-in-minimal">미사용 학생보다 오히려 하락 — “목발 효과”</p></div><span class="zoom-cue" style="margin-top:0;">↗</span></div>
+                        <div class="point-row focusable-card" onclick="openSpotlight(2, this)"><div class="point-icon" style="color:#38BDF8;"><i class="fa-solid fa-shield-halved"></i></div><div style="flex:1;"><h4>GPT Tutor (소크라테스): 0% 손실</h4><p class="detail-hidden-in-minimal">힌트·질문 설계 시 장기 역량 완벽 보호</p></div><span class="zoom-cue" style="margin-top:0;">↗</span></div>
                     </div>
-                </div>`;
+                </div>` + hintHtml();
             }
 
             if (s.layout === 'chart-estonia') {
+                currentFocusItems = [
+                    { kicker: 'ESTONIA AI LEAP 01', title: '전국 고교 156개교 중 154개교 도입', body: '2025/26학년도에 교사 5,000명과 10~11학년 학생 20,000명이 참여하는 전국 단위 공교육 AX 전환을 실현했습니다.', shortLabel: '154/156교' },
+                    { kicker: 'ESTONIA AI LEAP 02', title: '주당 행정 시간 약 2시간 절감', body: '참여 교사의 94%가 AI를 활용하고 63%가 교수법을 재설계했으며, 절감된 주당 2시간을 학생 1:1 대면 멘토링에 재투자했습니다.', shortLabel: '주당 2시간 절감' },
+                    { kicker: 'ESTONIA AI LEAP 03', title: '2026/27 직업계고(VET) 전면 확장', body: '일반고 성과를 바탕으로 직업교육훈련(VET)과 기초학교로 확대 중이며, 산업도시 울산의 특성화고·진로센터에 가장 적합한 벤치마크입니다.', shortLabel: 'VET 전면 확장' }
+                ];
                 return top + `<div class="chart-layout">
                     <div class="glass-card chart-card stagger-item"><canvas id="slideChart"></canvas></div>
                     <div class="point-stack stagger-item" style="animation-delay:0.15s;">
-                        <div class="point-row"><div class="point-icon"><i class="fa-solid fa-school"></i></div><div><h4>전국 고교 156개교 중 154개교 도입</h4><p>교사 5,000명 · 학생 20,000명 전국 스케일 (2025/26)</p></div></div>
-                        <div class="point-row"><div class="point-icon"><i class="fa-solid fa-clock"></i></div><div><h4>주당 행정 시간 약 2시간 절감</h4><p>절감된 시간을 학생 1:1 대면 멘토링에 재투자</p></div></div>
-                        <div class="point-row"><div class="point-icon"><i class="fa-solid fa-rocket"></i></div><div><h4>2026/27 직업계고(VET) 전면 확장</h4><p>산업도시 울산 특성화고·진로센터의 최적 벤치마크</p></div></div>
+                        <div class="point-row focusable-card" onclick="openSpotlight(0, this)"><div class="point-icon"><i class="fa-solid fa-school"></i></div><div style="flex:1;"><h4>전국 고교 156개교 중 154개교 도입</h4><p class="detail-hidden-in-minimal">교사 5,000명 · 학생 20,000명 전국 스케일</p></div><span class="zoom-cue" style="margin-top:0;">↗</span></div>
+                        <div class="point-row focusable-card" onclick="openSpotlight(1, this)"><div class="point-icon"><i class="fa-solid fa-clock"></i></div><div style="flex:1;"><h4>주당 행정 시간 약 2시간 절감</h4><p class="detail-hidden-in-minimal">절감된 시간을 학생 1:1 대면 멘토링에 재투자</p></div><span class="zoom-cue" style="margin-top:0;">↗</span></div>
+                        <div class="point-row focusable-card" onclick="openSpotlight(2, this)"><div class="point-icon"><i class="fa-solid fa-rocket"></i></div><div style="flex:1;"><h4>2026/27 직업계고(VET) 전면 확장</h4><p class="detail-hidden-in-minimal">산업도시 울산 특성화고·진로센터 최적 모델</p></div><span class="zoom-cue" style="margin-top:0;">↗</span></div>
                     </div>
-                </div>`;
+                </div>` + hintHtml();
             }
 
             if (s.layout === 'mask5-grid') {
+                currentFocusItems = s.items.map(it => ({
+                    kicker: `MASK-5 · ${it.letter}`, title: `${it.letter} — ${it.word}`, body: it.desc, shortLabel: `${it.letter} (${it.word.split(' ')[0]})`
+                }));
                 return top + `<div class="grid-5">
-                    ${s.items.map((it, i) => `<div class="glass-card stagger-item" style="animation-delay:${0.05+i*0.08}s; padding:1.15rem;">
-                        <div style="font-family:'JetBrains Mono',monospace; font-size:2.2rem; font-weight:900; color:var(--mod-accent); margin-bottom:0.35rem;">${it.letter}</div>
-                        <div style="font-size:0.84rem; font-weight:800; color:#fff; margin-bottom:0.45rem;">${it.word}</div>
-                        <div style="font-size:0.8rem; color:var(--text-sub); line-height:1.5;">${it.desc}</div>
+                    ${s.items.map((it, i) => `<div class="glass-card focusable-card minimal-card-pad stagger-item" style="animation-delay:${0.05+i*0.08}s; padding:1.35rem;" onclick="openSpotlight(${i}, this)">
+                        <div>
+                            <div style="font-family:'JetBrains Mono',monospace; font-size:2.5rem; font-weight:900; color:var(--mod-accent); margin-bottom:0.4rem;">${it.letter}</div>
+                            <div style="font-size:0.92rem; font-weight:800; color:#fff; margin-bottom:0.45rem;">${it.word}</div>
+                            <div class="detail-hidden-in-minimal" style="font-size:0.8rem; color:var(--text-sub); line-height:1.5;">${it.desc}</div>
+                        </div>
+                        <div class="zoom-cue">규칙 보기 ↗</div>
                     </div>`).join('')}
-                </div>`;
+                </div>` + hintHtml();
             }
 
-            if (s.layout === 'mask5-simulator') {
-                return top + `<div class="sim-wrap stagger-item" id="maskSimContainer"></div>`;
-            }
-
-            if (s.layout === 'traffic-light') {
-                return top + `<div class="stagger-item" id="tlContainer"></div>`;
-            }
+            if (s.layout === 'mask5-simulator') return top + `<div class="sim-wrap stagger-item" id="maskSimContainer"></div>`;
+            if (s.layout === 'traffic-light') return top + `<div class="stagger-item" id="tlContainer"></div>`;
 
             if (s.layout === 'ulsan-5') {
+                currentFocusItems = s.districts.map(d => ({
+                    kicker: `울산 권역 특화 거점 · ${d.loc}`, title: d.name, body: d.strength, shortLabel: d.name
+                }));
                 return top + `<div class="grid-5">
-                    ${s.districts.map((d, i) => `<div class="glass-card stagger-item" style="animation-delay:${0.05+i*0.08}s; padding:1.15rem;">
-                        <div style="font-size:1.05rem; font-weight:900; color:var(--mod-accent); margin-bottom:2px;">${d.name}</div>
-                        <div style="font-size:0.74rem; color:#94A3B8; font-weight:700; margin-bottom:0.65rem;">${d.loc}</div>
-                        <div style="font-size:0.82rem; color:#E2E8F0; line-height:1.55;">${d.strength}</div>
+                    ${s.districts.map((d, i) => `<div class="glass-card focusable-card minimal-card-pad stagger-item" style="animation-delay:${0.05+i*0.08}s; padding:1.35rem;" onclick="openSpotlight(${i}, this)">
+                        <div>
+                            <div style="font-size:1.18rem; font-weight:900; color:var(--mod-accent); margin-bottom:4px;">${d.name}</div>
+                            <div style="font-size:0.78rem; color:#94A3B8; font-weight:700; margin-bottom:0.65rem;">${d.loc}</div>
+                            <div class="detail-hidden-in-minimal" style="font-size:0.82rem; color:#E2E8F0; line-height:1.55;">${d.strength}</div>
+                        </div>
+                        <div class="zoom-cue">특화 인프라 ↗</div>
                     </div>`).join('')}
                 </div>
-                <div class="footer-strip stagger-item" style="animation-delay:0.45s;">5개 구·군 특화 공간 교차 개방(Cross-Access) → 울산 전역이 하나의 초개인화 진로 캠퍼스!</div>`;
+                <div class="footer-strip stagger-item" style="animation-delay:0.42s;">5개 구·군 특화 공간 교차 개방(Cross-Access) → 울산 전역이 하나의 초개인화 진로 캠퍼스!</div>` + hintHtml();
             }
 
             if (s.layout === 'governance-15n') {
+                currentFocusItems = [
+                    { kicker: 'TIER 1 · 광역 컨트롤타워', title: '1 · 울산시교육청 진로진학지원센터 + 울산광역시청', list: ['MASK-5 보안 표준 및 2026 AI 기본법 가이드 제정', '권역 공유 프롬프트 풀(Prompt Pool) 총괄 운영', '20h~160h 울산형 AI 진로 배지 인증', '공동 교육만족도·진로확신도 성과 대시보드'], shortLabel: '1 · 컨트롤타워' },
+                    { kicker: 'TIER 2 · 오프라인 AX 거점', title: '5 · 울산 5개 구·군 진로직업체험/지원센터', list: ['중구: 마을 멘토단 · 인문/지역콘텐츠 AI', '남구: 미디어·3D프린터 메이커 스페이스 · 멀티모달 AI', '동구: 진로DNA · 학부모 AI 문해력 · 조선해양 AX', '북구: 자기주도 설계 · 미래차/모빌리티 AX', '울주군: 4차산업 알쓸미잡 · 스마트팜 · 에너지/배터리 AX'], shortLabel: '5 · 구·군 거점' },
+                    { kicker: 'TIER 3 · 산·학·민 파트너', title: 'N · 주력기업 · 지역대학 · 민간 AX 전문가', list: ['주력기업 현직자 멘토 (제조 AI · SK/AWS AIDC · 이차전지 · 수소)', 'UNIST · 울산대 · 울산과학대 · 스칼라 울산캠퍼스 연계', '민간 AX 전문가 오프라인 실습 코칭 및 상담사 PLC 멘토링'], shortLabel: 'N · 산학민 생태계' }
+                ];
                 return top + `<div class="gov-stack stagger-item">
-                    <div class="gov-tier" style="border-color:#10B981;">
-                        <h4 style="color:#34D399;"><i class="fa-solid fa-tower-broadcast"></i> 1 · 광역 컨트롤타워 (울산시교육청 진로진학지원센터 + 울산광역시청)</h4>
-                        <div class="gov-chips"><span class="gov-chip">MASK-5 보안 표준 제정</span><span class="gov-chip">권역 공유 프롬프트 풀</span><span class="gov-chip">20h~160h 울산 진로 배지</span><span class="gov-chip">공동 성과 대시보드</span></div>
+                    <div class="gov-tier focusable-card" style="border-color:#10B981;" onclick="openSpotlight(0, this)">
+                        <div style="display:flex; justify-content:space-between; align-items:center;"><h4 style="color:#34D399; margin:0;"><i class="fa-solid fa-tower-broadcast"></i> 1 · 광역 컨트롤타워 (울산시교육청 진로진학지원센터 + 울산광역시청)</h4><span class="zoom-cue" style="margin:0;">클로즈업 ↗</span></div>
+                        <div class="gov-chips detail-hidden-in-minimal" style="margin-top:0.65rem;"><span class="gov-chip">MASK-5 보안 표준</span><span class="gov-chip">공유 프롬프트 풀</span><span class="gov-chip">20h~160h 배지</span><span class="gov-chip">성과 대시보드</span></div>
                     </div>
-                    <div class="gov-tier" style="border-color:#38BDF8;">
-                        <h4 style="color:#38BDF8;"><i class="fa-solid fa-building-user"></i> 5 · 5개 구·군 오프라인 AX 거점 (특화 공간 교차 개방)</h4>
-                        <div class="gov-chips"><span class="gov-chip">중구(마을 멘토·콘텐츠)</span><span class="gov-chip">남구(메이커·미디어·3D)</span><span class="gov-chip">동구(진로DNA·학부모·조선)</span><span class="gov-chip">북구(자기주도·미래차)</span><span class="gov-chip">울주(4차산업·스마트팜·배터리)</span></div>
+                    <div class="gov-tier focusable-card" style="border-color:#38BDF8;" onclick="openSpotlight(1, this)">
+                        <div style="display:flex; justify-content:space-between; align-items:center;"><h4 style="color:#38BDF8; margin:0;"><i class="fa-solid fa-building-user"></i> 5 · 5개 구·군 오프라인 AX 거점 (특화 공간 교차 개방)</h4><span class="zoom-cue" style="margin:0;">클로즈업 ↗</span></div>
+                        <div class="gov-chips detail-hidden-in-minimal" style="margin-top:0.65rem;"><span class="gov-chip">중구</span><span class="gov-chip">남구</span><span class="gov-chip">동구</span><span class="gov-chip">북구</span><span class="gov-chip">울주군</span></div>
                     </div>
-                    <div class="gov-tier" style="border-color:#F59E0B;">
-                        <h4 style="color:#FBBF24;"><i class="fa-solid fa-handshake"></i> N · 산·학·민 협력 파트너 (부울경 권역 확장)</h4>
-                        <div class="gov-chips"><span class="gov-chip">주력기업 현직자 멘토(제조AI·AIDC·수소)</span><span class="gov-chip">UNIST · 울산대 · 울산과학대 · 스칼라 울산</span><span class="gov-chip">민간 AX 교육·PLC 멘토링</span></div>
+                    <div class="gov-tier focusable-card" style="border-color:#F59E0B;" onclick="openSpotlight(2, this)">
+                        <div style="display:flex; justify-content:space-between; align-items:center;"><h4 style="color:#FBBF24; margin:0;"><i class="fa-solid fa-handshake"></i> N · 산·학·민 협력 파트너 (부울경 권역 확장)</h4><span class="zoom-cue" style="margin:0;">클로즈업 ↗</span></div>
+                        <div class="gov-chips detail-hidden-in-minimal" style="margin-top:0.65rem;"><span class="gov-chip">주력기업 현직자</span><span class="gov-chip">UNIST·울산대</span><span class="gov-chip">민간 AX 전문가</span></div>
                     </div>
-                </div>`;
+                </div>` + hintHtml();
             }
 
             if (s.layout === 'ladder-4') {
+                currentFocusItems = s.tiers.map(t => ({
+                    kicker: `GROWTH LADDER · ${t.hrs}`, title: `${t.level} (${t.hrs})`,
+                    list: [`<b style="color:#38BDF8;">[청소년 트랙]</b> ${t.youth}`, `<b style="color:#34D399;">[상담사·직원 트랙]</b> ${t.staff}`],
+                    shortLabel: `${t.hrs} ${t.level.split('·')[1]}`
+                }));
                 return top + `<div class="ladder-grid">
-                    ${s.tiers.map((t, i) => `<div class="ladder-col stagger-item" style="animation-delay:${0.06+i*0.1}s; min-height:${210 + i*32}px; border-color:rgba(251,191,36,${0.25+i*0.15});">
-                        <div class="ladder-hrs">${t.hrs}</div>
-                        <div style="font-size:0.92rem; font-weight:800; color:#fff;">${t.level}</div>
-                        <div style="font-size:0.78rem; color:#38BDF8; line-height:1.45;"><b>[청소년]</b> ${t.youth}</div>
-                        <div style="font-size:0.78rem; color:#34D399; line-height:1.45;"><b>[상담사]</b> ${t.staff}</div>
+                    ${s.tiers.map((t, i) => `<div class="ladder-col focusable-card stagger-item" style="animation-delay:${0.06+i*0.1}s; min-height:${175 + i*34}px; border-color:rgba(251,191,36,${0.25+i*0.15});" onclick="openSpotlight(${i}, this)">
+                        <div>
+                            <div class="ladder-hrs">${t.hrs}</div>
+                            <div style="font-size:1.05rem; font-weight:900; color:#fff; margin-top:4px;">${t.level}</div>
+                            <div class="detail-hidden-in-minimal" style="font-size:0.78rem; color:#38BDF8; line-height:1.45; margin-top:0.5rem;"><b>[청소년]</b> ${t.youth}</div>
+                            <div class="detail-hidden-in-minimal" style="font-size:0.78rem; color:#34D399; line-height:1.45; margin-top:0.35rem;"><b>[상담사]</b> ${t.staff}</div>
+                        </div>
+                        <div class="zoom-cue" style="color:#FBBF24;">이중 트랙 보기 ↗</div>
                     </div>`).join('')}
-                </div>`;
+                </div>` + hintHtml();
             }
 
-            if (s.layout === 'checklist-15') {
-                return top + `<div id="checklistBox" class="stagger-item"></div>`;
-            }
+            if (s.layout === 'checklist-15') return top + `<div id="checklistBox" class="stagger-item"></div>`;
 
             if (s.layout === 'qa-cards') {
+                currentFocusItems = s.qas.map((qa, i) => ({
+                    kicker: `LIVE Q&A · 0${i+1}`, title: qa.q, body: qa.a, shortLabel: qa.q.slice(0, 16) + '…'
+                }));
                 return top + `<div class="qa-stack stagger-item">
-                    ${s.qas.map((qa, i) => `<div class="qa-card ${i===0?'open':''}" onclick="this.classList.toggle('open')">
-                        <div class="qa-q"><span>${qa.q}</span><i class="fa-solid fa-chevron-down" style="font-size:0.78rem; color:var(--mod-accent);"></i></div>
-                        <div class="qa-a">${qa.a}</div>
+                    ${s.qas.map((qa, i) => `<div class="qa-card focusable-card" onclick="openSpotlight(${i}, this)">
+                        <div class="qa-q"><span>${qa.q}</span><span class="zoom-cue" style="margin:0;">답변 클로즈업 ↗</span></div>
                     </div>`).join('')}
-                </div>`;
+                </div>` + hintHtml();
             }
 
             if (s.layout === 'closing') {
@@ -908,16 +1148,10 @@
                     type: 'bar',
                     data: {
                         labels: ['GPT Base (연습 시)', 'GPT Base (AI 제거 본시험)', 'GPT Tutor (소크라테스)'],
-                        datasets: [{
-                            label: '통제군 대비 성취도 변화 (%)',
-                            data: [48, -17, 2],
-                            backgroundColor: ['rgba(52, 211, 153, 0.8)', 'rgba(244, 63, 94, 0.85)', 'rgba(56, 189, 248, 0.85)'],
-                            borderRadius: 10
-                        }]
+                        datasets: [{ data: [48, -17, 2], backgroundColor: ['rgba(52,211,153,0.82)', 'rgba(244,63,94,0.85)', 'rgba(56,189,248,0.85)'], borderRadius: 10 }]
                     },
                     options: {
-                        responsive: true, maintainAspectRatio: false,
-                        plugins: { legend: { display: false } },
+                        responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
                         scales: {
                             y: { min: -25, max: 60, grid: { color: 'rgba(255,255,255,0.08)' }, ticks: { color: '#CBD5E1', callback: v => (v>0?'+':'')+v+'%' } },
                             x: { grid: { display: false }, ticks: { color: '#F8FAFC', font: { weight: '700' } } }
@@ -929,15 +1163,10 @@
                     type: 'bar',
                     data: {
                         labels: ['전국 고교 도입률 (154/156)', '참여 교사 AI 활용률', '교수법 근본 재설계 비율'],
-                        datasets: [{
-                            data: [98.7, 94, 63],
-                            backgroundColor: ['rgba(56, 189, 248, 0.85)', 'rgba(16, 185, 129, 0.85)', 'rgba(167, 139, 250, 0.85)'],
-                            borderRadius: 10
-                        }]
+                        datasets: [{ data: [98.7, 94, 63], backgroundColor: ['rgba(56,189,248,0.85)', 'rgba(16,185,129,0.85)', 'rgba(167,139,250,0.85)'], borderRadius: 10 }]
                     },
                     options: {
-                        indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-                        plugins: { legend: { display: false } },
+                        indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
                         scales: {
                             x: { max: 100, grid: { color: 'rgba(255,255,255,0.08)' }, ticks: { color: '#CBD5E1', callback: v => v+'%' } },
                             y: { grid: { display: false }, ticks: { color: '#F8FAFC', font: { weight: '700' } } }
@@ -948,17 +1177,16 @@
         }
 
         function renderSlide(idx, dir = 1) {
+            closeSpotlight();
             currentIdx = Math.max(0, Math.min(SLIDES.length - 1, idx));
             const s = SLIDES[currentIdx];
             const mod = MODULES.find(m => m.id === s.mod);
 
-            // Dynamic Module Theme Color Morphing
             document.documentElement.style.setProperty('--mod-accent', mod.accent);
             document.documentElement.style.setProperty('--mod-secondary', mod.secondary);
             document.getElementById('orb1').style.background = `radial-gradient(circle, ${mod.orb1} 0%, transparent 70%)`;
             document.getElementById('orb2').style.background = `radial-gradient(circle, ${mod.orb2} 0%, transparent 70%)`;
 
-            // Update Tabs & Progress
             document.querySelectorAll('.mod-tab').forEach(btn => btn.classList.toggle('active', btn.dataset.mod === s.mod));
             document.querySelectorAll('.thumb-card').forEach(c => c.classList.toggle('current', Number(c.dataset.idx) === currentIdx));
             document.getElementById('curNum').textContent = String(s.num).padStart(2, '0');
@@ -967,14 +1195,12 @@
             document.getElementById('prevBtn').disabled = currentIdx === 0;
             document.getElementById('nextBtn').disabled = currentIdx === SLIDES.length - 1;
 
-            // Update Speaker Notes
             document.getElementById('notesBody').textContent = s.notes || '';
             document.getElementById('notesTime').textContent = `권장 발화: 약 ${s.sec}초 · 전환: ${s.trans.toUpperCase()}`;
 
-            // Render Slide with Luis Urrutia Motion Class
             const frame = document.getElementById('slideFrame');
             frame.className = 'slide-frame';
-            void frame.offsetWidth; // reflow trigger
+            void frame.offsetWidth;
             let animClass = 'anim-morph';
             if (s.trans === 'zoom') animClass = 'anim-zoom';
             else if (s.trans === 'push-h') animClass = dir >= 0 ? 'anim-push-next' : 'anim-push-prev';
@@ -983,7 +1209,6 @@
             frame.innerHTML = buildSlideBody(s);
             frame.classList.add(animClass);
 
-            // Post-render interactive hooks
             animateCounters();
             mountCharts(s);
             if (s.layout === 'mask5-simulator') renderMaskSimulator();
@@ -991,9 +1216,14 @@
             if (s.layout === 'checklist-15') renderChecklist();
         }
 
-        window.jumpToSlide = function(idx) {
-            renderSlide(idx, idx >= currentIdx ? 1 : -1);
-        };
+        window.jumpToSlide = function(idx) { renderSlide(idx, idx >= currentIdx ? 1 : -1); };
+
+        function toggleMinimalMode() {
+            minimalMode = !minimalMode;
+            document.body.classList.toggle('minimal-mode', minimalMode);
+            document.getElementById('modeToggleText').textContent = minimalMode ? '미니멀 클로즈업 ON' : '전체 텍스트 펼침';
+            showToast(minimalMode ? '시네마틱 미니멀 모드 (카드 클릭 시 중앙 클로즈업)' : '전체 텍스트 펼치기 모드');
+        }
 
         function toggleGrid(force) {
             const m = document.getElementById('gridModal');
@@ -1009,7 +1239,7 @@
             document.getElementById('notesBtn').classList.toggle('active', next);
         }
 
-        // 60-Minute Presenter Timer
+        // 60-Minute Timer
         let remainSec = 3600, timerId = null;
         function updateTimerUI() {
             const m = Math.floor(remainSec / 60), sc = remainSec % 60;
@@ -1027,7 +1257,7 @@
             remainSec = 3600; updateTimerUI(); document.getElementById('timerBtn').classList.remove('running');
         });
 
-        // Navigation & Keyboard & Touch
+        document.getElementById('modeToggleBtn').addEventListener('click', toggleMinimalMode);
         document.getElementById('prevBtn').addEventListener('click', () => renderSlide(currentIdx - 1, -1));
         document.getElementById('nextBtn').addEventListener('click', () => renderSlide(currentIdx + 1, 1));
         document.getElementById('notesBtn').addEventListener('click', toggleNotes);
@@ -1040,12 +1270,41 @@
 
         window.addEventListener('keydown', e => {
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-            if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); renderSlide(currentIdx + 1, 1); }
-            else if (e.key === 'ArrowLeft') { e.preventDefault(); renderSlide(currentIdx - 1, -1); }
+            const spotOpen = document.getElementById('spotlightOverlay').classList.contains('open');
+            if (e.key === 'Escape') {
+                if (spotOpen) closeSpotlight();
+                else toggleGrid(false);
+                return;
+            }
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (!spotOpen && currentFocusItems.length > 0) {
+                    const firstEl = document.querySelector('.focusable-card');
+                    openSpotlight(0, firstEl);
+                } else if (spotOpen) {
+                    stepSpotlight(1);
+                }
+                return;
+            }
+            if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (spotOpen) {
+                    if (activeFocusIdx > 0) stepSpotlight(-1);
+                    else closeSpotlight();
+                }
+                return;
+            }
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                if (spotOpen) stepSpotlight(1);
+                else renderSlide(currentIdx + 1, 1);
+            } else if (e.key === 'ArrowLeft') {
+                if (spotOpen) stepSpotlight(-1);
+                else renderSlide(currentIdx - 1, -1);
+            } else if (e.key.toLowerCase() === 'm') toggleMinimalMode();
             else if (e.key.toLowerCase() === 'n') toggleNotes();
             else if (e.key.toLowerCase() === 'g') toggleGrid();
             else if (e.key.toLowerCase() === 'f') document.getElementById('fsBtn').click();
-            else if (e.key === 'Escape') toggleGrid(false);
         });
 
         let touchX = 0;
@@ -1055,7 +1314,6 @@
             if (Math.abs(dx) > 55) renderSlide(currentIdx + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
         }, { passive: true });
 
-        // Subtle Mouse Parallax on Ambient Orbs
         window.addEventListener('mousemove', e => {
             const rx = (e.clientX / window.innerWidth - 0.5) * 28;
             const ry = (e.clientY / window.innerHeight - 0.5) * 28;
